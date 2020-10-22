@@ -36,11 +36,12 @@ fun introductionOfNumbers(n: Int): Any {
 
 tailrec fun NODRec(a: Int, b: Int): Any {
     return if (b == 0 || a == 0) {
-        return "НОД = ${Math.abs(a)}"
+        val Nod = a + b
+        return "НОД = $Nod"
     } else if (a > b) {
-        NODRec(a = a % b, b = b)
+        NODRec(a = Math.abs(a) % Math.abs(b), b = Math.abs(b))
     } else {
-        NODRec(b = b % a, a = a)
+        NODRec(b = Math.abs(b) % Math.abs(a), a = Math.abs(a))
     }
 }
 
