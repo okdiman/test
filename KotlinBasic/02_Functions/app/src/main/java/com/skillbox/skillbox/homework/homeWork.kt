@@ -3,7 +3,7 @@ package com.skillbox.skillbox.homework
 import kotlin.math.sqrt
 
 fun main(){
-    val solutionSum = solveEquation (a = 4,b = 6,c = 1)
+    val solutionSum = solveEquation (a = 3,b = 7,c = 1)
     println(solutionSum)
 }
 
