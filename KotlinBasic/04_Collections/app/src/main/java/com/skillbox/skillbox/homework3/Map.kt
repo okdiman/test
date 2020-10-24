@@ -23,6 +23,7 @@ fun main (){
             "2" to "3",
             "3" to "4"
     )
+    mutableMap
 
     mutableMap ["Name 1"] = "45680"
     mutableMap.put("yiy", "uahsdj")
