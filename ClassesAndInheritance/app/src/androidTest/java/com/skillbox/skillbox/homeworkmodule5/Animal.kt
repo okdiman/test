@@ -2,7 +2,7 @@ package com.skillbox.skillbox.homeworkmodule5
 
 import kotlin.random.Random
 
-abstract class Animal (
+open class Animal (
         maxAge: Int,
         var name: String
 ): AgedAnimal(maxAge), Soundable {
@@ -60,9 +60,9 @@ abstract class Animal (
         energy = Random.nextInt(10) + 1
         weight = Random.nextInt(5) + 1
         age = 0
-        val animal = object: Animal(this@Animal.maxAge, this.name){}
+        val animal = Animal(this@Animal.maxAge, this.name)
         return animal
     }
-
+    override fun toString(): String = "animal"
     override fun makeSound(): String = ""
 }
