@@ -1,6 +1,6 @@
 package com.skillbox.skillbox.homeworkmodule5
 
-class Fish : Animal (maxAge = 5, name = "shark") {
+class Fish : Animal(maxAge = 5, name = "shark") {
     override fun move() {
         super.move()
         println("swims")

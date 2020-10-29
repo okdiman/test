@@ -2,10 +2,10 @@ package com.skillbox.skillbox.homeworkmodule5
 
 import kotlin.random.Random
 
-open class Animal (
+open class Animal(
         maxAge: Int,
         var name: String
-): AgedAnimal(maxAge), Soundable {
+) : AgedAnimal(maxAge), Soundable {
     var age: Int = 0
         private set
 
@@ -20,7 +20,7 @@ open class Animal (
         get() = age >= this@Animal.maxAge
 
 
-    fun sleep () {
+    fun sleep() {
         if (isTooOld) {
             return
         } else {
@@ -30,7 +30,7 @@ open class Animal (
         }
     }
 
-    fun eat () {
+    fun eat() {
         if (isTooOld) {
             return
         } else {
@@ -40,12 +40,12 @@ open class Animal (
         }
     }
 
-    private fun incrementAgeSometimes (){
+    private fun incrementAgeSometimes() {
         if (Random.nextBoolean())
-            age ++
+            age++
     }
 
-    open fun move () {
+    open fun move() {
         if (isTooOld || energy <= 5 || weight <= 1) {
             return
         } else {
@@ -63,6 +63,7 @@ open class Animal (
         val animal = Animal(this@Animal.maxAge, this.name)
         return animal
     }
+
     override fun toString(): String = "animal"
-    override fun makeSound(): String = ""
+    override fun makeSound(): String = "ругается на лесном"
 }
