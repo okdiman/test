@@ -40,13 +40,14 @@ open class Animal(
         }
     }
 
-    private fun incrementAgeSometimes() {
+    protected fun incrementAgeSometimes() {
         if (Random.nextBoolean())
             age++
     }
 
     open fun move() {
         if (isTooOld || energy <= 5 || weight <= 1) {
+            println("недостаточно энергии для движения")
             return
         } else {
             energy - 5
@@ -65,5 +66,9 @@ open class Animal(
     }
 
     override fun toString(): String = "animal"
-    override fun makeSound(): String = "ругается на лесном"
+    override fun makeSound(): String {
+        println("ругается на лесном")
+        return "ругается на лесном"
+    }
+
 }

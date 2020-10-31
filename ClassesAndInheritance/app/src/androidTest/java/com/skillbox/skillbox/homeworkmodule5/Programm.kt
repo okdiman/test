@@ -31,17 +31,31 @@ fun main() {
                 if (zoo.listOfAnimals.size > 0) {
                     zoo.listOfAnimals.forEach() {
                         if (!it.isTooOld) {
-                            val randomNumber = Random.nextInt(5)
-                            when (randomNumber) {
-                                0 -> it.eat()
-                                1 -> it.move()
-                                2 -> it.sleep()
-                                3 -> {
-                                    it.makeChild()
-                                    newBornList.add(it)
-                                    println("make Child $it, his name is ${it.name}, his weight is ${it.weight}, and this energy is ${it.energy}")
+                            if (it is Fish) {
+                                val randomNumber = Random.nextInt(4)
+                                when (randomNumber) {
+                                    0 -> it.eat()
+                                    1 -> it.move()
+                                    2 -> it.sleep()
+                                    3 -> {
+                                        val child = it.makeChild()
+                                        newBornList.add(child)
+                                        println("make Child $child, his name is ${child.name}, his weight is ${child.weight}, and this energy is ${child.energy}")
+                                    }
                                 }
-                                4 -> it.makeSound()
+                            } else {
+                                val randomNumber = Random.nextInt(5)
+                                when (randomNumber) {
+                                    0 -> it.eat()
+                                    1 -> it.move()
+                                    2 -> it.sleep()
+                                    3 -> {
+                                        val child = it.makeChild()
+                                        newBornList.add(child)
+                                        println("make Child $child, his name is ${child.name}, his weight is ${child.weight}, and this energy is ${child.energy}")
+                                    }
+                                    4 -> it.makeSound()
+                                }
                             }
                         } else {
                             println("$it died")
