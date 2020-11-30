@@ -1,11 +1,14 @@
 package com.skillbox.skillbox.homeworkmodule5
 
 class Rectangle(
-    x:Int,
-    y: Int,
-    private val width: Int,
-    private val heigth: Int
-): AbstractShape (x, y), Comparable <Rectangle> {
+        x: Int,
+        y: Int,
+        width: Int,
+        heigth: Int
+) : AbstractShape(x, y), Comparable<Rectangle> {
+
+    var width: Int by PrintAreaOnChangeDelegate(width)
+    var heigth: Int by PrintAreaOnChangeDelegate(heigth)
     override val name: String = "rectungle"
 
     override fun calculateArea(): Double = width * heigth.toDouble()
