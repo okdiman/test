@@ -115,8 +115,11 @@ class Car constructor(
         return result
     }
 
+    companion object {
+        val default = Car(4,4,2000,1500,1000)
 
-    constructor(wheelCount: Int, doorCount: Int, bodySize: Triple<Int, Int, Int>) : this(wheelCount, doorCount, bodySize.first, bodySize.second, bodySize.third) {
-        println("Создание через доп конструктор")
+        fun createWithDefaultWheelCount(doorCount: Int, bodyLenght: Int, bodyWidht: Int, bodyHeight: Int): Car{
+            return Car (4,doorCount = doorCount, bodyLenght = bodyLenght, bodyWidht = bodyWidht,bodyHeight=bodyHeight )
+        }
     }
 }

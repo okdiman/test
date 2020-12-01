@@ -21,5 +21,12 @@ class Rectangle(
         return "Rectangle(width=$width, heigth=$heigth)"
     }
 
+    operator fun plus(other: Rectangle):Rectangle{
+        return Rectangle(0,0,width + other.width, heigth + other.heigth)
+    }
+
+    operator fun unaryMinus(): Rectangle{
+        return Rectangle(0,0,-width,-heigth)
+    }
 
 }
