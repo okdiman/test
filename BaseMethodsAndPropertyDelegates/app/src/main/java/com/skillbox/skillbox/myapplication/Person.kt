@@ -7,13 +7,12 @@ class Person(
     val weight: Int,
     val name: String,
 ) {
-    val pets = hashSetOf<Animal>()
+    val pets: HashSet<Animal> by PrintNamePersonAndHisPets(this, HashSet<Animal>())
 
     fun buyPet() {
         val animal = Animal(Random.nextInt(9 + 1), Random.nextInt(14 + 1), "Charly")
-        pets.add(animal)
-        println("Добавлено животное")
-        return println("Список животных ${PrintNamePersonAndHisPets(this, pets)}")
+        this.pets.add(animal)
+        return println("Добавлено животное")
     }
 
     override fun toString(): String {

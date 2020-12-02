@@ -1,8 +1,5 @@
 package com.skillbox.skillbox.myapplication
 
-import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
-
 fun main() {
     val person1 = Person(178, 78, "Dima")
     val person2 = Person(178, 78, "Dima")
@@ -36,17 +33,4 @@ fun main() {
         println("${it.name}, ${it.pets}")
     }
 
-}
-
-class PrintNamePersonAndHisPets(
-    private var person: Person,
-    private var value: HashSet<Animal>
-) : ReadOnlyProperty<Person, HashSet<Animal>> {
-    override fun getValue(thisRef: Person, property: KProperty<*>): HashSet<Animal> {
-        return value
-    }
-
-    override fun toString(): String {
-        return "${person.name}, $value"
-    }
 }
