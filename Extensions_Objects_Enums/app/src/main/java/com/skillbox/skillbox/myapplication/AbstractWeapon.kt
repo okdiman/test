@@ -10,6 +10,8 @@ abstract class AbstractWeapon(
 
     abstract fun createBullet(): Ammo
 
+    var receivingAmmos = mutableListOf<Ammo>()
+
     fun recharge() {
         listOfAmmo = listOf<Ammo>().toMutableList()
         var currentNumbersOfAmmo: Int = 0
@@ -21,8 +23,10 @@ abstract class AbstractWeapon(
 
     fun receivingOfAmmo() {
         if (shootingType is FireType.singleShot) {
+            receivingAmmos + 1
             listOfAmmo - 1
         } else {
+            receivingAmmos +
             listOfAmmo -
         }
     }

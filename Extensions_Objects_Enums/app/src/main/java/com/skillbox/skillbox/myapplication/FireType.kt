@@ -6,4 +6,6 @@ sealed class FireType() {
     data class BurstShooting(
         val sizeOfBurst: Int
     ) : FireType()
+
+
 }
