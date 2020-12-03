@@ -9,7 +9,7 @@ abstract class AbstractWarrior(
     val weapon: AbstractWeapon
 ) : Warrior {
     var currentHealthLevel = maxHealthLevel
-    var currentDamage: Int = Ammo.MACHINEGUN.currentDamage()
+
     var sumCurrentDamage: Int = 0
 
     var hit: Boolean = true
@@ -36,7 +36,7 @@ abstract class AbstractWarrior(
                     else -> false
                 }
                 if (hit) {
-                    sumCurrentDamage += currentDamage
+                    sumCurrentDamage + it.currentDamage()
                 }
             }
             println("$this наносит $warrior $sumCurrentDamage урона")
@@ -46,5 +46,8 @@ abstract class AbstractWarrior(
 
     override fun takeDamage(int: Int) {
         this.currentHealthLevel - sumCurrentDamage
+        if (currentHealthLevel < 1){
+            this.death()
+        }
     }
 }

@@ -9,6 +9,8 @@ class Battle {
         return StateOfBattle.progress
     }
 
+    val deathList = emptyList<Warrior>().toMutableList()
+
     fun nextItaration() {
         println("Этап битвы начался")
         team1.team.shuffle()
