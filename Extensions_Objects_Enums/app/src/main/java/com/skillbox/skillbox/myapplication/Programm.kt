@@ -1,7 +1,9 @@
 package com.skillbox.skillbox.myapplication
 
 fun main(){
-    val team = Team()
+   println("Введите число войнов в каждой команде")
+   val team: Team = Team()
 
 }
+
 

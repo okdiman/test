@@ -1,16 +1,16 @@
 package com.skillbox.skillbox.myapplication
 
-sealed class StateOfBattle () {
-    object progress: StateOfBattle(){
-        val progress = Team
-    }
-    object firstTeamWin: StateOfBattle(){
+sealed class StateOfBattle (team: Team) {
+    object progress: StateOfBattle(Team()){
 
     }
-    object secondTeamWin: StateOfBattle(){
+    object firstTeamWin: StateOfBattle(Team()){
 
     }
-    object draw: StateOfBattle(){
+    object secondTeamWin: StateOfBattle(Team()){
+
+    }
+    object draw: StateOfBattle(Team()){
 
     }
 }

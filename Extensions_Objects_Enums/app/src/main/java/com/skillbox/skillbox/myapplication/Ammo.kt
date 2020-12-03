@@ -11,15 +11,15 @@ enum class Ammo(
     MACHINEGUN(20, 25, 3),
     SHOTGUN(40, 10, 5);
 
-
-
-    fun currentDamage() {
+    fun currentDamage(): Int {
         val crit = Random.nextInt(100 + 1).toBoolean()
         val currentDamage = if (crit) {
             coeffCrit * damage
         } else {
             damage
         }
+        println("нанесен урон за выстрел $currentDamage")
+        return currentDamage
     }
 
     fun Int.toBoolean(): Boolean {
