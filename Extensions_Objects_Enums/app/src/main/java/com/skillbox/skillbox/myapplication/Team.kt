@@ -13,6 +13,7 @@ class Team() {
         }
         return sumHealth
     }
+
     private fun fillInTheList(): Any {
         val newWarriors = emptyList<Warrior>().toMutableList()
         val numbersOfWarriors = readLine()?.toIntOrNull() ?: return "вы ввели не число"

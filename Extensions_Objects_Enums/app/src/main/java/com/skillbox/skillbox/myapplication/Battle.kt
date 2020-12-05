@@ -3,7 +3,7 @@ package com.skillbox.skillbox.myapplication
 class Battle {
     val team1 = Team()
     val team2 = Team()
-    var theBattleIsOver = Boolean
+    var theBattleIsOver : Boolean = false
 
     fun getStateBattle(): StateOfBattle {
         return StateOfBattle.progress
@@ -19,6 +19,13 @@ class Battle {
         while (n > 0) {
             team1.team.forEach() {
                 it.attack(team2.team[n])
+                n++
+            }
+        }
+        n = team2.team.size
+        while (n > 0) {
+            team2.team.forEach() {
+                it.attack(team1.team[n])
                 n++
             }
         }
