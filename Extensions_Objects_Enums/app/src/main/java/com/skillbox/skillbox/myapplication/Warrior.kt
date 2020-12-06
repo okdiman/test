@@ -4,6 +4,6 @@ interface Warrior {
     var isKilled: Boolean
     val chanceToDodge: Int
 
-    fun attack(warrior: Warrior)
-    fun takeDamage(int: Int)
+    fun attack(warrior: Warrior) : Any
+    fun takeDamage(int: Int): Int
 }

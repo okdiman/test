@@ -1,33 +1,66 @@
 package com.skillbox.skillbox.myapplication
 
 class Battle {
-    val team1 = Team()
-    val team2 = Team()
-    var theBattleIsOver : Boolean = false
+    val team1 = Team().fillInTheList()
+    val team2 = Team().fillInTheList()
+    var theBattleIsOver: Boolean = false
 
-    fun getStateBattle(): StateOfBattle {
-        return StateOfBattle.progress
+    fun getStateBattle() {
+        return StateOfBattle.progress.progress()
     }
 
     val deathList = emptyList<Warrior>().toMutableList()
 
     fun nextItaration() {
         println("Этап битвы начался")
-        team1.team.shuffle()
-        team2.team.shuffle()
-        var n = team1.team.size
+        team1.shuffle()
+        team2.shuffle()
+        var n = team1.size
         while (n > 0) {
-            team1.team.forEach() {
-                it.attack(team2.team[n])
-                n++
+            team1.forEach() {
+                val attack = it.attack(team2[n - 1])
+                n--
+                if (attack is Int) {
+                    if (!it.weapon.availabilityOfAmmo) {
+                        team2[n].takeDamage(attack)
+                        println("$it атакует ${team2[n]} и наносит ${attack} урона")
+                    }
+                    println("уровень здоровья противника после атаки ${team2[n].currentHealthLevel}")
+                }
             }
         }
-        n = team2.team.size
+        n = team2.size
         while (n > 0) {
-            team2.team.forEach() {
-                it.attack(team1.team[n])
-                n++
+            team2.forEach() {
+                val attack = it.attack(team1[n - 1])
+                n--
+                if (attack is Int) {
+                    if (!it.weapon.availabilityOfAmmo) {
+                        team1[n].takeDamage(attack)
+                        println("$it атакует ${team1[n]} и наносит ${attack} урона")
+                    }
+                    println("уровень здоровья противника после атаки ${team1[n].currentHealthLevel}")
+                }
             }
         }
+        return
+    }
+
+    fun sumHealth1(): Int {
+        var sumHealth: Int = 0
+        team1.forEach() {
+            sumHealth += it.currentHealthLevel
+        }
+        println("общее здоровье команды 1: $sumHealth")
+        return sumHealth
+    }
+
+    fun sumHealth2(): Int {
+        var sumHealth: Int = 0
+        team2.forEach() {
+            sumHealth += it.currentHealthLevel
+        }
+        println("общее здоровье команды 2: $sumHealth")
+        return sumHealth
     }
 }

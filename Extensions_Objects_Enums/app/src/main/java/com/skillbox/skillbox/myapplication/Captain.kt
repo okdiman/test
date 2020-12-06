@@ -6,4 +6,8 @@ class Captain() : AbstractWarrior(150,30, 60, AbstractWeapon.Weapons.createMachi
         set(value) {
             if (this.currentHealthLevel < 1) field = true
         }
+
+    override fun toString(): String {
+        return "Captain"
+    }
 }

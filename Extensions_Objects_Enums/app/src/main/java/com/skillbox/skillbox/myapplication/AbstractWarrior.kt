@@ -8,6 +8,7 @@ abstract class AbstractWarrior(
     val hitProbability: Int,
     val weapon: AbstractWeapon
 ) : Warrior {
+
     var currentHealthLevel = maxHealthLevel
 
     var sumCurrentDamage: Int = 0
@@ -17,15 +18,14 @@ abstract class AbstractWarrior(
     fun death() {
         if (currentHealthLevel < 1) {
             isKilled = true
+            println("$this убит")
         }
-        println("$this убит")
     }
 
 
-    override fun attack(warrior: Warrior) {
+    override fun attack(warrior: Warrior): Any {
         if (weapon.availabilityOfAmmo) {
-            weapon.recharge()
-            return
+            return weapon.recharge()
         } else {
             println("$this стреляет по $warrior")
             weapon.receivingOfAmmo()
@@ -36,18 +36,21 @@ abstract class AbstractWarrior(
                     else -> false
                 }
                 if (hit) {
-                    sumCurrentDamage + it.currentDamage()
+                    sumCurrentDamage += it.currentDamage()
                 }
+                it.currentDamage()
             }
             println("$this наносит $warrior $sumCurrentDamage урона")
             warrior.takeDamage(sumCurrentDamage)
+            return sumCurrentDamage
         }
     }
 
-    override fun takeDamage(int: Int) {
-        this.currentHealthLevel - sumCurrentDamage
-        if (currentHealthLevel < 1){
+    override fun takeDamage(int: Int) : Int {
+        val afterShoot = this.currentHealthLevel - sumCurrentDamage
+        if (currentHealthLevel < 1) {
             this.death()
         }
+        return afterShoot
     }
 }

@@ -6,4 +6,8 @@ class Soldier(): AbstractWarrior(120, 20, 50, AbstractWeapon.Weapons.createShotG
         set(value) {
             if (this.currentHealthLevel < 1) field = true
         }
+
+    override fun toString(): String {
+        return "Soldier"
+    }
 }

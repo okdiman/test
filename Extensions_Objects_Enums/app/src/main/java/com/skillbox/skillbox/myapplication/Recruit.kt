@@ -6,4 +6,8 @@ class Recruit(): AbstractWarrior(80, 10, 30, AbstractWeapon.Weapons.createPistol
         set(value) {
             if (this.currentHealthLevel < 1) field = true
         }
+
+    override fun toString(): String {
+        return "Recruit"
+    }
 }

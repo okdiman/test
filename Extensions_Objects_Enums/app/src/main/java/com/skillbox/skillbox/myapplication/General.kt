@@ -6,4 +6,8 @@ class General(): AbstractWarrior(200,40,80, AbstractWeapon.Weapons.createTommyGu
       set(value) {
          if (this.currentHealthLevel < 1) field = true
       }
+
+   override fun toString(): String {
+      return "General"
    }
+}

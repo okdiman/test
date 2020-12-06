@@ -12,22 +12,24 @@ abstract class AbstractWeapon(
 
     val receivingAmmos = mutableListOf<Ammo>()
 
-    fun recharge() {
-        println("$this перезарежается")
+    fun recharge(): MutableList<Ammo> {
+        println("${this} перезарежается")
         var currentNumbersOfAmmo: Int = 0
-        if (currentNumbersOfAmmo < maxNumberOfBullets) {
+        while (currentNumbersOfAmmo < this.maxNumberOfBullets) {
             listOfAmmo.add(createBullet())
             ++currentNumbersOfAmmo
         }
+        availabilityOfAmmo = false
+        return listOfAmmo
     }
 
     fun receivingOfAmmo() {
         if (shootingType is FireType.singleShot) {
-            receivingAmmos + 1
-            listOfAmmo - 1
+            receivingAmmos.add(Ammo.SHOTGUN)
+            listOfAmmo.removeAt(0)
         } else {
-            receivingAmmos + FireType.BurstShooting()
-            listOfAmmo - FireType.BurstShooting()
+            receivingAmmos.add(Ammo.MACHINEGUN)
+            listOfAmmo.removeAt(FireType.BurstShooting().sizeOfBurst)
         }
         println("Получены патроны")
     }
@@ -39,7 +41,7 @@ abstract class AbstractWeapon(
                     return Ammo.PISTOL
                 }
             }
-            println("Получен пистолет")
+            println("Recruit получил пистолет")
             return pistol
         }
 
@@ -49,7 +51,7 @@ abstract class AbstractWeapon(
                     return Ammo.MACHINEGUN
                 }
             }
-            println("Получен пулемет")
+            println("General получил пулемет")
             return tommyGun
         }
 
@@ -59,7 +61,7 @@ abstract class AbstractWeapon(
                     return Ammo.MACHINEGUN
                 }
             }
-            println("Получен автомат")
+            println("Captain получил автомат")
             return machineGun
         }
 
@@ -69,7 +71,7 @@ abstract class AbstractWeapon(
                     return Ammo.SHOTGUN
                 }
             }
-            println("Получен дробовик")
+            println("Soldier получил дробовик")
             return shotGun
         }
     }
