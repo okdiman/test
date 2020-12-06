@@ -13,7 +13,6 @@ abstract class AbstractWeapon(
     val receivingAmmos = mutableListOf<Ammo>()
 
     fun recharge(): MutableList<Ammo> {
-        println("${this} перезарежается")
         var currentNumbersOfAmmo: Int = 0
         while (currentNumbersOfAmmo < this.maxNumberOfBullets) {
             listOfAmmo.add(createBullet())
@@ -31,7 +30,7 @@ abstract class AbstractWeapon(
             receivingAmmos.add(Ammo.MACHINEGUN)
             listOfAmmo.removeAt(FireType.BurstShooting().sizeOfBurst)
         }
-        println("Получены патроны")
+        println("Получены патроны из магазина")
     }
 
     object Weapons {

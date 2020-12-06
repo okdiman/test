@@ -19,7 +19,6 @@ enum class Ammo(
         } else {
             currentDamage = this@Ammo.damage
         }
-        println("нанесен урон за выстрел $currentDamage")
         return currentDamage
     }
 

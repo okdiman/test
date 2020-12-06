@@ -25,9 +25,10 @@ abstract class AbstractWarrior(
 
     override fun attack(warrior: Warrior): Any {
         if (weapon.availabilityOfAmmo) {
+            println("$this перезарежается")
             return weapon.recharge()
         } else {
-            println("$this стреляет по $warrior")
+            println("$this прицелился в $warrior")
             weapon.receivingOfAmmo()
             sumCurrentDamage = 0
             weapon.receivingAmmos.forEach() {
@@ -36,9 +37,12 @@ abstract class AbstractWarrior(
                     else -> false
                 }
                 if (hit) {
-                    sumCurrentDamage += it.currentDamage()
+                    val l = sumCurrentDamage + it.currentDamage()
+                    sumCurrentDamage = l
+                } else {
+                    println("$this промахнулся по $warrior")
+                    it.currentDamage()
                 }
-                it.currentDamage()
             }
             println("$this наносит $warrior $sumCurrentDamage урона")
             warrior.takeDamage(sumCurrentDamage)
@@ -47,10 +51,10 @@ abstract class AbstractWarrior(
     }
 
     override fun takeDamage(int: Int) : Int {
-        val afterShoot = this.currentHealthLevel - sumCurrentDamage
+        this.currentHealthLevel -= sumCurrentDamage
         if (currentHealthLevel < 1) {
             this.death()
         }
-        return afterShoot
+        return this.currentHealthLevel
     }
 }

@@ -23,7 +23,6 @@ class Battle {
                 if (attack is Int) {
                     if (!it.weapon.availabilityOfAmmo) {
                         team2[n].takeDamage(attack)
-                        println("$it атакует ${team2[n]} и наносит ${attack} урона")
                     }
                     println("уровень здоровья противника после атаки ${team2[n].currentHealthLevel}")
                 }
@@ -37,7 +36,6 @@ class Battle {
                 if (attack is Int) {
                     if (!it.weapon.availabilityOfAmmo) {
                         team1[n].takeDamage(attack)
-                        println("$it атакует ${team1[n]} и наносит ${attack} урона")
                     }
                     println("уровень здоровья противника после атаки ${team1[n].currentHealthLevel}")
                 }
