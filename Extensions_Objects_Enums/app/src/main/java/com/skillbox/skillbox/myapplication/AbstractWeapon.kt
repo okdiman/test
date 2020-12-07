@@ -1,16 +1,19 @@
 package com.skillbox.skillbox.myapplication
 
+import kotlin.random.Random
+import kotlin.random.nextInt
+
 
 abstract class AbstractWeapon(
     val maxNumberOfBullets: Int,
     val shootingType: FireType
 ) {
-    var listOfAmmo = emptyList<Ammo>().toMutableList()
+    var listOfAmmo = mutableListOf<Ammo>()
     var availabilityOfAmmo: Boolean = listOfAmmo.size == 0
 
     abstract fun createBullet(): Ammo
 
-    val receivingAmmos = mutableListOf<Ammo>()
+    var receivingAmmos = mutableListOf<Ammo>()
 
     fun recharge(): MutableList<Ammo> {
         var currentNumbersOfAmmo: Int = 0
@@ -19,19 +22,25 @@ abstract class AbstractWeapon(
             ++currentNumbersOfAmmo
         }
         availabilityOfAmmo = false
+        println("заряжено ${listOfAmmo.size} патронов")
         return listOfAmmo
     }
 
     fun receivingOfAmmo() {
+        receivingAmmos = mutableListOf<Ammo>()
         if (shootingType is FireType.singleShot) {
             receivingAmmos.add(listOfAmmo[0])
             listOfAmmo.removeAt(0)
-        } else {
-            receivingAmmos.add(listOfAmmo.elementAt(FireType.BurstShooting().sizeOfBurst))
-            listOfAmmo.removeAt(FireType.BurstShooting().sizeOfBurst)
+            println("осталось ${listOfAmmo.size} ")
         }
-        println("Получены патроны из магазина")
+        if (shootingType is FireType.BurstShooting) {
+            receivingAmmos = listOfAmmo.take(Random.nextInt(3..5)).toMutableList()
+            listOfAmmo 
+            println("осталось ${listOfAmmo.size} патронов")
+        }
+        println("Получены патроны из магазина в количестве ${receivingAmmos.size}")
     }
+
 
     object Weapons {
         fun createPistol(): AbstractWeapon {
@@ -45,7 +54,7 @@ abstract class AbstractWeapon(
         }
 
         fun createTommyGun(): AbstractWeapon {
-            val tommyGun = object : AbstractWeapon(30, FireType.BurstShooting(5)) {
+            val tommyGun = object : AbstractWeapon(40, FireType.BurstShooting(5)) {
                 override fun createBullet(): Ammo {
                     return Ammo.MACHINEGUN
                 }
@@ -55,7 +64,7 @@ abstract class AbstractWeapon(
         }
 
         fun createMachineGun(): AbstractWeapon {
-            val machineGun = object : AbstractWeapon(40, FireType.BurstShooting(3)) {
+            val machineGun = object : AbstractWeapon(30, FireType.BurstShooting(3)) {
                 override fun createBullet(): Ammo {
                     return Ammo.MACHINEGUN
                 }

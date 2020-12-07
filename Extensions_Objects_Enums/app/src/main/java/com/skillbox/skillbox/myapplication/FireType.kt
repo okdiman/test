@@ -7,6 +7,6 @@ sealed class FireType() {
     object singleShot : FireType()
 
     data class BurstShooting(
-        val sizeOfBurst: Int = Random.nextInt(4)
+        val sizeOfBurst: Int = Random.nextInt(3..5)
     ) : FireType()
 }
