@@ -1,11 +1,11 @@
 package com.skillbox.skillbox.myapplication
 
 class Battle {
-    val team1 = Team().fillInTheList()
-    val team2 = Team().fillInTheList()
+    val team1 = Team().team
+    val team2 = Team().team
     var theBattleIsOver: Boolean = false
 
-    fun getStateBattle() {
+    fun getStateBattle(): Any {
         return StateOfBattle.progress.progress()
     }
 
@@ -15,7 +15,7 @@ class Battle {
         println("Этап битвы начался")
         team1.shuffle()
         team2.shuffle()
-        var n = team1.size
+        var n = team2.size
         while (n > 0) {
             team1.forEach() {
                 val attack = it.attack(team2[n - 1])
@@ -28,7 +28,7 @@ class Battle {
                 }
             }
         }
-        n = team2.size
+        n = team1.size
         while (n > 0) {
             team2.forEach() {
                 val attack = it.attack(team1[n - 1])
@@ -41,6 +41,8 @@ class Battle {
                 }
             }
         }
+        team1.removeAll(deathList)
+        team2.removeAll(deathList)
         return
     }
 

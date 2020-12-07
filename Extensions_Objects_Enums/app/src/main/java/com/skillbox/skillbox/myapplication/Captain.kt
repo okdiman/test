@@ -1,6 +1,6 @@
 package com.skillbox.skillbox.myapplication
 
-class Captain() : AbstractWarrior(150,30, 60, AbstractWeapon.Weapons.createMachineGun()) {
+class Captain() : AbstractWarrior(150,20, 70, AbstractWeapon.Weapons.createMachineGun()) {
     override var isKilled: Boolean = false
         get() = TODO("Not yet implemented")
         set(value) {

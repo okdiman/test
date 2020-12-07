@@ -15,14 +15,6 @@ abstract class AbstractWarrior(
 
     var hit: Boolean = true
 
-    fun death() {
-        if (currentHealthLevel < 1) {
-            isKilled = true
-            println("$this убит")
-        }
-    }
-
-
     override fun attack(warrior: Warrior): Any {
         if (weapon.availabilityOfAmmo) {
             println("$this перезарежается")
@@ -30,7 +22,6 @@ abstract class AbstractWarrior(
         } else {
             println("$this прицелился в $warrior")
             weapon.receivingOfAmmo()
-            sumCurrentDamage = 0
             weapon.receivingAmmos.forEach() {
                 hit = when {
                     Random.nextInt(100 + 1) < this.hitProbability && Random.nextInt(100 + 1) > warrior.chanceToDodge -> true
@@ -39,21 +30,24 @@ abstract class AbstractWarrior(
                 if (hit) {
                     val l = sumCurrentDamage + it.currentDamage()
                     sumCurrentDamage = l
+                    println("$this наносит $warrior $sumCurrentDamage урона")
+                    warrior.takeDamage(sumCurrentDamage)
                 } else {
                     println("$this промахнулся по $warrior")
                     it.currentDamage()
+                    sumCurrentDamage = 0
                 }
             }
-            println("$this наносит $warrior $sumCurrentDamage урона")
-            warrior.takeDamage(sumCurrentDamage)
             return sumCurrentDamage
         }
     }
 
-    override fun takeDamage(int: Int) : Int {
+    override fun takeDamage(int: Int): Int {
         this.currentHealthLevel -= sumCurrentDamage
-        if (currentHealthLevel < 1) {
-            this.death()
+        if (this.currentHealthLevel < 1) {
+            println("$this убит")
+            this.isKilled = true
+            Team().deathList.add(this)
         }
         return this.currentHealthLevel
     }

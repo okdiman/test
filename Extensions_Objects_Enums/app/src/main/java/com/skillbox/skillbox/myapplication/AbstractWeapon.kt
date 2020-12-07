@@ -24,10 +24,10 @@ abstract class AbstractWeapon(
 
     fun receivingOfAmmo() {
         if (shootingType is FireType.singleShot) {
-            receivingAmmos.add(Ammo.SHOTGUN)
+            receivingAmmos.add(listOfAmmo[0])
             listOfAmmo.removeAt(0)
         } else {
-            receivingAmmos.add(Ammo.MACHINEGUN)
+            receivingAmmos.add(listOfAmmo.elementAt(FireType.BurstShooting().sizeOfBurst))
             listOfAmmo.removeAt(FireType.BurstShooting().sizeOfBurst)
         }
         println("Получены патроны из магазина")
