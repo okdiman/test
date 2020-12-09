@@ -25,9 +25,17 @@ sealed class StateOfBattle() {
         }
     }
 
-    object firstTeamWin : StateOfBattle() {}
+    object firstTeamWin : StateOfBattle() {
+        fun firstTeamWin (){
+            return println("Победила команда 1")
+        }
+    }
 
-    object secondTeamWin : StateOfBattle() {}
+    object secondTeamWin : StateOfBattle() {
+        fun secondTeamWin (){
+            return println("Победила команда 2")
+        }
+    }
 
     object draw : StateOfBattle() {}
 }
