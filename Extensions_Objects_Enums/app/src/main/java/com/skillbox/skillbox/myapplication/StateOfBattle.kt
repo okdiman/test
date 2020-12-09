@@ -3,7 +3,7 @@ package com.skillbox.skillbox.myapplication
 sealed class StateOfBattle() {
     object progress : StateOfBattle() {
         fun progress(): Any {
-            if (Battle().sumHealth1() < 1 && Battle().sumHealth2() < 1) {
+            if (Battle().sumHealth1() < 1 || Battle().sumHealth2() < 1) {
                 println("Ничья")
                 draw
                 Battle().theBattleIsOver = true

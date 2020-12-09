@@ -13,8 +13,6 @@ class Team() {
         return sumHealth
     }
 
-    val deathList = mutableListOf<AbstractWarrior>()
-
     fun fillInTheList(): MutableList<AbstractWarrior> {
         val newWarriors = emptyList<AbstractWarrior>().toMutableList()
         var numbersOfWarriors =

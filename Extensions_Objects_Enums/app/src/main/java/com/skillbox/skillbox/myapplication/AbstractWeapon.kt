@@ -31,14 +31,23 @@ abstract class AbstractWeapon(
         if (shootingType is FireType.singleShot) {
             receivingAmmos.add(listOfAmmo[0])
             listOfAmmo.removeAt(0)
-            println("осталось ${listOfAmmo.size} ")
+            println("осталось ${listOfAmmo.size} патронов")
         }
         if (shootingType is FireType.BurstShooting) {
             receivingAmmos = listOfAmmo.take(Random.nextInt(3..5)).toMutableList()
-            listOfAmmo 
-            println("осталось ${listOfAmmo.size} патронов")
+            var n = receivingAmmos.size
+            while (n > 0) {
+                if (listOfAmmo.size == 0) {
+                    return println("закончились патроны в магазине")
+                } else {
+                    listOfAmmo.removeLast()
+                    n--
+                }
+            }
+            println("осталось ${listOfAmmo.size} патронов в магазине")
         }
-        println("Получены патроны из магазина в количестве ${receivingAmmos.size}")
+        if (listOfAmmo.size == 0) {availabilityOfAmmo = true}
+        println("Получено патронов из магазина: ${receivingAmmos.size}")
     }
 
 

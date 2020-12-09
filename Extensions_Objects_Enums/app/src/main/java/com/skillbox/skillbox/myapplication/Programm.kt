@@ -1,9 +1,9 @@
 package com.skillbox.skillbox.myapplication
 
-fun main(){
-   println("Введите число войнов в каждой команде")
+fun main() {
+println("Введите число войнов в каждой команде")
    val battle = Battle()
-   var m = 5
+   var m = 10
    while (m > 0) {
       battle.nextItaration()
       battle.sumHealth1()
@@ -12,5 +12,3 @@ fun main(){
    }
    return
 }
-
-

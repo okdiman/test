@@ -7,9 +7,9 @@ enum class Ammo(
     val probabilityOfCrit: Int,
     val coeffCrit: Int
 ) {
-    PISTOL(10, 40, 2),
-    MACHINEGUN(20, 25, 3),
-    SHOTGUN(40, 10, 5);
+    PISTOL(3, 40, 2),
+    MACHINEGUN(7, 25, 3),
+    SHOTGUN(15, 10, 4);
 
     fun currentDamage(): Int {
         val crit = Random.nextInt(100 + 1).toBoolean()

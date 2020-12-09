@@ -9,40 +9,44 @@ class Battle {
         return StateOfBattle.progress.progress()
     }
 
-    val deathList = emptyList<Warrior>().toMutableList()
 
     fun nextItaration() {
+
         println("Этап битвы начался")
         team1.shuffle()
         team2.shuffle()
-        var n = team2.size
-        while (n > 0) {
+        var attackedWarrior = team2.size
+        while (attackedWarrior > 0) {
             team1.forEach() {
-                val attack = it.attack(team2[n - 1])
-                n--
-                if (attack is Int) {
-                    if (!it.weapon.availabilityOfAmmo) {
-                        team2[n].takeDamage(attack)
-                    }
-                    println("уровень здоровья противника после атаки ${team2[n].currentHealthLevel}")
+                val attack = it.attack(team2[attackedWarrior - 1])
+                println("уровень здоровья противника после атаки ${team2[attackedWarrior - 1].currentHealthLevel}")
+                if (team2[attackedWarrior - 1].isKilled){
+                    team2.remove(team2[attackedWarrior - 1])
+                }
+                attackedWarrior--
+                if (team2.size == 0){
+                    theBattleIsOver = true
+                    println("все воины противника убиты, битва окончена")
+                    return
                 }
             }
         }
-        n = team1.size
-        while (n > 0) {
+        attackedWarrior = team1.size
+        while (attackedWarrior > 0) {
             team2.forEach() {
-                val attack = it.attack(team1[n - 1])
-                n--
-                if (attack is Int) {
-                    if (!it.weapon.availabilityOfAmmo) {
-                        team1[n].takeDamage(attack)
-                    }
-                    println("уровень здоровья противника после атаки ${team1[n].currentHealthLevel}")
+                val attack = it.attack(team1[attackedWarrior - 1])
+                println("уровень здоровья противника после атаки ${team1[attackedWarrior - 1].currentHealthLevel}")
+                if (team1[attackedWarrior - 1].isKilled){
+                    team1.remove(team1[attackedWarrior - 1])
+                }
+                attackedWarrior--
+                if (team1.size == 0){
+                    theBattleIsOver = true
+                    println("все воины противника убиты, битва окончена")
+                    return
                 }
             }
         }
-        team1.removeAll(deathList)
-        team2.removeAll(deathList)
         return
     }
 
