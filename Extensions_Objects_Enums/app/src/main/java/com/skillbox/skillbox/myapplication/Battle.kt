@@ -9,6 +9,10 @@ class Battle {
         return StateOfBattle.progress.progress()
     }
 
+    var sumHealthTeam1: Int = 0
+
+    var sumHealthTeam2: Int = 0
+
 
     fun nextItaration() {
 
@@ -51,20 +55,20 @@ class Battle {
     }
 
     fun sumHealth1(): Int {
-        var sumHealth: Int = 0
+        sumHealthTeam1 = 0
         team1.forEach() {
-            sumHealth += it.currentHealthLevel
+            sumHealthTeam1 += it.currentHealthLevel
         }
-        println("общее здоровье команды 1: $sumHealth")
-        return sumHealth
+        println("общее здоровье команды 1: $sumHealthTeam1")
+        return sumHealthTeam1
     }
 
     fun sumHealth2(): Int {
-        var sumHealth: Int = 0
+        sumHealthTeam2 = 0
         team2.forEach() {
-            sumHealth += it.currentHealthLevel
+            sumHealthTeam2 += it.currentHealthLevel
         }
-        println("общее здоровье команды 2: $sumHealth")
-        return sumHealth
+        println("общее здоровье команды 2: $sumHealthTeam2")
+        return sumHealthTeam2
     }
 }
