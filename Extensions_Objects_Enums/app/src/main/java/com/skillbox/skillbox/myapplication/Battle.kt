@@ -15,7 +15,9 @@ class Battle {
 
 
     fun nextItaration() {
-
+        if (this.theBattleIsOver){
+            this.getStateBattle()
+        }
         println("Этап битвы начался")
         team1.shuffle()
         team2.shuffle()
@@ -32,7 +34,6 @@ class Battle {
                 if (team2.size == 0){
                     theBattleIsOver = true
                     println("все воины противника убиты, битва окончена")
-                    StateOfBattle.firstTeamWin
                     return
                 }
             }
@@ -50,7 +51,6 @@ class Battle {
                 if (team1.size == 0){
                     theBattleIsOver = true
                     println("все воины противника убиты, битва окончена")
-                    StateOfBattle.secondTeamWin
                     return
                 }
             }

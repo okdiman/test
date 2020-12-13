@@ -37,5 +37,9 @@ sealed class StateOfBattle() {
         }
     }
 
-    object draw : StateOfBattle() {}
+    object draw : StateOfBattle() {
+        fun draw (){
+            return println("Ничья")
+        }
+    }
 }
