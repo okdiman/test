@@ -15,44 +15,38 @@ class Battle {
 
 
     fun nextItaration() {
-        if (this.theBattleIsOver){
+        if (this.theBattleIsOver) {
             this.getStateBattle()
         }
         println("Этап битвы начался")
         team1.shuffle()
         team2.shuffle()
-        var attackedWarrior = team2.size
-        while (attackedWarrior > 0) {
-            attackedWarrior = team2.size
-            team1.forEach() {
-                val attack = it.attack(team2[attackedWarrior - 1])
-                println("уровень здоровья противника после атаки ${team2[attackedWarrior - 1].currentHealthLevel}")
-                if (team2[attackedWarrior - 1].isKilled){
-                    team2.remove(team2[attackedWarrior - 1])
-                }
-                attackedWarrior--
-                if (team2.size == 0){
-                    theBattleIsOver = true
-                    println("все воины противника убиты, битва окончена")
-                    return
-                }
+        var attackedWarrior = team2.size - 1
+        team1.forEach() {
+            val attack = it.attack(team2[attackedWarrior])
+            println("уровень здоровья противника после атаки ${team2[attackedWarrior].currentHealthLevel}")
+            if (team2[attackedWarrior].isKilled) {
+                team2.remove(team2[attackedWarrior])
+            }
+            if (attackedWarrior > 0) attackedWarrior--
+            if (team2.size == 0) {
+                theBattleIsOver = true
+                println("все воины противника убиты, битва окончена")
+                return
             }
         }
-        attackedWarrior = team1.size
-        while (attackedWarrior > 0) {
-            attackedWarrior = team1.size
-            team2.forEach() {
-                val attack = it.attack(team1[attackedWarrior - 1])
-                println("уровень здоровья противника после атаки ${team1[attackedWarrior - 1].currentHealthLevel}")
-                if (team1[attackedWarrior - 1].isKilled){
-                    team1.remove(team1[attackedWarrior - 1])
-                }
-                attackedWarrior--
-                if (team1.size == 0){
-                    theBattleIsOver = true
-                    println("все воины противника убиты, битва окончена")
-                    return
-                }
+        attackedWarrior = team1.size - 1
+        team2.forEach() {
+            val attack = it.attack(team1[attackedWarrior])
+            println("уровень здоровья противника после атаки ${team1[attackedWarrior].currentHealthLevel}")
+            if (team1[attackedWarrior].isKilled) {
+                team1.remove(team1[attackedWarrior])
+            }
+            if (attackedWarrior > 0) attackedWarrior--
+            if (team1.size == 0) {
+                theBattleIsOver = true
+                println("все воины противника убиты, битва окончена")
+                return
             }
         }
         return
