@@ -31,7 +31,7 @@ class Battle {
             if (attackedWarrior > 0) attackedWarrior--
             if (team2.size == 0) {
                 theBattleIsOver = true
-                println("все воины противника убиты, битва окончена")
+                println("все воины противника убиты, битва окончена, победила команда 1")
                 return
             }
         }
@@ -45,7 +45,7 @@ class Battle {
             if (attackedWarrior > 0) attackedWarrior--
             if (team1.size == 0) {
                 theBattleIsOver = true
-                println("все воины противника убиты, битва окончена")
+                println("все воины противника убиты, битва окончена, победила команда 2")
                 return
             }
         }
