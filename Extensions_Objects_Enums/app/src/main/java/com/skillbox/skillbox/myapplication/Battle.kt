@@ -5,8 +5,8 @@ class Battle {
     val team2 = Team().team
     var theBattleIsOver: Boolean = false
 
-    fun getStateBattle(): Any {
-        return StateOfBattle.progress.progress()
+    fun getStateBattle(battle: Battle): Any {
+        return StateOfBattle.progress.progress(battle)
     }
 
     var sumHealthTeam1: Int = 0
@@ -16,7 +16,7 @@ class Battle {
 
     fun nextItaration() {
         if (this.theBattleIsOver) {
-            this.getStateBattle()
+            this.getStateBattle(this)
         }
         println("Этап битвы начался")
         team1.shuffle()

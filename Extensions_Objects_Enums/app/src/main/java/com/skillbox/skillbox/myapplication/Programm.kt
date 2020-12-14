@@ -7,7 +7,7 @@ fun main() {
         battle.nextItaration()
         battle.sumHealth1()
         battle.sumHealth2()
-//        battle.getStateBattle()
+        battle.getStateBattle(battle)
     }
     return
 }
