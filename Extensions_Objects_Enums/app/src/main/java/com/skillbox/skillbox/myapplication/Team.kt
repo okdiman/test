@@ -6,13 +6,6 @@ class Team() {
     var team = fillInTheList()
     var sumHealth: Int = 0
 
-    fun sumHealth(): Int {
-        team.forEach() {
-            sumHealth + it.currentHealthLevel
-        }
-        return sumHealth
-    }
-
     fun fillInTheList(): MutableList<AbstractWarrior> {
         val newWarriors = emptyList<AbstractWarrior>().toMutableList()
         var numbersOfWarriors = readLine()?.toIntOrNull() ?: return emptyList<AbstractWarrior>().toMutableList()
