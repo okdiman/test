@@ -40,19 +40,19 @@ class Car constructor(
         Engine()
     }
 
-    fun openDoor() {
+    fun openDoor(openCallBack: () -> Unit = { println("door is opened")}) {
         if (!isDoorOpen) {
-            println("door is opened")
+            openCallBack()
         }
         isDoorOpen = true
     }
 
-    fun closeDoor() {
+    fun closeDoor(closeCallback: () -> Unit = {println("door is closed")}) {
         if (isDoorOpen) {
-            println("door is closed")
-            if (::driver.isInitialized) {
-                println("driver is $driver")
-            }
+            closeCallback()
+//            if (::driver.isInitialized) {
+//                println("driver is $driver")
+//            }
         }
         isDoorOpen = false
     }
