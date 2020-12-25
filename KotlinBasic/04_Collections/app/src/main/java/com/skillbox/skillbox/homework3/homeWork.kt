@@ -30,7 +30,6 @@ fun main() {
             println("Человек: ${mutableMap[p]}, номер телефона: ${mutableMap.mapValues { p }[p]}")
             ++q
         }
-
     }
 }
 

@@ -2,7 +2,6 @@ package com.skillbox.skillbox.homeworkmodule5
 
 class Fish : Animal(maxAge = 5, name = "shark"), Soundable {
 
-
     override fun move() {
         if (isTooOld || energy <= 5 || weight <= 1) {
             println("недостаточно энергии для движения")
@@ -21,5 +20,4 @@ class Fish : Animal(maxAge = 5, name = "shark"), Soundable {
     }
 
     override fun toString(): String = "Fish"
-
 }

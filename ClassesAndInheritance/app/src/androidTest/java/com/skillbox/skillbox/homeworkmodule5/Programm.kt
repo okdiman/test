@@ -19,7 +19,6 @@ fun main() {
     zoo.listOfAnimals.add(Animal(7, "raccoon"))
     zoo.listOfAnimals.add(Animal(7, "raccoon"))
 
-
     fun life(zoo: Zoo): Any {
         println("Введите желаемое число итераций:")
         val n = readLine()?.toIntOrNull() ?: return "вы ввели не число"

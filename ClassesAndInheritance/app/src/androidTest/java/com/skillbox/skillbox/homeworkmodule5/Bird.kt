@@ -24,5 +24,4 @@ class Bird : Animal(4, "Duck"), Soundable {
     }
 
     override fun toString(): String = "Bird"
-
 }

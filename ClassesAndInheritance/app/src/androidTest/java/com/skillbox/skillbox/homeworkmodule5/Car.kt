@@ -4,11 +4,11 @@ import com.skillbox.skillbox.homeworkmodule5.Engine
 import com.skillbox.skillbox.homeworkmodule5.User
 
 class Car constructor(
-        val wheelCount: Int,
-        val doorCount: Int,
-        val bodyLenght: Int,
-        val bodyWidht: Int,
-        val bodyHeight: Int,
+    val wheelCount: Int,
+    val doorCount: Int,
+    val bodyLenght: Int,
+    val bodyWidht: Int,
+    val bodyHeight: Int,
 ) {
     init {
         println("Создается объект")
@@ -40,14 +40,14 @@ class Car constructor(
         Engine()
     }
 
-    fun openDoor(openCallBack: () -> Unit = { println("door is opened")}) {
+    fun openDoor(openCallBack: () -> Unit = { println("door is opened") }) {
         if (!isDoorOpen) {
             openCallBack()
         }
         isDoorOpen = true
     }
 
-    fun closeDoor(closeCallback: () -> Unit = {println("door is closed")}) {
+    fun closeDoor(closeCallback: () -> Unit = { println("door is closed") }) {
         if (isDoorOpen) {
             closeCallback()
 //            if (::driver.isInitialized) {
@@ -56,7 +56,6 @@ class Car constructor(
         }
         isDoorOpen = false
     }
-
 
     fun setDriver(driver: User) {
         this.driver = driver
@@ -116,10 +115,21 @@ class Car constructor(
     }
 
     companion object {
-        val default = Car(4,4,2000,1500,1000)
+        val default = Car(4, 4, 2000, 1500, 1000)
 
-        fun createWithDefaultWheelCount(doorCount: Int, bodyLenght: Int, bodyWidht: Int, bodyHeight: Int): Car{
-            return Car (4,doorCount = doorCount, bodyLenght = bodyLenght, bodyWidht = bodyWidht,bodyHeight=bodyHeight )
+        fun createWithDefaultWheelCount(
+            doorCount: Int,
+            bodyLenght: Int,
+            bodyWidht: Int,
+            bodyHeight: Int
+        ): Car {
+            return Car(
+                4,
+                doorCount = doorCount,
+                bodyLenght = bodyLenght,
+                bodyWidht = bodyWidht,
+                bodyHeight = bodyHeight
+            )
         }
     }
 }

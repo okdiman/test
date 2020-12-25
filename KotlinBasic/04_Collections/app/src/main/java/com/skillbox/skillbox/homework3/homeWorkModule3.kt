@@ -7,7 +7,7 @@ fun main() {
         return println("Введите положительное число")
     } else {
         println("Вы ввели число: $n, введите еще $n")
-        val b =(introductionOfNumbers(n))
+        val b = (introductionOfNumbers(n))
 
         println("Введите число для поиска НОД")
         val a = readLine()?.toIntOrNull() ?: return println("Вы ввели не число")

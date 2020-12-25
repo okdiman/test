@@ -1,6 +1,6 @@
 package com.skillbox.skillbox.homeworkmodule5
 
-fun main(){
+fun main() {
     val colour = Colour.BLACK.hex
     Colour.RED.draw()
     Colour.values().forEach {
@@ -12,8 +12,8 @@ fun main(){
     SealedColour.customColour("#ff0")
 }
 
-fun invertColour(colour: Colour): Colour{
-    return when (colour){
+fun invertColour(colour: Colour): Colour {
+    return when (colour) {
         Colour.WHITE -> Colour.BLACK
         Colour.BLACK -> Colour.WHITE
         Colour.RED -> Colour.BLUE
@@ -21,8 +21,8 @@ fun invertColour(colour: Colour): Colour{
     }
 }
 
-fun invertSealedColour(colour: SealedColour): SealedColour{
-    return when (colour){
+fun invertSealedColour(colour: SealedColour): SealedColour {
+    return when (colour) {
         SealedColour.black -> SealedColour.white
         SealedColour.white -> SealedColour.black
         is SealedColour.customColour -> SealedColour.white

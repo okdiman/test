@@ -1,8 +1,8 @@
 package com.skillbox.skillbox.homeworkmodule5
 
 abstract class AbstractShape(
-        private var x: Int,
-        private var y: Int
+    private var x: Int,
+    private var y: Int
 ) : Shape {
     fun moveToPosition(x: Int, y: Int) {
         this.x = x
@@ -12,5 +12,4 @@ abstract class AbstractShape(
     fun printPosition() {
         println("Shape on position x = $x, y = $y")
     }
-
 }

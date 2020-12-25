@@ -1,8 +1,8 @@
 package com.skillbox.skillbox.homeworkmodule5
 
 class Circle(
-        radius: Int
-): Shape {
+    radius: Int
+) : Shape {
     var radius: Int by PrintAreaOnChangeDelegate(radius)
     override val name: String = "Circle"
 

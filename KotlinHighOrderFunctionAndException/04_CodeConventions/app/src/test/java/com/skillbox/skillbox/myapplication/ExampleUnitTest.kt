@@ -1,8 +1,7 @@
-package com.skillbox.skillbox.homeworkmodule5
-
-import org.junit.Test
+package com.skillbox.skillbox.myapplication
 
 import org.junit.Assert.*
+import org.junit.Test
 
 /**
  * Example local unit test, which will execute on the development machine (host).

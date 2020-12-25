@@ -18,7 +18,6 @@ class Dog : Animal(6, "sheep-dog"), Soundable {
         return "Гав-гав"
     }
 
-
     override fun makeChild(): Animal {
         super.makeChild()
         return Dog()

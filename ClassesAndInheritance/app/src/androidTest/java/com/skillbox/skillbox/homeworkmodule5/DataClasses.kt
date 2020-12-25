@@ -14,20 +14,19 @@ fun main() {
     println("his name is $name, lastname is $lastname")
 
     val users = listOf(
-            user,
-            user2,
-            user3
+        user,
+        user2,
+        user3
     )
-    users.forEach { (name, lastname) -> println("${name} ${lastname}") }
+    users.forEach { (name, lastname) -> println("$name $lastname") }
     val (wheelCount, doorCount) = Car(4, 2, 2000, 1800, 1600)
 
     val map = mapOf(
-            1 to "1",
-            2 to "2"
+        1 to "1",
+        2 to "2"
     )
-    for ((key, value) in map){
+    for ((key, value) in map) {
         key
         value
     }
-
 }

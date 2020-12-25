@@ -1,5 +1,5 @@
 package com.skillbox.skillbox.homeworkmodule5
 
-class Zoo  {
+class Zoo {
     var listOfAnimals = listOf<Animal>().toMutableList()
 }

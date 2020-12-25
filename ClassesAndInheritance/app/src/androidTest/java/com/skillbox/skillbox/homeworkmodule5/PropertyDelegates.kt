@@ -12,7 +12,7 @@ fun main() {
 }
 
 class PrintAreaOnChangeDelegate<T>(
-        private var value: T
+    private var value: T
 ) : ReadWriteProperty<Shape, T> {
     override fun setValue(thisRef: Shape, property: KProperty<*>, value: T) {
         println("before change property ${property.name} = ${thisRef.calculateArea()}")

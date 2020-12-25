@@ -1,6 +1,6 @@
 package com.skillbox.skillbox.homeworkmodule5
 
-open class Vehicle (
+open class Vehicle(
     val maxSpeed: Int
 ) {
     init {
@@ -33,7 +33,7 @@ open class Vehicle (
         }
     }
 
-    open fun getTittle (): String {
+    open fun getTittle(): String {
         return "vehicle"
     }
 

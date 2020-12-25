@@ -1,10 +1,10 @@
 package com.skillbox.skillbox.homeworkmodule5
 
 class Rectangle(
-        x: Int,
-        y: Int,
-        width: Int,
-        heigth: Int
+    x: Int,
+    y: Int,
+    width: Int,
+    heigth: Int
 ) : AbstractShape(x, y), Comparable<Rectangle> {
 
     var width: Int by PrintAreaOnChangeDelegate(width)
@@ -21,12 +21,11 @@ class Rectangle(
         return "Rectangle(width=$width, heigth=$heigth)"
     }
 
-    operator fun plus(other: Rectangle):Rectangle{
-        return Rectangle(0,0,width + other.width, heigth + other.heigth)
+    operator fun plus(other: Rectangle): Rectangle {
+        return Rectangle(0, 0, width + other.width, heigth + other.heigth)
     }
 
-    operator fun unaryMinus(): Rectangle{
-        return Rectangle(0,0,-width,-heigth)
+    operator fun unaryMinus(): Rectangle {
+        return Rectangle(0, 0, -width, -heigth)
     }
-
 }

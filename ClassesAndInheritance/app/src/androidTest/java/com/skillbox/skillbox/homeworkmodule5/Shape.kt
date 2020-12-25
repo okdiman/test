@@ -4,5 +4,5 @@ interface Shape {
 
     val name: String
 
-    fun calculateArea() :Double
+    fun calculateArea(): Double
 }

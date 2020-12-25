@@ -1,7 +1,7 @@
 package com.skillbox.skillbox.homeworkmodule5
 
 enum class Colour(
-        val hex: String
+    val hex: String
 ) : Drawable {
     WHITE("#fff"),
     BLACK("#000"),

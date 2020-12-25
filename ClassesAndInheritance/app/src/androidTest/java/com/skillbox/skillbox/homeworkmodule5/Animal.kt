@@ -3,8 +3,8 @@ package com.skillbox.skillbox.homeworkmodule5
 import kotlin.random.Random
 
 open class Animal(
-        maxAge: Int,
-        var name: String
+    maxAge: Int,
+    var name: String
 ) : AgedAnimal(maxAge), Soundable {
     var age: Int = 0
         private set
@@ -15,10 +15,8 @@ open class Animal(
     var weight: Int = Random.nextInt(5) + 1
         private set
 
-
     val isTooOld: Boolean
         get() = age >= this@Animal.maxAge
-
 
     fun sleep() {
         if (isTooOld) {
@@ -70,5 +68,4 @@ open class Animal(
         println("ругается на лесном")
         return "ругается на лесном"
     }
-
 }
