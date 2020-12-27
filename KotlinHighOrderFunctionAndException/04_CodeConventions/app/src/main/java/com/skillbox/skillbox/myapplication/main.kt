@@ -9,5 +9,4 @@ fun main() {
         battle.sumHealth2()
         battle.getStateBattle(battle)
     }
-    return
 }
