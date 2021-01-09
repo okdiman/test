@@ -9,12 +9,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val textView = findViewById<TextView>(R.id.textView)
-        textView.text = """
-           Build Type = ${BuildConfig.BUILD_TYPE} 
-           Flavor = ${BuildConfig.FLAVOR}
-           Version Code = ${BuildConfig.VERSION_CODE}
-           Version Name = ${BuildConfig.VERSION_NAME}
-        """
+    //вывод различных строк и инфы на главный экран
+//        val textView = findViewById<TextView>(R.id.textView)
+//        val count = 2
+//        val pluralString = resources.getQuantityString(R.plurals.main_quantity_string, count, count)
+//        textView.text = pluralString
+
+// вывод инфы о приложении на главный экран
+//        textView.text = """
+//           Build Type = ${BuildConfig.BUILD_TYPE}
+//           Flavor = ${BuildConfig.FLAVOR}
+//           Version Code = ${BuildConfig.VERSION_CODE}
+//           Version Name = ${BuildConfig.VERSION_NAME}
+//        """
     }
 }
