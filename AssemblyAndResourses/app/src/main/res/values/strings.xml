@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">MyHomeworkModul9</string>
     <string name="text_view">Ksushka psinka</string>
+    <string name="name_hint">Введите свое имя</string>
+    <string name="hello_string">Привет, %1$s</string>
+    <string name="clear_text">Очистить</string>
+    <string name="cleared_text">Строка очищена</string>
+    <string name="make_long_operation">Совершить долгую операцию</string>
+    <string name="long_operation_coplete">Операция завершена</string>
+    <string name="image_text">текст</string>
 </resources>
