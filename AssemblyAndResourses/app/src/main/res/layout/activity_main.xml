@@ -16,9 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/name_hint"
-        android:inputType = "text"
-        android:autofillHints="" />
+        android:hint="@string/name_hint"/>
 
     <TextView
         android:id="@+id/nameText"

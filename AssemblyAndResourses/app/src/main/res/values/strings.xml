@@ -8,4 +8,6 @@
     <string name="make_long_operation">Совершить долгую операцию</string>
     <string name="long_operation_coplete">Операция завершена</string>
     <string name="image_text">текст</string>
+    <string name="enter_text">Введите текст</string>
+    <string name="add_but">Добавить</string>
 </resources>
