@@ -1,23 +1,47 @@
 package com.skillbox.skillbox.viewhomework
 
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
-import android.widget.ProgressBar
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnAttach
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        entrance.setOnClickListener {
-          login()
+        agreement.setOnClickListener{
+            entrance.isEnabled = true
         }
+        e_mail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                entrance.isEnabled = e_mail.text.isNotEmpty()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        password_e_mail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                entrance.isEnabled = password_e_mail.text.isNotEmpty()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
 
+        val newProgressBar = layoutInflater.inflate(R.layout.loader, main_layout, false)
+        entrance.setOnClickListener {
+            main_layout.addView(newProgressBar)
+            newProgressBar.apply {
+                login()
+            }
+            android.os.Handler().postDelayed({
+                main_layout.removeView(newProgressBar)
+            }, 2500)
+        }
     }
 
     private fun login() {
