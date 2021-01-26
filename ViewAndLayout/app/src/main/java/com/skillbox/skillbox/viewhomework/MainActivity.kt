@@ -5,29 +5,63 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnAttach
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        agreement.setOnClickListener{
-            entrance.isEnabled = true
+        var e_mailIsNotEmpty = false
+        var passwordIsNotEmpty = false
+        agreement.isChecked
+
+        fun activateButton() {
+            if (e_mailIsNotEmpty && passwordIsNotEmpty && agreement.isChecked) {
+                entrance.isEnabled = true
+            }
         }
+
+        agreement.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                entrance.isEnabled = true
+                activateButton()
+            } else{
+                entrance.isEnabled = false
+            }
+        }
+
+
         e_mail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                entrance.isEnabled = e_mail.text.isNotEmpty()
+                e_mailIsNotEmpty = e_mail.text.isNotEmpty()?:false
+                if (e_mailIsNotEmpty) {
+                    activateButton()
+                } else{
+                    entrance.isEnabled = false
+                }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
         password_e_mail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                entrance.isEnabled = password_e_mail.text.isNotEmpty()
-            }
+                passwordIsNotEmpty = password_e_mail.text.isNotEmpty()?:false
+                if (passwordIsNotEmpty) {
+                    activateButton()
+                }else{
+                        entrance.isEnabled = false
+                    }
+                }
+
+
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
