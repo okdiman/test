@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
         var e_mailIsNotEmpty = false
         var passwordIsNotEmpty = false
-        agreement.isChecked
 
         fun activateButton() {
             if (e_mailIsNotEmpty && passwordIsNotEmpty && agreement.isChecked) {
