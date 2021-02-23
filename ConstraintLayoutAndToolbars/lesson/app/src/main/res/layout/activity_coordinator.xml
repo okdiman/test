@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolbarStyle"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:title="@string/app_name" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <TextView
+            android:id="@+id/longTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ыть23113151515311318181351831861813 13 23113151515311318181351831861813 13 13 18 138 11 352311323113151515311318181351831861813 13 13 18 138 11 352311323113151515311318181351831861813 13 13 18 138 11 352311323113151515311318181351831861813 13 13 18 138 11 352311313 18 138 11 3523113151515311318181351831861813 13 13 18 138 11 3523113151515311318181351831861813 13 13 18 138 11 3523113151515311318181351831861813 13 13 18 138 11 35"
+            android:textSize="50sp" />
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:text="Button"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
