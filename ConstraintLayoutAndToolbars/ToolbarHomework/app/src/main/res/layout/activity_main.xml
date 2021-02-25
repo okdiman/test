@@ -21,15 +21,15 @@
             app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
     <TextView
         android:id="@+id/searchResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
         android:elevation="16dp"
         android:textSize="32sp"
-        android:background="@color/white"
-        android:layout_gravity="center"/>
+        android:visibility="gone"/>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"

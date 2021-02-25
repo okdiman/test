@@ -2,9 +2,14 @@ package com.skillbox.skillbox.toolbarhomework
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -59,11 +64,14 @@ class MainActivity : AppCompatActivity() {
         val searchItem = Toolbar.menu.findItem(R.id.search)
         searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                Toolbar.findViewById<TextView>(R.id.textView).isVisible = true
+                textView.isVisible = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                return false
+                textView.isGone = true
+                return true
             }
         })
 
