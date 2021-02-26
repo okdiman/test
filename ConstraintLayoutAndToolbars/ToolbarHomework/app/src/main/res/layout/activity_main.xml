@@ -21,6 +21,7 @@
             app:title="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
         android:id="@+id/searchResult"
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
         android:background="@color/white"
         android:elevation="16dp"
         android:textSize="32sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"

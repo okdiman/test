@@ -64,12 +64,12 @@ class MainActivity : AppCompatActivity() {
         val searchItem = Toolbar.menu.findItem(R.id.search)
         searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                textView.isVisible = true
+                searchResult.isVisible = true
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                textView.isGone = true
+                searchResult.isGone = true
                 return true
             }
         })
