@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         val searchItem = Toolbar.menu.findItem(R.id.search)
         searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                Toolbar.findViewById<TextView>(R.id.textView).isVisible = true
                 textView.isVisible = true
                 return true
             }
