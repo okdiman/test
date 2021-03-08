@@ -15,7 +15,6 @@ class SecondActivity : AppCompatActivity() {
 //            finish()
 //        }
         DebugLogger.d(tag, "onCreate ${hashCode()}")
-        Thread.sleep(5000)
     }
 
     override fun onStart() {
