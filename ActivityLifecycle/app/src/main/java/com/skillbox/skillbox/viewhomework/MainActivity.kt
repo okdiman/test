@@ -1,7 +1,6 @@
 package com.skillbox.skillbox.viewhomework
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -13,17 +12,27 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val tag = "MainActivity"
     private var uncorrectlyState: FormState = FormState(false, "")
-
+    var successLogin = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.v(tag, "onCreated ${hashCode()}")
 
+        if (savedInstanceState != null) {
+            uncorrectlyState =
+                savedInstanceState.getParcelable<FormState>(STATE_KEY) ?: error("Unexpected key")
+            successLogin = uncorrectlyState.valid
+            Log.d(tag, "$successLogin")
+            if (!successLogin) {
+                uncorrectly.isVisible = true
+            }
+        }
+
+
+        Log.v(tag, "onCreated ${hashCode()}")
         var e_mailIsNotEmpty = false
         var passwordIsNotEmpty = false
         var agreementCompleted = false
-        var successLogin = false
         val newProgressBar = layoutInflater.inflate(R.layout.loader, mainConstraint, false)
 
         fun assessment() {
@@ -32,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         fun checkIn() {
             if (successLogin) {
+                Log.d(tag, "CheckIn $successLogin")
                 mainConstraint.addView(newProgressBar)
                 newProgressBar.apply {
                     login()
@@ -40,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                     mainConstraint.removeView(newProgressBar)
                 }, 2500)
             } else {
-             uncorrectly.isVisible = true
+                uncorrectly.isVisible = true
             }
         }
 
@@ -124,6 +134,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        uncorrectlyState = FormState(successLogin, "")
+        outState.putParcelable(STATE_KEY, uncorrectlyState)
     }
 
     override fun onPause() {
@@ -158,6 +170,7 @@ class MainActivity : AppCompatActivity() {
         }, 2500)
 
     }
+
     companion object {
         private var STATE_KEY = "stateKey"
     }
