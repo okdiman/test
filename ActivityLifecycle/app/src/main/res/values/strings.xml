@@ -5,4 +5,6 @@
     <string name="enter">Я подтверждаю, что мне исполнилось 18 лет</string>
     <string name="login">Вход</string>
     <string name="welcome">Добро пожаловать!</string>
+    <string name="anr_error">ANR error</string>
+    <string name="Uncorrectly">Ошибка! Некорректно заполнена форма входа</string>
 </resources>
