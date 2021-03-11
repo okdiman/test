@@ -17,17 +17,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         if (savedInstanceState != null) {
             uncorrectlyState =
                 savedInstanceState.getParcelable<FormState>(STATE_KEY) ?: error("Unexpected key")
             successLogin = uncorrectlyState.valid
-            Log.d(tag, "$successLogin")
+            Log.d(tag, "successLogin is $successLogin")
+            Log.d(tag, "Bundle is $savedInstanceState")
             if (!successLogin) {
                 uncorrectly.isVisible = true
             }
         }
-
 
         Log.v(tag, "onCreated ${hashCode()}")
         var e_mailIsNotEmpty = false
