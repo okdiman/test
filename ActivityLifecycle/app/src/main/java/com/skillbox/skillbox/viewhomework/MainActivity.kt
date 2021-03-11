@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         fun checkIn() {
             if (successLogin) {
+                uncorrectly.isVisible = false
                 Log.d(tag, "CheckIn $successLogin")
                 mainConstraint.addView(newProgressBar)
                 newProgressBar.apply {
@@ -54,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         agreement.setOnCheckedChangeListener { buttonView, isChecked ->
-            uncorrectly.isVisible = false
             if (isChecked) {
                 agreementCompleted = true
                 assessment()
@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                uncorrectly.isVisible = false
                 e_mailIsNotEmpty = e_mail.text.isNotEmpty() ?: false
                 if (e_mailIsNotEmpty) {
                     assessment()
@@ -82,7 +81,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+            }
         })
 
         password_e_mail.addTextChangedListener(object : TextWatcher {
@@ -95,7 +95,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                uncorrectly.isVisible = false
                 passwordIsNotEmpty = password_e_mail.text.isNotEmpty() ?: false
                 if (passwordIsNotEmpty) {
                     assessment()
