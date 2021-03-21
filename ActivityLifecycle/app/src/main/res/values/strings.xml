@@ -7,4 +7,5 @@
     <string name="welcome">Добро пожаловать!</string>
     <string name="anr_error">ANR error</string>
     <string name="Uncorrectly">Ошибка! Некорректно заполнена форма входа</string>
+    <string name="next_page">next page</string>
 </resources>

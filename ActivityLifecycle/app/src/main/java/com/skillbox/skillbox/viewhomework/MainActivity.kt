@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.viewhomework
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -112,6 +113,11 @@ class MainActivity : AppCompatActivity() {
 
         ANR.setOnClickListener {
             Thread.sleep(8000)
+        }
+
+        startExplicitButton.setOnClickListener {
+            val messageText = e_mail.text.toString()
+            startActivity(SecondActivity.getIntent(this,messageText))
         }
     }
 
