@@ -8,4 +8,6 @@
     <string name="anr_error">ANR error</string>
     <string name="Uncorrectly">Ошибка! Некорректно заполнена форма входа</string>
     <string name="next_page">next page</string>
+    <string name="themeOfMessage">Тема письма</string>
+    <string name="send_e_mail">send e-mail</string>
 </resources>
