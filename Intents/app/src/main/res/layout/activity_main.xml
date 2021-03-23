@@ -77,17 +77,6 @@
             app:layout_constraintTop_toBottomOf="@+id/password_e_mail" />
 
         <Button
-            android:id="@+id/sendEmailButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/black"
-            android:text="@string/send_e_mail"
-            app:layout_constraintEnd_toStartOf="@+id/takePhotoButton"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/subjectEditText" />
-
-        <Button
             android:id="@+id/entrance"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
@@ -105,33 +94,13 @@
             android:id="@+id/ANR"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="88dp"
-            android:text="@string/anr_error"
-            app:layout_constraintEnd_toStartOf="@+id/startExplicitButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subjectEditText" />
-
-        <Button
-            android:id="@+id/startExplicitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="88dp"
-            android:backgroundTint="@color/purple_200"
-            android:text="@string/next_page"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ANR"
-            app:layout_constraintTop_toBottomOf="@+id/subjectEditText" />
-
-        <EditText
-            android:id="@+id/subjectEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="32dp"
-            android:hint="@string/themeOfMessage"
+            android:layout_marginEnd="100dp"
+            android:text="@string/anr_error"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/uncorrectly" />
+            app:layout_constraintTop_toBottomOf="@+id/agreement" />
 
         <TextView
             android:id="@+id/uncorrectly"
@@ -143,17 +112,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/takePhotoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/design_default_color_error"
-            android:text="@string/take_photo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/sendEmailButton"
-            app:layout_constraintTop_toBottomOf="@+id/subjectEditText" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"

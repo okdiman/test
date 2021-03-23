@@ -1,12 +1,9 @@
 package com.skillbox.skillbox.viewhomework
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -116,37 +113,6 @@ class MainActivity : AppCompatActivity() {
         ANR.setOnClickListener {
             Thread.sleep(8000)
         }
-
-        startExplicitButton.setOnClickListener {
-            val messageText = e_mail.text.toString()
-            startActivity(SecondActivity.getIntent(this, messageText))
-        }
-
-        sendEmailButton.setOnClickListener {
-            val emailAddressString = e_mail.text.toString()
-            val emailSubject = subjectEditText.text.toString()
-
-            val isEmailValid: Boolean = Patterns.EMAIL_ADDRESS.matcher(emailAddressString).matches()
-
-            if (!isEmailValid) {
-                toast("Enter valid E-mail")
-            } else {
-                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:")
-                    putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddressString))
-                    putExtra(Intent.EXTRA_SUBJECT, emailSubject)
-                }
-                if (emailIntent.resolveActivity(packageManager) != null){
-                    startActivity(emailIntent)
-                } else {
-                    toast("no component to handle intent")
-                }
-            }
-        }
-
-        takePhotoButton.setOnClickListener {
-            dispatchTakePictureIntent()
-        }
     }
 
     override fun onStart() {
@@ -183,14 +149,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.i(tag, "onDestroyed ${hashCode()}")
-    }
-
-    private fun dispatchTakePictureIntent () {
-
-    }
-
-    private fun toast(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     private fun login() {
