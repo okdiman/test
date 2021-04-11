@@ -155,6 +155,16 @@
             app:layout_constraintStart_toEndOf="@+id/sendEmailButton"
             app:layout_constraintTop_toBottomOf="@+id/subjectEditText" />
 
+        <ImageView
+            android:id="@+id/resultPhotoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:elevation="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"

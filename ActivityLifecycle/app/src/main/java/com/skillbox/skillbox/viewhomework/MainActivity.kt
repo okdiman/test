@@ -1,14 +1,23 @@
 package com.skillbox.skillbox.viewhomework
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
+import androidx.activity.prepareCall
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,10 +25,14 @@ class MainActivity : AppCompatActivity() {
     private val tag = "MainActivity"
     private var uncorrectlyState: FormState = FormState(false, "")
     var successLogin = false
+    val PHOTO_REQUEST_CODE = 123
+    private val cameraLauncher = prepareCall(ActivityResultContracts.TakePicture()){
+        it ?: toast("photo capture was cancelled")
+        resultPhotoImageView.setImageBitmap(it)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         if (savedInstanceState != null) {
             uncorrectlyState =
                 savedInstanceState.getParcelable<FormState>(STATE_KEY) ?: error("Unexpected key")
@@ -136,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                     putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddressString))
                     putExtra(Intent.EXTRA_SUBJECT, emailSubject)
                 }
-                if (emailIntent.resolveActivity(packageManager) != null){
+                if (emailIntent.resolveActivity(packageManager) != null) {
                     startActivity(emailIntent)
                 } else {
                     toast("no component to handle intent")
@@ -185,9 +198,34 @@ class MainActivity : AppCompatActivity() {
         Log.i(tag, "onDestroyed ${hashCode()}")
     }
 
-    private fun dispatchTakePictureIntent () {
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (requestCode == PHOTO_REQUEST_CODE) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                val previewBitmap = data?.getParcelableExtra("data") as? Bitmap
+//                resultPhotoImageView.setImageBitmap(previewBitmap)
+//            } else {
+//                toast("photo capture was cancelled")
+//            }
+//        } else {
+//            super.onActivityResult(requestCode, resultCode, data)
+//        }
+//    }
 
-    }
+    private fun dispatchTakePictureIntent() {
+
+        val isCameraPermissionGranted = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+        if (!isCameraPermissionGranted) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 4123)
+        } else {
+            cameraLauncher.launch(null)
+//            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//            cameraIntent.resolveActivity(packageManager)?.also {
+//                startActivityForResult(cameraIntent, PHOTO_REQUEST_CODE)
+            }
+        }
 
     private fun toast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
