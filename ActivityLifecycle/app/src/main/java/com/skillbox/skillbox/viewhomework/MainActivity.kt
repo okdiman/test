@@ -136,25 +136,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         sendEmailButton.setOnClickListener {
-            val emailAddressString = e_mail.text.toString()
-            val emailSubject = subjectEditText.text.toString()
-
-            val isEmailValid: Boolean = Patterns.EMAIL_ADDRESS.matcher(emailAddressString).matches()
-
-            if (!isEmailValid) {
-                toast("Enter valid E-mail")
-            } else {
-                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:")
-                    putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddressString))
-                    putExtra(Intent.EXTRA_SUBJECT, emailSubject)
-                }
-                if (emailIntent.resolveActivity(packageManager) != null) {
-                    startActivity(emailIntent)
-                } else {
-                    toast("no component to handle intent")
-                }
-            }
+            dispatchEmailIntent()
         }
 
         takePhotoButton.setOnClickListener {
@@ -211,8 +193,29 @@ class MainActivity : AppCompatActivity() {
 //        }
 //    }
 
-    private fun dispatchTakePictureIntent() {
+    private fun dispatchEmailIntent () {
+        val emailAddressString = e_mail.text.toString()
+        val emailSubject = subjectEditText.text.toString()
 
+        val isEmailValid: Boolean = Patterns.EMAIL_ADDRESS.matcher(emailAddressString).matches()
+
+        if (!isEmailValid) {
+            toast("Enter valid E-mail")
+        } else {
+            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddressString))
+                putExtra(Intent.EXTRA_SUBJECT, emailSubject)
+            }
+            if (emailIntent.resolveActivity(packageManager) != null) {
+                startActivity(emailIntent)
+            } else {
+                toast("no component to handle intent")
+            }
+        }
+    }
+
+    private fun dispatchTakePictureIntent() {
         val isCameraPermissionGranted = ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.CAMERA
