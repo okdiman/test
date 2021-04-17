@@ -9,4 +9,5 @@
     <string name="Uncorrectly">Ошибка! Некорректно заполнена форма входа</string>
     <string name="numberTelephone">Введите номер телефона</string>
     <string name="Call">Вызов</string>
+    <string name="uri_address">URI address</string>
 </resources>
