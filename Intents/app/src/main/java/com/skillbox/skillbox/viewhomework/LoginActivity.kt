@@ -12,7 +12,7 @@ import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
-    private val tag = "MainActivity"
+    private val tag = "LoginActivity"
     private var uncorrectlyState: FormState = FormState(false, "")
     var successLogin = false
     override fun onCreate(savedInstanceState: Bundle?) {
