@@ -9,9 +9,12 @@ class DeeplinkActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_deeplink)
-        handleIntentData()
-
         onNewIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntentData()
     }
 
     private fun handleIntentData() {
