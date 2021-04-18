@@ -12,6 +12,16 @@
         tools:context=".MainActivity">
 
 
+        <fragment
+            android:id="@+id/infoFragment"
+            android:name="com.skillbox.skillbox.viewhomework.InfoFragment"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="292dp"
+            android:layout_marginTop="44dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/splash_screen" />
+
         <ImageView
             android:id="@+id/splash_screen"
             android:layout_width="match_parent"
