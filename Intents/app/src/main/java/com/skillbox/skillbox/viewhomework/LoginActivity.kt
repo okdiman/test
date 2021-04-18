@@ -1,21 +1,23 @@
 package com.skillbox.skillbox.viewhomework
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 
-class MainActivity : AppCompatActivity() {
-    private val tag = "MainActivity"
+class LoginActivity : AppCompatActivity() {
+    private val tag = "LoginActivity"
     private var uncorrectlyState: FormState = FormState(false, "")
     var successLogin = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
         if (savedInstanceState != null) {
             uncorrectlyState =
@@ -39,18 +41,33 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun checkIn() {
+            val emailAdressString = e_mail.text
+            val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(emailAdressString).matches()
             if (successLogin) {
-                uncorrectly.isVisible = false
-                Log.d(tag, "CheckIn $successLogin")
-                mainConstraint.addView(newProgressBar)
-                newProgressBar.apply {
-                    login()
+                if (isEmailValid) {
+                    uncorrectly.isVisible = false
+                    Log.d(tag, "CheckIn $successLogin")
+                    mainConstraint.addView(newProgressBar)
+                    newProgressBar.apply {
+                        login()
+                    }
+                    android.os.Handler().postDelayed({
+                        val mainActivityClass = ActivityMain::class.java
+                        val mainActivityIntent = Intent(
+                            this,
+                            mainActivityClass
+                        )
+                        startActivity(mainActivityIntent)
+                        mainConstraint.removeView(newProgressBar)
+                    }, 2500)
+
+                } else {
+                    uncorrectly.isVisible = true
+                    uncorrectly.text = "E-mail введен некорректно"
                 }
-                android.os.Handler().postDelayed({
-                    mainConstraint.removeView(newProgressBar)
-                }, 2500)
             } else {
                 uncorrectly.isVisible = true
+                uncorrectly.text = "Ошибка! Некорректно заполнена форма входа"
             }
         }
 
