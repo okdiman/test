@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), ItemSelectListener {
     override fun onItemSelect(text: String) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, DetailFragment())
-            .commitNow()
+            .addToBackStack("backToMainScreen")
+            .commit()
     }
 }
