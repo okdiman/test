@@ -8,26 +8,23 @@ import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.list_fragment.*
 import kotlinx.android.synthetic.main.login_fragment.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ItemSelectListener {
     private val tag = "MainActivity"
     private var uncorrectlyState: FormState = FormState(false, "")
     var successLogin = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startLoginFragment()
         setContentView(R.layout.activity_main)
         if (savedInstanceState != null) {
             uncorrectlyState =
                 savedInstanceState.getParcelable<FormState>(MainActivity.STATE_KEY)
                     ?: error("Unexpected key")
             successLogin = uncorrectlyState.valid
-            Log.d(tag, "successLogin is $successLogin")
-            Log.d(tag, "Bundle is $savedInstanceState")
             if (!successLogin) {
                 uncorrectly.isVisible = true
             }
         }
-        startLoginFragment()
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -44,5 +41,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private var STATE_KEY = "stateKey"
+    }
+
+    override fun onItemSelect(text: String) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, DetailFragment())
+            .commitNow()
     }
 }

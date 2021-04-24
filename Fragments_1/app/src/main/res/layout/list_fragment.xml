@@ -3,56 +3,72 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/cl">
+
+    <TextView
+        android:id="@+id/welcomeId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/welcome_to_champions_league_quarter_finals_draw"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
         android:id="@+id/DinamoImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+        android:elevation="8dp"
         android:src="@drawable/dinamo_moskva"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/Dinamo" />
 
     <TextView
         android:id="@+id/Dinamo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:text="Dinamo Moscow"
+        android:background="@color/colorForBackground"
+        android:text="@string/dinamo_moscow"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/DinamoImageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeId" />
 
     <ImageView
         android:id="@+id/LiverImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/Liver"
+        android:layout_marginTop="16dp"
+        android:elevation="8dp"
+        android:src="@drawable/liver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="@+id/AtleticoTextView"
-        app:layout_constraintTop_toBottomOf="@+id/BayernImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/BayernTextView" />
 
     <TextView
         android:id="@+id/LiverpooTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Liverpool"
+        android:background="@color/colorForBackground"
+        android:text="@string/liverpool"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,22 +79,23 @@
         android:id="@+id/RealImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/Real_Madrid"
+        android:layout_marginTop="16dp"
+        android:elevation="8dp"
+        android:src="@drawable/real"
         app:layout_constraintEnd_toEndOf="@+id/RealTextView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DinamoImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/Dinamo" />
 
     <TextView
         android:id="@+id/RealTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Real Madrid"
+        android:background="@color/colorForBackground"
+        android:text="@string/real_madrid"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,22 +106,23 @@
         android:id="@+id/BayernImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:elevation="8dp"
         android:src="@drawable/bavaria"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="@+id/BDTextView"
-        app:layout_constraintTop_toBottomOf="@+id/AtleticoImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/AtleticoTextView" />
 
     <TextView
         android:id="@+id/BayernTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Bayern"
+        android:background="@color/colorForBackground"
+        android:text="@string/bayern"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,21 +133,23 @@
         android:id="@+id/BDImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="16dp"
+        android:elevation="8dp"
         android:src="@drawable/dortmund"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="@+id/BDTextView"
-        app:layout_constraintTop_toBottomOf="@+id/LiverImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/LiverpooTextView" />
 
     <TextView
         android:id="@+id/BDTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Borussia Dortmund"
+        android:background="@color/colorForBackground"
+        android:text="@string/borussia_dortmund"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,22 +161,23 @@
         android:id="@+id/MilanImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:elevation="8dp"
         android:src="@drawable/milan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="@+id/BDTextView"
-        app:layout_constraintTop_toBottomOf="@+id/BDImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/BDTextView" />
 
     <TextView
         android:id="@+id/MilanTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Milan"
+        android:background="@color/colorForBackground"
+        android:text="@string/milan"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -167,22 +188,23 @@
         android:id="@+id/MUImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="16dp"
+        android:elevation="8dp"
         android:src="@drawable/mu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="@+id/BDTextView"
-        app:layout_constraintTop_toBottomOf="@+id/MilanImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/MilanTextView" />
 
     <TextView
         android:id="@+id/MUTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Manchester United"
+        android:background="@color/colorForBackground"
+        android:text="@string/manchester_united"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -193,22 +215,23 @@
         android:id="@+id/AtleticoImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="16dp"
+        android:elevation="8dp"
         android:src="@drawable/atletico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="@+id/BDTextView"
-        app:layout_constraintTop_toBottomOf="@+id/RealImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/RealTextView" />
 
     <TextView
         android:id="@+id/AtleticoTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Atletico"
+        android:background="@color/colorForBackground"
+        android:text="@string/atletico"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.viewhomework
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 
@@ -8,6 +9,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onActivityCreated(savedInstanceState)
         childFragmentManager.beginTransaction()
             .add(R.id.mainContainer, ListFragment())
-            .commitNow()
+            .commit()
     }
 }
