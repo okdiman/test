@@ -2,8 +2,10 @@ package com.skillbox.skillbox.viewhomework
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import kotlinx.android.synthetic.main.list_fragment.*
 import kotlinx.android.synthetic.main.login_fragment.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         startLoginFragment()
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
