@@ -11,10 +11,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             childFragmentManager.beginTransaction()
                 .add(R.id.mainContainer, ListFragment())
                 .commit()
-        } else {
-            childFragmentManager.beginTransaction()
-                .add(R.id.mainContainer, DetailFragment())
-                .commit()
         }
     }
 }

@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/landConstr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -14,16 +15,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
             android:id="@+id/mainContainer"
+            android:background="@drawable/lch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/fragment"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

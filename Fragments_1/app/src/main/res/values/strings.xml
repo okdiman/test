@@ -17,4 +17,6 @@
     <string name="milan">Milan</string>
     <string name="manchester_united">Manchester United</string>
     <string name="atletico">Atletico</string>
+    <string name="there_is_a_lot_of_information_about_selected_football_club">There is a lot of information about selected football club</string>
+    <string name="select_club_to_give_more_information">Select club to give more information</string>
 </resources>

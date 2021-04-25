@@ -1,14 +1,9 @@
 package com.skillbox.skillbox.viewhomework
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.list_fragment.*
-import kotlinx.android.synthetic.main.login_fragment.*
 
 class MainActivity : AppCompatActivity(), ItemSelectListener {
     private val tag = "MainActivity"
@@ -23,9 +18,6 @@ class MainActivity : AppCompatActivity(), ItemSelectListener {
                 savedInstanceState.getParcelable<FormState>(MainActivity.STATE_KEY)
                     ?: error("Unexpected key")
             successLogin = uncorrectlyState.valid
-//            if (!successLogin) {
-//                uncorrectly.isVisible = true
-//            }
         }
     }
 
@@ -36,9 +28,12 @@ class MainActivity : AppCompatActivity(), ItemSelectListener {
     }
 
     private fun startLoginFragment() {
-        supportFragmentManager.beginTransaction()
-            .add(R.id.container, LoginFragment())
-            .commit()
+        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.container) != null
+        if (!alreadyHasFragment) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container, LoginFragment())
+                .commit()
+        }
     }
 
     companion object {
@@ -49,7 +44,10 @@ class MainActivity : AppCompatActivity(), ItemSelectListener {
         choosePageTextView.text = text
         supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .replace(R.id.mainContainer, DetailFragment.newInstance(choosePageTextView.text.toString()))
+            .replace(
+                R.id.mainContainer,
+                DetailFragment.newInstance(choosePageTextView.text.toString())
+            )
             .addToBackStack("backToMainScreen")
             .commit()
     }

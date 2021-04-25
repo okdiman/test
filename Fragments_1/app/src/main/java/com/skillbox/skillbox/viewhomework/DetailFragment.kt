@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.detail_fragment.*
-import kotlinx.android.synthetic.main.list_fragment.*
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class DetailFragment : Fragment(R.layout.detail_fragment) {
     override fun onCreateView(
@@ -24,11 +25,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (welcomeTextView.text == "") {
-            welcomeTextView.text = "Select club to give information"
-        } else {
-            welcomeTextView.text = requireArguments().getString(KEY_CLUB)
-        }
+        welcomeTextView.text = requireArguments().getString(KEY_CLUB)
     }
 
     companion object {
