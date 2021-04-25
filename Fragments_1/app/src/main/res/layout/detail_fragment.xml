@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginTop="16dp"
-        android:text="Welcome to the club page"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

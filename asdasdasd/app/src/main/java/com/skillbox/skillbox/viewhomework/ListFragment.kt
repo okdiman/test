@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 class ListFragment : Fragment(R.layout.fragment_list) {
 
     private val itemSelectListener: ItemSeleckListener?
-            get() = activity.let { it as? ItemSeleckListener }
+        get() = activity.let { it as? ItemSeleckListener }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -26,7 +26,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 button.setOnClickListener {
                     onButtonClick(button.text.toString())
                 }
-
             }
     }
 
