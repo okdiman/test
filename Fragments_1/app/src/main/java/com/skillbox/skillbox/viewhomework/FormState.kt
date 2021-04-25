@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 data class FormState(
     val valid: Boolean,
     val message: String
-): Parcelable {
+) : Parcelable {
 }

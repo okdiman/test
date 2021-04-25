@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.list_fragment.*
 
 class ListFragment : Fragment(R.layout.list_fragment) {
 
@@ -28,7 +27,8 @@ class ListFragment : Fragment(R.layout.list_fragment) {
                 }
             }
     }
-    private fun onTextClick (text: String) {
+
+    private fun onTextClick(text: String) {
         itemSelectListener?.onItemSelect(text)
     }
 }

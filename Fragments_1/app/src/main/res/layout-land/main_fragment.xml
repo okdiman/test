@@ -21,12 +21,12 @@
 
         <FrameLayout
             android:id="@+id/mainContainer"
-            android:background="@drawable/lch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="@drawable/lch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/fragment"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.constraintlayout.widget.Guideline
