@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.list_fragment.*
 
-class MainActivity : AppCompatActivity(), ItemSelectListener {
+class MainActivity : AppCompatActivity() {
     private val tag = "MainActivity"
     private var uncorrectlyState: FormState = FormState(false, "")
     var successLogin = false
@@ -40,15 +40,5 @@ class MainActivity : AppCompatActivity(), ItemSelectListener {
         private var STATE_KEY = "stateKey"
     }
 
-    override fun onItemSelect(text: String) {
-        choosePageTextView.text = text
-        supportFragmentManager.beginTransaction()
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .replace(
-                R.id.mainContainer,
-                DetailFragment.newInstance(choosePageTextView.text.toString())
-            )
-            .addToBackStack("backToMainScreen")
-            .commit()
-    }
+
 }
