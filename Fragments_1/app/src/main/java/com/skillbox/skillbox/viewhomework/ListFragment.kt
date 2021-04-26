@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.main_fragment.*
 
 class ListFragment : Fragment(R.layout.list_fragment) {
 

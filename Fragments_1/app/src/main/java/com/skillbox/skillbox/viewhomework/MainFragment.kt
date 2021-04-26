@@ -1,10 +1,10 @@
 package com.skillbox.skillbox.viewhomework
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.list_fragment.*
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment(R.layout.main_fragment), ItemSelectListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
