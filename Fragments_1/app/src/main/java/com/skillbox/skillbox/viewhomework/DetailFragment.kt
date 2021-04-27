@@ -24,13 +24,16 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         welcomeTextView.text = requireArguments().getString(KEY_CLUB)
+        iconImageView.setImageResource(requireArguments().getInt(KEY_ICON))
     }
 
     companion object {
         private const val KEY_CLUB = "key_club"
-        fun newInstance(text: String): DetailFragment {
+        private const val KEY_ICON = "key_icon"
+        fun newInstance(text: String, image: Int): DetailFragment {
             return DetailFragment().withArguments {
                 putString(KEY_CLUB, text)
+                putInt(KEY_ICON, image)
             }
         }
     }

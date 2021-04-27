@@ -17,13 +17,13 @@ class MainFragment : Fragment(R.layout.main_fragment), ItemSelectListener {
         }
     }
 
-    override fun onItemSelect(text: String) {
+    override fun onItemSelect(text: String, image: Int) {
         choosePageTextView.text = text
         requireFragmentManager().beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .replace(
                 R.id.mainContainer,
-                DetailFragment.newInstance(choosePageTextView.text.toString())
+                DetailFragment.newInstance(choosePageTextView.text.toString(), image)
             )
             .addToBackStack("backToMainScreen")
             .commit()
