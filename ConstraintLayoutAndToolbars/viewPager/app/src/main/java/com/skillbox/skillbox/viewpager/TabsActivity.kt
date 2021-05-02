@@ -1,14 +1,14 @@
 package com.skillbox.skillbox.viewpager
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
-import androidx.viewpager.widget.ViewPager
+import android.os.PersistableBundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.activity_tabs.*
 
-class MainActivity : AppCompatActivity() {
+class TabsActivity: AppCompatActivity() {
     private val screens: List <OnboardingScreen> = listOf(
         OnboardingScreen(
             textRes = R.string.onBoard1,
@@ -38,42 +38,29 @@ class MainActivity : AppCompatActivity() {
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_tabs)
 
-        val adapter = OnboardingAdapter(screens, this)
+        val adapter = OnboardingAdapter(screens + screens, this)
         viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 1
-        viewPager.setCurrentItem(0, false)
 
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        TabLayoutMediator(tabLayout, viewPager) {
+            tab, position -> tab.text = "Tab ${position + 1}"
+            if (position == 0) {
+                tab.setIcon(R.drawable.dinamo_moskva)
+            }
+        }.attach()
+
+        tabLayout.getTabAt(1)?.orCreateBadge?.apply {
+            number = 2
+            badgeGravity = BadgeDrawable.TOP_END
+        }
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                toast("Selected page $position")
+                tabLayout.getTabAt(position)?.removeBadge()
             }
-        })
-
-        viewPager.setPageTransformer(object : ViewPager2.PageTransformer{
-            override fun transformPage(page: View, position: Float) {
-                when {
-                    position < -1 || position > 1 ->{
-                        page.alpha = 0f
-                    }
-                    position <=0 -> {
-                        page.alpha = 1 + position
-                    }
-                    position <= 1 -> {
-                        page.alpha = 1 - position
-                    }
-                }
-            }
-
-        })
-
-
-    }
-    fun toast(text: String){
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+        }
+        )
     }
 }

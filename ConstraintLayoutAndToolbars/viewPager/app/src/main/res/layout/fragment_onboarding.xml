@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     tools:background="@sample/colors"
     android:orientation="vertical">
@@ -21,4 +22,5 @@
         android:layout_marginTop="20dp"
         android:textSize="20sp"
         tools:text="@tools:sample/full_names" />
+
 </LinearLayout>
