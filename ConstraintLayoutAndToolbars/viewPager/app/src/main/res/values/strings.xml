@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">viewPager</string>
+    <string name="onBoard1">Welcome to Dinamo Moscow page</string>
+    <string name="onBoard2">Welcome to Borussia Dortmund page</string>
+    <string name="onBoard3">Welcome to Real Madrid page</string>
+    <string name="onBoard4">Welcome to Atletico Madrid page</string>
+    <string name="onBoard5">Welcome to Liverpool page</string>
+</resources>
