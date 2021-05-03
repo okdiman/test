@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:layout_margin="8dp"
+        android:id="@+id/showSimpleDialogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="show simple dialog" />
+
+    <Button
+        android:layout_margin="8dp"
+        android:id="@+id/showButtonDialogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="show dialog with buttons"/>
+
+    <Button
+        android:layout_margin="8dp"
+        android:id="@+id/showSingleChoiceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="show single choice dialog" />
+
+    <Button
+        android:layout_margin="8dp"
+        android:id="@+id/showCustomDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="show custom dialog" />
+
+    <Button
+        android:layout_margin="8dp"
+        android:id="@+id/showDialogFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="show dialog fragment" />
+
+    <Button
+        android:layout_margin="8dp"
+        android:id="@+id/showBottomSheet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="show bottom sheet" />
+
+
+</LinearLayout>
