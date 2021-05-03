@@ -40,7 +40,7 @@ class TabsActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tabs)
 
-        val adapter = OnboardingAdapter(screens + screens, this)
+        val adapter = OnboardingAdapter(screens, this)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager) {

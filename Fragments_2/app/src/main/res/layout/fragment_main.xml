@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/chooseThemeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/choose_theme"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/typeOfArticleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="8dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        tools:text="@tools:sample/last_names" />
+
+    <TextView
+        android:id="@+id/titleOfArticleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        tools:text="@tools:sample/cities" />
+
+    <TextView
+        android:id="@+id/textOfTheArticleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+</LinearLayout>
