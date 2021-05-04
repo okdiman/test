@@ -13,6 +13,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         titleOfArticleTextView.setText(requireArguments().getInt(KEY_TITLE))
     }
 
+
     companion object {
         private const val KEY_TITLE = "title"
         private const val KEY_TEXT = "text"

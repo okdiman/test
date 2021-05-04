@@ -1,37 +1,66 @@
 <resources>
-    <string name="app_name">The best Seas</string>
-    <string name="CoralSeaTitle">Коралловое море</string>
-    <string name="RedSeaTitle">Красное море</string>
-    <string name="CaribbeanSeaTitle">Карибское море</string>
-    <string name="BaliSeaTitle">Море Бали</string>
-    <string name="MediterraneanSeaTitle">Средиземное море</string>
-    <string name="CoralSeaText">Если рассматривать красоту именно морей, а не их побережий, то первое место стоит отдать Коралловому морю.
-        Этот бассейн омывает берега Австралии и близлежащих островов – Новой Каледонии, Новой Гвинеи.
-        Корраловое море опасное место для мореплавателей, и одновременно одно из самых прекрасных для дайвинга,
-        и все это – благодаря уникальным коралловым рифам, которые находятся на его дне, а нередко и достигают такой высоты,
-        что поднимаются выше уровня воды, образуя небольшие острова. Самый большой коралловый риф – это Большой Барьерный риф, который расположен здесь же.
-        На грядах кораллов живет огромное количество подводных обитателей, многие из которых обладают яркими красками и необычным внешним видом.
-        Погружение с аквалангом в этих водах сулит массу впечатлений, которые не забудутся на протяжении всей жизни.</string>
-    <string name="RedSeaText">Красное море – это поистине великолепное место. Оно обладает богатейшими рыбными запасами,
-        в нем живет огромное число удивительных существ, а подводный мир здесь исключительно богатый.
-        Многие кораллы обитают только здесь, и дайверам строжайше запрещается их ломать, и даже брать на память.
-        Отдых на Красном море популярен среди россиян, и для того, чтобы оказаться на его побережье,
-        можно отправиться в Египет, Израиль, Саудовскую Аравию.
-        Стоит отметить и огромную историческую значимость этого бассейна, который уже много веков служит важным торговым путем.</string>
-    <string name="CaribbeanSeaText">Это теплейшее экзотическое место, где глаз радует не только море, но и растения на его побережье.
-        Оно находится между Северной и Южной Америкой, и на его берегу расположен целый ряд небольших стран.
-        Это Колумбия, Венесуэла, Коста-Рика, Куба и другие. Сюда отправляется множество туристов, ведь отдых здесь обходится недорого,
-        и он погружает в по-настоящему экзотические условия. </string>
-    <string name="BaliSeaText">Море Бали располагается в Тихом океане, обрамляясь одноименными островами.
-        Это еще один райский уголок для отдыха, собирающий множество туристов каждый сезон – и это совсем не удивляет.
-        Море радует теплым климатом, создавая идеальные условия для отдыха на островах Ява, Сулавеси, Сумбава, Мадура.
-        А удивительная красота этого места связана во многом с тем, что дно здесь покрывает вулканический пепел, имеющий практически белый цвет.
-        Здесь можно отдыхать в окружении пальм, любуясь удивительно яркими закатами и рассветами.</string>
-    <string name="MediterraneanSeaText">Люди испокон века селились у воды, в особенности – в красивых местах с хорошим климатом.
-        Неудивительно, что Средиземное море стало колыбелью античной цивилизации – соединив Европу и Африку, оно по сей день привлекает путешественников даже
-        из самых далеких стран. Средиземное море – это песчаные пляжи и красивые пейзажи. Оно славится относительным спокойствием и ровным климатом,
-        изобилием исторических достопримечательностей на берегу и под водой. Ныряя, можно изучать затонувшие корабли и собирать изящные ракушки,
-        разбросанные по светлому песку. Отдых в этих местах дарит позитив</string>
+    <string name="app_name">World Tourism</string>
+    <string name="CoralSeaTitle">Coral Sea</string>
+    <string name="RedSeaTitle">Red Sea</string>
+    <string name="CaribbeanSeaTitle">Caribbean Sea</string>
+    <string name="BlackSeaTitle">Black Sea</string>
+    <string name="MediterraneanSeaTitle">Mediterranean Sea</string>
+    <string name="DeadSeaTitle">Dead Sea</string>
+    <string name="CoralSeaText">The sea of the Pacific Ocean lies between the shores of Australia , New Guinea and New Caledonia .
+        The surface area is of 4791 sq km ². The maximum depth is of 9140 m. It has numerous coral reefs and islands such as the Willis Island ,
+        the Tregross Island , the Bampton Island and the Chesterfield Island . One of the most famous reefs is the Great Barrier Reef ,
+        the largest coral reef in the world. In 1969 the territory belonged to Australia and to Canberra . The islands are not inhabited.
+        There is a meteorological station on the islands of Willis. In 1942 there was a naval battle between the Japanese and the Allied naval forces,
+        which prevented the capture of Port Moresby, Japan . The main ports are :Cairns , Port Moresby and Noumea .
+        The water temperature all the year round is from 19 to 28 degrees.</string>
+    <string name="RedSeaText">The Red Sea is one of the cleanest seas on the planet and recreation on the Red Sea is considered one of the best for many years.
+        The Red Sea is located in the inner waters of the Indian Ocean and separates the Arabian Peninsula from Africa.
+        A feature of the Red Sea is that it does not fall into the river, allowing the sea water to be clean and clear.
+        The Red Sea is the warmest sea in the world: the water temperature can reach 27-28 degrees and it is due to the salt of the abundant warm water vapor.
+        The Red Sea joins the Bab el-Mandeb, and in the north is adjacent to the Suez isthmus.
+        The surface of the Red Sea is of 449 010 sq. km and almost two thirds of the sea are in the tropics.
+        The Red Sea for the most part low, in the north is adjacent to the deserts, in the southern West Bank is adjacent to the highlands of Abyssinia.
+        A lot of coral reefs are scattered throughout the coastal region, especially the Arabian, and sometimes extend over a long distance from the coast.
+        The southern part of the sea is full of islands: Dagalyak and Arabia-Farizan, south of the latter,
+        almost in the middle of the sea there are two volcanic islands Zhebelev-Teir and Zhebelev-Zukur.
+        In the northern part of the sea there are only two islands close to the middle of the sea and the Dedalyus Brothers.</string>
+    <string name="CaribbeanSeaText">Pirates, reggae, Cuban cigars… all these betray a special atmosphere of the Caribbean Sea.
+        Who does not want to visit the sea, which scoured the expanse of Francis Drake and Henry Morgan?
+        That is why a holiday in the Caribbean is the favorite for many tourists.The Caribbean Sea is located  near the equator ,
+        in the Atlantic basin and it washes the shores of Colombia, Panama, Venezuela, Honduras, Cuba, Jamaica and other countries.
+        Due to tropical climate, numerous sandy beaches, clear water, well-known resorts and scenic Caribbean region is a popular tourist destination.
+        The district Caribbean cruise routes are well-known travel companies. Rich underwater world are attracting thousands of divers.
+        Most resorts are visited by the inhabitants of the Caribbean , the USA, Canada and Brazil. </string>
+    <string name="BlackSeaText">The Black Sea is a wonderful creation of nature. It is one of the youngest seas on the planet,
+        so it is still in the process of change. Imperceptibly to the human eye, every century the Black Sea recaptures 20-25 inches from land.
+        The Greek cities once built on its shores had already disappeared under the water. Earlier, at the dawn of human civilization,
+        the Black Sea has been so quiet and darkened its water during bad weather. Perhaps, this is how it got its present name.
+        Scientists argue about this, but a consensus was not reached. All the more if a storm rages in the Black Sea now, it is a unique blue-emerald hue.
+        It reflects the cloudless blue sky covered with the evergreen forests of the Caucasus Mountains.
+        The Russian Black Sea is often called " the Russian Riviera" for the mild climate and beautiful views.
+        The Caucasus Mountains reliably protect the coast from the cold and dry winds. There is almost always an affectionate warm weather,
+        as if deliberately ordered for relaxation.</string>
+    <string name="MediterraneanSeaText">The Mediterranean Sea is one of the largest seas in the world and one of the most popular with tourists.
+        It is located in the Atlantic basin sharing Africa, Europe and Asia. The climate, the vegetation,
+        the history and the culture of the peoples of the Mediterranean coast have formed a perfect environment for a relaxing holiday and travel.
+        The geographical position of the sea (between Africa, Asia and Europe) is very advantageous,
+        which contributed to the population of its banks and the development of countries and peoples.
+        The Mediterranean Sea washes the shores of 22 countries, including Spain, Britain, France, Italy, Croatia, Greece, Turkey, Cyprus,
+        Egypt, Libya, Tunisia, Algeria, Syria, Lebanon and others. From the north to the south,
+        the sea stretches for 1,600 kilometers and from the west to the east for 3,700 km.
+        The Mediterranean Sea is connected with other seas and straits of the Atlantic Ocean. The Strait of Gibraltar in the west gives way to the Atlantic Ocean,
+        the north-east of the Dardanelles connect the Mediterranean Sea with the Marmara Sea, the Bosphorus and the Black Sea,
+        on the south-east the Suez Canal connects it to the Red Sea. The Mediterranean Sea has two main basins: the western and the eastern basin.
+        The western basin features fresh and cold water: the water temperature in the west is 12 degrees in February to 24 in August,
+        and in the east the temperature is 17 degrees and 27 respectively, and higher salinity. Many Mediterranean islands are of volcanic origin.
+        Among the most famous islands can be noted the Balearic Islands, Corsica, Sardinia, the island of Malta, Crete and Cyprus.
+        The Mediterranean islands are famous and their names are well-known.</string>
     <string name="choose_theme">Choose theme</string>
+    <string name="DeadSeaText">The legendary Cleopatra appreciated so much the cosmetic properties of mud and the salts of the Dead Sea,
+        that one of her husband, Marc Anthony, won one of the adjacent areas for her. The healing properties of the Dead Sea are still famous in the whole world.
+        People come here from all over the world to cure their ailments. Yes, and just enjoy this unusual place. This is a wonder.
+        The Dead Sea is the lowest point on the earth (if you take the land, of course), it is at 412 meters below the sea level.
+        Only a river - the Jordan runs into the Sea. That formed the unique structure of water - in every liter of fluid, 275 grams of various salts are diluted.
+        It is because of them in the Dead Sea no animal or fish can swim, even the micro-organisms prefer to settle only at the mouth of the Jordan.</string>
 
 </resources>
