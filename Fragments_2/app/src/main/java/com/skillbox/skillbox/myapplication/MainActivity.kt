@@ -67,6 +67,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+
         chooseThemeButton.setOnClickListener {
             val oceansTypes = arrayOf(
                 ArticlesType.ATLANTIC.toString(),
@@ -88,20 +90,21 @@ class MainActivity : AppCompatActivity() {
                             activeList.add(oceansTypes[i])
                         }
                     }
+                    Log.d("list", "$activeList")
                     val newArticlesList = mutableListOf<Article>()
                     articles.forEach {
-                        activeList.forEach {
-
-                        }
-                        if (activeList.contains(it.titleOfArticle.toString())){
+                        if (activeList.contains(it.titleOfArticle.toString())) {
                             newArticlesList.add(it)
                         }
                     }
                     Log.d("list", "$newArticlesList")
                     val adapterForChoice = ArticlesAdapter(newArticlesList, this)
                     viewPager.adapter = adapterForChoice
+                    TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                        tab.text = resources.getString(newArticlesList[position].titleOfArticle)
+                    }.attach()
                 }
-                .setNegativeButton("cancel",{_,_->})
+                .setNegativeButton("cancel", { _, _ -> })
                 .show()
         }
     }
