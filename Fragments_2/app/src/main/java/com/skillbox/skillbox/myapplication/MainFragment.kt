@@ -3,6 +3,7 @@ package com.skillbox.skillbox.myapplication
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -11,6 +12,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         typeOfArticleTextView.text = requireArguments().getString(KEY_TYPE)
         textOfTheArticleTextView.setText(requireArguments().getInt(KEY_TEXT))
         titleOfArticleTextView.setText(requireArguments().getInt(KEY_TITLE))
+
     }
 
 

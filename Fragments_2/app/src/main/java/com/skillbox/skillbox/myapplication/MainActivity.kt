@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -74,22 +75,33 @@ class MainActivity : AppCompatActivity() {
                 ArticlesType.SINGLE.toString()
             )
             val multiFour = booleanArrayOf(false, false, false, false)
+            val activeList = mutableListOf<String>()
             AlertDialog.Builder(this)
                 .setTitle("Select needed oceans")
                 .setMultiChoiceItems(oceansTypes, multiFour) { _, which, isChecked ->
                     multiFour[which] = isChecked
-
                 }
                 .setPositiveButton("Ok") { _, which ->
                     for (i in multiFour.indices) {
                         val checked = multiFour[i]
                         if (checked) {
-
+                            activeList.add(oceansTypes[i])
                         }
                     }
-                    val adapterForChoice = ArticlesAdapter(articles, this)
-                    viewPager.adapter = adapter
+                    val newArticlesList = mutableListOf<Article>()
+                    articles.forEach {
+                        activeList.forEach {
+
+                        }
+                        if (activeList.contains(it.titleOfArticle.toString())){
+                            newArticlesList.add(it)
+                        }
+                    }
+                    Log.d("list", "$newArticlesList")
+                    val adapterForChoice = ArticlesAdapter(newArticlesList, this)
+                    viewPager.adapter = adapterForChoice
                 }
+                .setNegativeButton("cancel",{_,_->})
                 .show()
         }
     }
