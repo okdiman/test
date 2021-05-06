@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +45,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val adapterDots = DotsIndicatorPager2Adapter(articles)
+        viewPager.adapter = adapterDots
+        spring_dots_indicator.setViewPager2(viewPager)
 
         val adapter = ArticlesAdapter(articles, this)
         viewPager.adapter = adapter
@@ -97,6 +100,9 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     Log.d("list", "$newArticlesList")
+                    val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articles)
+                    viewPager.adapter = adapterDotsAfterChoice
+                    spring_dots_indicator.setViewPager2(viewPager)
                     val adapterForChoice = ArticlesAdapter(newArticlesList, this)
                     viewPager.adapter = adapterForChoice
                     TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -105,6 +111,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 .setNegativeButton("cancel", { _, _ -> })
                 .show()
+        }
+
+        val zoomOutPageTransformer = ZoomOutPageTransformer()
+        viewPager.setPageTransformer { page, position ->
+            zoomOutPageTransformer.transformPage(page, position)
         }
     }
 }
