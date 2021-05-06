@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -67,8 +68,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
         chooseThemeButton.setOnClickListener {
             val oceansTypes = arrayOf(
                 ArticlesType.ATLANTIC.toString(),
@@ -93,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("list", "$activeList")
                     val newArticlesList = mutableListOf<Article>()
                     articles.forEach {
-                        if (activeList.contains(it.titleOfArticle.toString())) {
+                        if (activeList.contains(it.typeOfArticle.toString())) {
                             newArticlesList.add(it)
                         }
                     }
@@ -108,5 +107,4 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
     }
-
 }
