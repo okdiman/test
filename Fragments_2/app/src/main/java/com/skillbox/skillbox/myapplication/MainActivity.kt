@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 1
 
+        val multiFour = booleanArrayOf(true, true, true, true)
+
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = resources.getString(articles[position].titleOfArticle)
         }.attach()
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                 ArticlesType.PACIFIC.toString(),
                 ArticlesType.SINGLE.toString()
             )
-            val multiFour = booleanArrayOf(false, false, false, false)
+
             val activeList = mutableListOf<String>()
             AlertDialog.Builder(this)
                 .setTitle("Select needed oceans")
