@@ -52,7 +52,7 @@ class ConfirmationDialogFragment: DialogFragment() {
         )
 
         val activeList = mutableListOf<String>()
-        return AlertDialog.Builder(requireContext())
+        return AlertDialog.Builder(requireActivity())
             .setTitle("Select the oceans you want")
             .setMultiChoiceItems(oceansTypes, multiFour) { _, which, isChecked ->
                 multiFour[which] = isChecked
