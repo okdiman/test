@@ -74,45 +74,47 @@ class MainActivity : AppCompatActivity() {
             }
         }
         chooseThemeButton.setOnClickListener {
-            val oceansTypes = arrayOf(
-                ArticlesType.ATLANTIC.toString(),
-                ArticlesType.INDIAN.toString(),
-                ArticlesType.PACIFIC.toString(),
-                ArticlesType.SINGLE.toString()
-            )
-
-            val activeList = mutableListOf<String>()
-            AlertDialog.Builder(this)
-                .setTitle("Select needed oceans")
-                .setMultiChoiceItems(oceansTypes, multiFour) { _, which, isChecked ->
-                    multiFour[which] = isChecked
-                }
-                .setPositiveButton("Ok") { _, which ->
-                    for (i in multiFour.indices) {
-                        val checked = multiFour[i]
-                        if (checked) {
-                            activeList.add(oceansTypes[i])
-                        }
-                    }
-                    Log.d("list", "$activeList")
-                    val newArticlesList = mutableListOf<Article>()
-                    articles.forEach {
-                        if (activeList.contains(it.typeOfArticle.toString())) {
-                            newArticlesList.add(it)
-                        }
-                    }
-                    Log.d("list", "$newArticlesList")
-                    val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articles)
-                    viewPager.adapter = adapterDotsAfterChoice
-                    spring_dots_indicator.setViewPager2(viewPager)
-                    val adapterForChoice = ArticlesAdapter(newArticlesList, this)
-                    viewPager.adapter = adapterForChoice
-                    TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                        tab.text = resources.getString(newArticlesList[position].titleOfArticle)
-                    }.attach()
-                }
-                .setNegativeButton("cancel", { _, _ -> })
-                .show()
+            ConfirmationDialogFragment()
+                .show(supportFragmentManager, "ConfirmDialogFragment")
+//            val oceansTypes = arrayOf(
+//                ArticlesType.ATLANTIC.toString(),
+//                ArticlesType.INDIAN.toString(),
+//                ArticlesType.PACIFIC.toString(),
+//                ArticlesType.SINGLE.toString()
+//            )
+//
+//            val activeList = mutableListOf<String>()
+//            AlertDialog.Builder(this)
+//                .setTitle("Select needed oceans")
+//                .setMultiChoiceItems(oceansTypes, multiFour) { _, which, isChecked ->
+//                    multiFour[which] = isChecked
+//                }
+//                .setPositiveButton("Ok") { _, _ ->
+//                    for (i in multiFour.indices) {
+//                        val checked = multiFour[i]
+//                        if (checked) {
+//                            activeList.add(oceansTypes[i])
+//                        }
+//                    }
+//                    Log.d("list", "$activeList")
+//                    val newArticlesList = mutableListOf<Article>()
+//                    articles.forEach {
+//                        if (activeList.contains(it.typeOfArticle.toString())) {
+//                            newArticlesList.add(it)
+//                        }
+//                    }
+//                    Log.d("list", "$newArticlesList")
+//                    val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articles)
+//                    viewPager.adapter = adapterDotsAfterChoice
+//                    spring_dots_indicator.setViewPager2(viewPager)
+//                    val adapterForChoice = ArticlesAdapter(newArticlesList, this)
+//                    viewPager.adapter = adapterForChoice
+//                    TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+//                        tab.text = resources.getString(newArticlesList[position].titleOfArticle)
+//                    }.attach()
+//                }
+//                .setNegativeButton("cancel", { _, _ -> })
+//                .show()
         }
 
         val zoomOutPageTransformer = ZoomOutPageTransformer()
