@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ViewPagerApp</string>
+
+    <!--    View pager string resources -->
+    <string name="news_1_string">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta lectus vel augue convallis, eu placerat nulla auctor. Maecenas lobortis nisl in placerat mattis. Nulla at eros non ante mattis pretium at eget turpis. Fusce vitae mattis est, in elementum orci. Suspendisse non nisi eget est sodales gravida. Morbi efficitur bibendum sollicitudin. Morbi tempus faucibus orci ac pretium. In hac habitasse platea dictumst. Praesent lorem orci, euismod in sapien non, elementum molestie purus. Duis elementum tincidunt condimentum. Suspendisse nisl diam, tincidunt vel faucibus a, venenatis in magna. Cras ligula nibh, porta in mauris vitae, finibus mattis eros.</string>
+    <string name="news_2_string">Vivamus porttitor lacinia urna ultrices hendrerit. Maecenas faucibus lacinia odio. Maecenas a felis vel sem ultricies molestie et ac mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec dui et elit luctus congue in ac nisi. Suspendisse ullamcorper, neque ut gravida ultrices, nisi tellus tincidunt sem, at interdum velit ex vitae justo. Mauris ut eleifend tortor. Fusce finibus auctor libero eu sagittis. Mauris ut nulla sit amet sem commodo iaculis. Donec ut nisi non ex feugiat efficitur.</string>
+    <string name="news_3_string">Sed luctus iaculis sapien eget varius. Maecenas id ante nunc. Vestibulum tincidunt facilisis orci, quis tempor leo condimentum ac. Donec consequat nibh nec dolor scelerisque, egestas rutrum eros ornare. Cras interdum viverra gravida. Nullam sed massa quis tortor euismod scelerisque ac vitae sem. Morbi ullamcorper, elit dictum tempus pellentesque, dui massa sagittis diam, in fermentum leo ante quis massa. Aenean aliquam lacus purus, vitae varius ante fringilla vitae. Mauris ut orci est.</string>
+    <string name="news_4_string">Nulla suscipit eget elit nec luctus. Donec a pretium eros. Sed sodales ac ipsum eget ultricies. Vivamus non nibh ut dolor porttitor hendrerit. Nam neque arcu, hendrerit elementum lobortis quis, molestie sed mauris. Nam convallis ullamcorper nisl, sit amet suscipit felis placerat eu. Mauris augue eros, auctor non vestibulum ac, dapibus non arcu. Curabitur bibendum vulputate ornare. In rutrum ex a arcu rhoncus, nec luctus augue gravida. Proin posuere ante et nunc sollicitudin, at lacinia felis sollicitudin.</string>
+
+    <string name="news_1_topic">Lorem ipsum</string>
+    <string name="news_2_topic">Vivamus</string>
+    <string name="news_3_topic">Topic #3</string>
+    <string name="news_4_topic">Nulla Topic</string>
+
+    <string name="filter_dialog_title">Please, select article tags</string>
+    <string name="generate_badge">Generate badge</string>
+    <string name="filter">Filter</string>
+</resources>

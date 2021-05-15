@@ -74,8 +74,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         chooseThemeButton.setOnClickListener {
-            ConfirmationDialogFragment()
-                .show(supportFragmentManager, "ConfirmDialogFragment")
             val oceansTypes = arrayOf(
                 ArticlesType.ATLANTIC.toString(),
                 ArticlesType.INDIAN.toString(),

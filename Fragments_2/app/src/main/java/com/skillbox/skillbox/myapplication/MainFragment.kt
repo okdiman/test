@@ -36,43 +36,8 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
         }
     }
 
-    override fun downloadDataToDialog(
-        articlesToDialog: List<Article>,
-        multiFourToDialog: BooleanArray,
-        oceansTypesToDialog: Array<String>,
-        activeListToDialog: MutableList<String>
-    ) {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Select needed oceans")
-            .setMultiChoiceItems(oceansTypesToDialog, multiFourToDialog) { _, which, isChecked ->
-                multiFourToDialog[which] = isChecked
-            }
-            .setPositiveButton("Ok") { _, _ ->
-                for (i in multiFourToDialog.indices) {
-                    val checked = multiFourToDialog[i]
-                    if (checked) {
-                        activeListToDialog.add(oceansTypesToDialog[i])
-                    }
-                }
-                Log.d("list", "$activeListToDialog")
-                val newArticlesList = mutableListOf<Article>()
-                articlesToDialog.forEach {
-                    if (activeListToDialog.contains(it.typeOfArticle.toString())) {
-                        newArticlesList.add(it)
-                    }
-                }
-                Log.d("list", "$newArticlesList")
-                val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articlesToDialog)
-                viewPager.adapter = adapterDotsAfterChoice
-                spring_dots_indicator.setViewPager2(viewPager)
-                val adapterForChoice = ArticlesAdapter(newArticlesList, this)
-                viewPager.adapter = adapterForChoice
-                TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                    tab.text = resources.getString(newArticlesList[position].titleOfArticle)
-                }.attach()
-            }
-            .setNegativeButton("cancel", { _, _ -> })
-            .show()
+    override fun downloadDataToDialog(articlesToDialog: List<Article>) {
+
     }
 
 

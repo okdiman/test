@@ -14,21 +14,12 @@ class ConfirmationDialogFragment : DialogFragment() {
         get() = parentFragment.let { it as? DialogData }
 
     private fun donwloadDataDialog(
-        articlesToDialog: List<Article>,
-        multiFourToDialog: BooleanArray,
-        oceansTypesToDialog: Array<String>,
-        activeListToDialog: MutableList<String>
+        articlesToDialog: List<Article>
     ) {
         dialogData?.downloadDataToDialog(
-            articlesToDialog,
-            multiFourToDialog,
-            oceansTypesToDialog,
-            activeListToDialog
+            articlesToDialog
         )
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return donwloadDataDialog()
-    }
 }
 
