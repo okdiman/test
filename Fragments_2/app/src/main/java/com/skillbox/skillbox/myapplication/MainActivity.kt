@@ -9,55 +9,24 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val articles: List<Article> = listOf(
-        Article(
-            titleOfArticle = R.string.BlackSeaTitle,
-            textOfArticle = R.string.BlackSeaText,
-            ArticlesType.ATLANTIC
-        ),
-        Article(
-            titleOfArticle = R.string.RedSeaTitle,
-            textOfArticle = R.string.RedSeaText,
-            ArticlesType.INDIAN
-        ),
-        Article(
-            titleOfArticle = R.string.MediterraneanSeaTitle,
-            textOfArticle = R.string.MediterraneanSeaText,
-            ArticlesType.ATLANTIC
-        ),
-        Article(
-            titleOfArticle = R.string.CaribbeanSeaTitle,
-            textOfArticle = R.string.CaribbeanSeaText,
-            ArticlesType.ATLANTIC
-        ),
-        Article(
-            titleOfArticle = R.string.CoralSeaTitle,
-            textOfArticle = R.string.CoralSeaText,
-            ArticlesType.PACIFIC
-        ),
-        Article(
-            titleOfArticle = R.string.DeadSeaTitle,
-            textOfArticle = R.string.DeadSeaText,
-            ArticlesType.SINGLE
-        )
-    )
+    private val articleData = ArticleData.getListOfArticleData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapterDots = DotsIndicatorPager2Adapter(articles)
+        val adapterDots = DotsIndicatorPager2Adapter(articleData)
         viewPager.adapter = adapterDots
         spring_dots_indicator.setViewPager2(viewPager)
 
-        val adapter = ArticlesAdapter(articles, this)
+        val adapter = ArticlesAdapter(articleData, this)
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 1
 
         val multiFour = booleanArrayOf(true, true, true, true)
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = resources.getString(articles[position].titleOfArticle)
+            tab.text = resources.getString(articleData[position].titleOfArticle)
         }.attach()
 
         viewPager.setPageTransformer { page, position ->
@@ -95,14 +64,14 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     Log.d("list", "$activeList")
-                    val newArticlesList = mutableListOf<Article>()
-                    articles.forEach {
+                    val newArticlesList = mutableListOf<ArticleData>()
+                    articleData.forEach {
                         if (activeList.contains(it.typeOfArticle.toString())) {
                             newArticlesList.add(it)
                         }
                     }
                     Log.d("list", "$newArticlesList")
-                    val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articles)
+                    val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(newArticlesList)
                     viewPager.adapter = adapterDotsAfterChoice
                     spring_dots_indicator.setViewPager2(viewPager)
                     val adapterForChoice = ArticlesAdapter(newArticlesList, this)
@@ -120,4 +89,6 @@ class MainActivity : AppCompatActivity() {
             zoomOutPageTransformer.transformPage(page, position)
         }
     }
+
+
 }

@@ -4,19 +4,19 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class ArticlesAdapter(
-    private val articles: List<Article>,
+    private val articleData: List<ArticleData>,
     activity: MainActivity
 ) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
-        return articles.size
+        return articleData.size
     }
 
     override fun createFragment(position: Int): Fragment {
-        val article: Article = articles[position]
+        val articleData: ArticleData = articleData[position]
         return MainFragment.newInstance(
-            article.titleOfArticle,
-            article.textOfArticle,
-            article.typeOfArticle
+            articleData.titleOfArticle,
+            articleData.textOfArticle,
+            articleData.typeOfArticle
         )
     }
 }
