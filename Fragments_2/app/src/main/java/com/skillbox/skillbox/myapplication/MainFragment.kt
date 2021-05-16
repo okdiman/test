@@ -13,6 +13,8 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
     private val articleData: List<ArticleData> = ArticleData.getListOfArticleData()
     var selectedTypes: Array<ArticlesType> = ArticlesType.values()
 
+    var viewPager = activity?.viewPager
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -22,6 +24,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
 
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (savedInstanceState?.getIntArray(TAG_KEY) != null) {
             val restoreType: IntArray = savedInstanceState.getIntArray(TAG_KEY)!!
@@ -29,13 +32,15 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
             downloadDataToDialog(selectedTypes.toList())
         } else {
             val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articleData)
-            viewPager.adapter = adapterDotsAfterChoice
-            spring_dots_indicator.setViewPager2(viewPager)
+            viewPager?.adapter = adapterDotsAfterChoice
+            viewPager?.let { spring_dots_indicator.setViewPager2(it) }
             val adapterForChoice = ArticlesAdapter(articleData, MainActivity())
-            viewPager.adapter = adapterForChoice
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = resources.getString(articleData[position].titleOfArticle)
-            }.attach()
+            viewPager?.adapter = adapterForChoice
+            viewPager?.let {
+                TabLayoutMediator(tabLayout, it) { tab, position ->
+                    tab.text = resources.getString(articleData[position].titleOfArticle)
+                }.attach()
+            }
         }
     }
 
@@ -60,22 +65,26 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
             selectedTypes = ArticlesType.values()
 
             val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articleData)
-            viewPager.adapter = adapterDotsAfterChoice
-            spring_dots_indicator.setViewPager2(viewPager)
+            viewPager?.adapter = adapterDotsAfterChoice
+            viewPager?.let { spring_dots_indicator.setViewPager2(it) }
             val adapterForChoice = ArticlesAdapter(articleData, MainActivity())
-            viewPager.adapter = adapterForChoice
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = resources.getString(articleData[position].titleOfArticle)
-            }.attach()
+            viewPager?.adapter = adapterForChoice
+            viewPager?.let {
+                TabLayoutMediator(tabLayout, it) { tab, position ->
+                    tab.text = resources.getString(articleData[position].titleOfArticle)
+                }.attach()
+            }
         } else {
             val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(filtredScreens.toList())
-            viewPager.adapter = adapterDotsAfterChoice
-            spring_dots_indicator.setViewPager2(viewPager)
+            viewPager?.adapter = adapterDotsAfterChoice
+            viewPager?.let { spring_dots_indicator.setViewPager2(it) }
             val adapterForChoice = ArticlesAdapter(filtredScreens.toList(), MainActivity())
-            viewPager.adapter = adapterForChoice
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = resources.getString(filtredScreens.toList()[position].titleOfArticle)
-            }.attach()
+            viewPager?.adapter = adapterForChoice
+            viewPager?.let {
+                TabLayoutMediator(tabLayout, it) { tab, position ->
+                    tab.text = resources.getString(filtredScreens.toList()[position].titleOfArticle)
+                }.attach()
+            }
         }
 
 
