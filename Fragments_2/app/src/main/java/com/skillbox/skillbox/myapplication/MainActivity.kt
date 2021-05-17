@@ -44,10 +44,10 @@ class MainActivity : AppCompatActivity() {
         }
         chooseThemeButton.setOnClickListener {
             val oceansTypes = arrayOf(
-                ArticlesType.ATLANTIC.toString(),
-                ArticlesType.INDIAN.toString(),
-                ArticlesType.PACIFIC.toString(),
-                ArticlesType.SINGLE.toString()
+                ArticlesType.ATLANTIC.type,
+                ArticlesType.INDIAN.type,
+                ArticlesType.PACIFIC.type,
+                ArticlesType.SINGLE.type
             )
 
             val activeList = mutableListOf<String>()

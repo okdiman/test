@@ -2,6 +2,7 @@ package com.skillbox.skillbox.myapplication
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
     private val articleData: List<ArticleData> = ArticleData.getListOfArticleData()
     var selectedTypes: Array<ArticlesType> = ArticlesType.values()
 
+
     var viewPager = activity?.viewPager
 
 
@@ -21,7 +23,6 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
         typeOfArticleTextView.text = requireArguments().getString(KEY_TYPE)
         textOfTheArticleTextView.setText(requireArguments().getInt(KEY_TEXT))
         titleOfArticleTextView.setText(requireArguments().getInt(KEY_TITLE))
-
     }
 
 
@@ -29,6 +30,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
         if (savedInstanceState?.getIntArray(TAG_KEY) != null) {
             val restoreType: IntArray = savedInstanceState.getIntArray(TAG_KEY)!!
             selectedTypes = restoreType.map { ArticlesType.fromInt(it) }.toTypedArray()
+            Log.d("qwer","$selectedTypes" )
             downloadDataToDialog(selectedTypes.toList())
         } else {
             val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articleData)
@@ -46,16 +48,18 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
 
     override fun downloadDataToDialog(articlesToDialog: List<ArticlesType>) {
         selectedTypes = articlesToDialog.toTypedArray()
-
         val filtredScreens = mutableSetOf<ArticleData>()
+
+
 
         articleData.forEach { data ->
             data.typeOfArticle.let { tag ->
-                if (articlesToDialog.contains(tag)) {
+                if (selectedTypes.contains(tag)) {
                     filtredScreens.add(data)
                 }
             }
         }
+        Log.d("qwer","$filtredScreens" )
         if (filtredScreens.isEmpty()) {
             AlertDialog.Builder(requireContext())
                 .setTitle("Nothing to show")
@@ -86,8 +90,6 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
                 }.attach()
             }
         }
-
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -95,11 +97,10 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
         outState.putIntArray(TAG_KEY, selectedTypes.map { it.ordinal }.toIntArray())
     }
 
-    private fun showFilterDialog() {
-        ConfirmationDialogFragment.newInstance(selectedTypes).show(
+    private fun showFilterDialog(typesToSelect: Array<ArticlesType>) {
+        ConfirmationDialogFragment.newInstance(typesToSelect).show(
             childFragmentManager, ConfirmationDialogFragment.TYPE
         )
-
     }
 
     companion object {
@@ -110,12 +111,12 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
         fun newInstance(
             @StringRes title: Int,
             @StringRes textOfArticle: Int,
-            typeOfArticle: ArticlesType
+            typeOfArticle: String
         ): MainFragment {
             return MainFragment().withArguments {
                 putInt(KEY_TITLE, title)
                 putInt(KEY_TEXT, textOfArticle)
-                putString(KEY_TYPE, typeOfArticle.name)
+                putString(KEY_TYPE, typeOfArticle)
             }
         }
     }
