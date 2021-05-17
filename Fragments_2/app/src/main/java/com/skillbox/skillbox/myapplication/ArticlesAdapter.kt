@@ -16,7 +16,7 @@ class ArticlesAdapter(
         return MainFragment.newInstance(
             articleData.titleOfArticle,
             articleData.textOfArticle,
-            articleData.typeOfArticle
+            articleData.typeOfArticle.toString()
         )
     }
 }

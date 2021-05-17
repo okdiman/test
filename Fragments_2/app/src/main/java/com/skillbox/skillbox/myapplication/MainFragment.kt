@@ -30,7 +30,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
         if (savedInstanceState?.getIntArray(TAG_KEY) != null) {
             val restoreType: IntArray = savedInstanceState.getIntArray(TAG_KEY)!!
             selectedTypes = restoreType.map { ArticlesType.fromInt(it) }.toTypedArray()
-            Log.d("qwer","$selectedTypes" )
+            Log.d("qwer", "$selectedTypes")
             downloadDataToDialog(selectedTypes.toList())
         } else {
             val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articleData)
@@ -47,20 +47,16 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
     }
 
     override fun downloadDataToDialog(articlesToDialog: List<ArticlesType>) {
-        selectedTypes = articlesToDialog.toTypedArray()
-        val filtredScreens = mutableSetOf<ArticleData>()
 
-
-
-        articleData.forEach { data ->
-            data.typeOfArticle.let { tag ->
-                if (selectedTypes.contains(tag)) {
-                    filtredScreens.add(data)
-                }
+        val newArticlesList = mutableListOf<ArticleData>()
+        articleData.forEach {
+            if (it.typeOfArticle in articlesToDialog){
+                newArticlesList.add(it)
             }
         }
-        Log.d("qwer","$filtredScreens" )
-        if (filtredScreens.isEmpty()) {
+
+        Log.d("qwer", "$newArticlesList")
+        if (newArticlesList.isEmpty()) {
             AlertDialog.Builder(requireContext())
                 .setTitle("Nothing to show")
                 .setMessage("Couldn't find any relevant types of oceans")
@@ -79,14 +75,15 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
                 }.attach()
             }
         } else {
-            val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(filtredScreens.toList())
+            val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(newArticlesList.toList())
             viewPager?.adapter = adapterDotsAfterChoice
             viewPager?.let { spring_dots_indicator.setViewPager2(it) }
-            val adapterForChoice = ArticlesAdapter(filtredScreens.toList(), MainActivity())
+            val adapterForChoice = ArticlesAdapter(newArticlesList.toList(), MainActivity())
             viewPager?.adapter = adapterForChoice
             viewPager?.let {
                 TabLayoutMediator(tabLayout, it) { tab, position ->
-                    tab.text = resources.getString(filtredScreens.toList()[position].titleOfArticle)
+                    tab.text =
+                        resources.getString(newArticlesList.toList()[position].titleOfArticle)
                 }.attach()
             }
         }
