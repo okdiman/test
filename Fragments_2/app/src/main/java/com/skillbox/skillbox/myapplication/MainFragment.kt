@@ -10,12 +10,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : Fragment(R.layout.fragment_main), DialogData {
-    private val articleData: List<ArticleData> = ArticleData.getListOfArticleData()
-    var selectedTypes: Array<ArticlesType> = ArticlesType.values()
+class MainFragment : Fragment(R.layout.fragment_main) {
 
-
-    var viewPager = activity?.viewPager
+    var selectedTypes = mutableListOf<ArticlesType>()
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -23,81 +20,6 @@ class MainFragment : Fragment(R.layout.fragment_main), DialogData {
         typeOfArticleTextView.text = requireArguments().getString(KEY_TYPE)
         textOfTheArticleTextView.setText(requireArguments().getInt(KEY_TEXT))
         titleOfArticleTextView.setText(requireArguments().getInt(KEY_TITLE))
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (savedInstanceState?.getIntArray(TAG_KEY) != null) {
-            val restoreType: IntArray = savedInstanceState.getIntArray(TAG_KEY)!!
-            selectedTypes = restoreType.map { ArticlesType.fromInt(it) }.toTypedArray()
-            Log.d("qwer", "$selectedTypes")
-            downloadDataToDialog(selectedTypes.toList())
-        } else {
-            val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articleData)
-            viewPager?.adapter = adapterDotsAfterChoice
-            viewPager?.let { spring_dots_indicator.setViewPager2(it) }
-            val adapterForChoice = ArticlesAdapter(articleData, MainActivity())
-            viewPager?.adapter = adapterForChoice
-            viewPager?.let {
-                TabLayoutMediator(tabLayout, it) { tab, position ->
-                    tab.text = resources.getString(articleData[position].titleOfArticle)
-                }.attach()
-            }
-        }
-    }
-
-    override fun downloadDataToDialog(articlesToDialog: List<ArticlesType>) {
-
-        val newArticlesList = mutableListOf<ArticleData>()
-        articleData.forEach {
-            if (it.typeOfArticle in articlesToDialog){
-                newArticlesList.add(it)
-            }
-        }
-
-        Log.d("qwer", "$newArticlesList")
-        if (newArticlesList.isEmpty()) {
-            AlertDialog.Builder(requireContext())
-                .setTitle("Nothing to show")
-                .setMessage("Couldn't find any relevant types of oceans")
-                .show()
-
-            selectedTypes = ArticlesType.values()
-
-            val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(articleData)
-            viewPager?.adapter = adapterDotsAfterChoice
-            viewPager?.let { spring_dots_indicator.setViewPager2(it) }
-            val adapterForChoice = ArticlesAdapter(articleData, MainActivity())
-            viewPager?.adapter = adapterForChoice
-            viewPager?.let {
-                TabLayoutMediator(tabLayout, it) { tab, position ->
-                    tab.text = resources.getString(articleData[position].titleOfArticle)
-                }.attach()
-            }
-        } else {
-            val adapterDotsAfterChoice = DotsIndicatorPager2Adapter(newArticlesList.toList())
-            viewPager?.adapter = adapterDotsAfterChoice
-            viewPager?.let { spring_dots_indicator.setViewPager2(it) }
-            val adapterForChoice = ArticlesAdapter(newArticlesList.toList(), MainActivity())
-            viewPager?.adapter = adapterForChoice
-            viewPager?.let {
-                TabLayoutMediator(tabLayout, it) { tab, position ->
-                    tab.text =
-                        resources.getString(newArticlesList.toList()[position].titleOfArticle)
-                }.attach()
-            }
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putIntArray(TAG_KEY, selectedTypes.map { it.ordinal }.toIntArray())
-    }
-
-    private fun showFilterDialog(typesToSelect: Array<ArticlesType>) {
-        ConfirmationDialogFragment.newInstance(typesToSelect).show(
-            childFragmentManager, ConfirmationDialogFragment.TYPE
-        )
     }
 
     companion object {

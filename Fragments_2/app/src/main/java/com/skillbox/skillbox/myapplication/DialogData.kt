@@ -2,5 +2,5 @@ package com.skillbox.skillbox.myapplication
 
 interface DialogData {
     fun downloadDataToDialog (
-        articlesToDialog: List<ArticlesType>)
+        articlesToDialog: MutableList<ArticlesType>)
 }

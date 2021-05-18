@@ -7,7 +7,7 @@ import androidx.fragment.app.DialogFragment
 
 class ConfirmationDialogFragment : DialogFragment() {
 
-    private val selectedItems = ArrayList<ArticlesType>()
+    private val selectedItems = mutableListOf<ArticlesType>()
     private val checkedItems = BooleanArray(ArticlesType.values().size)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
