@@ -24,7 +24,6 @@ class ConfirmationDialogFragment : DialogFragment() {
                 (activity as? DialogData)?.downloadDataToDialog(selectedTypes)
             }
             .setNegativeButton("Cancel") { _, _ ->
-
             }
             .create()
     }
