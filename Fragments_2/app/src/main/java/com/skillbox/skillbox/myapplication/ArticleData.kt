@@ -8,7 +8,7 @@ data class ArticleData(
     @StringRes val titleOfArticle: Int,
     @StringRes val textOfArticle: Int,
     val typeOfArticle: ArticlesType
-): Serializable {
+) {
     companion object {
         fun getListOfArticleData(): List<ArticleData> {
             return listOf(

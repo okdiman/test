@@ -7,35 +7,21 @@ import androidx.fragment.app.DialogFragment
 
 class ConfirmationDialogFragment : DialogFragment() {
 
-    private val selectedItems = mutableListOf<ArticlesType>()
-    private val checkedItems = BooleanArray(ArticlesType.values().size)
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        if (arguments != null) {
-            val selectedTypes = arguments?.getString(KEY_TYPE) ?: ""
-            if (selectedTypes.indexOf(",") > 0) {
-                selectedTypes.split(",").forEach {
-                    val type = ArticlesType.valueOf(it)
-                    selectedItems.add(type)
-                    checkedItems[type.ordinal] = true
-                }
-            }
-        }
+
+        val selectedTypes = arguments?.getBooleanArray(SELECTED)!!
+
         return AlertDialog.Builder(requireContext())
             .setTitle("Select articles")
             .setMultiChoiceItems(
                 ArticlesType.values().map { it.type }.toTypedArray(),
-                checkedItems
+                selectedTypes
             )
             { _, which, isChecked ->
-                if (isChecked) {
-                    selectedItems.add(getArticle(which))
-                } else if (selectedItems.contains(getArticle(which))) {
-                    selectedItems.remove(getArticle(which))
-                }
+                selectedTypes[which] = isChecked
             }
             .setPositiveButton("OK") { _, _ ->
-                parentFragment?.let { it as? DialogData }?.downloadDataToDialog(selectedItems)
+                (activity as? DialogData)?.downloadDataToDialog(selectedTypes)
             }
             .setNegativeButton("Cancel") { _, _ ->
 
@@ -43,17 +29,13 @@ class ConfirmationDialogFragment : DialogFragment() {
             .create()
     }
 
-    private fun getArticle(value: Int): ArticlesType {
-        return ArticlesType.fromInt(value)
-    }
 
     companion object {
-        const val KEY_TYPE = "keyForType"
-        const val TYPE = "Type"
-        fun newInstance(selectedTypes: Array<ArticlesType>): ConfirmationDialogFragment {
+        const val SELECTED = "selected"
+        fun newInstance(selectedTypes: BooleanArray): ConfirmationDialogFragment {
             if (selectedTypes.isEmpty()) return ConfirmationDialogFragment()
             return ConfirmationDialogFragment().withArguments {
-                putString(KEY_TYPE, selectedTypes.joinToString { "" })
+                putBooleanArray(SELECTED, selectedTypes)
             }
         }
     }

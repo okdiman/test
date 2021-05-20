@@ -12,8 +12,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    var selectedTypes = mutableListOf<ArticlesType>()
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -23,7 +21,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     companion object {
-        const val TAG_KEY = "tags"
         private const val KEY_TITLE = "title"
         private const val KEY_TEXT = "text"
         private const val KEY_TYPE = "type"
@@ -39,5 +36,4 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
     }
-
 }
