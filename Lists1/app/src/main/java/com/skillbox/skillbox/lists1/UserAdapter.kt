@@ -23,7 +23,7 @@ class UserAdapter(
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val nameTextView:TextView = view.findViewById(R.id.nameTextView)
+        private val nameTextView: TextView = view.findViewById(R.id.nameTextView)
         private val ageTextView: TextView = view.findViewById(R.id.ageTextView)
         private val developerTextView: TextView = view.findViewById(R.id.developerTextView)
         private val avatarImageView: ImageView = view.findViewById(R.id.avatarImageView)
@@ -31,10 +31,7 @@ class UserAdapter(
         fun bind(user: User) {
             nameTextView.text = user.name
             ageTextView.text = "Возраст $user.age"
-            if (!user.isDeveloper){
-                developerTextView.visibility = View.GONE
-            }
-
+            developerTextView.visibility = if (user.isDeveloper) View.VISIBLE else View.GONE
         }
     }
 }
