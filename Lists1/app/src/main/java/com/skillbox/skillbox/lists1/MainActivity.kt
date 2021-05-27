@@ -2,10 +2,14 @@ package com.skillbox.skillbox.lists1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
-    private val user: List<User> = listOf(
+    private val userList: RecyclerView = findViewById<RecyclerView>(R.id.userList)
+
+    private val users: List<User> = listOf(
         User(
             name = "Дмитрий Окунев",
             avatarLink = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fvjoy.cc%2Favatarki-dlya-malchikov-41-foto%2F&psig=AOvVaw0RxPyRiz8I4G1u6Af9sgIb&ust=1622206672719000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMi0hfr06fACFQAAAAAdAAAAABAJ",
@@ -44,9 +48,11 @@ class MainActivity : AppCompatActivity() {
         initList()
     }
 
-    fun initList () {
-        with(userList){
-
+    private fun initList() {
+        with(userList) {
+            adapter = UserAdapter (users + users + users + users)
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            setHasFixedSize(true)
         }
     }
 }
