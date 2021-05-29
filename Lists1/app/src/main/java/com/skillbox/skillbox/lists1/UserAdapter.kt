@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.lists1
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -28,10 +29,12 @@ class UserAdapter(
         private val developerTextView: TextView = view.findViewById(R.id.developerTextView)
         private val avatarImageView: ImageView = view.findViewById(R.id.avatarImageView)
 
+        @SuppressLint("SetTextI18n")
         fun bind(user: User) {
             nameTextView.text = user.name
-            ageTextView.text = "Возраст $user.age"
+            ageTextView.text = "Возраст ${user.age}"
             developerTextView.visibility = if (user.isDeveloper) View.VISIBLE else View.GONE
+            avatarImageView.setImageResource(user.avatarLink)
         }
     }
 }
