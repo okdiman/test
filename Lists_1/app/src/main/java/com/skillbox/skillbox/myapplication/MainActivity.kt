@@ -8,8 +8,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //Добавление фрагмента в контейнер мейн активити
-        supportFragmentManager.beginTransaction()
-            .add(R.id.mainConteiner, ListFragment())
-            .commit()
+        startListFragment()
+    }
+//Проверка на наличие фрагмента
+    private fun startListFragment() {
+        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.mainConteiner) != null
+        if (!alreadyHasFragment) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.mainConteiner, ListFragment())
+                .commit()
+        }
     }
 }
