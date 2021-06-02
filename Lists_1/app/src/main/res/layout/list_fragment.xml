@@ -12,11 +12,23 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingBottom="70dp"
-        tools:listitem="@layout/item_mountain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:itemCount="8" />
+        tools:itemCount="8"
+        tools:listitem="@layout/item_mountain" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/iclibrary_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="40dp"
+        app:tint="@color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
