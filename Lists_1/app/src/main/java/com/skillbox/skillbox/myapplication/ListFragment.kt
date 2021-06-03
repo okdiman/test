@@ -1,9 +1,13 @@
 package com.skillbox.skillbox.myapplication
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.add_new_resort.*
 import kotlinx.android.synthetic.main.list_fragment.*
 
 class ListFragment() : Fragment(R.layout.list_fragment) {
@@ -68,7 +72,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         addFab.setOnClickListener {
             addResort()
         }
-        resortsAdapter?.updateResorts(resortsList.shuffled())
+        resortsAdapter?.updateResorts(resortsList)
         resortsAdapter?.notifyDataSetChanged()
     }
 
@@ -96,8 +100,42 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
     //добавление нового элемента
     private fun addResort() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Add new object")
-            .setView(R.layout.item_mountain)
+            .setTitle("Add new resort")
+            .setView(R.layout.add_new_resort)
+            .setPositiveButton("Add") { _, _ ->
+                Log.d("tag", "${addTypeResortEditText?.text}")
+                val newResort = when (addTypeResortEditText?.text.toString()) {
+                    "mountain" -> Resorts.Mountains(
+                        addNameResortEditText.text.toString(),
+                        addCountryEditText.text.toString(),
+                        R.drawable.chamonix,
+                        addTypeResortEditText.text.toString()
+                    )
+                    "sea" -> Resorts.Seas(
+                        addNameResortEditText.text.toString(),
+                        addCountryEditText.text.toString(),
+                        R.drawable.ibiza,
+                        addTypeResortEditText.text.toString()
+                    )
+                    "ocean" -> Resorts.Oceans(
+                        addNameResortEditText.text.toString(),
+                        addCountryEditText.text.toString(),
+                        R.drawable.seychelles,
+                        addTypeResortEditText.text.toString()
+                    )
+                    else -> error("Incorrect type of resort")
+                }
+                resortsList = listOf(newResort) + resortsList
+                resortsAdapter?.updateResorts(resortsList)
+                resortsAdapter?.notifyItemInserted(0)
+                resortsListRV.scrollToPosition(0)
+            }
+            .setNegativeButton("Cancel") { _, _ -> }
+            .create()
+            .show()
+        if (!resortsList.isEmpty()) {
+            emptyResortsList.isVisible = false
+        }
     }
 
     //  удаление элемента
@@ -105,5 +143,8 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         resortsList = resortsList.filterIndexed { index, resorts -> index != position }
         resortsAdapter?.updateResorts(resortsList)
         resortsAdapter?.notifyItemRemoved(position)
+        if (resortsList.isEmpty()) {
+            emptyResortsList.isVisible = true
+        }
     }
 }

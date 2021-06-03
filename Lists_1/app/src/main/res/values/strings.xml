@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Top resorts</string>
+    <string name="emptyList">К сожалению, список курортов пуст, но вы можете добавить свой :)</string>
+    <string name="addResortEV">Введите название курорта</string>
+    <string name="addCountryET">Введите метоположение(страну)</string>
+    <string name="addTypeOfResortET">Укажите тип курорта</string>
 </resources>

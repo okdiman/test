@@ -10,6 +10,8 @@ class MainActivity : AppCompatActivity() {
 //Добавление фрагмента в контейнер мейн активити
         startListFragment()
     }
+
+
 //Проверка на наличие фрагмента
     private fun startListFragment() {
         val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.mainConteiner) != null
