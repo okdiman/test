@@ -1,5 +1,7 @@
 package com.skillbox.skillbox.myapplication
 
+import java.io.Serializable
+
 sealed class Resorts {
     data class Seas(
         val name: String,

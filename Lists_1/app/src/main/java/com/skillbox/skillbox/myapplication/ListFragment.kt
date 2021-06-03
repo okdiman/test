@@ -2,7 +2,6 @@ package com.skillbox.skillbox.myapplication
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -68,12 +67,16 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initResortsList()
         addFab.setOnClickListener {
             addResort()
         }
-        resortsAdapter?.updateResorts(resortsList)
-        resortsAdapter?.notifyDataSetChanged()
+        if (savedInstanceState != null) {
+
+        } else {
+            initResortsList()
+            resortsAdapter?.updateResorts(resortsList)
+            resortsAdapter?.notifyDataSetChanged()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -140,7 +143,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
 
     //  удаление элемента
     private fun deleteResort(position: Int) {
-        resortsList = resortsList.filterIndexed { index, resorts -> index != position }
+        resortsList = resortsList.filterIndexed { index, _ -> index != position }
         resortsAdapter?.updateResorts(resortsList)
         resortsAdapter?.notifyItemRemoved(position)
         if (resortsList.isEmpty()) {

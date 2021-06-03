@@ -5,12 +5,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+
     <EditText
         android:id="@+id/addNameResortEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:hint="@string/addResortEV"
+        android:inputType="text"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:hint="@string/addCountryET"
+        android:inputType="text"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:hint="@string/addTypeOfResortET"
+        android:inputType="text"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
