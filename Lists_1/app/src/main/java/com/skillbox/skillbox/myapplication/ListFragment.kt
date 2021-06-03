@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.list_fragment.*
 class ListFragment() : Fragment(R.layout.list_fragment) {
 
     private var resortsAdapter: ResortsAdapter? = null
+    var isChecked: Boolean = false
 
     //        private var resortsList = emptyArray<Resorts>()
     private var resortsList = arrayListOf<Resorts>(
@@ -68,19 +69,25 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         addFab.setOnClickListener {
+            isChecked = true
             addResort()
         }
         initResortsList()
         if (savedInstanceState != null) {
             resortsList = savedInstanceState.getParcelableArrayList<Resorts>(KEY_FOR_LIST)!!
+            isChecked = savedInstanceState.getBoolean(KEY_FOR_CHECK)
         }
         resortsAdapter?.updateResorts(resortsList)
         resortsAdapter?.notifyDataSetChanged()
+        if (isChecked) {
+            addResort()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(KEY_FOR_LIST, resortsList)
+        outState.putBoolean(KEY_FOR_CHECK, isChecked)
     }
 
     //  очищаем адаптер при удалении вьюшки
@@ -105,6 +112,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
             .setTitle("Add new resort")
             .setView(R.layout.add_new_resort)
             .setPositiveButton("Add") { _, _ ->
+                isChecked = false
                 Log.d("tag", "${addTypeResortEditText?.text}")
                 val newResort = when (addTypeResortEditText?.text.toString()) {
                     "mountain" -> Resorts.Mountains(
@@ -132,9 +140,10 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
                 resortsAdapter?.notifyItemInserted(0)
                 resortsListRV.scrollToPosition(0)
             }
-            .setNegativeButton("Cancel") { _, _ -> }
+            .setNegativeButton("Cancel") { _, _ -> isChecked = false }
             .create()
             .show()
+
         if (resortsList.isNotEmpty()) {
             emptyResortsList.isVisible = false
         }
@@ -151,8 +160,9 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         }
     }
 
-    //  ключ для передаваемого списка
+    //  ключи для передаваемого списка и статуса FAB
     companion object {
+        private const val KEY_FOR_CHECK = "keyForCheck"
         private const val KEY_FOR_LIST = "keyForList"
     }
 }
