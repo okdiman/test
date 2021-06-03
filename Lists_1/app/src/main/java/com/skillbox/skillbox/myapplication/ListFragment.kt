@@ -135,7 +135,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
             .setNegativeButton("Cancel") { _, _ -> }
             .create()
             .show()
-        if (!resortsList.isEmpty()) {
+        if (resortsList.isNotEmpty()) {
             emptyResortsList.isVisible = false
         }
     }
