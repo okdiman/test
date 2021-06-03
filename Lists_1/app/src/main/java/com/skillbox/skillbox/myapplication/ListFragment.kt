@@ -13,8 +13,8 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
 
     private var resortsAdapter: ResortsAdapter? = null
 
-    //    private var resortsList = emptyList<Resorts>()
-    private var resortsList = listOf<Resorts>(
+    //        private var resortsList = emptyArray<Resorts>()
+    private var resortsList = arrayListOf<Resorts>(
         Resorts.Mountains(
             name = "Aspen, Colorado",
             country = "USA",
@@ -70,18 +70,17 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         addFab.setOnClickListener {
             addResort()
         }
+        initResortsList()
         if (savedInstanceState != null) {
-
-        } else {
-            initResortsList()
-            resortsAdapter?.updateResorts(resortsList)
-            resortsAdapter?.notifyDataSetChanged()
+            resortsList = savedInstanceState.getParcelableArrayList<Resorts>(KEY_FOR_LIST)!!
         }
+        resortsAdapter?.updateResorts(resortsList)
+        resortsAdapter?.notifyDataSetChanged()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-//        outState.put
+        outState.putParcelableArrayList(KEY_FOR_LIST, resortsList)
     }
 
     //  очищаем адаптер при удалении вьюшки
@@ -90,7 +89,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         resortsAdapter = null
     }
 
-    //    инициализация списка
+    //  инициализация списка
     private fun initResortsList() {
         resortsAdapter = ResortsAdapter { position -> deleteResort(position) }
         with(resortsListRV) {
@@ -100,7 +99,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         }
     }
 
-    //добавление нового элемента
+    //  добавление нового элемента
     private fun addResort() {
         AlertDialog.Builder(requireContext())
             .setTitle("Add new resort")
@@ -128,7 +127,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
                     )
                     else -> error("Incorrect type of resort")
                 }
-                resortsList = listOf(newResort) + resortsList
+                resortsList.add(newResort)
                 resortsAdapter?.updateResorts(resortsList)
                 resortsAdapter?.notifyItemInserted(0)
                 resortsListRV.scrollToPosition(0)
@@ -143,11 +142,17 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
 
     //  удаление элемента
     private fun deleteResort(position: Int) {
-        resortsList = resortsList.filterIndexed { index, _ -> index != position }
+        resortsList =
+            resortsList.filterIndexed { index, _ -> index != position } as ArrayList<Resorts>
         resortsAdapter?.updateResorts(resortsList)
         resortsAdapter?.notifyItemRemoved(position)
         if (resortsList.isEmpty()) {
             emptyResortsList.isVisible = true
         }
+    }
+
+    //  ключ для передаваемого списка
+    companion object {
+        private const val KEY_FOR_LIST = "keyForList"
     }
 }

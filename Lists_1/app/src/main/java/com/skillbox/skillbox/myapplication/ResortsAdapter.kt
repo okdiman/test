@@ -11,12 +11,12 @@ class ResortsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var resorts = emptyList<Resorts>()
 
-    // устанавливаем количество элементов, равное размеру списка
+    //  устанавливаем количество элементов, равное размеру списка
     override fun getItemCount(): Int {
         return resorts.size
     }
 
-    // получаем разный ViewType в зависимости от класса элемента
+    //  получаем разный ViewType в зависимости от класса элемента
     override fun getItemViewType(position: Int): Int {
         return when (resorts[position]) {
             is Resorts.Mountains -> TYPE_MOUNTAINS
@@ -25,7 +25,7 @@ class ResortsAdapter(
         }
     }
 
-    // выбираем создаваемый ViewHolder в зависимости от полученного ViewType
+    //  выбираем создаваемый ViewHolder в зависимости от полученного ViewType
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             TYPE_OCEANS -> OceanHolder(parent.inflate(R.layout.item_oceans), onItemClick)
@@ -76,10 +76,10 @@ class ResortsAdapter(
             }
         }
 
-        // общий набор данных для обоих View Holder
+        //  общий набор данных для обоих View Holder
         protected fun baseBindInfo(
-            name: String,
-            country: String,
+            name: String?,
+            country: String?,
             photo: Int
         ) {
             nameTextView.text = name
@@ -88,7 +88,7 @@ class ResortsAdapter(
         }
     }
 
-    // создаем 3 разных холдера для разных классов элементов
+    //  создаем 3 разных холдера для разных классов элементов
     class OceanHolder(
         view: View,
         onItemClick: (position: Int) -> Unit
@@ -122,7 +122,7 @@ class ResortsAdapter(
         }
     }
 
-    //    константы для получения различных типов viewType
+    //  константы для получения различных типов viewType
     companion object {
         private const val TYPE_OCEANS = 1
         private const val TYPE_MOUNTAINS = 2
