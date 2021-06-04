@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 sealed class Resorts: Parcelable {
-    data class Seas(
+    data class Sea(
         val name: String?,
         val country: String?,
         val photo: Int,
@@ -29,18 +29,18 @@ sealed class Resorts: Parcelable {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<Seas> {
-            override fun createFromParcel(parcel: Parcel): Seas {
-                return Seas(parcel)
+        companion object CREATOR : Parcelable.Creator<Sea> {
+            override fun createFromParcel(parcel: Parcel): Sea {
+                return Sea(parcel)
             }
 
-            override fun newArray(size: Int): Array<Seas?> {
+            override fun newArray(size: Int): Array<Sea?> {
                 return arrayOfNulls(size)
             }
         }
     }
 
-    data class Mountains(
+    data class Mountain(
         val name: String?,
         val country: String?,
         val photo: Int,
@@ -65,18 +65,18 @@ sealed class Resorts: Parcelable {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<Mountains> {
-            override fun createFromParcel(parcel: Parcel): Mountains {
-                return Mountains(parcel)
+        companion object CREATOR : Parcelable.Creator<Mountain> {
+            override fun createFromParcel(parcel: Parcel): Mountain {
+                return Mountain(parcel)
             }
 
-            override fun newArray(size: Int): Array<Mountains?> {
+            override fun newArray(size: Int): Array<Mountain?> {
                 return arrayOfNulls(size)
             }
         }
     }
 
-    data class Oceans(
+    data class Ocean(
         val name: String?,
         val country: String?,
         val photo: Int,
@@ -101,12 +101,12 @@ sealed class Resorts: Parcelable {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<Oceans> {
-            override fun createFromParcel(parcel: Parcel): Oceans {
-                return Oceans(parcel)
+        companion object CREATOR : Parcelable.Creator<Ocean> {
+            override fun createFromParcel(parcel: Parcel): Ocean {
+                return Ocean(parcel)
             }
 
-            override fun newArray(size: Int): Array<Oceans?> {
+            override fun newArray(size: Int): Array<Ocean?> {
                 return arrayOfNulls(size)
             }
         }

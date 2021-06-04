@@ -1,12 +1,14 @@
 package com.skillbox.skillbox.myapplication
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.add_new_resort.*
+import kotlinx.android.synthetic.main.add_new_resort.view.*
 import kotlinx.android.synthetic.main.list_fragment.*
 
 class ListFragment() : Fragment(R.layout.list_fragment) {
@@ -16,49 +18,49 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
 
     //        private var resortsList = emptyArray<Resorts>()
     private var resortsList = arrayListOf<Resorts>(
-        Resorts.Mountains(
+        Resorts.Mountain(
             name = "Aspen, Colorado",
             country = "USA",
             photo = R.drawable.aspen,
             mountain = "Aspen"
         ),
-        Resorts.Oceans(
+        Resorts.Ocean(
             name = "Hawaiian Islands",
             country = "USA",
             photo = R.drawable.hawaii,
             ocean = "Pacific ocean"
         ),
-        Resorts.Mountains(
+        Resorts.Mountain(
             name = "Cortina-d'Ampezzo",
             country = "Italy",
             photo = R.drawable.cortina,
             mountain = "Alps"
         ),
-        Resorts.Oceans(
+        Resorts.Ocean(
             name = "Seychelles islands",
             country = "Republic of Seychelles",
             photo = R.drawable.seychelles,
             ocean = "Indian ocean"
         ),
-        Resorts.Mountains(
+        Resorts.Mountain(
             name = "Mont Tremblant",
             country = "Canada",
             photo = R.drawable.mont_tremblant,
             mountain = "Mont Tremblant"
         ),
-        Resorts.Oceans(
+        Resorts.Ocean(
             name = "Canary islands",
             country = "Spain",
             photo = R.drawable.canary,
             ocean = "Atlantic ocean"
         ),
-        Resorts.Mountains(
+        Resorts.Mountain(
             name = "Chamonix",
             country = "France",
             photo = R.drawable.chamonix,
             mountain = "Alps"
         ),
-        Resorts.Seas(
+        Resorts.Sea(
             name = "Ibiza",
             country = "Spain",
             photo = R.drawable.ibiza,
@@ -108,45 +110,64 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
 
     //  добавление нового элемента
     private fun addResort() {
+        lateinit var newResort: Resorts
+        var errorType = false
+        val view = (view as ViewGroup).inflate(R.layout.add_new_resort)
         AlertDialog.Builder(requireContext())
             .setTitle("Add new resort")
-            .setView(R.layout.add_new_resort)
+            .setView(view)
             .setPositiveButton("Add") { _, _ ->
-                isChecked = false
-                Log.d("tag", "${addTypeResortEditText?.text}")
-                val newResort = when (addTypeResortEditText?.text.toString()) {
-                    "mountain" -> Resorts.Mountains(
-                        addNameResortEditText.text.toString(),
-                        addCountryEditText.text.toString(),
-                        R.drawable.chamonix,
-                        addTypeResortEditText.text.toString()
-                    )
-                    "sea" -> Resorts.Seas(
-                        addNameResortEditText.text.toString(),
-                        addCountryEditText.text.toString(),
-                        R.drawable.ibiza,
-                        addTypeResortEditText.text.toString()
-                    )
-                    "ocean" -> Resorts.Oceans(
-                        addNameResortEditText.text.toString(),
-                        addCountryEditText.text.toString(),
-                        R.drawable.seychelles,
-                        addTypeResortEditText.text.toString()
-                    )
-                    else -> error("Incorrect type of resort")
+                if (isNotEmptyFields(view)) {
+                    isChecked = false
+                    when (view.addTypeResortEditText.text.toString()) {
+                        "Mountain" -> newResort = Resorts.Mountain(
+                            view.addNameResortEditText.text.toString(),
+                            view.addCountryEditText.text.toString(),
+                            R.drawable.chamonix,
+                            view.addPlaceEditText.text.toString()
+                        )
+                        "Sea" -> newResort = Resorts.Sea(
+                            view.addNameResortEditText.text.toString(),
+                            view.addCountryEditText.text.toString(),
+                            R.drawable.ibiza,
+                            view.addPlaceEditText.text.toString()
+                        )
+                        "Ocean" -> newResort = Resorts.Ocean(
+                            view.addNameResortEditText.text.toString(),
+                            view.addCountryEditText.text.toString(),
+                            R.drawable.seychelles,
+                            view.addPlaceEditText.text.toString()
+                        )
+                        else -> errorType = true
+
+                    }
+//                     обработка некорректного типа курорта
+                    if (errorType) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Incorrect resort type entered. *Please read the note",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        resortsList.add(0, newResort)
+                        resortsAdapter?.updateResorts(resortsList)
+                        resortsAdapter?.notifyItemInserted(0)
+                        resortsListRV.scrollToPosition(0)
+                        if (resortsList.isNotEmpty()) {
+                            emptyResortsList.isVisible = false
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "The form is incomplete, please, try again",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-                resortsList.add(newResort)
-                resortsAdapter?.updateResorts(resortsList)
-                resortsAdapter?.notifyItemInserted(0)
-                resortsListRV.scrollToPosition(0)
             }
             .setNegativeButton("Cancel") { _, _ -> isChecked = false }
             .create()
             .show()
-
-        if (resortsList.isNotEmpty()) {
-            emptyResortsList.isVisible = false
-        }
     }
 
     //  удаление элемента
@@ -159,6 +180,13 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
             emptyResortsList.isVisible = true
         }
     }
+
+    //    проверка заполненности полей в диалоге
+    private fun isNotEmptyFields(view: View): Boolean {
+        return (view.addTypeResortEditText.text.isNotEmpty() && view.addNameResortEditText.text.isNotEmpty()
+                && view.addPlaceEditText.text.isNotEmpty() && view.addCountryEditText.text.isNotEmpty())
+    }
+
 
     //  ключи для передаваемого списка и статуса FAB
     companion object {

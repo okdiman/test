@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Top resorts</string>
-    <string name="emptyList">К сожалению, список курортов пуст, но вы можете добавить свой :)</string>
-    <string name="addResortEV">Введите название курорта</string>
-    <string name="addCountryET">Введите меcтоположение(страну)</string>
-    <string name="addTypeOfResortET">Укажите тип курорта</string>
+    <string name="emptyList">Unfortunately, list is empty(( But you can add yourself resort:)</string>
+    <string name="addResortEV">Enter name of the resort</string>
+    <string name="addCountryET">Enter location(country)</string>
+    <string name="addTypeOfResortET">Enter type of the resort*</string>
+    <string name="addPlaceET">Enter place(mountains, sea, ocean)</string>
+    <string name="errorString">Please fill out the form completely</string>
+    <string name="sea_ocean_mountain">*Attention, use only Sea, Ocean or Mountain</string>
+    <string name="linkForPhoto">Link to the image</string>
 </resources>

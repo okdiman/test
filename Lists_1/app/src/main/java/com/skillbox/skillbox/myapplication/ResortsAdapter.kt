@@ -19,9 +19,9 @@ class ResortsAdapter(
     //  получаем разный ViewType в зависимости от класса элемента
     override fun getItemViewType(position: Int): Int {
         return when (resorts[position]) {
-            is Resorts.Mountains -> TYPE_MOUNTAINS
-            is Resorts.Seas -> TYPE_SEAS
-            is Resorts.Oceans -> TYPE_OCEANS
+            is Resorts.Mountain -> TYPE_MOUNTAINS
+            is Resorts.Sea -> TYPE_SEAS
+            is Resorts.Ocean -> TYPE_OCEANS
         }
     }
 
@@ -38,17 +38,17 @@ class ResortsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is OceanHolder -> {
-                val resort = resorts[position].let { it as? Resorts.Oceans }
+                val resort = resorts[position].let { it as? Resorts.Ocean }
                     ?: error("resort at position $position isn't a ocean")
                 holder.bind(resort)
             }
             is MountainHolder -> {
-                val resort = resorts[position].let { it as? Resorts.Mountains }
+                val resort = resorts[position].let { it as? Resorts.Mountain }
                     ?: error("resort at position $position isn't a mountain")
                 holder.bind(resort)
             }
             is SeaHolder -> {
-                val resort = resorts[position].let { it as? Resorts.Seas }
+                val resort = resorts[position].let { it as? Resorts.Sea }
                     ?: error("resort at position $position isn't a sea")
                 holder.bind(resort)
             }
@@ -94,7 +94,7 @@ class ResortsAdapter(
         onItemClick: (position: Int) -> Unit
     ) : BaseViewHolder(view, onItemClick) {
         private val oceanTextView = view.findViewById<TextView>(R.id.oceanTextView)
-        fun bind(ocean: Resorts.Oceans) {
+        fun bind(ocean: Resorts.Ocean) {
             oceanTextView.text = ocean.ocean
             baseBindInfo(ocean.name, ocean.country, ocean.photo)
         }
@@ -105,7 +105,7 @@ class ResortsAdapter(
         onItemClick: (position: Int) -> Unit
     ) : BaseViewHolder(view, onItemClick) {
         private val seaTextView = view.findViewById<TextView>(R.id.seaTextView)
-        fun bind(sea: Resorts.Seas) {
+        fun bind(sea: Resorts.Sea) {
             seaTextView.text = sea.sea
             baseBindInfo(sea.name, sea.country, sea.photo)
         }
@@ -116,7 +116,7 @@ class ResortsAdapter(
         onItemClick: (position: Int) -> Unit
     ) : BaseViewHolder(view, onItemClick) {
         private val mountainTextView = view.findViewById<TextView>(R.id.mountainTextView)
-        fun bind(mountain: Resorts.Mountains) {
+        fun bind(mountain: Resorts.Mountain) {
             mountainTextView.text = mountain.mountain
             baseBindInfo(mountain.name, mountain.country, mountain.photo)
         }
