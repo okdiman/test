@@ -114,15 +114,15 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
     //  добавление нового элемента
     private fun addResort() {
         lateinit var newResort: Resorts
-        var errorType = false
         val view = (view as ViewGroup).inflate(R.layout.add_new_resort)
+
         AlertDialog.Builder(requireContext())
             .setTitle("Add new resort")
             .setView(view)
             .setPositiveButton("Add") { _, _ ->
                 if (isNotEmptyFields(view)) {
                     isChecked = false
-                    when (view.addTypeResortEditText.text.toString()) {
+                    when (view.selectTypesOfResort.selectedItem.toString()) {
                         "Mountain" -> newResort = Resorts.Mountain(
                             view.addNameResortEditText.text.toString(),
                             view.addCountryEditText.text.toString(),
@@ -141,24 +141,13 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
                             oceansPhoto(),
                             view.addPlaceEditText.text.toString()
                         )
-                        else -> errorType = true
-
                     }
-//                     обработка некорректного типа курорта
-                    if (errorType) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Incorrect resort type entered. *Please read the note",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } else {
-                        resortsList.add(0, newResort)
-                        resortsAdapter?.updateResorts(resortsList)
-                        resortsAdapter?.notifyItemInserted(0)
-                        resortsListRV.scrollToPosition(0)
-                        if (resortsList.isNotEmpty()) {
-                            emptyResortsList.isVisible = false
-                        }
+                    resortsList.add(0, newResort)
+                    resortsAdapter?.updateResorts(resortsList)
+                    resortsAdapter?.notifyItemInserted(0)
+                    resortsListRV.scrollToPosition(0)
+                    if (resortsList.isNotEmpty()) {
+                        emptyResortsList.isVisible = false
                     }
                 } else {
                     Toast.makeText(
@@ -186,8 +175,9 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
 
     //    проверка заполненности полей в диалоге
     private fun isNotEmptyFields(view: View): Boolean {
-        return (view.addTypeResortEditText.text.isNotEmpty() && view.addNameResortEditText.text.isNotEmpty()
-                && view.addPlaceEditText.text.isNotEmpty() && view.addCountryEditText.text.isNotEmpty())
+        return (view.addNameResortEditText.text.isNotEmpty()
+                && view.addPlaceEditText.text.isNotEmpty()
+                && view.addCountryEditText.text.isNotEmpty())
     }
 
     //    так как не работают библиотеки добавляем фото рандомно из имеющихся в памяти

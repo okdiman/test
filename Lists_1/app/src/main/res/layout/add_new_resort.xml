@@ -14,6 +14,7 @@
         android:layout_margin="8dp"
         android:hint="@string/addResortEV"
         android:inputType="text"
+        android:padding="8dp"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,7 @@
         android:layout_margin="8dp"
         android:hint="@string/addCountryET"
         android:inputType="text"
+        android:padding="8dp"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,46 +40,31 @@
         android:layout_margin="8dp"
         android:hint="@string/addPlaceET"
         android:inputType="text"
+        android:padding="8dp"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addCountryEditText" />
 
-    <EditText
-        android:id="@+id/addPhotoET"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/selectTypesOfResort"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="@string/linkForPhoto"
-        android:inputType="textUri"
-        android:textColor="@color/black"
-        android:textSize="15sp"
+        android:entries="@array/resortsListForSelect"
+        android:scrollbarSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPlaceEditText" />
-
-    <EditText
-        android:id="@+id/addTypeResortEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="@string/addTypeOfResortET"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPhotoET" />
+        app:layout_constraintTop_toBottomOf="@id/addPlaceEditText" />
 
     <TextView
-        android:id="@+id/notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="@string/sea_ocean_mountain"
-        android:textColor="@color/black"
+        android:padding="8dp"
+        android:text="@string/please_enter_name_country_place_and_select_type_of_the_resort"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addTypeResortEditText"
+        app:layout_constraintTop_toBottomOf="@id/selectTypesOfResort"
         tools:ignore="SmallSp" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
