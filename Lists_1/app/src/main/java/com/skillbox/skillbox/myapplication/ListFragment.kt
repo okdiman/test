@@ -15,9 +15,6 @@ import kotlinx.android.synthetic.main.add_new_resort.view.*
 
 class ListFragment() : Fragment() {
 
-    private var _bindingForAdd: AddNewResortBinding? = null
-    private val bindingForAdd get() = _bindingForAdd!!
-
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -81,7 +78,6 @@ class ListFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _bindingForAdd = AddNewResortBinding.inflate(inflater, container, false)
         _binding = ListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
