@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.myapplication
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -9,11 +10,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.skillbox.myapplication.adapters.ResortsAdapter
+import com.skillbox.skillbox.myapplication.databinding.ListFragmentBinding
 import kotlinx.android.synthetic.main.add_new_resort.view.*
 import kotlinx.android.synthetic.main.list_fragment.*
 import kotlin.random.Random
 
 class ListFragment() : Fragment(R.layout.list_fragment) {
+
+    private var _binding: ListFragmentBinding? = null
+    private val binding get() = _binding!!
 
     private var resortsAdapter: ResortsAdapter? = null
     var isChecked: Boolean = false
@@ -78,8 +83,17 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         ),
     )
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = ListFragmentBinding.inflate(inflater,container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         addFab.setOnClickListener {
             isChecked = true
             addResort()
@@ -97,6 +111,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
             emptyResortsList.isVisible = true
         }
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

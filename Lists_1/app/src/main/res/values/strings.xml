@@ -8,8 +8,8 @@
     <string name="errorString">Please fill out the form completely</string>
     <string name="sea_ocean_mountain">*Attention, use only Sea, Ocean or Mountain</string>
     <string name="linkForPhoto">Link to the image</string>
-    <string name="please_enter_name_country_place_and_select_type_of_the_resort">Please, enter name, country, place and select type of the resort</string>
-    <string name="enter_uri_for_photo_of_the_resort">Enter URI for photo of the resort</string>
+    <string name="please_enter_name_country_place_and_select_type_of_the_resort">*Please, enter name, country, place, link on picture and select type of the resort</string>
+    <string name="enter_uri_for_photo_of_the_resort">Enter URL link for photo of the resort</string>
     <string-array name="resortsListForSelect">
         <item>Sea</item>
         <item>Mountain</item>

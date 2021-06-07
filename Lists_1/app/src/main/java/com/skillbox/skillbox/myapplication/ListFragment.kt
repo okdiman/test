@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.myapplication
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -8,10 +9,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.skillbox.skillbox.myapplication.databinding.AddNewResortBinding
+import com.skillbox.skillbox.myapplication.databinding.ListFragmentBinding
 import kotlinx.android.synthetic.main.add_new_resort.view.*
-import kotlinx.android.synthetic.main.list_fragment.*
 
-class ListFragment() : Fragment(R.layout.list_fragment) {
+class ListFragment() : Fragment() {
+
+    private var _bindingForAdd: AddNewResortBinding? = null
+    private val bindingForAdd get() = _bindingForAdd!!
+
+    private var _binding: ListFragmentBinding? = null
+    private val binding get() = _binding!!
 
     private var resortsAdapter: ResortsAdapter? = null
     var isChecked: Boolean = false
@@ -68,9 +76,19 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
 //        ),
 //    )
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        addFab.setOnClickListener {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _bindingForAdd = AddNewResortBinding.inflate(inflater, container, false)
+        _binding = ListFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.addFab.setOnClickListener {
             isChecked = true
             addResort()
         }
@@ -85,9 +103,10 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
             addResort()
         }
         if (resortsList.isEmpty()) {
-            emptyResortsList.isVisible = true
+            binding.emptyResortsList.isVisible = true
         }
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -98,13 +117,14 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
     //  очищаем адаптер при удалении вьюшки
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         resortsAdapter = null
     }
 
     //  инициализация списка
     private fun initResortsList() {
         resortsAdapter = ResortsAdapter { position -> deleteResort(position) }
-        with(resortsListRV) {
+        with(binding.resortsListRV) {
             adapter = resortsAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -145,9 +165,9 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
                     resortsList.add(0, newResort)
                     resortsAdapter?.updateResorts(resortsList)
                     resortsAdapter?.notifyItemInserted(0)
-                    resortsListRV.scrollToPosition(0)
+                    binding.resortsListRV.scrollToPosition(0)
                     if (resortsList.isNotEmpty()) {
-                        emptyResortsList.isVisible = false
+                        binding.emptyResortsList.isVisible = false
                     }
                 } else {
                     Toast.makeText(
@@ -169,7 +189,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         resortsAdapter?.updateResorts(resortsList)
         resortsAdapter?.notifyItemRemoved(position)
         if (resortsList.isEmpty()) {
-            emptyResortsList.isVisible = true
+            binding.emptyResortsList.isVisible = true
         }
     }
 
