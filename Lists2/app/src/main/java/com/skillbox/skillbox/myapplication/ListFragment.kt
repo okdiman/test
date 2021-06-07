@@ -8,65 +8,75 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.skillbox.skillbox.myapplication.adapters.ResortsAdapter
 import kotlinx.android.synthetic.main.add_new_resort.view.*
 import kotlinx.android.synthetic.main.list_fragment.*
+import kotlin.random.Random
 
 class ListFragment() : Fragment(R.layout.list_fragment) {
 
     private var resortsAdapter: ResortsAdapter? = null
     var isChecked: Boolean = false
 
-    private var resortsList = arrayListOf<Resorts>()
-//    private var resortsList = arrayListOf<Resorts>(
-//        Resorts.Mountain(
-//            name = "Aspen, Colorado",
-//            country = "USA",
-//            photo = R.drawable.aspen,
-//            mountain = "Aspen"
-//        ),
-//        Resorts.Ocean(
-//            name = "Hawaiian Islands",
-//            country = "USA",
-//            photo = R.drawable.hawaii,
-//            ocean = "Pacific ocean"
-//        ),
-//        Resorts.Mountain(
-//            name = "Cortina-d'Ampezzo",
-//            country = "Italy",
-//            photo = R.drawable.cortina,
-//            mountain = "Alps"
-//        ),
-//        Resorts.Ocean(
-//            name = "Seychelles islands",
-//            country = "Republic of Seychelles",
-//            photo = R.drawable.seychelles,
-//            ocean = "Indian ocean"
-//        ),
-//        Resorts.Mountain(
-//            name = "Mont Tremblant",
-//            country = "Canada",
-//            photo = R.drawable.mont_tremblant,
-//            mountain = "Mont Tremblant"
-//        ),
-//        Resorts.Ocean(
-//            name = "Canary islands",
-//            country = "Spain",
-//            photo = R.drawable.canary,
-//            ocean = "Atlantic ocean"
-//        ),
-//        Resorts.Mountain(
-//            name = "Chamonix",
-//            country = "France",
-//            photo = R.drawable.chamonix,
-//            mountain = "Alps"
-//        ),
-//        Resorts.Sea(
-//            name = "Ibiza",
-//            country = "Spain",
-//            photo = R.drawable.ibiza,
-//            sea = "Mediterranean sea"
-//        ),
-//    )
+//    private var resortsList = arrayListOf<Resorts>()
+    private var resortsList = arrayListOf<Resorts>(
+        Resorts.Mountain(
+            id =1,
+            name = "Aspen, Colorado",
+            country = "USA",
+            photo = R.drawable.aspen,
+            mountain = "Aspen"
+        ),
+        Resorts.Ocean(
+            id =2,
+            name = "Hawaiian Islands",
+            country = "USA",
+            photo = R.drawable.hawaii,
+            ocean = "Pacific ocean"
+        ),
+        Resorts.Mountain(
+            id =3,
+            name = "Cortina-d'Ampezzo",
+            country = "Italy",
+            photo = R.drawable.cortina,
+            mountain = "Alps"
+        ),
+        Resorts.Ocean(
+            id =4,
+            name = "Seychelles islands",
+            country = "Republic of Seychelles",
+            photo = R.drawable.seychelles,
+            ocean = "Indian ocean"
+        ),
+        Resorts.Mountain(
+            id =5,
+            name = "Mont Tremblant",
+            country = "Canada",
+            photo = R.drawable.mont_tremblant,
+            mountain = "Mont Tremblant"
+        ),
+        Resorts.Ocean(
+            id =6,
+            name = "Canary islands",
+            country = "Spain",
+            photo = R.drawable.canary,
+            ocean = "Atlantic ocean"
+        ),
+        Resorts.Mountain(
+            id =7,
+            name = "Chamonix",
+            country = "France",
+            photo = R.drawable.chamonix,
+            mountain = "Alps"
+        ),
+        Resorts.Sea(
+            id =8,
+            name = "Ibiza",
+            country = "Spain",
+            photo = R.drawable.ibiza,
+            sea = "Mediterranean sea"
+        ),
+    )
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -80,7 +90,6 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
             isChecked = savedInstanceState.getBoolean(KEY_FOR_CHECK)
         }
         resortsAdapter?.updateResorts(resortsList)
-        resortsAdapter?.notifyDataSetChanged()
         if (isChecked) {
             addResort()
         }
@@ -106,6 +115,7 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         resortsAdapter = ResortsAdapter { position -> deleteResort(position) }
         with(resortsListRV) {
             adapter = resortsAdapter
+            addItemDecoration(ItemOffSetDecoration(requireContext()))
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
@@ -124,27 +134,29 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
                     isChecked = false
                     when (view.selectTypesOfResort.selectedItem.toString()) {
                         "Mountain" -> newResort = Resorts.Mountain(
+                            Random.nextLong(),
                             view.addNameResortEditText.text.toString(),
                             view.addCountryEditText.text.toString(),
-                            view.addPhotoEditText.text.toString(),
+                            mountainsPhoto(),
                             view.addPlaceEditText.text.toString()
                         )
                         "Sea" -> newResort = Resorts.Sea(
+                            Random.nextLong(),
                             view.addNameResortEditText.text.toString(),
                             view.addCountryEditText.text.toString(),
-                            view.addPhotoEditText.text.toString(),
+                            seasPhoto(),
                             view.addPlaceEditText.text.toString()
                         )
                         "Ocean" -> newResort = Resorts.Ocean(
+                            Random.nextLong(),
                             view.addNameResortEditText.text.toString(),
                             view.addCountryEditText.text.toString(),
-                            view.addPhotoEditText.text.toString(),
+                            oceansPhoto(),
                             view.addPlaceEditText.text.toString()
                         )
                     }
                     resortsList.add(0, newResort)
                     resortsAdapter?.updateResorts(resortsList)
-                    resortsAdapter?.notifyItemInserted(0)
                     resortsListRV.scrollToPosition(0)
                     if (resortsList.isNotEmpty()) {
                         emptyResortsList.isVisible = false
@@ -167,7 +179,6 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
         resortsList =
             resortsList.filterIndexed { index, _ -> index != position } as ArrayList<Resorts>
         resortsAdapter?.updateResorts(resortsList)
-        resortsAdapter?.notifyItemRemoved(position)
         if (resortsList.isEmpty()) {
             emptyResortsList.isVisible = true
         }
@@ -177,8 +188,36 @@ class ListFragment() : Fragment(R.layout.list_fragment) {
     private fun isNotEmptyFields(view: View): Boolean {
         return (view.addNameResortEditText.text.isNotEmpty()
                 && view.addPlaceEditText.text.isNotEmpty()
-                && view.addCountryEditText.text.isNotEmpty()
-                && view.addPhotoEditText.text.isNotEmpty())
+                && view.addCountryEditText.text.isNotEmpty())
+    }
+
+    //    так как не работают библиотеки добавляем фото рандомно из имеющихся в памяти
+    private fun mountainsPhoto(): Int {
+        val listOfMountainsPhoto = listOf<Int>(
+            R.drawable.chamonix,
+            R.drawable.aspen,
+            R.drawable.mont_tremblant,
+            R.drawable.cortina
+        )
+        return listOfMountainsPhoto.random()
+    }
+
+    private fun oceansPhoto(): Int {
+        val listOfOceansPhoto = listOf<Int>(
+            R.drawable.canary,
+            R.drawable.hawaii,
+            R.drawable.seychelles
+        )
+        return listOfOceansPhoto.random()
+    }
+
+    private fun seasPhoto(): Int {
+        val listOfOceansPhoto = listOf<Int>(
+            R.drawable.greek_sea,
+            R.drawable.red_sea,
+            R.drawable.ibiza
+        )
+        return listOfOceansPhoto.random()
     }
 
 

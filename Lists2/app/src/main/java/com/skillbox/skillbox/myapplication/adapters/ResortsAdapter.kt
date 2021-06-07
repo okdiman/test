@@ -1,25 +1,30 @@
-package com.skillbox.skillbox.myapplication
+package com.skillbox.skillbox.myapplication.adapters
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.skillbox.skillbox.myapplication.R
+import com.skillbox.skillbox.myapplication.Resorts
+import com.skillbox.skillbox.myapplication.inflate
 
 class ResortsAdapter(
     private val onItemClick: (position: Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var resorts = emptyList<Resorts>()
+
+    private val differ = AsyncListDiffer<Resorts>(this, ResortDiffUtilCallBack())
 
     //  устанавливаем количество элементов, равное размеру списка
     override fun getItemCount(): Int {
-        return resorts.size
+        return differ.currentList.size
     }
 
     //  получаем разный ViewType в зависимости от класса элемента
     override fun getItemViewType(position: Int): Int {
-        return when (resorts[position]) {
+        return when (differ.currentList[position]) {
             is Resorts.Mountain -> TYPE_MOUNTAINS
             is Resorts.Sea -> TYPE_SEAS
             is Resorts.Ocean -> TYPE_OCEANS
@@ -39,17 +44,17 @@ class ResortsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is OceanHolder -> {
-                val resort = resorts[position].let { it as? Resorts.Ocean }
+                val resort = differ.currentList[position].let { it as? Resorts.Ocean }
                     ?: error("resort at position $position isn't a ocean")
                 holder.bind(resort)
             }
             is MountainHolder -> {
-                val resort = resorts[position].let { it as? Resorts.Mountain }
+                val resort = differ.currentList[position].let { it as? Resorts.Mountain }
                     ?: error("resort at position $position isn't a mountain")
                 holder.bind(resort)
             }
             is SeaHolder -> {
-                val resort = resorts[position].let { it as? Resorts.Sea }
+                val resort = differ.currentList[position].let { it as? Resorts.Sea }
                     ?: error("resort at position $position isn't a sea")
                 holder.bind(resort)
             }
@@ -58,7 +63,23 @@ class ResortsAdapter(
 
     //  обновление списка
     fun updateResorts(newResorts: List<Resorts>) {
-        resorts = newResorts
+        differ.submitList(newResorts)
+    }
+
+    class ResortDiffUtilCallBack(): DiffUtil.ItemCallback<Resorts>(){
+        override fun areItemsTheSame(oldItem: Resorts, newItem: Resorts): Boolean {
+            return when{
+                oldItem is Resorts.Sea && newItem is Resorts.Sea -> newItem.id == oldItem.id
+                oldItem is Resorts.Ocean && newItem is Resorts.Ocean -> newItem.id == oldItem.id
+                oldItem is Resorts.Mountain && newItem is Resorts.Mountain -> newItem.id == oldItem.id
+                else -> false
+            }
+        }
+
+        override fun areContentsTheSame(oldItem: Resorts, newItem: Resorts): Boolean {
+            return oldItem == newItem
+        }
+
     }
 
     //  создаем общий Холдер
@@ -68,6 +89,7 @@ class ResortsAdapter(
     ) : RecyclerView.ViewHolder(view) {
         private val nameTextView = view.findViewById<TextView>(R.id.nameTextView)
         private val countryTextView = view.findViewById<TextView>(R.id.countryTextView)
+        private val photoImageView = view.findViewById<ImageView>(R.id.photoImageView)
 
         //  обработка клика по элементу
         init {
@@ -79,10 +101,12 @@ class ResortsAdapter(
         //  общий набор данных для обоих View Holder
         protected fun baseBindInfo(
             name: String?,
-            country: String?
+            country: String?,
+            photo: Int
         ) {
             nameTextView.text = name
             countryTextView.text = country
+            photoImageView.setImageResource(photo)
         }
     }
 
@@ -92,15 +116,9 @@ class ResortsAdapter(
         onItemClick: (position: Int) -> Unit
     ) : BaseViewHolder(view, onItemClick) {
         private val oceanTextView = view.findViewById<TextView>(R.id.oceanTextView)
-        private val photoImageView = view.findViewById<ImageView>(R.id.photoImageView)
         fun bind(ocean: Resorts.Ocean) {
-            Glide.with(itemView)
-                .load(ocean.photo)
-                .error(R.drawable.ic_sync_problem)
-                .placeholder(R.drawable.ic_cloud_download)
-                .into(photoImageView)
             oceanTextView.text = ocean.ocean
-            baseBindInfo(ocean.name, ocean.country)
+            baseBindInfo(ocean.name, ocean.country, ocean.photo)
         }
     }
 
@@ -109,15 +127,9 @@ class ResortsAdapter(
         onItemClick: (position: Int) -> Unit
     ) : BaseViewHolder(view, onItemClick) {
         private val seaTextView = view.findViewById<TextView>(R.id.seaTextView)
-        private val photoImageView = view.findViewById<ImageView>(R.id.photoImageView)
         fun bind(sea: Resorts.Sea) {
-            Glide.with(itemView)
-                .load(sea.photo)
-                .error(R.drawable.ic_sync_problem)
-                .placeholder(R.drawable.ic_cloud_download)
-                .into(photoImageView)
             seaTextView.text = sea.sea
-            baseBindInfo(sea.name, sea.country)
+            baseBindInfo(sea.name, sea.country, sea.photo)
         }
     }
 
@@ -126,15 +138,9 @@ class ResortsAdapter(
         onItemClick: (position: Int) -> Unit
     ) : BaseViewHolder(view, onItemClick) {
         private val mountainTextView = view.findViewById<TextView>(R.id.mountainTextView)
-        private val photoImageView = view.findViewById<ImageView>(R.id.photoImageView)
         fun bind(mountain: Resorts.Mountain) {
-            Glide.with(itemView)
-                .load(mountain.photo)
-                .error(R.drawable.ic_sync_problem)
-                .placeholder(R.drawable.ic_cloud_download)
-                .into(photoImageView)
             mountainTextView.text = mountain.mountain
-            baseBindInfo(mountain.name, mountain.country)
+            baseBindInfo(mountain.name, mountain.country, mountain.photo)
         }
     }
 

@@ -5,23 +5,26 @@ import android.os.Parcelable
 
 sealed class Resorts: Parcelable {
     data class Sea(
+        val id: Long,
         val name: String?,
         val country: String?,
-        val photo: String?,
+        val photo: Int,
         val sea: String?
     ) : Resorts() {
         constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString(),
+            parcel.readInt(),
             parcel.readString()
         ) {
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeLong(id)
             parcel.writeString(name)
             parcel.writeString(country)
-            parcel.writeString(photo)
+            parcel.writeInt(photo)
             parcel.writeString(sea)
         }
 
@@ -41,23 +44,26 @@ sealed class Resorts: Parcelable {
     }
 
     data class Mountain(
+        val id: Long,
         val name: String?,
         val country: String?,
-        val photo: String?,
+        val photo: Int,
         val mountain: String?
     ) : Resorts() {
         constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString(),
+            parcel.readInt(),
             parcel.readString()
         ) {
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeLong(id)
             parcel.writeString(name)
             parcel.writeString(country)
-            parcel.writeString(photo)
+            parcel.writeInt(photo)
             parcel.writeString(mountain)
         }
 
@@ -77,23 +83,26 @@ sealed class Resorts: Parcelable {
     }
 
     data class Ocean(
+        val id: Long,
         val name: String?,
         val country: String?,
-        val photo: String?,
+        val photo: Int,
         val ocean: String?
     ) : Resorts() {
         constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString(),
+            parcel.readInt(),
             parcel.readString()
         ) {
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeLong(id)
             parcel.writeString(name)
             parcel.writeString(country)
-            parcel.writeString(photo)
+            parcel.writeInt(photo)
             parcel.writeString(ocean)
         }
 
