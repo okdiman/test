@@ -16,13 +16,13 @@ import com.skillbox.skillbox.myapplication.databinding.ListFragmentBinding
 import com.skillbox.skillbox.myapplication.inflate
 import kotlinx.android.synthetic.main.add_new_resort.view.*
 
-class ListFragment() : Fragment() {
+class ListFragment: Fragment(){
 
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
 
     private var resortsAdapter: ResortsAdapter? = null
-    var isChecked: Boolean = false
+    private var isChecked: Boolean = false
 
     private var resortsList = arrayListOf<Resorts>()
 //    private var resortsList = arrayListOf<Resorts>(
@@ -93,7 +93,7 @@ class ListFragment() : Fragment() {
         }
         initResortsList()
         if (savedInstanceState != null) {
-            resortsList = savedInstanceState.getParcelableArrayList<Resorts>(KEY_FOR_LIST)!!
+            resortsList = savedInstanceState.getParcelableArrayList(KEY_FOR_LIST)!!
             isChecked = savedInstanceState.getBoolean(KEY_FOR_CHECK)
         }
         resortsAdapter?.updateResorts(resortsList)

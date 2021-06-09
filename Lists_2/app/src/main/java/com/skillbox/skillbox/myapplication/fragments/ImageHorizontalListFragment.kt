@@ -11,12 +11,12 @@ import com.skillbox.skillbox.myapplication.adapters.ImagesAdapter
 import com.skillbox.skillbox.myapplication.classes.Images
 import com.skillbox.skillbox.myapplication.databinding.ImageListFragmentBinding
 
-class ImageListFragment : Fragment() {
+class ImageHorizontalListFragment : Fragment() {
     private var _binding: ImageListFragmentBinding? = null
     private val binding get() = _binding!!
 
     private var imagesAdapter: ImagesAdapter? = null
-    private var imagesList = arrayListOf<Images>(
+    private var imagesList = arrayListOf(
         Images(R.drawable.ibiza),
         Images(R.drawable.red_sea),
         Images(R.drawable.greek_sea),

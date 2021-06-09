@@ -6,9 +6,7 @@ import android.os.Parcelable
 data class Images(
     val picture: Int
 ) : Parcelable {
-    constructor(parcel: Parcel) : this(parcel.readInt()) {
-    }
-
+    constructor(parcel: Parcel) : this(parcel.readInt())
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(picture)
     }

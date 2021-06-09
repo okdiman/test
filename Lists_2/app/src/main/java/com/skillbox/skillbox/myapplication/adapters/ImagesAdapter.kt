@@ -10,7 +10,7 @@ import com.skillbox.skillbox.myapplication.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_image_list.*
 
-class ImagesAdapter(private val onItemClick: (position: Int) -> Unit) :
+class ImagesAdapter (private val onItemClick: (position: Int) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var images = emptyList<Images>()
 
@@ -26,15 +26,14 @@ class ImagesAdapter(private val onItemClick: (position: Int) -> Unit) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ImageViewHolder -> {
-                val image = images[position].let { it as? Images }
-                    ?: error("It isn't image")
+                val image = images [position]
                 holder.bind(image)
             }
         }
     }
 
     class ImageViewHolder(
-        final override val containerView: View,
+        override val containerView: View,
         onItemClick: (position: Int) -> Unit
     ) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {

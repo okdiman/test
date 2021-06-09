@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
 
     private fun navigateToImageHorizontalList() {
         (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.mainConteiner, ImageListFragment())
+            .replace(R.id.mainConteiner, ImageHorizontalListFragment())
             .addToBackStack("MainMenu")
             .commit()
     }
