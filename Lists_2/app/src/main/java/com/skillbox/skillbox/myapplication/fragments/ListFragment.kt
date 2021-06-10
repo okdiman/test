@@ -14,7 +14,9 @@ import com.skillbox.skillbox.myapplication.classes.Resorts
 import com.skillbox.skillbox.myapplication.adapters.ResortsAdapter
 import com.skillbox.skillbox.myapplication.databinding.ListFragmentBinding
 import com.skillbox.skillbox.myapplication.inflate
+import jp.wasabeef.recyclerview.animators.*
 import kotlinx.android.synthetic.main.add_new_resort.view.*
+import kotlin.random.Random
 
 class ListFragment: Fragment(){
 
@@ -97,7 +99,6 @@ class ListFragment: Fragment(){
             isChecked = savedInstanceState.getBoolean(KEY_FOR_CHECK)
         }
         resortsAdapter?.updateResorts(resortsList)
-        resortsAdapter?.notifyDataSetChanged()
         if (isChecked) {
             addResort()
         }
@@ -127,6 +128,7 @@ class ListFragment: Fragment(){
             adapter = resortsAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
+            itemAnimator = LandingAnimator()
         }
     }
 
@@ -143,18 +145,21 @@ class ListFragment: Fragment(){
                     isChecked = false
                     when (view.selectTypesOfResort.selectedItem.toString()) {
                         "Mountain" -> newResort = Resorts.Mountain(
+                            Random.nextLong(),
                             view.addNameResortEditText.text.toString(),
                             view.addCountryEditText.text.toString(),
                             view.addPhotoEditText.text.toString(),
                             view.addPlaceEditText.text.toString()
                         )
                         "Sea" -> newResort = Resorts.Sea(
+                            Random.nextLong(),
                             view.addNameResortEditText.text.toString(),
                             view.addCountryEditText.text.toString(),
                             view.addPhotoEditText.text.toString(),
                             view.addPlaceEditText.text.toString()
                         )
                         "Ocean" -> newResort = Resorts.Ocean(
+                            Random.nextLong(),
                             view.addNameResortEditText.text.toString(),
                             view.addCountryEditText.text.toString(),
                             view.addPhotoEditText.text.toString(),
@@ -163,7 +168,6 @@ class ListFragment: Fragment(){
                     }
                     resortsList.add(0, newResort)
                     resortsAdapter?.updateResorts(resortsList)
-                    resortsAdapter?.notifyItemInserted(0)
                     binding.resortsListRV.scrollToPosition(0)
                     if (resortsList.isNotEmpty()) {
                         binding.emptyResortsList.isVisible = false
@@ -186,7 +190,6 @@ class ListFragment: Fragment(){
         resortsList =
             resortsList.filterIndexed { index, _ -> index != position } as ArrayList<Resorts>
         resortsAdapter?.updateResorts(resortsList)
-        resortsAdapter?.notifyItemRemoved(position)
         if (resortsList.isEmpty()) {
             binding.emptyResortsList.isVisible = true
         }

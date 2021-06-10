@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.skillbox.skillbox.myapplication.R
-import com.skillbox.skillbox.myapplication.adapters.ImagesAdapter
+import com.skillbox.skillbox.myapplication.adapters.ImagesGridAdapter
 import com.skillbox.skillbox.myapplication.classes.Images
-import com.skillbox.skillbox.myapplication.databinding.ImageListFragmentBinding
+import com.skillbox.skillbox.myapplication.classes.ItemOffsetDecoration
+import com.skillbox.skillbox.myapplication.databinding.ImageGridListFragmentBinding
 
 class ImagesGridLayoutFragment : Fragment() {
-    private var _binding: ImageListFragmentBinding? = null
+    private var _binding: ImageGridListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var gridImagesAdapter: ImagesAdapter? = null
+    private var gridImagesAdapter: ImagesGridAdapter? = null
     private var gridImages = arrayListOf(
         Images(R.drawable.ibiza),
         Images(R.drawable.red_sea),
@@ -33,7 +34,7 @@ class ImagesGridLayoutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ImageListFragmentBinding.inflate(inflater, container, false)
+        _binding = ImageGridListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -51,11 +52,18 @@ class ImagesGridLayoutFragment : Fragment() {
     }
 
     private fun initList() {
-        gridImagesAdapter = ImagesAdapter { }
-        with(binding.imagesListRV) {
+        gridImagesAdapter = ImagesGridAdapter { }
+        with(binding.imagesGridListRV) {
             adapter = gridImagesAdapter
-            layoutManager = GridLayoutManager(requireContext(), 3)
+            layoutManager = GridLayoutManager(requireContext(), 4).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if (position % 3 == 0) 2 else 1
+                    }
+                }
+            }
             setHasFixedSize(true)
+            addItemDecoration(ItemOffsetDecoration(context))
         }
     }
 }

@@ -5,18 +5,21 @@ import android.os.Parcelable
 
 sealed class Resorts: Parcelable {
     data class Sea(
+        val id: Long,
         val name: String?,
         val country: String?,
         val photo: String?,
         val sea: String?
     ) : Resorts() {
         constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString()
         )
         override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeLong(id)
             parcel.writeString(name)
             parcel.writeString(country)
             parcel.writeString(photo)
@@ -39,12 +42,14 @@ sealed class Resorts: Parcelable {
     }
 
     data class Mountain(
+        val id: Long,
         val name: String?,
         val country: String?,
         val photo: String?,
         val mountain: String?
     ) : Resorts() {
         constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
@@ -52,6 +57,7 @@ sealed class Resorts: Parcelable {
         )
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeLong(id)
             parcel.writeString(name)
             parcel.writeString(country)
             parcel.writeString(photo)
@@ -74,12 +80,14 @@ sealed class Resorts: Parcelable {
     }
 
     data class Ocean(
+        val id: Long,
         val name: String?,
         val country: String?,
         val photo: String?,
         val ocean: String?
     ) : Resorts() {
         constructor(parcel: Parcel) : this(
+            parcel.readLong(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
@@ -87,6 +95,7 @@ sealed class Resorts: Parcelable {
         )
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeLong(id)
             parcel.writeString(name)
             parcel.writeString(country)
             parcel.writeString(photo)
