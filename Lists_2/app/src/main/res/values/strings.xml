@@ -12,6 +12,8 @@
     <string name="enter_uri_for_photo_of_the_resort">Enter URL link for photo of the resort</string>
     <string name="list_of_resorts">List of resorts</string>
     <string name="images_horizontal_list">Images horizontal List</string>
+    <string name="images_grid_list">Images Grid List</string>
+    <string name="images_staggered_grid_list">Images staggered grid list</string>
     <string-array name="resortsListForSelect">
         <item>Sea</item>
         <item>Mountain</item>

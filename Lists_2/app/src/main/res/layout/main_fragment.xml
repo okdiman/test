@@ -30,4 +30,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resortsListNavigationButton" />
 
+    <Button
+        android:id="@+id/ImagesGridListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/background"
+        android:text="@string/images_grid_list"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ImagesHorizontalListButton" />
+
+    <Button
+        android:id="@+id/ImagesStaggeredGridListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/background"
+        android:text="@string/images_staggered_grid_list"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ImagesGridListButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,6 +32,14 @@ class MainFragment : Fragment() {
         binding.ImagesHorizontalListButton.setOnClickListener {
             navigateToImageHorizontalList()
         }
+
+        binding.ImagesGridListButton.setOnClickListener {
+            navigateToImageGridList()
+        }
+
+        binding.ImagesStaggeredGridListButton.setOnClickListener {
+            navigateToStaggeredGridList()
+        }
     }
 
     override fun onDestroyView() {
@@ -49,6 +57,20 @@ class MainFragment : Fragment() {
     private fun navigateToImageHorizontalList() {
         (activity as MainActivity).supportFragmentManager.beginTransaction()
             .replace(R.id.mainConteiner, ImageHorizontalListFragment())
+            .addToBackStack("MainMenu")
+            .commit()
+    }
+
+    private fun navigateToImageGridList() {
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.mainConteiner, ImagesGridLayoutFragment())
+            .addToBackStack("MainMenu")
+            .commit()
+    }
+
+    private fun navigateToStaggeredGridList() {
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.mainConteiner, ImagesStaggeredGridLayoutFragment())
             .addToBackStack("MainMenu")
             .commit()
     }
