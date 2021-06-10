@@ -10,15 +10,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.skillbox.myapplication.R
-import com.skillbox.skillbox.myapplication.classes.Resorts
 import com.skillbox.skillbox.myapplication.adapters.ResortsAdapter
+import com.skillbox.skillbox.myapplication.classes.Resorts
 import com.skillbox.skillbox.myapplication.databinding.ListFragmentBinding
 import com.skillbox.skillbox.myapplication.inflate
-import jp.wasabeef.recyclerview.animators.*
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.android.synthetic.main.add_new_resort.view.*
 import kotlin.random.Random
 
-class ListFragment: Fragment(){
+class ListFragment : Fragment() {
 
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
@@ -98,7 +98,7 @@ class ListFragment: Fragment(){
             resortsList = savedInstanceState.getParcelableArrayList(KEY_FOR_LIST)!!
             isChecked = savedInstanceState.getBoolean(KEY_FOR_CHECK)
         }
-        resortsAdapter?.updateResorts(resortsList)
+        resortsAdapter?.items = resortsList
         if (isChecked) {
             addResort()
         }
@@ -107,7 +107,7 @@ class ListFragment: Fragment(){
         }
     }
 
-
+    //  достаем данные из бандла
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(KEY_FOR_LIST, resortsList)
@@ -167,7 +167,7 @@ class ListFragment: Fragment(){
                         )
                     }
                     resortsList.add(0, newResort)
-                    resortsAdapter?.updateResorts(resortsList)
+                    resortsAdapter?.items = resortsList
                     binding.resortsListRV.scrollToPosition(0)
                     if (resortsList.isNotEmpty()) {
                         binding.emptyResortsList.isVisible = false
@@ -189,7 +189,7 @@ class ListFragment: Fragment(){
     private fun deleteResort(position: Int) {
         resortsList =
             resortsList.filterIndexed { index, _ -> index != position } as ArrayList<Resorts>
-        resortsAdapter?.updateResorts(resortsList)
+        resortsAdapter?.items = resortsList
         if (resortsList.isEmpty()) {
             binding.emptyResortsList.isVisible = true
         }

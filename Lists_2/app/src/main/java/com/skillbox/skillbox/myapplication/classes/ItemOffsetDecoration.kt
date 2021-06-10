@@ -2,9 +2,9 @@ package com.skillbox.skillbox.myapplication.classes
 
 import android.content.Context
 import android.graphics.Rect
-import android.util.DisplayMetrics
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.skillbox.skillbox.myapplication.fromDptoPixels
 
 class ItemOffsetDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(
@@ -13,18 +13,12 @@ class ItemOffsetDecoration(private val context: Context) : RecyclerView.ItemDeco
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        val offset = 10.fromDptoPxls(context)
+        val offset = 10.fromDptoPixels(context)
         with(outRect) {
             left = offset
             right = offset
             top = offset
             bottom = offset
         }
-    }
-
-    private fun Int.fromDptoPxls(context: Context): Int {
-        val density = context.resources.displayMetrics.densityDpi
-        val pixelsInDp = density / DisplayMetrics.DENSITY_DEFAULT
-        return this * pixelsInDp
     }
 }

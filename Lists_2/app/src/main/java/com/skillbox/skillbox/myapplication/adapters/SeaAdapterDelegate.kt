@@ -31,6 +31,7 @@ class SeaAdapterDelegate(
         holder.bind(item)
     }
 
+    //  создаем класс холдера
     class SeaHolder(
         containerView: View,
         onItemClick: (position: Int) -> Unit

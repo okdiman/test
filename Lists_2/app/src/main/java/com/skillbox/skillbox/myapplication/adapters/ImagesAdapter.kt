@@ -14,7 +14,7 @@ class ImagesAdapter (private val onItemClick: (position: Int) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var images = emptyList<Images>()
 
-    // количество элементов равно количеству элементов в списке
+
     override fun getItemCount(): Int {
         return images.size
     }

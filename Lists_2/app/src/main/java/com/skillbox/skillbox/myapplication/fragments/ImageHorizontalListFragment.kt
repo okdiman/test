@@ -39,6 +39,7 @@ class ImageHorizontalListFragment : Fragment() {
         return binding.root
     }
 
+    //  очищаем баиндинг и адаптер при удалении вьюшки
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -52,6 +53,7 @@ class ImageHorizontalListFragment : Fragment() {
         imagesAdapter?.notifyDataSetChanged()
     }
 
+    //  инициализируем список
     private fun initImageList() {
         imagesAdapter = ImagesAdapter { }
         with(binding.imagesListRV) {

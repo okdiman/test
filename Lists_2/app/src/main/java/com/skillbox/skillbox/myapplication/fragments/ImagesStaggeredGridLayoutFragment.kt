@@ -47,6 +47,7 @@ class ImagesStaggeredGridLayoutFragment : Fragment() {
         Images(R.drawable.aspen)
     )
 
+    //  используем баиндинг
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,12 +64,14 @@ class ImagesStaggeredGridLayoutFragment : Fragment() {
         staggeredGridAdapter?.notifyDataSetChanged()
     }
 
+    //  очищаем баиндинг и адаптер при удалении вьюшки
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         staggeredGridAdapter = null
     }
 
+    //  инициализируем список
     private fun initList() {
         staggeredGridAdapter = ImagesStaggeredGridAdapter { }
         with(binding.imagesStaggeredGridListRV) {
@@ -78,6 +81,7 @@ class ImagesStaggeredGridLayoutFragment : Fragment() {
                 StaggeredGridLayoutManager.VERTICAL
             )
             setHasFixedSize(true)
+//            добавляем разделители
             addItemDecoration(
                 DividerItemDecoration(
                     requireContext(),

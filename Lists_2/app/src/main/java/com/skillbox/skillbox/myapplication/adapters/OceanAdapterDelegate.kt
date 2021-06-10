@@ -31,6 +31,7 @@ class OceanAdapterDelegate(
         holder.bind(item)
     }
 
+    //  создаем класс холдера
     class OceanHolder(
         containerView: View,
         onItemClick: (position: Int) -> Unit

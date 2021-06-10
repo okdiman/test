@@ -1,45 +1,23 @@
 package com.skillbox.skillbox.myapplication.adapters
 
-import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.skillbox.skillbox.myapplication.classes.Resorts
-import kotlinx.android.synthetic.main.item_mountain.*
-import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
-import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import com.skillbox.skillbox.myapplication.R
-import kotlinx.android.synthetic.main.item_oceans.*
-import kotlinx.android.synthetic.main.item_sea.*
 
+
+//  наследуемся от AsyncListDifferDelegationAdapter так как он внутри содержит все необходимые методы
 class ResortsAdapter(
-    private val onItemClick: (position: Int) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    onItemClick: (position: Int) -> Unit
+) : AsyncListDifferDelegationAdapter<Resorts>(ResortDiffUtilCallback()) {
 
-    private var differ = AsyncListDiffer<Resorts>(this, ResortDiffUtilCallback())
-
-    private val delegatesManager =
-
-    //  устанавливаем количество элементов, равное размеру списка
-    override fun getItemCount(): Int {
-        return differ.currentList.size
+    //    создаем делегат менеджер и указываем обрабатываемые делегаты
+    init {
+        delegatesManager.addDelegate(SeaAdapterDelegate(onItemClick))
+            .addDelegate(OceanAdapterDelegate(onItemClick))
+            .addDelegate(MountainAdapterDelegate(onItemClick))
     }
-
-    //  получаем разный ViewType в зависимости от класса элемента
-    override fun getItemViewType(position: Int): Int {
-        return
-    }
-
-    //  выбираем создаваемый ViewHolder в зависимости от полученного ViewType
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return
-    }
-
-    //  баиндим Holder'ы в зависимости от их типов
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-    }
-
-    class ResortDiffUtilCallback() : DiffUtil.ItemCallback<Resorts>() {
+    //  обрабатываем метод сравнения элементов
+    class ResortDiffUtilCallback : DiffUtil.ItemCallback<Resorts>() {
         override fun areItemsTheSame(oldItem: Resorts, newItem: Resorts): Boolean {
             return when {
                 oldItem is Resorts.Sea && newItem is Resorts.Sea -> newItem.id == oldItem.id
@@ -53,18 +31,5 @@ class ResortsAdapter(
             return oldItem == newItem
         }
 
-    }
-
-    //  обновление списка
-    fun updateResorts(newResorts: List<Resorts>) {
-        differ.submitList(newResorts)
-    }
-
-
-    //  константы для получения различных типов viewType
-    companion object {
-        private const val TYPE_OCEANS = 1
-        private const val TYPE_MOUNTAINS = 2
-        private const val TYPE_SEAS = 3
     }
 }

@@ -42,11 +42,13 @@ class MainFragment : Fragment() {
         }
     }
 
+    //    чистим баиндинг
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    //    функции навигации на различные экраны
     private fun navigateToResortsList() {
         (activity as MainActivity).supportFragmentManager.beginTransaction()
             .replace(R.id.mainConteiner, ListFragment())

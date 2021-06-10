@@ -14,7 +14,7 @@ class MountainAdapterDelegate(
 ) :
     AbsListItemAdapterDelegate<Resorts.Mountain, Resorts, MountainAdapterDelegate.MountainHolder>() {
 
-//    указываем, что обрабатываем только тип Mountain
+    //    указываем, что обрабатываем только тип Mountain
     override fun isForViewType(item: Resorts, items: MutableList<Resorts>, position: Int): Boolean {
         return item is Resorts.Mountain
     }
@@ -31,6 +31,7 @@ class MountainAdapterDelegate(
         holder.bind(item)
     }
 
+    //  создаем класс холдера
     class MountainHolder(
         containerView: View,
         onItemClick: (position: Int) -> Unit

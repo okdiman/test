@@ -1,38 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/travel"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:text="Welcome! Select the type of list you want"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/resortsListNavigationButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="@color/background"
         android:text="@string/list_of_resorts"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ImagesGridListButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/welcomeTextView" />
 
     <Button
         android:id="@+id/ImagesHorizontalListButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/background"
         android:text="@string/images_horizontal_list"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ImagesStaggeredGridListButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resortsListNavigationButton" />
 
     <Button
         android:id="@+id/ImagesGridListButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:backgroundTint="@color/background"
@@ -40,12 +60,13 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImagesHorizontalListButton" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/resortsListNavigationButton"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTextView" />
 
     <Button
         android:id="@+id/ImagesStaggeredGridListButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:backgroundTint="@color/background"
@@ -53,7 +74,8 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ImagesHorizontalListButton"
         app:layout_constraintTop_toBottomOf="@+id/ImagesGridListButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

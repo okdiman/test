@@ -29,6 +29,7 @@ class ImagesGridLayoutFragment : Fragment() {
         Images(R.drawable.aspen)
     )
 
+    //  используем баиндинг
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +39,7 @@ class ImagesGridLayoutFragment : Fragment() {
         return binding.root
     }
 
+    //  очищаем баиндинг и адаптер при удалении вьюшки
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -51,11 +53,13 @@ class ImagesGridLayoutFragment : Fragment() {
         gridImagesAdapter?.notifyDataSetChanged()
     }
 
+    //  инициализируем список
     private fun initList() {
         gridImagesAdapter = ImagesGridAdapter { }
         with(binding.imagesGridListRV) {
             adapter = gridImagesAdapter
             layoutManager = GridLayoutManager(requireContext(), 4).apply {
+//                используем SpanSizeLookup
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
                         return if (position % 3 == 0) 2 else 1
@@ -63,6 +67,7 @@ class ImagesGridLayoutFragment : Fragment() {
                 }
             }
             setHasFixedSize(true)
+//            добавляем отступы
             addItemDecoration(ItemOffsetDecoration(context))
         }
     }
