@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.skillbox.myapplication.R
-import com.skillbox.skillbox.myapplication.adapters.ImagesAdapter
+import com.skillbox.skillbox.myapplication.adapters.images.ImagesHorizontalAdapter
 import com.skillbox.skillbox.myapplication.classes.Images
 import com.skillbox.skillbox.myapplication.databinding.ImageListFragmentBinding
 
@@ -15,18 +15,18 @@ class ImageHorizontalListFragment : Fragment() {
     private var _binding: ImageListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var imagesAdapter: ImagesAdapter? = null
+    private var imagesAdapter: ImagesHorizontalAdapter? = null
     private var imagesList = arrayListOf(
-        Images(R.drawable.ibiza),
-        Images(R.drawable.red_sea),
-        Images(R.drawable.greek_sea),
-        Images(R.drawable.seychelles),
-        Images(R.drawable.hawaii),
-        Images(R.drawable.canary),
-        Images(R.drawable.cortina),
-        Images(R.drawable.mont_tremblant),
-        Images(R.drawable.aspen),
-        Images(R.drawable.chamonix)
+        Images(1, R.drawable.ibiza),
+        Images(2, R.drawable.red_sea),
+        Images(3, R.drawable.greek_sea),
+        Images(4, R.drawable.seychelles),
+        Images(5, R.drawable.hawaii),
+        Images(6, R.drawable.canary),
+        Images(7, R.drawable.cortina),
+        Images(8, R.drawable.mont_tremblant),
+        Images(9, R.drawable.aspen),
+        Images(10, R.drawable.chamonix)
     )
 
     //  используем баиндинг
@@ -49,13 +49,12 @@ class ImageHorizontalListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initImageList()
-        imagesAdapter?.updateImages(imagesList)
-        imagesAdapter?.notifyDataSetChanged()
+        imagesAdapter?.items = imagesList
     }
 
     //  инициализируем список
     private fun initImageList() {
-        imagesAdapter = ImagesAdapter { }
+        imagesAdapter = ImagesHorizontalAdapter { }
         with(binding.imagesListRV) {
             adapter = imagesAdapter
             layoutManager = LinearLayoutManager(requireContext()).apply {

@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.skillbox.skillbox.myapplication.R
-import com.skillbox.skillbox.myapplication.adapters.ImagesStaggeredGridAdapter
+import com.skillbox.skillbox.myapplication.adapters.images.ImagesStaggeredGridAdapter
 import com.skillbox.skillbox.myapplication.classes.Images
 import com.skillbox.skillbox.myapplication.databinding.ImageStaggeredGridListFragmentBinding
+import kotlin.random.Random
 
 class ImagesStaggeredGridLayoutFragment : Fragment() {
     private var _binding: ImageStaggeredGridListFragmentBinding? = null
@@ -18,33 +19,33 @@ class ImagesStaggeredGridLayoutFragment : Fragment() {
 
     private var staggeredGridAdapter: ImagesStaggeredGridAdapter? = null
     private val staggeredGridImagesList = arrayListOf(
-        Images(R.drawable.ibiza),
-        Images(R.drawable.red_sea),
-        Images(R.drawable.greek_sea),
-        Images(R.drawable.seychelles),
-        Images(R.drawable.hawaii),
-        Images(R.drawable.canary),
-        Images(R.drawable.cortina),
-        Images(R.drawable.mont_tremblant),
-        Images(R.drawable.aspen),
-        Images(R.drawable.ibiza),
-        Images(R.drawable.red_sea),
-        Images(R.drawable.greek_sea),
-        Images(R.drawable.seychelles),
-        Images(R.drawable.hawaii),
-        Images(R.drawable.canary),
-        Images(R.drawable.cortina),
-        Images(R.drawable.mont_tremblant),
-        Images(R.drawable.aspen),
-        Images(R.drawable.ibiza),
-        Images(R.drawable.red_sea),
-        Images(R.drawable.greek_sea),
-        Images(R.drawable.seychelles),
-        Images(R.drawable.hawaii),
-        Images(R.drawable.canary),
-        Images(R.drawable.cortina),
-        Images(R.drawable.mont_tremblant),
-        Images(R.drawable.aspen)
+        Images(Random.nextLong(), R.drawable.ibiza),
+        Images(Random.nextLong(), R.drawable.red_sea),
+        Images(Random.nextLong(), R.drawable.greek_sea),
+        Images(Random.nextLong(), R.drawable.seychelles),
+        Images(Random.nextLong(), R.drawable.hawaii),
+        Images(Random.nextLong(), R.drawable.canary),
+        Images(Random.nextLong(), R.drawable.cortina),
+        Images(Random.nextLong(), R.drawable.mont_tremblant),
+        Images(Random.nextLong(), R.drawable.aspen),
+        Images(Random.nextLong(), R.drawable.ibiza),
+        Images(Random.nextLong(), R.drawable.red_sea),
+        Images(Random.nextLong(), R.drawable.greek_sea),
+        Images(Random.nextLong(), R.drawable.seychelles),
+        Images(Random.nextLong(), R.drawable.hawaii),
+        Images(Random.nextLong(), R.drawable.canary),
+        Images(Random.nextLong(), R.drawable.cortina),
+        Images(Random.nextLong(), R.drawable.mont_tremblant),
+        Images(Random.nextLong(), R.drawable.aspen),
+        Images(Random.nextLong(), R.drawable.ibiza),
+        Images(Random.nextLong(), R.drawable.red_sea),
+        Images(Random.nextLong(), R.drawable.greek_sea),
+        Images(Random.nextLong(), R.drawable.seychelles),
+        Images(Random.nextLong(), R.drawable.hawaii),
+        Images(Random.nextLong(), R.drawable.canary),
+        Images(Random.nextLong(), R.drawable.cortina),
+        Images(Random.nextLong(), R.drawable.mont_tremblant),
+        Images(Random.nextLong(), R.drawable.aspen)
     )
 
     //  используем баиндинг
@@ -60,8 +61,7 @@ class ImagesStaggeredGridLayoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initList()
-        staggeredGridAdapter?.updateImages(staggeredGridImagesList)
-        staggeredGridAdapter?.notifyDataSetChanged()
+        staggeredGridAdapter?.items = staggeredGridImagesList
     }
 
     //  очищаем баиндинг и адаптер при удалении вьюшки

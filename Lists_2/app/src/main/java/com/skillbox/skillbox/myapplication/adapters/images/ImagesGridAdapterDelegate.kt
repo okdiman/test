@@ -1,35 +1,34 @@
-package com.skillbox.skillbox.myapplication.adapters
+package com.skillbox.skillbox.myapplication.adapters.images
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.myapplication.R
 import com.skillbox.skillbox.myapplication.classes.Images
 import com.skillbox.skillbox.myapplication.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_image_grid_list.*
 
-class ImagesGridAdapter (private val onItemClick: (position: Int) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var images = emptyList<Images>()
+class ImagesGridAdapterDelegate(
+    private val onItemClick: (position: Int) -> Unit
+) : AbsListItemAdapterDelegate<Images, Images, ImagesGridAdapterDelegate.ImageViewHolder>() {
 
-    // количество элементов равно количеству элементов в списке
-    override fun getItemCount(): Int {
-        return images.size
+    override fun isForViewType(item: Images, items: MutableList<Images>, position: Int): Boolean {
+        return true
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup): ImageViewHolder {
         return ImageViewHolder(parent.inflate(R.layout.item_image_grid_list), onItemClick)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is ImageViewHolder -> {
-                val image = images [position]
-                holder.bind(image)
-            }
-        }
+    override fun onBindViewHolder(
+        item: Images,
+        holder: ImageViewHolder,
+        payloads: MutableList<Any>
+    ) {
+        holder.bind(item)
     }
 
     class ImageViewHolder(
@@ -50,9 +49,5 @@ class ImagesGridAdapter (private val onItemClick: (position: Int) -> Unit) :
                 .placeholder(R.drawable.ic_cloud_download)
                 .into(imageGridListImageView)
         }
-    }
-
-    fun updateImages(newImages: List<Images>) {
-        images = newImages
     }
 }

@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.skillbox.skillbox.myapplication.R
-import com.skillbox.skillbox.myapplication.adapters.ImagesGridAdapter
+import com.skillbox.skillbox.myapplication.adapters.images.ImagesGridAdapter
 import com.skillbox.skillbox.myapplication.classes.Images
 import com.skillbox.skillbox.myapplication.classes.ItemOffsetDecoration
 import com.skillbox.skillbox.myapplication.databinding.ImageGridListFragmentBinding
+import kotlin.random.Random
 
 class ImagesGridLayoutFragment : Fragment() {
     private var _binding: ImageGridListFragmentBinding? = null
@@ -18,15 +19,24 @@ class ImagesGridLayoutFragment : Fragment() {
 
     private var gridImagesAdapter: ImagesGridAdapter? = null
     private var gridImages = arrayListOf(
-        Images(R.drawable.ibiza),
-        Images(R.drawable.red_sea),
-        Images(R.drawable.greek_sea),
-        Images(R.drawable.seychelles),
-        Images(R.drawable.hawaii),
-        Images(R.drawable.canary),
-        Images(R.drawable.cortina),
-        Images(R.drawable.mont_tremblant),
-        Images(R.drawable.aspen)
+        Images(Random.nextLong(), R.drawable.ibiza),
+        Images(Random.nextLong(), R.drawable.red_sea),
+        Images(Random.nextLong(), R.drawable.greek_sea),
+        Images(Random.nextLong(), R.drawable.seychelles),
+        Images(Random.nextLong(), R.drawable.hawaii),
+        Images(Random.nextLong(), R.drawable.canary),
+        Images(Random.nextLong(), R.drawable.cortina),
+        Images(Random.nextLong(), R.drawable.mont_tremblant),
+        Images(Random.nextLong(), R.drawable.aspen),
+        Images(Random.nextLong(), R.drawable.red_sea),
+        Images(Random.nextLong(), R.drawable.greek_sea),
+        Images(Random.nextLong(), R.drawable.seychelles),
+        Images(Random.nextLong(), R.drawable.hawaii),
+        Images(Random.nextLong(), R.drawable.canary),
+        Images(Random.nextLong(), R.drawable.cortina),
+        Images(Random.nextLong(), R.drawable.mont_tremblant),
+        Images(Random.nextLong(), R.drawable.aspen),
+        Images(Random.nextLong(), R.drawable.ibiza)
     )
 
     //  используем баиндинг
@@ -49,8 +59,7 @@ class ImagesGridLayoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initList()
-        gridImagesAdapter?.updateImages(gridImages)
-        gridImagesAdapter?.notifyDataSetChanged()
+        gridImagesAdapter?.items = gridImages
     }
 
     //  инициализируем список

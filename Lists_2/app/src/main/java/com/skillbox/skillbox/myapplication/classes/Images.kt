@@ -4,10 +4,17 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Images(
+    val id: Long,
     val picture: Int
 ) : Parcelable {
-    constructor(parcel: Parcel) : this(parcel.readInt())
+    constructor(parcel: Parcel) : this(
+        parcel.readLong(),
+        parcel.readInt()
+    ) {
+    }
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
         parcel.writeInt(picture)
     }
 
@@ -24,5 +31,4 @@ data class Images(
             return arrayOfNulls(size)
         }
     }
-
 }

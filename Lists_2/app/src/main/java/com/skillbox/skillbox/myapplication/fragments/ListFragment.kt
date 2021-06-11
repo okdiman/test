@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.skillbox.myapplication.R
-import com.skillbox.skillbox.myapplication.adapters.ResortsAdapter
+import com.skillbox.skillbox.myapplication.adapters.resorts.ResortsAdapter
 import com.skillbox.skillbox.myapplication.classes.Resorts
 import com.skillbox.skillbox.myapplication.databinding.ListFragmentBinding
 import com.skillbox.skillbox.myapplication.inflate

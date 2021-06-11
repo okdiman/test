@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.myapplication.adapters
+package com.skillbox.skillbox.myapplication.adapters.resorts
 
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
