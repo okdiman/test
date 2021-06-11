@@ -11,7 +11,6 @@ import com.skillbox.skillbox.myapplication.adapters.images.ImagesGridAdapter
 import com.skillbox.skillbox.myapplication.classes.ImagesForLists
 import com.skillbox.skillbox.myapplication.classes.ItemOffsetDecoration
 import com.skillbox.skillbox.myapplication.databinding.ImageGridListFragmentBinding
-import recycler.coverflow.CoverFlowLayoutManger
 import kotlin.random.Random
 
 class ImagesGridLayoutFragment : Fragment() {
