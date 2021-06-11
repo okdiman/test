@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:backgroundTint="@color/background"
-        android:text="@string/images_staggered_grid_list"
+        android:text="@string/images_coverflow_list"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
