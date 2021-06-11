@@ -9,18 +9,23 @@ import com.skillbox.skillbox.myapplication.R
 import com.skillbox.skillbox.myapplication.classes.ImagesForLists
 import com.skillbox.skillbox.myapplication.inflate
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_image_list.*
+import kotlinx.android.synthetic.main.item_image_coverflow_list.*
+import kotlinx.android.synthetic.main.item_image_grid_list.*
 
-class ImagesHorizontalAdapterDelegate(
+class ImagesCoverFlowDelegate (
     private val onItemClick: (position: Int) -> Unit
-) : AbsListItemAdapterDelegate<ImagesForLists, ImagesForLists, ImagesHorizontalAdapterDelegate.ImageViewHolder>() {
+) : AbsListItemAdapterDelegate<ImagesForLists, ImagesForLists, ImagesCoverFlowDelegate.ImageViewHolder>() {
 
-    override fun isForViewType(item: ImagesForLists, items: MutableList<ImagesForLists>, position: Int): Boolean {
+    override fun isForViewType(
+        item: ImagesForLists,
+        items: MutableList<ImagesForLists>,
+        position: Int
+    ): Boolean {
         return true
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): ImageViewHolder {
-        return ImageViewHolder(parent.inflate(R.layout.item_image_list), onItemClick)
+        return ImageViewHolder(parent.inflate(R.layout.item_image_coverflow_list), onItemClick)
     }
 
     override fun onBindViewHolder(
@@ -30,6 +35,7 @@ class ImagesHorizontalAdapterDelegate(
     ) {
         holder.bind(item)
     }
+
 
     class ImageViewHolder(
         override val containerView: View,
@@ -47,7 +53,7 @@ class ImagesHorizontalAdapterDelegate(
                 .load(image.picture)
                 .error(R.drawable.ic_sync_problem)
                 .placeholder(R.drawable.ic_cloud_download)
-                .into(imageListImageView)
+                .into(imageCoverFlowListImageView)
         }
     }
 }

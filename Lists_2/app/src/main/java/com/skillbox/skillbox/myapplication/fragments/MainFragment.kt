@@ -40,6 +40,10 @@ class MainFragment : Fragment() {
         binding.ImagesStaggeredGridListButton.setOnClickListener {
             navigateToStaggeredGridList()
         }
+
+        binding.ImagesCoverFlowListButton.setOnClickListener {
+            navigateToCoverFlowList()
+        }
     }
 
     //    чистим баиндинг
@@ -73,6 +77,13 @@ class MainFragment : Fragment() {
     private fun navigateToStaggeredGridList() {
         (activity as MainActivity).supportFragmentManager.beginTransaction()
             .replace(R.id.mainConteiner, ImagesStaggeredGridLayoutFragment())
+            .addToBackStack("MainMenu")
+            .commit()
+    }
+
+    private fun navigateToCoverFlowList() {
+        (activity as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.mainConteiner, ImagesCoverFlowListFragment())
             .addToBackStack("MainMenu")
             .commit()
     }

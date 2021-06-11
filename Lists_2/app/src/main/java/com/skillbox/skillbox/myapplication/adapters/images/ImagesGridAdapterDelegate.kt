@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.myapplication.R
-import com.skillbox.skillbox.myapplication.classes.Images
+import com.skillbox.skillbox.myapplication.classes.ImagesForLists
 import com.skillbox.skillbox.myapplication.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_image_grid_list.*
 
 class ImagesGridAdapterDelegate(
     private val onItemClick: (position: Int) -> Unit
-) : AbsListItemAdapterDelegate<Images, Images, ImagesGridAdapterDelegate.ImageViewHolder>() {
+) : AbsListItemAdapterDelegate<ImagesForLists, ImagesForLists, ImagesGridAdapterDelegate.ImageViewHolder>() {
 
-    override fun isForViewType(item: Images, items: MutableList<Images>, position: Int): Boolean {
+    override fun isForViewType(item: ImagesForLists, items: MutableList<ImagesForLists>, position: Int): Boolean {
         return true
     }
 
@@ -24,7 +24,7 @@ class ImagesGridAdapterDelegate(
     }
 
     override fun onBindViewHolder(
-        item: Images,
+        item: ImagesForLists,
         holder: ImageViewHolder,
         payloads: MutableList<Any>
     ) {
@@ -42,7 +42,7 @@ class ImagesGridAdapterDelegate(
             }
         }
 
-        fun bind(image: Images) {
+        fun bind(image: ImagesForLists) {
             Glide.with(itemView)
                 .load(image.picture)
                 .error(R.drawable.ic_sync_problem)

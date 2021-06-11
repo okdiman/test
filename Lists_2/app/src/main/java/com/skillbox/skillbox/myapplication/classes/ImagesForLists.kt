@@ -3,7 +3,7 @@ package com.skillbox.skillbox.myapplication.classes
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Images(
+data class ImagesForLists(
     val id: Long,
     val picture: Int
 ) : Parcelable {
@@ -22,12 +22,12 @@ data class Images(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Images> {
-        override fun createFromParcel(parcel: Parcel): Images {
-            return Images(parcel)
+    companion object CREATOR : Parcelable.Creator<ImagesForLists> {
+        override fun createFromParcel(parcel: Parcel): ImagesForLists {
+            return ImagesForLists(parcel)
         }
 
-        override fun newArray(size: Int): Array<Images?> {
+        override fun newArray(size: Int): Array<ImagesForLists?> {
             return arrayOfNulls(size)
         }
     }

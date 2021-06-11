@@ -5,20 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import com.skillbox.skillbox.myapplication.R
+import com.skillbox.skillbox.myapplication.adapters.images.ImagesCoverFlowAdapter
 import com.skillbox.skillbox.myapplication.adapters.images.ImagesGridAdapter
 import com.skillbox.skillbox.myapplication.classes.ImagesForLists
-import com.skillbox.skillbox.myapplication.classes.ItemOffsetDecoration
-import com.skillbox.skillbox.myapplication.databinding.ImageGridListFragmentBinding
+import com.skillbox.skillbox.myapplication.databinding.ImageCoverFlowListFragmentBinding
 import recycler.coverflow.CoverFlowLayoutManger
 import kotlin.random.Random
 
-class ImagesGridLayoutFragment : Fragment() {
-    private var _binding: ImageGridListFragmentBinding? = null
+class ImagesCoverFlowListFragment : Fragment() {
+    private var _binding: ImageCoverFlowListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var gridImagesAdapter: ImagesGridAdapter? = null
+    private var gridImagesAdapter: ImagesCoverFlowAdapter? = null
     private var gridImages = arrayListOf(
         ImagesForLists(Random.nextLong(), R.drawable.ibiza),
         ImagesForLists(Random.nextLong(), R.drawable.red_sea),
@@ -46,7 +45,7 @@ class ImagesGridLayoutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ImageGridListFragmentBinding.inflate(inflater, container, false)
+        _binding = ImageCoverFlowListFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -65,20 +64,11 @@ class ImagesGridLayoutFragment : Fragment() {
 
     //  инициализируем список
     private fun initList() {
-        gridImagesAdapter = ImagesGridAdapter { }
-        with(binding.imagesGridListRV) {
+        gridImagesAdapter = ImagesCoverFlowAdapter { }
+        with(binding.imagesCoverFlowListRV) {
             adapter = gridImagesAdapter
-            layoutManager = GridLayoutManager(requireContext(), 4).apply {
-//                используем SpanSizeLookup
-                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        return if (position % 3 == 0) 2 else 1
-                    }
-                }
-            }
+            layoutManager = CoverFlowLayoutManger(false, false, true, 0.7f)
             setHasFixedSize(true)
-//            добавляем отступы
-            addItemDecoration(ItemOffsetDecoration(context))
         }
     }
 }

@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.skillbox.skillbox.myapplication.R
 import com.skillbox.skillbox.myapplication.adapters.images.ImagesStaggeredGridAdapter
-import com.skillbox.skillbox.myapplication.classes.Images
+import com.skillbox.skillbox.myapplication.classes.EndlessRecyclerViewScrollListener
+import com.skillbox.skillbox.myapplication.classes.ImagesForLists
 import com.skillbox.skillbox.myapplication.databinding.ImageStaggeredGridListFragmentBinding
 import kotlin.random.Random
 
@@ -19,33 +20,33 @@ class ImagesStaggeredGridLayoutFragment : Fragment() {
 
     private var staggeredGridAdapter: ImagesStaggeredGridAdapter? = null
     private val staggeredGridImagesList = arrayListOf(
-        Images(Random.nextLong(), R.drawable.ibiza),
-        Images(Random.nextLong(), R.drawable.red_sea),
-        Images(Random.nextLong(), R.drawable.greek_sea),
-        Images(Random.nextLong(), R.drawable.seychelles),
-        Images(Random.nextLong(), R.drawable.hawaii),
-        Images(Random.nextLong(), R.drawable.canary),
-        Images(Random.nextLong(), R.drawable.cortina),
-        Images(Random.nextLong(), R.drawable.mont_tremblant),
-        Images(Random.nextLong(), R.drawable.aspen),
-        Images(Random.nextLong(), R.drawable.ibiza),
-        Images(Random.nextLong(), R.drawable.red_sea),
-        Images(Random.nextLong(), R.drawable.greek_sea),
-        Images(Random.nextLong(), R.drawable.seychelles),
-        Images(Random.nextLong(), R.drawable.hawaii),
-        Images(Random.nextLong(), R.drawable.canary),
-        Images(Random.nextLong(), R.drawable.cortina),
-        Images(Random.nextLong(), R.drawable.mont_tremblant),
-        Images(Random.nextLong(), R.drawable.aspen),
-        Images(Random.nextLong(), R.drawable.ibiza),
-        Images(Random.nextLong(), R.drawable.red_sea),
-        Images(Random.nextLong(), R.drawable.greek_sea),
-        Images(Random.nextLong(), R.drawable.seychelles),
-        Images(Random.nextLong(), R.drawable.hawaii),
-        Images(Random.nextLong(), R.drawable.canary),
-        Images(Random.nextLong(), R.drawable.cortina),
-        Images(Random.nextLong(), R.drawable.mont_tremblant),
-        Images(Random.nextLong(), R.drawable.aspen)
+        ImagesForLists(Random.nextLong(), R.drawable.ibiza),
+        ImagesForLists(Random.nextLong(), R.drawable.red_sea),
+        ImagesForLists(Random.nextLong(), R.drawable.greek_sea),
+        ImagesForLists(Random.nextLong(), R.drawable.seychelles),
+        ImagesForLists(Random.nextLong(), R.drawable.hawaii),
+        ImagesForLists(Random.nextLong(), R.drawable.canary),
+        ImagesForLists(Random.nextLong(), R.drawable.cortina),
+        ImagesForLists(Random.nextLong(), R.drawable.mont_tremblant),
+        ImagesForLists(Random.nextLong(), R.drawable.aspen),
+        ImagesForLists(Random.nextLong(), R.drawable.ibiza),
+        ImagesForLists(Random.nextLong(), R.drawable.red_sea),
+        ImagesForLists(Random.nextLong(), R.drawable.greek_sea),
+        ImagesForLists(Random.nextLong(), R.drawable.seychelles),
+        ImagesForLists(Random.nextLong(), R.drawable.hawaii),
+        ImagesForLists(Random.nextLong(), R.drawable.canary),
+        ImagesForLists(Random.nextLong(), R.drawable.cortina),
+        ImagesForLists(Random.nextLong(), R.drawable.mont_tremblant),
+        ImagesForLists(Random.nextLong(), R.drawable.aspen),
+        ImagesForLists(Random.nextLong(), R.drawable.ibiza),
+        ImagesForLists(Random.nextLong(), R.drawable.red_sea),
+        ImagesForLists(Random.nextLong(), R.drawable.greek_sea),
+        ImagesForLists(Random.nextLong(), R.drawable.seychelles),
+        ImagesForLists(Random.nextLong(), R.drawable.hawaii),
+        ImagesForLists(Random.nextLong(), R.drawable.canary),
+        ImagesForLists(Random.nextLong(), R.drawable.cortina),
+        ImagesForLists(Random.nextLong(), R.drawable.mont_tremblant),
+        ImagesForLists(Random.nextLong(), R.drawable.aspen)
     )
 
     //  используем баиндинг
