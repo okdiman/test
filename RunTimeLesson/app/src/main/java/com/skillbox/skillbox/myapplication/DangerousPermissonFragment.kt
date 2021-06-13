@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.myapplication
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.location.LocationServices
 import com.skillbox.skillbox.myapplication.databinding.DangerousPermessionFragmentBinding
 
 
@@ -54,10 +56,37 @@ class DangerousPermissionFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n", "MissingPermission")
     private fun showLocationInfo() {
-        Toast.makeText(requireContext(), "showLocation", Toast.LENGTH_SHORT).show()
+        LocationServices.getFusedLocationProviderClient(requireContext())
+            .lastLocation
+            .addOnSuccessListener {
+                it?.let {
+                    binding.positionTextView.text = """
+                        Lat = ${it.latitude}
+                        Lng = ${it.longitude}
+                        Alt = ${it.altitude}
+                        Speed =${it.speed}
+                        Accuracy =${it.accuracy}
+                        """.trimIndent()
+                } ?: Toast.makeText(
+                    requireContext(),
+                    "location is not founded",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .addOnCanceledListener {
+                Toast.makeText(requireContext(), "permission denied", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(
+                    requireContext(),
+                    "getting of location is failed",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
-
 
 
     private fun showCurrentLocationPermissionCheck() {
@@ -69,11 +98,11 @@ class DangerousPermissionFragment : Fragment() {
         if (isLocationPermissionGranted) {
             showLocationInfo()
         } else {
-            val needRationale  = ActivityCompat.shouldShowRequestPermissionRationale(
+            val needRationale = ActivityCompat.shouldShowRequestPermissionRationale(
                 requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
-            if (needRationale){
+            if (needRationale) {
                 showLocationRationaleDialog()
             } else {
                 requestLocationPermission()
@@ -85,7 +114,7 @@ class DangerousPermissionFragment : Fragment() {
         requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_PERMISSIONS)
     }
 
-    private fun showLocationRationaleDialog (){
+    private fun showLocationRationaleDialog() {
         rationaleDialog = AlertDialog.Builder(requireContext())
             .setMessage("need for getting location")
             .setPositiveButton("OK") { _, _ -> requestLocationPermission() }

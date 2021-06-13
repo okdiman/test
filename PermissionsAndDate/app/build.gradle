@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.skillbox.skillbox.myapplication"
+        applicationId "com.skillbox.skillbox.location"
         minSdkVersion 27
         targetSdkVersion 30
         versionCode 1
@@ -17,15 +17,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildFeatures {
         viewBinding true
     }
-
     androidExtensions {
         experimental = true
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -54,4 +51,11 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+    implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.0'
+    implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0'
+    implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0'
 }
