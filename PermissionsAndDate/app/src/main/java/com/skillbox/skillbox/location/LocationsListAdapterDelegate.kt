@@ -45,8 +45,8 @@ class LocationsListAdapterDelegate(private val onItemClick: (position: Int) -> U
             }
         }
 
-        private val formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")
-            .withZone(ZoneId.systemDefault())
+        private var formatter = org.threeten.bp.format.DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")
+            .withZone(org.threeten.bp.ZoneId.systemDefault())
 
         @SuppressLint("SetTextI18n")
         fun bind(location: PointOfLocation) {
@@ -57,6 +57,7 @@ class LocationsListAdapterDelegate(private val onItemClick: (position: Int) -> U
                 .placeholder(R.drawable.ic_cloud_download)
                 .error(R.drawable.ic_sync_problem)
                 .into(locationImageView)
+            dateOfLocationTextView.text = formatter.format(location.pointOfTime)
         }
     }
 }

@@ -3,11 +3,11 @@ package com.skillbox.skillbox.location
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
-class LocationsListAdapter(onIemClick: (position: Int) -> Unit) :
+class LocationsListAdapter(onItemClick: (position: Int) -> Unit) :
     AsyncListDifferDelegationAdapter<PointOfLocation>(LocationsDiffUtilCallback()) {
 
     init {
-        delegatesManager.addDelegate(LocationsListAdapterDelegate(onIemClick))
+        delegatesManager.addDelegate(LocationsListAdapterDelegate(onItemClick))
     }
 
     class LocationsDiffUtilCallback : DiffUtil.ItemCallback<PointOfLocation>() {

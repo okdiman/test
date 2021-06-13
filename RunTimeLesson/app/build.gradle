@@ -22,9 +22,6 @@ android {
         viewBinding true
     }
 
-    androidExtensions {
-        experimental = true
-    }
 
     buildTypes {
         release {
