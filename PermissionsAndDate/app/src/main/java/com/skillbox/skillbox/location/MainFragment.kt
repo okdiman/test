@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +16,17 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.location.*
 import com.skillbox.skillbox.location.databinding.MainFragmentBinding
 import kotlinx.android.synthetic.main.add_new_location.view.*
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import kotlin.random.Random
+
 
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
@@ -31,11 +36,40 @@ class MainFragment : Fragment() {
     private var locationsAdapter: LocationsListAdapter? = null
 
     private var rationaleDialog: AlertDialog? = null
-
-    private var newLocation: PointOfLocation? = null
-
     private var selectedLocationInstant: Instant? = null
 
+    private var locCall: LocationCallback? = null
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                locationResult ?: return
+                for (location in locationResult.locations) {
+                    val newLocation = PointOfLocation(
+                        Random.nextLong(),
+                        location.latitude,
+                        location.longitude,
+                        location.altitude,
+                        location.speed,
+                        location.accuracy,
+                        selectedLocationInstant ?: Instant.now(),
+                        "${R.drawable.autocheckpoint}"
+                    )
+                    locationsList.add(0, newLocation)
+                    locationsAdapter?.items = locationsList
+                    binding.locationsRecyclerView.scrollToPosition(0)
+                    if (locationsList.isNotEmpty()) {
+                        binding.emptyListTextView.isVisible = false
+                    }
+                    selectedLocationInstant = null
+                }
+            }
+        }
+        locCall = locationCallback
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,36 +92,46 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!access()) {
-            deniedAccessScreen()
-        } else {
-            initLocationsList()
-            locationsAdapter?.items = locationsList
-        }
-        binding.addLocationButton.setOnClickListener {
-            getLastLocation()
-        }
-        binding.agreementToGiveAccessButton.setOnClickListener {
-            val permissions = arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            ActivityCompat.requestPermissions(requireActivity(), permissions, 0)
-            if (!access()) {
-                showRationaleDialog()
-            } else {
-                binding.notAccessTextView.isVisible = false
-                binding.agreementToGiveAccessButton.isVisible = false
-                binding.addLocationButton.isVisible = true
-                initLocationsList()
+        val googlePlayServiceAvailable =
+            GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(requireContext())
+        when {
+            (googlePlayServiceAvailable == ConnectionResult.SUCCESS) -> {
+                checkPermission()
+                binding.addLocationButton.setOnClickListener {
+                    getLastLocation()
+                    locationsAdapter?.items = locationsList
+                    selectedLocationInstant = null
+                }
+                binding.agreementToGiveAccessButton.setOnClickListener {
+                    checkPermission()
+                }
+                startLocationUpdates()
+            }
+            (googlePlayServiceAvailable == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED) -> {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Service version update required")
+                    .setPositiveButton("update now") { _, _ -> TODO("ссылка на обновление в play market") }
+                    .setNegativeButton("later") { _, _ -> }
+                    .show()
+            }
+            (googlePlayServiceAvailable == ConnectionResult.SERVICE_MISSING) -> {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Google Play services are missing! Your should install it to continue")
+                    .setPositiveButton("Install now") { _, _ -> TODO("ссылка на установку из play market") }
+                    .setNegativeButton("later") { _, _ -> }
+            }
+            else -> {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Something wrong, sorry. Google play services aren't working:(")
             }
         }
+
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-//        outState.putParcelableArrayList(KEY_FOR_LIST, locationsList)
-    }
-
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+////        outState.putParcelableArrayList(KEY_FOR_LIST, locationsList)
+//    }
 
     private fun initLocationsList() {
         binding.emptyListTextView.isVisible = true
@@ -107,71 +151,71 @@ class MainFragment : Fragment() {
     private fun showRationaleDialog() {
         rationaleDialog = AlertDialog.Builder(requireContext())
             .setMessage("We need to get access to your geolocation to make a location point. Please, click 'ok', if you agree to give it")
-            .setPositiveButton("Ok") { _, _ -> checkPermission() }
-            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Ok") { _, _ -> permitRequest() }
+            .setNegativeButton("Cancel") { _, _ ->
+                Toast.makeText(
+                    requireContext(),
+                    "it is impossible to get a location without permission",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
             .show()
     }
 
 
     private fun checkPermission() {
-        if (!access()) {
-            val permissions = arrayOf(
+        val isLocationPermissionGranted = ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+        if (isLocationPermissionGranted) {
+            grantedAccessScreen()
+            initLocationsList()
+        } else {
+            val needRationale = ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
-            ActivityCompat.requestPermissions(requireActivity(), permissions, 0)
-            if (!access()) {
-                deniedAccessScreen()
+            if (needRationale) {
+                showRationaleDialog()
             } else {
-                initLocationsList()
+                deniedAccessScreen()
+                permitRequest()
             }
-        } else {
-            initLocationsList()
         }
+    }
+
+    private fun grantedAccessScreen() {
+        binding.notAccessTextView.isVisible = false
+        binding.agreementToGiveAccessButton.isVisible = false
+        binding.addLocationButton.isVisible = true
     }
 
     private fun deniedAccessScreen() {
         binding.notAccessTextView.isVisible = true
         binding.agreementToGiveAccessButton.isVisible = true
         binding.addLocationButton.isVisible = false
-        Toast.makeText(
-            requireContext(),
-            "it is impossible to get a location without permission",
-            Toast.LENGTH_SHORT
-        ).show()
-
-        binding.agreementToGiveAccessButton.setOnClickListener {
-            val permissions = arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            ActivityCompat.requestPermissions(requireActivity(), permissions, 0)
-            if (!access()) {
-                showRationaleDialog()
-            } else {
-                binding.notAccessTextView.isVisible = false
-                binding.agreementToGiveAccessButton.isVisible = false
-                binding.addLocationButton.isVisible = true
-                initLocationsList()
-            }
-        }
     }
 
-    private fun access(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            requireContext(),
+    private fun permitRequest() {
+        val permissions = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
+        )
+        ActivityCompat.requestPermissions(requireActivity(), permissions, 0)
     }
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLastLocation() {
+        lateinit var newLocation: PointOfLocation
         val view = (view as ViewGroup).inflate(R.layout.add_new_location)
+        val fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
         AlertDialog.Builder(requireContext())
             .setTitle("Please, enter a link to photo for the location")
             .setView(view)
             .setPositiveButton("Add") { _, _ ->
                 if (view.addPhotoToNewLocation.text.isNotEmpty()) {
-                    LocationServices.getFusedLocationProviderClient(requireContext())
-                        .lastLocation
+                    fusedLocationClient.lastLocation
                         .addOnSuccessListener {
                             newLocation = PointOfLocation(
                                 Random.nextLong(),
@@ -183,7 +227,7 @@ class MainFragment : Fragment() {
                                 selectedLocationInstant ?: Instant.now(),
                                 view.addPhotoToNewLocation.text.toString()
                             )
-                            locationsList.add(0, newLocation!!)
+                            locationsList.add(0, newLocation)
                             locationsAdapter?.items = locationsList
                             binding.locationsRecyclerView.scrollToPosition(0)
                             if (locationsList.isNotEmpty()) {
@@ -227,14 +271,18 @@ class MainFragment : Fragment() {
                 TimePickerDialog(
                     requireContext(),
                     { _, hourOfDay, minute ->
-                        val selectedDateTime = LocalDateTime.of(year, month + 1, dayOfMonth, hourOfDay, minute)
-                            .atZone(ZoneId.systemDefault())
-
-                        Toast.makeText(requireContext(), "Выбрано время: $selectedDateTime", Toast.LENGTH_SHORT).show()
+                        val selectedDateTime: ZonedDateTime =
+                            LocalDateTime.of(year, month + 1, dayOfMonth, hourOfDay, minute)
+                                .atZone(ZoneId.systemDefault())
                         selectedLocationInstant = selectedDateTime.toInstant()
                         locationsList[position].pointOfTime = selectedLocationInstant!!
                         locationsAdapter?.items = locationsList
-                        selectedLocationInstant = null
+                        Toast.makeText(
+                            requireContext(),
+                            "Выбрано время: $selectedDateTime",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                     },
                     enterDataTime.hour,
                     enterDataTime.minute,
@@ -248,6 +296,30 @@ class MainFragment : Fragment() {
         )
             .show()
     }
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        val fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+        val locationRequest = LocationRequest.create().apply {
+            interval = java.util.concurrent.TimeUnit.SECONDS.toMillis(60)
+            fastestInterval = java.util.concurrent.TimeUnit.SECONDS.toMillis(30)
+            maxWaitTime = java.util.concurrent.TimeUnit.MINUTES.toMillis(2)
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locCall,
+            Looper.getMainLooper())
+    }
+//    override fun onPause() {
+//        super.onPause()
+//        stopLocationUpdates()
+//    }
+//
+//    private fun stopLocationUpdates() {
+//        fusedLocationClient.removeLocationUpdates(locationCallback)
+//    }
 
     companion object {
         const val KEY_FOR_LIST = "key for list"

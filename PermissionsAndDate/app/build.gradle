@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -58,4 +59,7 @@ dependencies {
     implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.0'
     implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0'
     implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0'
+
+    implementation "com.github.permissions-dispatcher:permissionsdispatcher:1.0.2"
+    kapt "com.github.permissions-dispatcher:permissionsdispatcher-processor:1.0.2"
 }
