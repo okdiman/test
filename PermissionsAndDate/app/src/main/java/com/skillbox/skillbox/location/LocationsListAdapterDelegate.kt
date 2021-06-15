@@ -55,7 +55,7 @@ class LocationsListAdapterDelegate(private val onItemClick: (position: Int) -> U
             Glide.with(itemView)
                 .load(location.picture)
                 .placeholder(R.drawable.ic_cloud_download)
-                .error(R.drawable.ic_sync_problem)
+                .error(R.drawable.autocheckpoint)
                 .into(locationImageView)
             dateOfLocationTextView.text = formatter.format(location.pointOfTime)
         }
