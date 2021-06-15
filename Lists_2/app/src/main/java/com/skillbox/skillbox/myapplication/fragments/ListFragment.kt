@@ -166,6 +166,7 @@ class ListFragment : Fragment() {
                             view.addPlaceEditText.text.toString()
                         )
                     }
+                    resortsList = resortsList.clone() as ArrayList<Resorts>
                     resortsList.add(0, newResort)
                     resortsAdapter?.items = resortsList
                     binding.resortsListRV.scrollToPosition(0)

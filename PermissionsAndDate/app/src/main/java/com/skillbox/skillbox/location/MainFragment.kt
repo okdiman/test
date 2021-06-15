@@ -18,7 +18,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.location.*
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.skillbox.skillbox.location.databinding.MainFragmentBinding
 import kotlinx.android.synthetic.main.add_new_location.view.*
 import org.threeten.bp.Instant
@@ -41,32 +44,32 @@ class MainFragment : Fragment() {
     private var locCall: LocationCallback? = null
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return
-                for (location in locationResult.locations) {
-                    val newLocation = PointOfLocation(
-                        Random.nextLong(),
-                        location.latitude,
-                        location.longitude,
-                        location.altitude,
-                        location.speed,
-                        location.accuracy,
-                        selectedLocationInstant ?: Instant.now(),
-                        "${R.drawable.autocheckpoint}"
-                    )
-                    locationsList.add(0, newLocation)
-                    locationsAdapter?.items = locationsList
-                    binding.locationsRecyclerView.scrollToPosition(0)
-                    if (locationsList.isNotEmpty()) {
-                        binding.emptyListTextView.isVisible = false
-                    }
-                    selectedLocationInstant = null
+                val currentLocation = locationResult.lastLocation
+                val newLocation = PointOfLocation(
+                    Random.nextLong(),
+                    currentLocation.latitude,
+                    currentLocation.longitude,
+                    currentLocation.altitude,
+                    currentLocation.speed,
+                    currentLocation.accuracy,
+                    selectedLocationInstant ?: Instant.now(),
+                    "${R.drawable.autocheckpoint}"
+                )
+                locationsList = locationsList.clone() as ArrayList<PointOfLocation>
+                locationsList.add(0, newLocation)
+                locationsAdapter?.items = locationsList
+                binding.locationsRecyclerView.scrollToPosition(0)
+                if (locationsList.isNotEmpty()) {
+                    binding.emptyListTextView.isVisible = false
                 }
+                selectedLocationInstant = null
             }
+
         }
         locCall = locationCallback
     }
@@ -227,6 +230,7 @@ class MainFragment : Fragment() {
                                 selectedLocationInstant ?: Instant.now(),
                                 view.addPhotoToNewLocation.text.toString()
                             )
+                            locationsList = locationsList.clone() as ArrayList<PointOfLocation>
                             locationsList.add(0, newLocation)
                             locationsAdapter?.items = locationsList
                             binding.locationsRecyclerView.scrollToPosition(0)
@@ -275,6 +279,7 @@ class MainFragment : Fragment() {
                             LocalDateTime.of(year, month + 1, dayOfMonth, hourOfDay, minute)
                                 .atZone(ZoneId.systemDefault())
                         selectedLocationInstant = selectedDateTime.toInstant()
+                        locationsList = locationsList.clone() as ArrayList<PointOfLocation>
                         locationsList[position].pointOfTime = selectedLocationInstant!!
                         locationsAdapter?.items = locationsList
                         Toast.makeText(
@@ -310,7 +315,8 @@ class MainFragment : Fragment() {
         fusedLocationClient.requestLocationUpdates(
             locationRequest,
             locCall,
-            Looper.getMainLooper())
+            Looper.getMainLooper()
+        )
     }
 //    override fun onPause() {
 //        super.onPause()

@@ -158,6 +158,7 @@ class ListFragment() : Fragment() {
                             view.addPlaceEditText.text.toString()
                         )
                     }
+                    resortsList = resortsList.clone() as ArrayList<Resorts>
                     resortsList.add(0, newResort)
                     resortsAdapter?.updateResorts(resortsList)
                     resortsAdapter?.notifyItemInserted(0)
