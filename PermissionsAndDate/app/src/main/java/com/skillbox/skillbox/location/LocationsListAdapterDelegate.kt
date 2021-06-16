@@ -8,8 +8,6 @@ import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_location.*
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 class LocationsListAdapterDelegate(private val onItemClick: (position: Int) -> Unit) :
     AbsListItemAdapterDelegate<PointOfLocation, PointOfLocation, LocationsListAdapterDelegate.LocationsViewHolder>() {

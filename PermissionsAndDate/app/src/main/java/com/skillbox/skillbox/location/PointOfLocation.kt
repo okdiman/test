@@ -14,5 +14,4 @@ data class PointOfLocation(
     val accuracy: Float,
     var pointOfTime: Instant,
     val picture: String
-): Parcelable {
-}
+): Parcelable

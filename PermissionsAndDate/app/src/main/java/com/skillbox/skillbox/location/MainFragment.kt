@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
     private var locCall: LocationCallback? = null
     private var selectedItem: String? = null
 
-    private val singleChoice = arrayListOf<String>("Image", "Date and time")
+    private val singleChoice = arrayListOf("Image", "Date and time")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
