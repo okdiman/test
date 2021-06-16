@@ -107,7 +107,7 @@ class ListFragment : Fragment() {
         }
     }
 
-    //  достаем данные из бандла
+    //  кладем данные в бандл
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(KEY_FOR_LIST, resortsList)

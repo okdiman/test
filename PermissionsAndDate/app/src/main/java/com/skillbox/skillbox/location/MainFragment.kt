@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
                     "${R.drawable.autocheckpoint}"
                 )
                 locationsList = locationsList.clone() as ArrayList<PointOfLocation>
-                locationsList.add(locationsList.size, newLocation)
+                locationsList.add(0, newLocation)
                 locationsAdapter?.items = locationsList
                 binding.locationsRecyclerView.scrollToPosition(0)
                 if (locationsList.isNotEmpty()) {
@@ -89,17 +89,41 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState != null) {
+            locationsList =
+                savedInstanceState.getParcelableArrayList<PointOfLocation>(KEY_FOR_LIST)!!
+        }
         initLocationsList()
-        startLocationUpdates()
+        locationsAdapter?.items = locationsList
+        binding.startLocationCheck.setOnClickListener {
+            startLocationUpdates()
+            binding.startLocationCheck.isVisible = false
+            binding.stopLocationCheck.isVisible = true
+            Toast.makeText(
+                requireContext(),
+                "automatic route recording mode turned on",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        binding.stopLocationCheck.setOnClickListener {
+            stopLocationUpdates()
+            binding.startLocationCheck.isVisible = true
+            binding.stopLocationCheck.isVisible = false
+            Toast.makeText(
+                requireContext(),
+                "automatic route recording mode turned off",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         binding.addLocationButton.setOnClickListener {
             getLastLocation()
         }
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-////        outState.putParcelableArrayList(KEY_FOR_LIST, locationsList)
-//    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(KEY_FOR_LIST, locationsList)
+    }
 
     private fun initLocationsList() {
         binding.emptyListTextView.isVisible = true
@@ -114,6 +138,7 @@ class MainFragment : Fragment() {
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLastLocation() {
         lateinit var newLocation: PointOfLocation
+
         val view = (view as ViewGroup).inflate(R.layout.add_new_location)
         val fusedLocationClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -124,24 +149,32 @@ class MainFragment : Fragment() {
                 if (view.addPhotoToNewLocation.text.isNotEmpty()) {
                     fusedLocationClient.lastLocation
                         .addOnSuccessListener {
-                            newLocation = PointOfLocation(
-                                Random.nextLong(),
-                                it.latitude,
-                                it.longitude,
-                                it.altitude,
-                                it.speed,
-                                it.accuracy,
-                                selectedLocationInstant ?: Instant.now(),
-                                view.addPhotoToNewLocation.text.toString()
-                            )
-                            locationsList = locationsList.clone() as ArrayList<PointOfLocation>
-                            locationsList.add(0, newLocation)
-                            locationsAdapter?.items = locationsList
-                            binding.locationsRecyclerView.scrollToPosition(0)
-                            if (locationsList.isNotEmpty()) {
-                                binding.emptyListTextView.isVisible = false
+                            if (it != null) {
+                                newLocation = PointOfLocation(
+                                    Random.nextLong(),
+                                    it.latitude,
+                                    it.longitude,
+                                    it.altitude,
+                                    it.speed,
+                                    it.accuracy,
+                                    selectedLocationInstant ?: Instant.now(),
+                                    view.addPhotoToNewLocation.text.toString()
+                                )
+                                locationsList = locationsList.clone() as ArrayList<PointOfLocation>
+                                locationsList.add(0, newLocation)
+                                locationsAdapter?.items = locationsList
+                                binding.locationsRecyclerView.scrollToPosition(0)
+                                if (locationsList.isNotEmpty()) {
+                                    binding.emptyListTextView.isVisible = false
+                                }
+                                selectedLocationInstant = null
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Unfortunately, we couldn't get location. Check your geolocation mode and Internet connection and try again, or we didn't find last location, try to turn on/turn off auto mode and try to set current location again",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
-                            selectedLocationInstant = null
                         }
                         .addOnCanceledListener {
                             Toast.makeText(
@@ -189,7 +222,8 @@ class MainFragment : Fragment() {
                                 .atZone(ZoneId.systemDefault())
                         selectedLocationInstant = selectedDateTime.toInstant()
                         locationsList = locationsList.clone() as ArrayList<PointOfLocation>
-                        locationsList[position].pointOfTime = selectedLocationInstant!!
+                        locationsList[position] =
+                            locationsList[position].copy(pointOfTime = selectedLocationInstant!!)
                         locationsAdapter?.items = locationsList
                         Toast.makeText(
                             requireContext(),
@@ -227,16 +261,14 @@ class MainFragment : Fragment() {
             Looper.getMainLooper()
         )
     }
-//    override fun onPause() {
-//        super.onPause()
-//        stopLocationUpdates()
-//    }
-//
-//    private fun stopLocationUpdates() {
-//        fusedLocationClient.removeLocationUpdates(locationCallback)
-//    }
 
-//    companion object {
-//        const val KEY_FOR_LIST = "key for list"
-//    }
+    private fun stopLocationUpdates() {
+        val fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+        fusedLocationClient.removeLocationUpdates(locCall!!)
+    }
+
+    companion object {
+        const val KEY_FOR_LIST = "key for list"
+    }
 }

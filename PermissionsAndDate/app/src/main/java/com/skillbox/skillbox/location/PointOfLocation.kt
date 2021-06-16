@@ -1,7 +1,10 @@
 package com.skillbox.skillbox.location
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import org.threeten.bp.Instant
 
+@Parcelize
 data class PointOfLocation(
     val id: Long,
     val lat: Double,
@@ -11,5 +14,5 @@ data class PointOfLocation(
     val accuracy: Float,
     var pointOfTime: Instant,
     val picture: String
-) {
+): Parcelable {
 }

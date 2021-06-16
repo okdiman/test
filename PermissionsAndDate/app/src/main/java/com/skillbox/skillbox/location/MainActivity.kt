@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), StartMainFragmentFromDenied {
     private var rationaleDialog: AlertDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,25 +32,17 @@ class MainActivity : AppCompatActivity() {
                     else -> startDeniedPermissionFragment()
                 }
             }
-            (googlePlayServiceAvailable == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED) -> {
-                AlertDialog.Builder(this)
-                    .setTitle("Service version update required")
-                    .setPositiveButton("update now") { _, _ -> TODO("ссылка на обновление в play market") }
-                    .setNegativeButton("later") { _, _ -> }
-                    .show()
-            }
-            (googlePlayServiceAvailable == ConnectionResult.SERVICE_MISSING) -> {
-                AlertDialog.Builder(this)
-                    .setTitle("Google Play services are missing! Your should install it to continue")
-                    .setPositiveButton("Install now") { _, _ -> TODO("ссылка на установку из play market") }
-                    .setNegativeButton("later") { _, _ -> }
-            }
             else -> {
-                AlertDialog.Builder(this)
-                    .setTitle("Something wrong, sorry. Google play services aren't working:(")
+                if (GoogleApiAvailability.getInstance()
+                        .isUserResolvableError(googlePlayServiceAvailable)
+                ) {
+                    GoogleApiAvailability.getInstance()
+                        .getErrorDialog(this, googlePlayServiceAvailable, 9950)
+                } else {
+                    error("error, we couldn't check Google Play Services status, sorry")
+                }
             }
         }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -114,5 +106,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val PERMISSION_REQUEST_CODE = 1
+    }
+
+    override fun startMainFragmentFromDeniedFragment() {
+        this.supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, MainFragment())
+            .commit()
     }
 }

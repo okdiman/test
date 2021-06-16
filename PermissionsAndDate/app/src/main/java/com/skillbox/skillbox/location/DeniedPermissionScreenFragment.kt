@@ -15,6 +15,9 @@ class DeniedPermissionScreenFragment : Fragment() {
     private var _binding: DeniedPermissionScreenFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private val changeFragmentToMain: StartMainFragmentFromDenied
+        get() = activity.let { it as StartMainFragmentFromDenied }
+
     private var rationaleDialog: AlertDialog? = null
 
     override fun onCreateView(
@@ -54,7 +57,7 @@ class DeniedPermissionScreenFragment : Fragment() {
                 if ((grantResults.isNotEmpty() &&
                             grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 ) {
-                    startMainFragment()
+                    initMainFragment()
                 } else {
                     showRationaleDialog()
                 }
@@ -80,15 +83,7 @@ class DeniedPermissionScreenFragment : Fragment() {
             .show()
     }
 
-    private fun startMainFragment() {
-        binding.agreementToGiveAccessButton.isVisible = false
-        binding.notAccessTextView.isVisible = false
-        rationaleDialog = null
-        val alreadyHasFragment = childFragmentManager.findFragmentById(R.id.mainContainer) != null
-        if (!alreadyHasFragment) {
-            this.childFragmentManager.beginTransaction()
-                .replace(R.id.deniedFragmentContainer, MainFragment())
-                .commit()
-        }
+    private fun initMainFragment(){
+        changeFragmentToMain.startMainFragmentFromDeniedFragment()
     }
 }

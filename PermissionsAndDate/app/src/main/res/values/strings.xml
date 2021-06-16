@@ -5,4 +5,6 @@
     <string name="give_access">Give access</string>
     <string name="there_aren_t_locations_to_display">There aren\'t locations to display</string>
     <string name="enter_link_for_a_photo_of_location">Enter link for a photo of location</string>
+    <string name="autocheck_location">turn on auto mode</string>
+    <string name="off_autocheck_location">turn off auto mode</string>
 </resources>
