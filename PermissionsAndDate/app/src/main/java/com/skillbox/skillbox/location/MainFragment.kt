@@ -19,6 +19,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.skillbox.skillbox.location.databinding.MainFragmentBinding
 import kotlinx.android.synthetic.main.add_new_location.view.*
+import kotlinx.android.synthetic.main.add_photo_to_location.view.*
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
@@ -36,8 +37,9 @@ class MainFragment : Fragment() {
     private var selectedLocationInstant: Instant? = null
 
     private var locCall: LocationCallback? = null
+    private var selectedItem: String? = null
 
-//    private val singleChoice = arrayListOf<String>("Image", "Date and time")
+    private val singleChoice = arrayListOf<String>("Image", "Date and time")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -204,45 +206,90 @@ class MainFragment : Fragment() {
     }
 
     private fun changeDateAndTime(position: Int) {
-//        AlertDialog.Builder(requireContext())
-//            .setTitle("What do u want change?")
-//            .setSingleChoiceItems(singleChoice.toTypedArray(), 1){_,_ -> }
-//            .setPositiveButton("ok"){ }
-//            .setNegativeButton("cancel"){_ ,_ -> }
-//            .show()
-        val enterDataTime = LocalDateTime.now()
-        DatePickerDialog(
-            requireContext(),
-            { _, year, month, dayOfMonth ->
-                TimePickerDialog(
-                    requireContext(),
-                    { _, hourOfDay, minute ->
-                        val selectedDateTime: ZonedDateTime =
-                            LocalDateTime.of(year, month + 1, dayOfMonth, hourOfDay, minute)
-                                .atZone(ZoneId.systemDefault())
-                        selectedLocationInstant = selectedDateTime.toInstant()
-                        locationsList = locationsList.clone() as ArrayList<PointOfLocation>
-                        locationsList[position] =
-                            locationsList[position].copy(pointOfTime = selectedLocationInstant!!)
-                        locationsAdapter?.items = locationsList
-                        Toast.makeText(
-                            requireContext(),
-                            "Выбрано время: $selectedDateTime",
-                            Toast.LENGTH_SHORT
-                        ).show()
 
-                    },
-                    enterDataTime.hour,
-                    enterDataTime.minute,
-                    true
-                )
-                    .show()
-            },
-            enterDataTime.year,
-            enterDataTime.month.value - 1,
-            enterDataTime.dayOfMonth
-        )
+        AlertDialog.Builder(requireContext())
+            .setTitle("What do u want change?")
+            .setSingleChoiceItems(singleChoice.toTypedArray(), 1) { _, i ->
+                selectedItem = singleChoice[i]
+            }
+            .setPositiveButton("ok") { _, _ ->
+                when (selectedItem) {
+                    "Image" -> {
+                        val view = (view as ViewGroup).inflate(R.layout.add_photo_to_location)
+                        AlertDialog.Builder(requireContext())
+                            .setTitle("Enter a link for the image")
+                            .setView(view)
+                            .setPositiveButton("Add") { _, _ ->
+                                if (view.addPhotoToOldLocation.text.isNotEmpty()) {
+                                    locationsList =
+                                        locationsList.clone() as ArrayList<PointOfLocation>
+                                    locationsList[position] =
+                                        locationsList[position].copy(picture = view.addPhotoToOldLocation.text.toString())
+                                    locationsAdapter?.items = locationsList
+                                } else {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "u didn't enter the link",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                            .setNegativeButton("cancel") { _, _ -> }
+                            .show()
+                    }
+                    "Date and time" -> {
+                        val enterDataTime = LocalDateTime.now()
+                        DatePickerDialog(
+                            requireContext(),
+                            { _, year, month, dayOfMonth ->
+                                TimePickerDialog(
+                                    requireContext(),
+                                    { _, hourOfDay, minute ->
+                                        val selectedDateTime: ZonedDateTime =
+                                            LocalDateTime.of(
+                                                year,
+                                                month + 1,
+                                                dayOfMonth,
+                                                hourOfDay,
+                                                minute
+                                            )
+                                                .atZone(ZoneId.systemDefault())
+                                        selectedLocationInstant = selectedDateTime.toInstant()
+                                        locationsList =
+                                            locationsList.clone() as ArrayList<PointOfLocation>
+                                        locationsList[position] =
+                                            locationsList[position].copy(pointOfTime = selectedLocationInstant!!)
+                                        locationsAdapter?.items = locationsList
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Выбрано время: $selectedDateTime",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        selectedLocationInstant = null
+                                    },
+                                    enterDataTime.hour,
+                                    enterDataTime.minute,
+                                    true
+                                )
+                                    .show()
+                            },
+                            enterDataTime.year,
+                            enterDataTime.month.value - 1,
+                            enterDataTime.dayOfMonth
+                        )
+                            .show()
+                    }
+                    else -> Toast.makeText(
+                        requireContext(),
+                        "you didn't choose action",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            .setNegativeButton("cancel") { _, _ -> }
             .show()
+        selectedItem = null
+
     }
 
     @SuppressLint("MissingPermission")
