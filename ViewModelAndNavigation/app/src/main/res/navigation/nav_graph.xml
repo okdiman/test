@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.skillbox.skillbox.myapplication.fragments.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_listFragment"
+            app:destination="@id/listFragment3"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_mainFragment_to_imagesCoverFlowListFragment"
+            app:destination="@id/imagesCoverFlowListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_imageHorizontalListFragment"
+            app:destination="@id/imageHorizontalListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_imagesGridLayoutFragment"
+            app:destination="@id/imagesGridLayoutFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_imagesStaggeredGridLayoutFragment"
+            app:destination="@id/imagesStaggeredGridLayoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment3"
+        android:name="com.skillbox.skillbox.myapplication.fragments.ListFragment"
+        android:label="ListFragment"
+        tools:layout="@layout/list_fragment">
+        <action
+            android:id="@+id/action_listFragment3_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageHorizontalListFragment"
+        android:name="com.skillbox.skillbox.myapplication.fragments.ImageHorizontalListFragment"
+        android:label="ImageHorizontalListFragment"
+        tools:layout="@layout/image_list_fragment" />
+    <fragment
+        android:id="@+id/imagesCoverFlowListFragment"
+        android:name="com.skillbox.skillbox.myapplication.fragments.ImagesCoverFlowListFragment"
+        android:label="ImagesCoverFlowListFragment"
+        tools:layout="@layout/image_cover_flow_list_fragment" />
+    <fragment
+        android:id="@+id/imagesGridLayoutFragment"
+        android:name="com.skillbox.skillbox.myapplication.fragments.ImagesGridLayoutFragment"
+        android:label="ImagesGridLayoutFragment"
+        tools:layout="@layout/image_grid_list_fragment" />
+    <fragment
+        android:id="@+id/imagesStaggeredGridLayoutFragment"
+        android:name="com.skillbox.skillbox.myapplication.fragments.ImagesStaggeredGridLayoutFragment"
+        android:label="ImagesStaggeredGridLayoutFragment"
+        tools:layout="@layout/image_staggered_grid_list_fragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.skillbox.skillbox.myapplication.fragments.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/detail_fragment" >
+        <argument
+            android:name="resortId"
+            app:argType="long" />
+    </fragment>
+</navigation>
