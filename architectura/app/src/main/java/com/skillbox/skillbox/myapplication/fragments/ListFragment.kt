@@ -4,15 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.skillbox.skillbox.myapplication.R
 import com.skillbox.skillbox.myapplication.ResortListViewModel
 import com.skillbox.skillbox.myapplication.adapters.resorts.ResortsAdapter
 import com.skillbox.skillbox.myapplication.classes.Resorts
 import com.skillbox.skillbox.myapplication.databinding.ListFragmentBinding
+import com.skillbox.skillbox.myapplication.inflate
 import jp.wasabeef.recyclerview.animators.LandingAnimator
+import kotlinx.android.synthetic.main.add_new_resort.view.*
 
 
 class ListFragment : Fragment() {
@@ -25,56 +30,6 @@ class ListFragment : Fragment() {
 
     private var resortsList = arrayListOf<Resorts>()
     private var isChecked: Boolean = false
-//    private var resortsList = arrayListOf<Resorts>(
-//        Resorts.Mountain(
-//            name = "Aspen, Colorado",
-//            country = "USA",
-//            photo = R.drawable.aspen,
-//            mountain = "Aspen"
-//        ),
-//        Resorts.Ocean(
-//            name = "Hawaiian Islands",
-//            country = "USA",
-//            photo = R.drawable.hawaii,
-//            ocean = "Pacific ocean"
-//        ),
-//        Resorts.Mountain(
-//            name = "Cortina-d'Ampezzo",
-//            country = "Italy",
-//            photo = R.drawable.cortina,
-//            mountain = "Alps"
-//        ),
-//        Resorts.Ocean(
-//            name = "Seychelles islands",
-//            country = "Republic of Seychelles",
-//            photo = R.drawable.seychelles,
-//            ocean = "Indian ocean"
-//        ),
-//        Resorts.Mountain(
-//            name = "Mont Tremblant",
-//            country = "Canada",
-//            photo = R.drawable.mont_tremblant,
-//            mountain = "Mont Tremblant"
-//        ),
-//        Resorts.Ocean(
-//            name = "Canary islands",
-//            country = "Spain",
-//            photo = R.drawable.canary,
-//            ocean = "Atlantic ocean"
-//        ),
-//        Resorts.Mountain(
-//            name = "Chamonix",
-//            country = "France",
-//            photo = R.drawable.chamonix,
-//            mountain = "Alps"
-//        ),
-//        Resorts.Sea(
-//            name = "Ibiza",
-//            country = "Spain",
-//            photo = R.drawable.ibiza,
-//            sea = "Mediterranean sea"
-//        ),
-//    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,13 +42,13 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeViewModelState()
         binding.addFab.setOnClickListener {
             isChecked = true
             addResort()
         }
         initResortsList()
         if (savedInstanceState != null) {
-            resortsList = savedInstanceState.getParcelableArrayList(KEY_FOR_LIST)!!
             isChecked = savedInstanceState.getBoolean(KEY_FOR_CHECK)
         }
         resortsAdapter?.items = resortsList
@@ -103,13 +58,11 @@ class ListFragment : Fragment() {
         if (resortsList.isEmpty()) {
             binding.emptyResortsList.isVisible = true
         }
-        updateResortsList()
     }
 
     //  кладем данные в бандл
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(KEY_FOR_LIST, resortsList)
         outState.putBoolean(KEY_FOR_CHECK, isChecked)
     }
 
@@ -122,37 +75,87 @@ class ListFragment : Fragment() {
 
     //  инициализация списка
     private fun initResortsList() {
-        resortsAdapter = ResortsAdapter { position -> deleteResort(position) }
-        with(binding.resortsListRV) {
-            adapter = resortsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            setHasFixedSize(true)
-            itemAnimator = LandingAnimator()
-        }
+//        подписываемся на обновление ViewModel
+        resortListViewModel.resorts
+            .observe(viewLifecycleOwner) {
+                resortsAdapter = ResortsAdapter { position -> deleteResort(position) }
+                with(binding.resortsListRV) {
+                    adapter = resortsAdapter
+                    layoutManager = LinearLayoutManager(requireContext())
+                    setHasFixedSize(true)
+                    itemAnimator = LandingAnimator()
+                }
+            }
     }
 
     //  добавление нового элемента
     private fun addResort() {
-        view?.let { context?.let { context -> resortListViewModel.addResort(it, context) } }
-        updateResortsList()
+        val view = (view as ViewGroup).inflate(R.layout.add_new_resort)
+        AlertDialog.Builder(requireContext())
+            .setTitle("Add new resort")
+            .setView(view)
+            .setPositiveButton("Add") { _, _ ->
+                if (isNotEmptyFields(view)) {
+                    view.selectTypesOfResort.selectedItem.toString()
+                    resortListViewModel.addResort(
+                        view.selectTypesOfResort.selectedItem.toString(),
+                        view.addNameResortEditText.text.toString(),
+                        view.addCountryEditText.text.toString(),
+                        view.addPhotoEditText.text.toString(),
+                        view.addPlaceEditText.text.toString()
+                    )
+                    observeViewModelState()
+                    binding.emptyResortsList.isVisible = false
+                    resortListViewModel.showToast
+                        .observe(viewLifecycleOwner) {
+                            Toast.makeText(requireContext(), "Element added", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    isChecked = false
+                } else {
+                    Toast.makeText(
+                        context,
+                        "The form is incomplete, please, try again",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    isChecked = false
+                }
+            }
+            .setNegativeButton("Cancel") { _, _ -> isChecked = false }
+            .create()
+            .show()
     }
 
+    //  удаление элемента
     private fun deleteResort(position: Int) {
         resortListViewModel.deleteResort(position)
-        updateResortsList()
-        if (resortsList.isEmpty()) {
+        observeViewModelState()
+        resortListViewModel.showToast
+            .observe(viewLifecycleOwner) {
+                Toast.makeText(requireContext(), "Element deleted", Toast.LENGTH_SHORT).show()
+            }
+        if (resortListViewModel.resorts.value.orEmpty().size == 1) {
             binding.emptyResortsList.isVisible = true
         }
     }
 
-    private fun updateResortsList() {
-        resortListViewModel.getResortList()
+    //   подписываемся на обновление ViewModel
+    private fun observeViewModelState() {
+        resortListViewModel.resorts.observe(viewLifecycleOwner) { newResorts ->
+            resortsAdapter?.items = newResorts
+        }
     }
 
+    //    проверка заполненности полей в диалоге
+    private fun isNotEmptyFields(view: View): Boolean {
+        return (view.addNameResortEditText.text.isNotEmpty()
+                && view.addPlaceEditText.text.isNotEmpty()
+                && view.addCountryEditText.text.isNotEmpty()
+                && view.addPhotoEditText.text.isNotEmpty())
+    }
 
     //  ключи для передаваемого списка и статуса FAB
     companion object {
         private const val KEY_FOR_CHECK = "keyForCheck"
-        private const val KEY_FOR_LIST = "keyForList"
     }
 }

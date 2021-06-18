@@ -1,36 +1,46 @@
 package com.skillbox.skillbox.myapplication
 
-import android.content.Context
-import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.skillbox.skillbox.myapplication.adapters.resorts.ResortsAdapter
 import com.skillbox.skillbox.myapplication.classes.Resorts
-import kotlinx.android.synthetic.main.add_new_resort.view.*
 
 class ResortListViewModel : ViewModel() {
 
-    private var resortsList = arrayListOf<Resorts>()
+    //   создаем mutable live data, чтобы иметь возможность вносить изменения, но доступным извне делает только неизменяемую
+    private val resortLiveData = MutableLiveData<List<Resorts>>()
+    val resorts: LiveData<List<Resorts>>
+        get() = resortLiveData
+    private val showToastLiveData = MutableLiveData<Unit>()
+
+    //    показ тоста
+    val showToast: LiveData<Unit>
+        get() = showToastLiveData
+
+    //    привязываем репозиторий
     private val repository = ResortRepository()
-    private var resortsAdapter: ResortsAdapter? = null
 
-    //  добавление нового элемента
-    fun addResort(view: View, context: Context) {
-        val newResort = repository.addResort(view, context)
-        resortsList = (arrayListOf(newResort) + resortsList) as ArrayList<Resorts>
+    //    добавление нового элемента
+    fun addResort(
+        resortsType: String,
+        name: String,
+        country: String,
+        photo: String,
+        place: String
+    ) {
+//    получаем новый элемент из репозитория
+        val newResort = repository.addResort(resortsType, name, country, photo, place)
+//    получаем новый список элементов
+        val updatedList = arrayListOf(newResort) + resortLiveData.value.orEmpty()
+//    передаем новый список live data, для оповещения об изменениях
+        resortLiveData.postValue(updatedList)
+//    передаем оповещение о необходимости вызова тоста
+        showToastLiveData.postValue(Unit)
     }
 
-    //  удаление элемента
+    //     удаление элемента
     fun deleteResort(position: Int) {
-        resortsList =
-            repository.deleteResort(resortsList, position) as ArrayList<Resorts>
+        resortLiveData.postValue(repository.deleteResort(resortLiveData.value.orEmpty(), position))
     }
 
-    fun getResortList() {
-        resortsAdapter?.items = resortsList
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        resortsAdapter = null
-    }
 }
