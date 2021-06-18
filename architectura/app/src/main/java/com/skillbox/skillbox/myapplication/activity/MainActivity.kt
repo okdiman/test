@@ -9,18 +9,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//  Добавление фрагмента в контейнер мейн активити
-        startListFragment()
-    }
-
-
-//  Проверка на наличие фрагмента
-    private fun startListFragment() {
-        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.mainConteiner) != null
-        if (!alreadyHasFragment) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.mainConteiner, MainFragment())
-                .commit()
-        }
     }
 }

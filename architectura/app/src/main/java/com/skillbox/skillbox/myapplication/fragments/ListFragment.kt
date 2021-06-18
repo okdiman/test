@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.skillbox.myapplication.R
 import com.skillbox.skillbox.myapplication.ResortListViewModel
@@ -78,7 +79,11 @@ class ListFragment : Fragment() {
 //        подписываемся на обновление ViewModel
         resortListViewModel.resorts
             .observe(viewLifecycleOwner) {
-                resortsAdapter = ResortsAdapter { position -> deleteResort(position) }
+                resortsAdapter = ResortsAdapter { id ->
+                    val action = ListFragmentDirections.actionListFragment3ToDetailsFragment(id)
+
+                    findNavController().navigate(action)
+                }
                 with(binding.resortsListRV) {
                     adapter = resortsAdapter
                     layoutManager = LinearLayoutManager(requireContext())

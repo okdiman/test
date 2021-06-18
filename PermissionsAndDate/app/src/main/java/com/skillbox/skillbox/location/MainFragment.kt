@@ -41,7 +41,6 @@ class MainFragment : Fragment() {
 
     private val singleChoice = arrayListOf("Image", "Date and time")
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val locationCallback = object : LocationCallback() {

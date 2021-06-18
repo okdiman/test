@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.skillbox.skillbox.myapplication.R
 import com.skillbox.skillbox.myapplication.activity.MainActivity
 import com.skillbox.skillbox.myapplication.databinding.MainFragmentBinding
@@ -26,23 +27,23 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.resortsListNavigationButton.setOnClickListener {
-            navigateToResortsList()
+            findNavController().navigate(R.id.action_mainFragment_to_listFragment)
         }
 
         binding.ImagesHorizontalListButton.setOnClickListener {
-            navigateToImageHorizontalList()
+            findNavController().navigate(R.id.action_mainFragment_to_imageHorizontalListFragment)
         }
 
         binding.ImagesGridListButton.setOnClickListener {
-            navigateToImageGridList()
+            findNavController().navigate(R.id.action_mainFragment_to_imagesGridLayoutFragment)
         }
 
         binding.ImagesStaggeredGridListButton.setOnClickListener {
-            navigateToStaggeredGridList()
+            findNavController().navigate(R.id.action_mainFragment_to_imagesStaggeredGridLayoutFragment)
         }
 
         binding.ImagesCoverFlowListButton.setOnClickListener {
-            navigateToCoverFlowList()
+            findNavController().navigate(R.id.action_mainFragment_to_imagesCoverFlowListFragment)
         }
     }
 
@@ -50,41 +51,5 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    //    функции навигации на различные экраны
-    private fun navigateToResortsList() {
-        (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.mainConteiner, ListFragment())
-            .addToBackStack("MainMenu")
-            .commit()
-    }
-
-    private fun navigateToImageHorizontalList() {
-        (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.mainConteiner, ImageHorizontalListFragment())
-            .addToBackStack("MainMenu")
-            .commit()
-    }
-
-    private fun navigateToImageGridList() {
-        (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.mainConteiner, ImagesGridLayoutFragment())
-            .addToBackStack("MainMenu")
-            .commit()
-    }
-
-    private fun navigateToStaggeredGridList() {
-        (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.mainConteiner, ImagesStaggeredGridLayoutFragment())
-            .addToBackStack("MainMenu")
-            .commit()
-    }
-
-    private fun navigateToCoverFlowList() {
-        (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.mainConteiner, ImagesCoverFlowListFragment())
-            .addToBackStack("MainMenu")
-            .commit()
     }
 }

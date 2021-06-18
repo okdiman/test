@@ -9,22 +9,27 @@ import kotlinx.android.synthetic.main.item_mountain.*
 
 abstract class BaseViewHolder(
     final override val containerView: View,
-    onItemClick: (position: Int) -> Unit
+    onItemClick: (id: Long) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+
+    private var currentId: Long? = null
 
     //  обработка клика по элементу
     init {
         containerView.setOnClickListener {
-            onItemClick(adapterPosition)
+            currentId?.let {
+                onItemClick(it)
+            }
         }
     }
-
     //  общий набор данных для обоих View Holder
     protected fun baseBindInfo(
+        id: Long,
         name: String?,
         country: String?,
         photo: String?
     ) {
+        currentId = id
         Glide.with(itemView)
             .load(photo)
             .error(R.drawable.ic_sync_problem)

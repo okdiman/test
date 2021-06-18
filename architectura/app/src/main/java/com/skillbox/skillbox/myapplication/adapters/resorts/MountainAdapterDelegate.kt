@@ -11,7 +11,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_mountain.*
 
 class MountainAdapterDelegate(
-    private val onItemClick: (position: Int) -> Unit
+    private val onItemClick: (id: Long) -> Unit
 ) :
     AbsListItemAdapterDelegate<Resorts.Mountain, Resorts, MountainAdapterDelegate.MountainHolder>() {
 
@@ -35,11 +35,11 @@ class MountainAdapterDelegate(
     //  создаем класс холдера
     class MountainHolder(
         containerView: View,
-        onItemClick: (position: Int) -> Unit
+        onItemClick: (id: Long) -> Unit
     ) : BaseViewHolder(containerView, onItemClick), LayoutContainer {
         fun bind(mountain: Resorts.Mountain) {
             mountainTextView.text = mountain.mountain
-            baseBindInfo(mountain.name, mountain.country, mountain.photo)
+            baseBindInfo(mountain.id, mountain.name, mountain.country, mountain.photo)
         }
     }
 }

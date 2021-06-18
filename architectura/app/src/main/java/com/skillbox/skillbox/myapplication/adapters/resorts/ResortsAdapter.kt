@@ -7,7 +7,7 @@ import com.skillbox.skillbox.myapplication.classes.Resorts
 
 //  наследуемся от AsyncListDifferDelegationAdapter так как он внутри содержит все необходимые методы
 class ResortsAdapter(
-    onItemClick: (position: Int) -> Unit
+    onItemClick: (id: Long) -> Unit
 ) : AsyncListDifferDelegationAdapter<Resorts>(ResortDiffUtilCallback()) {
 
     //    создаем делегат менеджер и указываем обрабатываемые делегаты

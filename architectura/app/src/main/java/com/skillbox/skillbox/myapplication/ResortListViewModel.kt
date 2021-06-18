@@ -11,7 +11,7 @@ class ResortListViewModel : ViewModel() {
     private val resortLiveData = MutableLiveData<List<Resorts>>()
     val resorts: LiveData<List<Resorts>>
         get() = resortLiveData
-    private val showToastLiveData = MutableLiveData<Unit>()
+    private val showToastLiveData = SingleLiveEvent<Unit>()
 
     //    показ тоста
     val showToast: LiveData<Unit>

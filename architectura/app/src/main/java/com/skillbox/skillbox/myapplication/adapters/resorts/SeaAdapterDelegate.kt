@@ -11,7 +11,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_sea.*
 
 class SeaAdapterDelegate(
-    private val onItemClick: (position: Int) -> Unit
+    private val onItemClick: (id: Long) -> Unit
 ) :
     AbsListItemAdapterDelegate<Resorts.Sea, Resorts, SeaAdapterDelegate.SeaHolder>() {
 
@@ -35,11 +35,11 @@ class SeaAdapterDelegate(
     //  создаем класс холдера
     class SeaHolder(
         containerView: View,
-        onItemClick: (position: Int) -> Unit
+        onItemClick: (id: Long) -> Unit
     ) : BaseViewHolder(containerView, onItemClick), LayoutContainer {
         fun bind(sea: Resorts.Sea) {
             seaTextView.text = sea.sea
-            baseBindInfo(sea.name, sea.country, sea.photo)
+            baseBindInfo(sea.id, sea.name, sea.country, sea.photo)
         }
     }
 }
