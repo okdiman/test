@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.myapplication.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.skillbox.myapplication.R
 import com.skillbox.skillbox.myapplication.ResortListViewModel
 import com.skillbox.skillbox.myapplication.adapters.resorts.ResortsAdapter
-import com.skillbox.skillbox.myapplication.classes.Resorts
 import com.skillbox.skillbox.myapplication.databinding.ListFragmentBinding
 import com.skillbox.skillbox.myapplication.inflate
 import jp.wasabeef.recyclerview.animators.LandingAnimator
@@ -28,9 +28,6 @@ class ListFragment : Fragment() {
     private var resortsAdapter: ResortsAdapter? = null
 
     private val resortListViewModel: ResortListViewModel by viewModels()
-
-    private var resortsList = arrayListOf<Resorts>()
-    private var isChecked: Boolean = false
 
     private val listenerForLongClick: (Int) -> Unit = { position ->
         deleteResort(position)
@@ -47,17 +44,10 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeViewModelState()
         binding.addFab.setOnClickListener {
-            isChecked = true
             addResort()
         }
         initResortsList()
-        resortsAdapter?.items = resortsList
-        if (isChecked) {
-            addResort()
-        }
-        observeViewModelState()
     }
 
 
@@ -73,7 +63,7 @@ class ListFragment : Fragment() {
 //      подписываемся на обновление ViewModel
         resortListViewModel.resorts
             .observe(viewLifecycleOwner) {
-                resortsAdapter = ResortsAdapter(listenerForLongClick){ id ->
+                resortsAdapter = ResortsAdapter(listenerForLongClick) { id ->
                     val action = ListFragmentDirections.actionListFragment3ToDetailsFragment(id)
                     findNavController().navigate(action)
                 }
@@ -83,8 +73,10 @@ class ListFragment : Fragment() {
                     setHasFixedSize(true)
                     itemAnimator = LandingAnimator()
                 }
-                observeViewModelState()
             }
+        if (resortListViewModel.resorts.value.isNullOrEmpty()) {
+            binding.emptyResortsList.isVisible = true
+        }
 //      уточняем наличие обновлений списка
         observeViewModelState()
     }
@@ -116,7 +108,6 @@ class ListFragment : Fragment() {
                             )
                                 .show()
                         }
-                    isChecked = false
                     binding.resortsListRV.scrollToPosition(0)
                 } else {
                     Toast.makeText(
@@ -124,38 +115,37 @@ class ListFragment : Fragment() {
                         "The form is incomplete, please, try again",
                         Toast.LENGTH_SHORT
                     ).show()
-                    isChecked = false
                 }
             }
-            .setNegativeButton("Cancel") { _, _ -> isChecked = false }
+            .setNegativeButton("Cancel") { _, _ -> }
             .create()
             .show()
     }
 
     //  удаление элемента
-    private fun deleteResort(position: Int): Boolean {
-        resortListViewModel.deleteResort(position)
-        observeViewModelState()
+    private fun deleteResort(position: Int) {
         resortListViewModel.showToast
             .observe(viewLifecycleOwner) {
-                Toast.makeText(requireContext(), "Element was deleted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Element was deleted",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             }
-        if (resortsList.isEmpty()) {
-            binding.emptyResortsList.isVisible = true
-        }
-        return true
+        resortListViewModel.deleteResort(position)
+        Log.d("ewq", "${resortListViewModel.resorts.value}")
+        observeViewModelState()
     }
 
     //   подписываемся на обновление ViewModel
     private fun observeViewModelState() {
         resortListViewModel.resorts.observe(viewLifecycleOwner) { newResorts ->
             resortsAdapter?.items = newResorts
-        }
-        if (resortsList.isNotEmpty()) {
-            binding.emptyResortsList.isVisible = false
-        }
-        if (resortsList.isEmpty()){
-            binding.emptyResortsList.isVisible = true
+            Log.d("ewq", "$newResorts")
+            if (newResorts.isEmpty()) {
+                binding.emptyResortsList.isVisible = true
+            }
         }
     }
 
@@ -166,5 +156,4 @@ class ListFragment : Fragment() {
                 && view.addCountryEditText.text.isNotEmpty()
                 && view.addPhotoEditText.text.isNotEmpty())
     }
-
 }
