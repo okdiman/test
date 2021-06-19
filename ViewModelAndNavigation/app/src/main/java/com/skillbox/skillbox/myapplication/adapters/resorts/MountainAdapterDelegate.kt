@@ -11,7 +11,8 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_mountain.*
 
 class MountainAdapterDelegate(
-    private val onItemClick: (id: Long) -> Unit
+    private val onItemClick: (id: Long) -> Unit,
+    private val onLongItemClick: (position: Int) -> Boolean
 ) :
     AbsListItemAdapterDelegate<Resorts.Mountain, Resorts, MountainAdapterDelegate.MountainHolder>() {
 
@@ -21,7 +22,7 @@ class MountainAdapterDelegate(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): MountainHolder {
-        return MountainHolder(parent.inflate(R.layout.item_mountain), onItemClick)
+        return MountainHolder(parent.inflate(R.layout.item_mountain), onItemClick, onLongItemClick)
     }
 
     override fun onBindViewHolder(
@@ -35,8 +36,9 @@ class MountainAdapterDelegate(
     //  создаем класс холдера
     class MountainHolder(
         containerView: View,
-        onItemClick: (id: Long) -> Unit
-    ) : BaseViewHolder(containerView, onItemClick), LayoutContainer {
+        onItemClick: (id: Long) -> Unit,
+        onLongItemClick: (position: Int) -> Boolean
+    ) : BaseViewHolder(containerView, onItemClick, onLongItemClick), LayoutContainer {
         fun bind(mountain: Resorts.Mountain) {
             mountainTextView.text = mountain.mountain
             baseBindInfo(mountain.id, mountain.name, mountain.country, mountain.photo)

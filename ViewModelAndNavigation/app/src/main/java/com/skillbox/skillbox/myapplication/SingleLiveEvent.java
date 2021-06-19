@@ -22,7 +22,7 @@ import androidx.lifecycle.Observer;
  * <p>
  * Note that only one observer is going to be notified of changes.
  */
-class SingleLiveEvent<T> extends MutableLiveData<T> {
+public class SingleLiveEvent<T> extends MutableLiveData<T> {
 
     private static final String TAG = "SingleLiveEvent";
 

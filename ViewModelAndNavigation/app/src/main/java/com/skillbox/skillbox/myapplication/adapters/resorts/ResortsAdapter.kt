@@ -7,14 +7,15 @@ import com.skillbox.skillbox.myapplication.classes.Resorts
 
 //  наследуемся от AsyncListDifferDelegationAdapter так как он внутри содержит все необходимые методы
 class ResortsAdapter(
+    onLongItemClick: (position: Int) -> Boolean,
     onItemClick: (id: Long) -> Unit
 ) : AsyncListDifferDelegationAdapter<Resorts>(ResortDiffUtilCallback()) {
 
     //    создаем делегат менеджер и указываем обрабатываемые делегаты
     init {
-        delegatesManager.addDelegate(SeaAdapterDelegate(onItemClick))
-            .addDelegate(OceanAdapterDelegate(onItemClick))
-            .addDelegate(MountainAdapterDelegate(onItemClick))
+        delegatesManager.addDelegate(SeaAdapterDelegate(onItemClick, onLongItemClick))
+            .addDelegate(OceanAdapterDelegate(onItemClick, onLongItemClick))
+            .addDelegate(MountainAdapterDelegate(onItemClick, onLongItemClick))
     }
     //  обрабатываем метод сравнения элементов
     class ResortDiffUtilCallback : DiffUtil.ItemCallback<Resorts>() {

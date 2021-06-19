@@ -11,6 +11,8 @@ class ResortListViewModel : ViewModel() {
     private val resortLiveData = MutableLiveData<List<Resorts>>()
     val resorts: LiveData<List<Resorts>>
         get() = resortLiveData
+
+    //    используем SingleLiveEvent класс, чтобы избежать повторения событий тоста при пересоздании активити
     private val showToastLiveData = SingleLiveEvent<Unit>()
 
     //    показ тоста

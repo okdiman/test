@@ -11,7 +11,8 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_sea.*
 
 class SeaAdapterDelegate(
-    private val onItemClick: (id: Long) -> Unit
+    private val onItemClick: (id: Long) -> Unit,
+    private val onLongItemClick: (position: Int) -> Boolean
 ) :
     AbsListItemAdapterDelegate<Resorts.Sea, Resorts, SeaAdapterDelegate.SeaHolder>() {
 
@@ -21,7 +22,7 @@ class SeaAdapterDelegate(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): SeaHolder {
-        return SeaHolder(parent.inflate(R.layout.item_sea), onItemClick)
+        return SeaHolder(parent.inflate(R.layout.item_sea), onItemClick, onLongItemClick)
     }
 
     override fun onBindViewHolder(
@@ -35,8 +36,9 @@ class SeaAdapterDelegate(
     //  создаем класс холдера
     class SeaHolder(
         containerView: View,
-        onItemClick: (id: Long) -> Unit
-    ) : BaseViewHolder(containerView, onItemClick), LayoutContainer {
+        onItemClick: (id: Long) -> Unit,
+        onLongItemClick: (position: Int) -> Boolean
+    ) : BaseViewHolder(containerView, onItemClick, onLongItemClick), LayoutContainer {
         fun bind(sea: Resorts.Sea) {
             seaTextView.text = sea.sea
             baseBindInfo(sea.id, sea.name, sea.country, sea.photo)

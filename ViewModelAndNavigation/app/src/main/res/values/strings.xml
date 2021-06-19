@@ -15,6 +15,7 @@
     <string name="images_grid_list">Images Grid List</string>
     <string name="images_staggered_grid_list">Images staggered grid list</string>
     <string name="images_coverflow_list">Images coverflow list</string>
+    <string name="detail_information_about_resort">Detail information about resort</string>
     <string-array name="resortsListForSelect">
         <item>Sea</item>
         <item>Mountain</item>
