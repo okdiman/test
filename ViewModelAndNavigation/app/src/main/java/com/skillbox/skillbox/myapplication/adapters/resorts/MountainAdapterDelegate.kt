@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_mountain.*
 
 class MountainAdapterDelegate(
     private val onItemClick: (id: Long) -> Unit,
-    private val onLongItemClick: (position: Int) -> Boolean
+    private val onLongItemClick: (position: Int) -> Unit
 ) :
     AbsListItemAdapterDelegate<Resorts.Mountain, Resorts, MountainAdapterDelegate.MountainHolder>() {
 
@@ -37,7 +37,7 @@ class MountainAdapterDelegate(
     class MountainHolder(
         containerView: View,
         onItemClick: (id: Long) -> Unit,
-        onLongItemClick: (position: Int) -> Boolean
+        onLongItemClick: (position: Int) -> Unit
     ) : BaseViewHolder(containerView, onItemClick, onLongItemClick), LayoutContainer {
         fun bind(mountain: Resorts.Mountain) {
             mountainTextView.text = mountain.mountain

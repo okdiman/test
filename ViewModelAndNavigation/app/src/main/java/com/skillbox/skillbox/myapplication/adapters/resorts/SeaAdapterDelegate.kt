@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_sea.*
 
 class SeaAdapterDelegate(
     private val onItemClick: (id: Long) -> Unit,
-    private val onLongItemClick: (position: Int) -> Boolean
+    private val onLongItemClick: (position: Int) -> Unit
 ) :
     AbsListItemAdapterDelegate<Resorts.Sea, Resorts, SeaAdapterDelegate.SeaHolder>() {
 
@@ -37,7 +37,7 @@ class SeaAdapterDelegate(
     class SeaHolder(
         containerView: View,
         onItemClick: (id: Long) -> Unit,
-        onLongItemClick: (position: Int) -> Boolean
+        onLongItemClick: (position: Int) -> Unit
     ) : BaseViewHolder(containerView, onItemClick, onLongItemClick), LayoutContainer {
         fun bind(sea: Resorts.Sea) {
             seaTextView.text = sea.sea

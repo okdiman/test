@@ -7,7 +7,7 @@ import com.skillbox.skillbox.myapplication.classes.Resorts
 
 //  наследуемся от AsyncListDifferDelegationAdapter так как он внутри содержит все необходимые методы
 class ResortsAdapter(
-    onLongItemClick: (position: Int) -> Boolean,
+    onLongItemClick: (position: Int) -> Unit,
     onItemClick: (id: Long) -> Unit
 ) : AsyncListDifferDelegationAdapter<Resorts>(ResortDiffUtilCallback()) {
 

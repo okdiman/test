@@ -32,6 +32,10 @@ class ListFragment : Fragment() {
     private var resortsList = arrayListOf<Resorts>()
     private var isChecked: Boolean = false
 
+    private val listenerForLongClick: (Int) -> Unit = { position ->
+        deleteResort(position)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,23 +53,13 @@ class ListFragment : Fragment() {
             addResort()
         }
         initResortsList()
-        if (savedInstanceState != null) {
-            isChecked = savedInstanceState.getBoolean(KEY_FOR_CHECK)
-        }
         resortsAdapter?.items = resortsList
         if (isChecked) {
             addResort()
         }
-        if (resortsList.isEmpty()) {
-            binding.emptyResortsList.isVisible = true
-        }
+        observeViewModelState()
     }
 
-    //  кладем данные в бандл
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(KEY_FOR_CHECK, isChecked)
-    }
 
     //  очищаем адаптер при удалении вьюшки
     override fun onDestroyView() {
@@ -79,7 +73,7 @@ class ListFragment : Fragment() {
 //      подписываемся на обновление ViewModel
         resortListViewModel.resorts
             .observe(viewLifecycleOwner) {
-                resortsAdapter = ResortsAdapter (deleteResort()) { id ->
+                resortsAdapter = ResortsAdapter(listenerForLongClick){ id ->
                     val action = ListFragmentDirections.actionListFragment3ToDetailsFragment(id)
                     findNavController().navigate(action)
                 }
@@ -89,13 +83,10 @@ class ListFragment : Fragment() {
                     setHasFixedSize(true)
                     itemAnimator = LandingAnimator()
                 }
+                observeViewModelState()
             }
 //      уточняем наличие обновлений списка
         observeViewModelState()
-        if (resortListViewModel.resorts.value.orEmpty().size != 1) {
-            binding.emptyResortsList.isVisible = false
-        }
-
     }
 
     //  добавление нового элемента
@@ -118,7 +109,11 @@ class ListFragment : Fragment() {
                     binding.emptyResortsList.isVisible = false
                     resortListViewModel.showToast
                         .observe(viewLifecycleOwner) {
-                            Toast.makeText(requireContext(), "Element was added", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                requireContext(),
+                                "Element was added",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     isChecked = false
@@ -145,7 +140,7 @@ class ListFragment : Fragment() {
             .observe(viewLifecycleOwner) {
                 Toast.makeText(requireContext(), "Element was deleted", Toast.LENGTH_SHORT).show()
             }
-        if (resortListViewModel.resorts.value.orEmpty().size == 1) {
+        if (resortsList.isEmpty()) {
             binding.emptyResortsList.isVisible = true
         }
         return true
@@ -155,6 +150,12 @@ class ListFragment : Fragment() {
     private fun observeViewModelState() {
         resortListViewModel.resorts.observe(viewLifecycleOwner) { newResorts ->
             resortsAdapter?.items = newResorts
+        }
+        if (resortsList.isNotEmpty()) {
+            binding.emptyResortsList.isVisible = false
+        }
+        if (resortsList.isEmpty()){
+            binding.emptyResortsList.isVisible = true
         }
     }
 
@@ -166,8 +167,4 @@ class ListFragment : Fragment() {
                 && view.addPhotoEditText.text.isNotEmpty())
     }
 
-    //  ключи для передаваемого списка и статуса FAB
-    companion object {
-        private const val KEY_FOR_CHECK = "keyForCheck"
-    }
 }

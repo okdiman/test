@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_mountain.*
 abstract class BaseViewHolder(
     final override val containerView: View,
     onItemClick: (id: Long) -> Unit,
-    onLongItemClick: (position: Int) -> Boolean
+    onLongItemClick: (position: Int) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     private var currentId: Long? = null
