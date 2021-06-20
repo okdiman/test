@@ -67,13 +67,16 @@ class MainActivity : AppCompatActivity(), StartMainFragmentFromDenied {
 
 
     private fun startMainFragment() {
-        rationaleDialog = null
-        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) != null
-        if (!alreadyHasFragment) {
-            this.supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, MainFragment())
+        this.supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, MapFragment())
                 .commit()
-        }
+//        rationaleDialog = null
+//        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.mainContainer) != null
+//        if (!alreadyHasFragment) {
+//            this.supportFragmentManager.beginTransaction()
+//                .replace(R.id.mainContainer, MainFragment())
+//                .commit()
+//        }
     }
 
     private fun startDeniedPermissionFragment() {

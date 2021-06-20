@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
 
+
     <application
         android:name=".classes.LocationApplication"
         android:allowBackup="true"
@@ -14,7 +15,10 @@
         android:roundIcon="@drawable/geopoint"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".activityandfragments.MainActivity">
+        <activity android:name=".activityandfragments.SecondActivity">
+            <meta-data android:name="com.google.android.gms.common.api.internal.ApiKey"
+                android:value="AIzaSyB5KfLZ7XR38kN3rAFhioxeIQiHsmfUVQM"
+                />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
