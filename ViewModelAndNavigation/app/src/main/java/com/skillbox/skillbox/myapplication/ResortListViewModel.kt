@@ -26,7 +26,6 @@ class ResortListViewModel() : ViewModel() {
 
     //    добавление нового элемента
     fun addResort(
-        context: Context,
         resortsType: String,
         name: String,
         country: String,
@@ -39,15 +38,13 @@ class ResortListViewModel() : ViewModel() {
         val updatedList = arrayListOf(newResort) + resortLiveData.value.orEmpty()
 //    передаем новый список live data, для оповещения об изменениях
         resortLiveData.postValue(updatedList)
-//    передаем оповещение о необходимости вызова тоста
-        showToastLiveData.postValue(Toast.makeText(context, "Element was added", Toast.LENGTH_SHORT).show())
     }
 
     //     удаление элемента
-    fun deleteResort(context: Context, position: Int) {
+    fun deleteResort(position: Int) {
         resortLiveData.postValue(repository.deleteResort(resortLiveData.value.orEmpty(), position))
         //    передаем оповещение о необходимости вызова тоста
-        showToastLiveData.postValue(Toast.makeText(context, "Element was deleted", Toast.LENGTH_SHORT).show())
+        showToastLiveData.postValue(Unit)
     }
 
 }

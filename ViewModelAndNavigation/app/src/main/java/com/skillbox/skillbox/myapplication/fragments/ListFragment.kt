@@ -91,7 +91,6 @@ class ListFragment : Fragment() {
                 if (isNotEmptyFields(view)) {
                     view.selectTypesOfResort.selectedItem.toString()
                     resortListViewModel.addResort(
-                        requireContext(),
                         view.selectTypesOfResort.selectedItem.toString(),
                         view.addNameResortEditText.text.toString(),
                         view.addCountryEditText.text.toString(),
@@ -115,7 +114,7 @@ class ListFragment : Fragment() {
 
     //  удаление элемента
     private fun deleteResort(position: Int) {
-        resortListViewModel.deleteResort(requireContext(),position)
+        resortListViewModel.deleteResort(position)
     }
 
     //   подписываемся на обновление ViewModel
@@ -130,7 +129,7 @@ class ListFragment : Fragment() {
         }
         resortListViewModel.showToast
             .observe(viewLifecycleOwner) {
-
+                Toast.makeText(requireContext(), "Element was deleted", Toast.LENGTH_SHORT).show()
             }
     }
 
