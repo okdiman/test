@@ -1,11 +1,13 @@
 package com.skillbox.skillbox.myapplication
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.skillbox.skillbox.myapplication.classes.Resorts
 
-class ResortListViewModel : ViewModel() {
+class ResortListViewModel() : ViewModel() {
 
     //   создаем mutable live data, чтобы иметь возможность вносить изменения, но доступным извне делает только неизменяемую
     private val resortLiveData = MutableLiveData<List<Resorts>>()
@@ -24,6 +26,7 @@ class ResortListViewModel : ViewModel() {
 
     //    добавление нового элемента
     fun addResort(
+        context: Context,
         resortsType: String,
         name: String,
         country: String,
@@ -37,12 +40,14 @@ class ResortListViewModel : ViewModel() {
 //    передаем новый список live data, для оповещения об изменениях
         resortLiveData.postValue(updatedList)
 //    передаем оповещение о необходимости вызова тоста
-        showToastLiveData.postValue(Unit)
+        showToastLiveData.postValue(Toast.makeText(context, "Element was added", Toast.LENGTH_SHORT).show())
     }
 
     //     удаление элемента
-    fun deleteResort(position: Int) {
+    fun deleteResort(context: Context, position: Int) {
         resortLiveData.postValue(repository.deleteResort(resortLiveData.value.orEmpty(), position))
+        //    передаем оповещение о необходимости вызова тоста
+        showToastLiveData.postValue(Toast.makeText(context, "Element was deleted", Toast.LENGTH_SHORT).show())
     }
 
 }

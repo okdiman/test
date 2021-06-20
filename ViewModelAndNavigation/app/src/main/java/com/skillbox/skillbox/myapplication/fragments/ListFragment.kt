@@ -48,6 +48,8 @@ class ListFragment : Fragment() {
             addResort()
         }
         initResortsList()
+        //      уточняем наличие обновлений списка
+        observeViewModelState()
     }
 
 
@@ -77,8 +79,6 @@ class ListFragment : Fragment() {
         if (resortListViewModel.resorts.value.isNullOrEmpty()) {
             binding.emptyResortsList.isVisible = true
         }
-//      уточняем наличие обновлений списка
-        observeViewModelState()
     }
 
     //  добавление нового элемента
@@ -91,23 +91,14 @@ class ListFragment : Fragment() {
                 if (isNotEmptyFields(view)) {
                     view.selectTypesOfResort.selectedItem.toString()
                     resortListViewModel.addResort(
+                        requireContext(),
                         view.selectTypesOfResort.selectedItem.toString(),
                         view.addNameResortEditText.text.toString(),
                         view.addCountryEditText.text.toString(),
                         view.addPhotoEditText.text.toString(),
                         view.addPlaceEditText.text.toString()
                     )
-                    observeViewModelState()
                     binding.emptyResortsList.isVisible = false
-                    resortListViewModel.showToast
-                        .observe(viewLifecycleOwner) {
-                            Toast.makeText(
-                                requireContext(),
-                                "Element was added",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                        }
                     binding.resortsListRV.scrollToPosition(0)
                 } else {
                     Toast.makeText(
@@ -124,18 +115,7 @@ class ListFragment : Fragment() {
 
     //  удаление элемента
     private fun deleteResort(position: Int) {
-        resortListViewModel.showToast
-            .observe(viewLifecycleOwner) {
-                Toast.makeText(
-                    requireContext(),
-                    "Element was deleted",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            }
-        resortListViewModel.deleteResort(position)
-        Log.d("ewq", "${resortListViewModel.resorts.value}")
-        observeViewModelState()
+        resortListViewModel.deleteResort(requireContext(),position)
     }
 
     //   подписываемся на обновление ViewModel
@@ -146,7 +126,12 @@ class ListFragment : Fragment() {
             if (newResorts.isEmpty()) {
                 binding.emptyResortsList.isVisible = true
             }
+
         }
+        resortListViewModel.showToast
+            .observe(viewLifecycleOwner) {
+
+            }
     }
 
     //    проверка заполненности полей в диалоге
