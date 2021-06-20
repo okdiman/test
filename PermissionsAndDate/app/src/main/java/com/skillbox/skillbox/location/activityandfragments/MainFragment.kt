@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.location
+package com.skillbox.skillbox.location.activityandfragments
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -17,7 +17,11 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.skillbox.skillbox.location.adapter.LocationsListAdapter
+import com.skillbox.skillbox.location.classes.PointOfLocation
+import com.skillbox.skillbox.location.R
 import com.skillbox.skillbox.location.databinding.MainFragmentBinding
+import com.skillbox.skillbox.location.inflate
 import kotlinx.android.synthetic.main.add_new_location.view.*
 import kotlinx.android.synthetic.main.add_photo_to_location.view.*
 import org.threeten.bp.Instant

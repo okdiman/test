@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.location
+package com.skillbox.skillbox.location.adapter
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
+import com.skillbox.skillbox.location.R
+import com.skillbox.skillbox.location.classes.PointOfLocation
+import com.skillbox.skillbox.location.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_location.*
 

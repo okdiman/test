@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.location
+package com.skillbox.skillbox.location.classes
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

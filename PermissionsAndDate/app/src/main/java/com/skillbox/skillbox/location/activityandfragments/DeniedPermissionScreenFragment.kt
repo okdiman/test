@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.location
+package com.skillbox.skillbox.location.activityandfragments
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.skillbox.skillbox.location.interfaces.StartMainFragmentFromDenied
 import com.skillbox.skillbox.location.databinding.DeniedPermissionScreenFragmentBinding
 
 class DeniedPermissionScreenFragment : Fragment() {

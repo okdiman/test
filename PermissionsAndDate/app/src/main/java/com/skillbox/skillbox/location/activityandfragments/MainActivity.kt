@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.location
+package com.skillbox.skillbox.location.activityandfragments
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.skillbox.skillbox.location.R
+import com.skillbox.skillbox.location.interfaces.StartMainFragmentFromDenied
 
 class MainActivity : AppCompatActivity(), StartMainFragmentFromDenied {
     private var rationaleDialog: AlertDialog? = null
