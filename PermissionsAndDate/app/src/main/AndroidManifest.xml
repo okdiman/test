@@ -15,7 +15,7 @@
         android:roundIcon="@drawable/geopoint"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".activityandfragments.SecondActivity">
+        <activity android:name=".activityandfragments.MainActivity">
             <meta-data android:name="com.google.android.gms.common.api.internal.ApiKey"
                 android:value="AIzaSyB5KfLZ7XR38kN3rAFhioxeIQiHsmfUVQM"
                 />
