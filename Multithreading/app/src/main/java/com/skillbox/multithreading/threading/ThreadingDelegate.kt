@@ -4,11 +4,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
+import com.skillbox.multithreading.R
+import com.skillbox.multithreading.inflate
 import com.skillbox.multithreading.networking.Movie
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_movie.*
 
-class ThreadingDelegate(onItemClick: (position: Int) -> Unit) :
+class ThreadingDelegate(private val onItemClick: (position: Int) -> Unit) :
     AbsListItemAdapterDelegate<Movie, Movie, ThreadingDelegate.MovieViewHolder>() {
+
+    override fun onBindViewHolder(
+        item: Movie,
+        holder: MovieViewHolder,
+        payloads: MutableList<Any>
+    ) {
+        holder.bind(item)
+    }
 
     class MovieViewHolder(
         override val containerView: View,
@@ -17,24 +28,21 @@ class ThreadingDelegate(onItemClick: (position: Int) -> Unit) :
 
         init {
             containerView.setOnClickListener {
-                onItemClick(bindingAdapterPosition)
+                onItemClick(adapterPosition)
             }
+        }
+
+        fun bind(movie: Movie) {
+            movieTextView.text = movie.title
+            yearTextView.text = "${movie.year} year"
         }
     }
 
     override fun isForViewType(item: Movie, items: MutableList<Movie>, position: Int): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): MovieViewHolder {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBindViewHolder(
-        item: Movie,
-        holder: MovieViewHolder,
-        payloads: MutableList<Any>
-    ) {
-        TODO("Not yet implemented")
+        return MovieViewHolder(parent.inflate(R.layout.item_movie), onItemClick)
     }
 }
