@@ -13,7 +13,7 @@ import java.io.IOException
 
 object Network {
 
-    const val MOVIE_API_KEY = "3dd163ae"
+    const val MOVIE_API_KEY = "6cfa7e38"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {

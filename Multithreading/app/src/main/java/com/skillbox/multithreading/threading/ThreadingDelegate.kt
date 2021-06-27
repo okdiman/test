@@ -1,5 +1,6 @@
 package com.skillbox.multithreading.threading
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ class ThreadingDelegate(private val onItemClick: (position: Int) -> Unit) :
             }
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
             movieTextView.text = movie.title
             yearTextView.text = "${movie.year} year"
