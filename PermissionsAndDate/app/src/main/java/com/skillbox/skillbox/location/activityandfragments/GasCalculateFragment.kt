@@ -41,10 +41,10 @@ class GasCalculateFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun calculateSpeed() {
-        val flow = binding.flowRateEditText.text.toString().toInt()
-        val internalDiameter = binding.internalDiametrEditText.text.toString().toInt()
-        val pressure = binding.pressureEditText.text.toString().toInt()
-        val temperature = binding.temperatureEditText.text.toString().toInt()
+        val flow = binding.flowRateEditText.text.toString().toDouble()
+        val internalDiameter = binding.internalDiametrEditText.text.toString().toDouble()
+        val pressure = binding.pressureEditText.text.toString().toDouble()
+        val temperature = binding.temperatureEditText.text.toString().toDouble()
 
         val speedFirstStep = 0.1273 * flow * 1 * temperature
         val speedSecondStep = internalDiameter * internalDiameter * pressure
