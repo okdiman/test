@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/gasMainTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="@string/gas_speed"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/gasFormulaImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/gas_formula"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gasMainTextView" />
+
+    <TextView
+        android:id="@+id/gasCalculationExplainedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="@string/gas_formula_explains"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gasFormulaImageView" />
+
+    <TextView
+        android:id="@+id/attentionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:text="@string/attention_text"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gasCalculationExplainedTextView" />
+
+    <EditText
+        android:id="@+id/flowRateEditText"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:hint="Расход"
+        android:inputType="number"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/attentionTextView" />
+
+    <EditText
+        android:id="@+id/temperatureEditText"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:hint="Температура"
+        android:inputType="number"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/flowRateEditText"
+        app:layout_constraintTop_toBottomOf="@id/attentionTextView" />
+
+    <EditText
+        android:id="@+id/internalDiametrEditText"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:hint="Внутренний диаметр"
+        android:inputType="number"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/temperatureEditText"
+        app:layout_constraintTop_toBottomOf="@id/attentionTextView" />
+
+    <EditText
+        android:id="@+id/wallThicknessEditText"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:hint="Толщина стенки"
+        android:inputType="number"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/internalDiametrEditText"
+        app:layout_constraintTop_toBottomOf="@id/attentionTextView" />
+
+    <EditText
+        android:id="@+id/pressureEditText"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:hint="Давление"
+        android:inputType="number"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/wallThicknessEditText"
+        app:layout_constraintTop_toBottomOf="@id/attentionTextView" />
+
+    <TextView
+        android:id="@+id/gasResultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/calculateGasButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pressureEditText" />
+
+    <Button
+        android:id="@+id/calculateGasButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/background"
+        android:text="Рассчитать"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

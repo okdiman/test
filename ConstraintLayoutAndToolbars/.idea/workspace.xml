@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ec3f055-5bc1-414b-a71f-637d21f3941e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Multithreading/app/src/main/java/com/skillbox/multithreading/RaceConditionFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Multithreading/app/src/main/java/com/skillbox/multithreading/RaceConditionFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Multithreading/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Multithreading/app/src/main/res/values/strings.xml" afterDir="false" />
+    <list default="true" id="1a2ab175-09e2-4a88-b066-d37c49b9caf9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Multithreading/app/src/main/java/com/skillbox/multithreading/RaceConditionFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Multithreading/app/src/main/java/com/skillbox/multithreading/RaceConditionFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Multithreading/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Multithreading/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,9 +11,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1pZ95fp66uWV7dknvgCdpqTtaae" />
+  <component name="ProjectId" id="1udQqpxpPXkAwDrur67okO2VHwo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -22,25 +22,25 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ToolbarHomework" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/02_Toolbar" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7ec3f055-5bc1-414b-a71f-637d21f3941e" name="Default Changelist" comment="" />
-      <created>1615379563435</created>
+      <changelist id="1a2ab175-09e2-4a88-b066-d37c49b9caf9" name="Default Changelist" comment="" />
+      <created>1624993179168</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1615379563435</updated>
+      <updated>1624993179168</updated>
     </task>
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1624993226718">
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1624993195178">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1624993226718" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1624993195178" />
   </component>
 </project>

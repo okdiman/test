@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My geopoints</string>
+    <string name="app_name">ULTA field engineer app</string>
     <string name="set_location">Set location</string>
     <string name="sorry_but_we_won_t_be_able_to_make_locations_points_without_your_permission_to_access_your_geolocation">Sorry, but we won\'t be able to make locations points without your permission to access your geolocation</string>
     <string name="give_access">Give access</string>
@@ -7,4 +7,9 @@
     <string name="enter_link_for_a_photo_of_location">Enter link for a photo of location</string>
     <string name="autocheck_location">turn on auto mode</string>
     <string name="off_autocheck_location">turn off auto mode</string>
+    <string name="turn_on_automode">Включить режим записи маршрута</string>
+    <string name="calculate_flow_rate">Посчитать скорость продукта</string>
+    <string name="gas_formula_explains">Где W-скорость движения газа в газопроводе, м/с; z - коэффициент сжимаемости (для предварительных расходов можем принять равным 1); T = (273 + tC) - температура газа, K; D - внутренний диаметр трубопровода, мм; p - абсолютное давление газа, МПа </string>
+    <string name="gas_speed">Формула расчета скорости газа в трубопроводе:</string>
+    <string name="attention_text">Внимательно заполняйте поля, используя необходимые величины из системы СИ!!!</string>
 </resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/deniedPermissionScreenFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.skillbox.skillbox.location.activityandfragments.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_gasCalculateFragment"
+            app:destination="@id/gasCalculateFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_oilCalculateFragment"
+            app:destination="@id/oilCalculateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deniedPermissionScreenFragment"
+        android:name="com.skillbox.skillbox.location.activityandfragments.DeniedPermissionScreenFragment"
+        android:label="DeniedPermissionScreenFragment"
+        tools:layout="@layout/denied_permission_screen_fragment" />
+    <fragment
+        android:id="@+id/gasCalculateFragment"
+        android:name="com.skillbox.skillbox.location.activityandfragments.GasCalculateFragment"
+        android:label="GasCalculateFragment"
+        tools:layout="@layout/gas_calculate_flow_rate_fragment" />
+    <fragment
+        android:id="@+id/oilCalculateFragment"
+        android:name="com.skillbox.skillbox.location.activityandfragments.OilCalculateFragment"
+        android:label="OilCalculateFragment"
+        tools:layout="@layout/oil_calculate_flow_rate_fragment" />
+</navigation>

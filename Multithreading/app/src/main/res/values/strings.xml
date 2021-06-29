@@ -2,7 +2,7 @@
     <string name="app_name">Multithreading</string>
     <string name="get_movies">GET MOVIES</string>
     <string name="enter_count_of_threads">Enter count of threads</string>
-    <string name="enter_numbers_of_increment_operations">Enter numbers of increment operations</string>
+    <string name="enter_numbers_of_increment_operations">Enter increment count</string>
     <string name="without_sync">without sync</string>
     <string name="with_sync">with sync</string>
 </resources>

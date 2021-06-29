@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/turnOnOffAutoModeButton"
+        android:title="@string/turn_on_automode" />
+    <item
+        android:id="@+id/calculateFlowButton"
+        android:title="@string/calculate_flow_rate" />
+</menu>

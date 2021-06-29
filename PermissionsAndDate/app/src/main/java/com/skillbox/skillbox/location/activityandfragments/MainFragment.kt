@@ -12,14 +12,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.skillbox.skillbox.location.R
 import com.skillbox.skillbox.location.adapter.LocationsListAdapter
 import com.skillbox.skillbox.location.classes.PointOfLocation
-import com.skillbox.skillbox.location.R
 import com.skillbox.skillbox.location.databinding.MainFragmentBinding
 import com.skillbox.skillbox.location.inflate
 import kotlinx.android.synthetic.main.add_new_location.view.*
@@ -43,7 +44,10 @@ class MainFragment : Fragment() {
     private var locCall: LocationCallback? = null
     private var selectedItem: String? = null
 
+    private var autoModeCheck: Boolean = false
+
     private val singleChoice = arrayListOf("Image", "Date and time")
+    private val typeOfProduct = arrayListOf("Нефть", "Газ")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,28 +104,60 @@ class MainFragment : Fragment() {
         }
         initLocationsList()
         locationsAdapter?.items = locationsList
-        binding.startLocationCheck.setOnClickListener {
-            startLocationUpdates()
-            binding.startLocationCheck.isVisible = false
-            binding.stopLocationCheck.isVisible = true
-            Toast.makeText(
-                requireContext(),
-                "automatic route recording mode turned on",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        binding.stopLocationCheck.setOnClickListener {
-            stopLocationUpdates()
-            binding.startLocationCheck.isVisible = true
-            binding.stopLocationCheck.isVisible = false
-            Toast.makeText(
-                requireContext(),
-                "automatic route recording mode turned off",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
         binding.addLocationButton.setOnClickListener {
             getLastLocation()
+        }
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.calculateFlowButton -> {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Выберите тип продукта")
+                        .setSingleChoiceItems(typeOfProduct.toTypedArray(), 1) { _, i ->
+                            selectedItem = typeOfProduct[i]
+                        }
+                        .setPositiveButton("ok") { _, _ ->
+                            when (selectedItem) {
+                                "Газ" -> {
+                                    findNavController().navigate(R.id.action_mainFragment_to_gasCalculateFragment)
+                                }
+                                "Нефть" -> {
+                                    findNavController().navigate(R.id.action_mainFragment_to_oilCalculateFragment)
+                                }
+                                else -> Toast.makeText(
+                                    requireContext(),
+                                    "Вы не выбрали тип продукта",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                        .setNegativeButton("cancel") { _, _ -> }
+                        .show()
+                    true
+                }
+                R.id.turnOnOffAutoModeButton -> {
+                    if (!autoModeCheck) {
+                        menuItem.title = "Выключить режим записи маршрута"
+                        startLocationUpdates()
+                        autoModeCheck = true
+                        Toast.makeText(
+                            requireContext(),
+                            "Включена запись маршрута",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        menuItem.title = "Включить режим записи маршрута"
+                        stopLocationUpdates()
+                        autoModeCheck = false
+                        Toast.makeText(
+                            requireContext(),
+                            "Запись маршрута выключена",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    true
+                }
+                else -> false
+            }
         }
     }
 
