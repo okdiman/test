@@ -4,12 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.skillbox.multithreading.SingleLiveEvent
 import com.skillbox.multithreading.networking.Movie
 
-class MovieViewModel() : ViewModel() {
+class MovieViewModel : ViewModel() {
     private val movieLiveData = MutableLiveData<List<Movie>>()
     val moviesLive: LiveData<List<Movie>>
         get() = movieLiveData
+
+    private val showToastLiveData = SingleLiveEvent<Unit>()
+    val showToast: LiveData<Unit>
+        get() = showToastLiveData
+
+    var isNewMoviesEmpty = false
 
     private val repository = MovieRepository()
 
@@ -27,10 +34,17 @@ class MovieViewModel() : ViewModel() {
 
     fun requestMovies() {
         repository.fetchMovies(moviesList) { movies ->
-            val newMoviesList = movies + movieLiveData.value.orEmpty()
-            Log.d("ewq", "$movies")
-            movieLiveData.postValue(newMoviesList)
-            Log.d("ewq", "${moviesLive.value}")
+            isNewMoviesEmpty = false
+            if (movies.isNotEmpty()) {
+                val newMoviesList = movies + movieLiveData.value.orEmpty()
+                Log.d("ewq", "$movies")
+                movieLiveData.postValue(newMoviesList)
+                Log.d("ewq", "${moviesLive.value}")
+                showToastLiveData.postValue(Unit)
+            } else {
+                isNewMoviesEmpty = true
+                showToastLiveData.postValue(Unit)
+            }
         }
     }
 }

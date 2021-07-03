@@ -14,6 +14,14 @@ import kotlinx.android.synthetic.main.item_movie.*
 class ThreadingDelegate(private val onItemClick: (position: Int) -> Unit) :
     AbsListItemAdapterDelegate<Movie, Movie, ThreadingDelegate.MovieViewHolder>() {
 
+    override fun isForViewType(item: Movie, items: MutableList<Movie>, position: Int): Boolean {
+        return true
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup): MovieViewHolder {
+        return MovieViewHolder(parent.inflate(R.layout.item_movie), onItemClick)
+    }
+
     override fun onBindViewHolder(
         item: Movie,
         holder: MovieViewHolder,
@@ -38,13 +46,5 @@ class ThreadingDelegate(private val onItemClick: (position: Int) -> Unit) :
             movieTextView.text = movie.title
             yearTextView.text = "${movie.year} year"
         }
-    }
-
-    override fun isForViewType(item: Movie, items: MutableList<Movie>, position: Int): Boolean {
-        return true
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup): MovieViewHolder {
-        return MovieViewHolder(parent.inflate(R.layout.item_movie), onItemClick)
     }
 }

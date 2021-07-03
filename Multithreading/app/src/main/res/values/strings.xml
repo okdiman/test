@@ -5,4 +5,10 @@
     <string name="enter_numbers_of_increment_operations">Enter increment count</string>
     <string name="without_sync">without sync</string>
     <string name="with_sync">with sync</string>
+    <string name="start_deadlock">start deadlock</string>
+    <string name="start_livelock">start livelock</string>
+    <string name="threads">Threads</string>
+    <string name="race_condition">Race condition</string>
+    <string name="deadlock">Deadlock</string>
+    <string name="livelock">Livelock</string>
 </resources>

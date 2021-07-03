@@ -1,10 +1,6 @@
 package com.skillbox.multithreading.networking
 
-import okhttp3.Authenticator
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import okhttp3.Route
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +9,7 @@ import java.io.IOException
 
 object Network {
 
-    const val MOVIE_API_KEY = "6cfa7e38"
+    private const val MOVIE_API_KEY = "6cfa7e38"
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {

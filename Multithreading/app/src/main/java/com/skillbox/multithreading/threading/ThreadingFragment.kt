@@ -50,6 +50,11 @@ class ThreadingFragment : Fragment() {
                 addMovies()
             }
         }
+        binding.swipeRefresh.setOnRefreshListener {
+            handler.post {
+                addMovies()
+            }
+        }
         observerLiveData()
     }
 
@@ -73,11 +78,27 @@ class ThreadingFragment : Fragment() {
         moviesViewModel.moviesLive.observe(viewLifecycleOwner) { newMovies ->
             mainHandler.post {
                 moviesAdapter?.items = newMovies
+                binding.swipeRefresh.isRefreshing = false
             }
-            handler.postDelayed({
-                Toast.makeText(requireContext(), "Movies was added to list", Toast.LENGTH_SHORT)
-                    .show()
-            }, 1000)
         }
+        moviesViewModel.showToast
+            .observe(viewLifecycleOwner) {
+                if (moviesViewModel.isNewMoviesEmpty) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Movies list is empty, please, check your Internet connection and try again",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    handler.postDelayed({
+                        Toast.makeText(
+                            requireContext(),
+                            "Movies was added to list",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }, 1000)
+                }
+            }
     }
 }

@@ -8,24 +8,24 @@
         android:id="@+id/threading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Threads" />
+        android:text="@string/threads" />
 
     <Button
         android:id="@+id/raceCondition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Race condition" />
+        android:text="@string/race_condition" />
 
     <Button
         android:id="@+id/deadlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Deadlock" />
+        android:text="@string/deadlock" />
 
     <Button
         android:id="@+id/livelock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Livelock" />
+        android:text="@string/livelock" />
 
 </LinearLayout>

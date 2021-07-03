@@ -19,8 +19,10 @@ class MovieRepository {
             val threads = listOfMoviesId.chunked(1).map { movieId ->
                 Thread {
                     val movie = getMovieById(movieId[0])
-                    val movieForList = movie?.let { Movie(it.title, movie.year) }
-                    allMovies.add(movieForList)
+                    if (movie != null) {
+                        val movieForList = Movie(movie.title, movie.year)
+                        allMovies.add(movieForList)
+                    }
                 }
             }
             threads.forEach { it.start() }
