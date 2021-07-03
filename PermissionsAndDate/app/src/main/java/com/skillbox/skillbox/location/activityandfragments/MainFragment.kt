@@ -1,10 +1,14 @@
 package com.skillbox.skillbox.location.activityandfragments
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Looper
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +43,8 @@ class MainFragment : Fragment() {
 
     private var locationsList = arrayListOf<PointOfLocation>()
     private var locationsAdapter: LocationsListAdapter? = null
+
+    private var image:Bitmap? = null
 
     private var selectedLocationInstant: Instant? = null
 
@@ -119,7 +125,7 @@ class MainFragment : Fragment() {
                 R.id.calculateFlowButton -> {
                     AlertDialog.Builder(requireContext())
                         .setTitle("Выберите тип продукта")
-                        .setSingleChoiceItems(typeOfProduct.toTypedArray(), 1) { _, i ->
+                        .setSingleChoiceItems(typeOfProduct.toTypedArray(), -1) { _, i ->
                             selectedItem = typeOfProduct[i]
                         }
                         .setPositiveButton("ok") { _, _ ->
@@ -183,6 +189,18 @@ class MainFragment : Fragment() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PHOTO_REQUEST_CODE){
+            if (resultCode == Activity.RESULT_OK){
+                image = data?.getParcelableExtra("data") as? Bitmap
+            } else {
+                Toast.makeText(requireContext(), "Фотография не получена", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLastLocation() {
         lateinit var newLocation: PointOfLocation
@@ -194,6 +212,10 @@ class MainFragment : Fragment() {
             .setTitle("Please, enter a link to photo for the location")
             .setView(view)
             .setPositiveButton("Add") { _, _ ->
+                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                cameraIntent.resolveActivity(requireActivity().packageManager)?.also {
+                    startActivityForResult(cameraIntent, PHOTO_REQUEST_CODE)
+                }
                 if (view.addPhotoToNewLocation.text.isNotEmpty()) {
                     fusedLocationClient.lastLocation
                         .addOnSuccessListener {
@@ -370,6 +392,7 @@ class MainFragment : Fragment() {
     }
 
     companion object {
+        const val PHOTO_REQUEST_CODE = 1
         const val KEY_FOR_LIST = "key for list"
     }
 }

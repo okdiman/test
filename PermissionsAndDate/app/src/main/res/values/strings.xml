@@ -8,7 +8,7 @@
     <string name="autocheck_location">turn on auto mode</string>
     <string name="off_autocheck_location">turn off auto mode</string>
     <string name="turn_on_automode">Включить режим записи маршрута</string>
-    <string name="calculate_flow_rate">Посчитать скорость продукта</string>
+    <string name="calculate_flow_rate">Рассчитать скорость продукта</string>
     <string name="gas_formula_explains">Где W-скорость движения газа в газопроводе, м/с; Q - расход газа м³/ч, z - коэффициент сжимаемости (для предварительных расчетов можем принять равным 1); T = (273 + t°C) - температура газа, °K; D - внутренний диаметр трубопровода, мм; p - абсолютное давление газа, МПа </string>
     <string name="gas_speed">Формула расчета скорости газа в трубопроводе:</string>
     <string name="attention_text">Внимательно заполняйте поля, используя необходимые величины из системы СИ!!!</string>
