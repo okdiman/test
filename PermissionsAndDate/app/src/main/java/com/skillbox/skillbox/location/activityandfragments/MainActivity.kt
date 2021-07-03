@@ -9,9 +9,11 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.skillbox.skillbox.location.R
+import com.skillbox.skillbox.location.interfaces.StartGasFragment
 import com.skillbox.skillbox.location.interfaces.StartMainFragmentFromDenied
+import com.skillbox.skillbox.location.interfaces.StartOilFragment
 
-class MainActivity : AppCompatActivity(), StartMainFragmentFromDenied {
+class MainActivity : AppCompatActivity(), StartMainFragmentFromDenied, StartGasFragment, StartOilFragment {
     private var rationaleDialog: AlertDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,6 +115,20 @@ class MainActivity : AppCompatActivity(), StartMainFragmentFromDenied {
     override fun startMainFragmentFromDeniedFragment() {
         this.supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, MainFragment())
+            .commit()
+    }
+
+    override fun startGasFragment() {
+        this.supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, GasCalculateFragment())
+            .addToBackStack("mainFragment")
+            .commit()
+    }
+
+    override fun startOilFragment() {
+        this.supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, OilCalculateFragment())
+            .addToBackStack("mainFragment")
             .commit()
     }
 }

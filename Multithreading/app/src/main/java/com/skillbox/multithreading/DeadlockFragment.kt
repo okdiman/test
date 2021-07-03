@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.skillbox.multithreading.databinding.DeadlockFragmentBinding
+import java.util.concurrent.atomic.AtomicInteger
 
 class DeadlockFragment : Fragment() {
 
@@ -14,6 +15,9 @@ class DeadlockFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var i = 0
+
+    private var q = 0
+
     private val lock1 = Any()
     private val lock2 = Any()
 
@@ -94,5 +98,6 @@ class DeadlockFragment : Fragment() {
         thread2.start()
         thread1.join()
         thread2.join()
+        
     }
 }

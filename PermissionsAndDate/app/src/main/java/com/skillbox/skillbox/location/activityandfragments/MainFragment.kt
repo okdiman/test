@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -23,6 +22,8 @@ import com.skillbox.skillbox.location.adapter.LocationsListAdapter
 import com.skillbox.skillbox.location.classes.PointOfLocation
 import com.skillbox.skillbox.location.databinding.MainFragmentBinding
 import com.skillbox.skillbox.location.inflate
+import com.skillbox.skillbox.location.interfaces.StartGasFragment
+import com.skillbox.skillbox.location.interfaces.StartOilFragment
 import kotlinx.android.synthetic.main.add_new_location.view.*
 import kotlinx.android.synthetic.main.add_photo_to_location.view.*
 import org.threeten.bp.Instant
@@ -48,6 +49,12 @@ class MainFragment : Fragment() {
 
     private val singleChoice = arrayListOf("Image", "Date and time")
     private val typeOfProduct = arrayListOf("Нефть", "Газ")
+
+    private val changeFragmentToOil: StartOilFragment
+        get() = activity.let { it as StartOilFragment }
+
+    private val changeFragmentToGas: StartGasFragment
+        get() = activity.let { it as StartGasFragment }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,10 +125,10 @@ class MainFragment : Fragment() {
                         .setPositiveButton("ok") { _, _ ->
                             when (selectedItem) {
                                 "Газ" -> {
-                                    findNavController().navigate(R.id.action_mainFragment_to_gasCalculateFragment)
+                                    initGasFragment()
                                 }
                                 "Нефть" -> {
-                                    findNavController().navigate(R.id.action_mainFragment_to_oilCalculateFragment)
+                                    initOilFragment()
                                 }
                                 else -> Toast.makeText(
                                     requireContext(),
@@ -352,6 +359,14 @@ class MainFragment : Fragment() {
         val fusedLocationClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
         fusedLocationClient.removeLocationUpdates(locCall!!)
+    }
+
+    private fun initOilFragment() {
+        changeFragmentToOil.startOilFragment()
+    }
+
+    private fun initGasFragment() {
+        changeFragmentToGas.startGasFragment()
     }
 
     companion object {
