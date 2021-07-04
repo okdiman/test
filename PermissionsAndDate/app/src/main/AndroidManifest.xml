@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.skillbox.skillbox.location">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
     <application
@@ -15,10 +14,13 @@
         android:roundIcon="@drawable/ulta"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <meta-data
+            android:name="com.google.android.gms.common.util.GmsVersion"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.common.api.internal.ApiKey"
+            android:value="${MAPS_API_KEY}"/>
         <activity android:name=".activityandfragments.MainActivity">
-            <meta-data android:name="com.google.android.gms.common.api.internal.ApiKey"
-                android:value="AIzaSyB5KfLZ7XR38kN3rAFhioxeIQiHsmfUVQM"
-                />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
