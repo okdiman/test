@@ -3,6 +3,7 @@ package com.skillbox.multithreading.threading
 import com.skillbox.multithreading.networking.Movie
 import com.skillbox.multithreading.networking.Network
 import java.util.*
+import java.util.concurrent.Executors
 
 class MovieRepository {
 
@@ -14,20 +15,38 @@ class MovieRepository {
         listOfMoviesId: List<String>,
         onMoviesFetched: (movies: MutableList<Movie>) -> Unit
     ) {
-        Thread {
-            val allMovies = Collections.synchronizedList(mutableListOf<Movie>())
-            val threads = listOfMoviesId.chunked(1).map { movieId ->
-                Thread {
-                    val movie = getMovieById(movieId[0])
-                    if (movie != null) {
-                        val movieForList = Movie(movie.title, movie.year)
-                        allMovies.add(movieForList)
-                    }
+        val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+        val allMovies = Collections.synchronizedList(mutableListOf<Movie>())
+        var i = 0
+        executor.execute() {
+            while (i <= listOfMoviesId.size-1) {
+                val movie = getMovieById(listOfMoviesId[i])
+                if (movie != null) {
+                    val movieForList = Movie(movie.title, movie.year)
+                    allMovies.add(movieForList)
                 }
+                i++
             }
-            threads.forEach { it.start() }
-            threads.forEach { it.join() }
             onMoviesFetched(allMovies)
-        }.start()
+        }
+        executor.shutdown()
+
+
+//        Thread {
+//            val allMovies = Collections.synchronizedList(mutableListOf<Movie>())
+//            val threads = listOfMoviesId.chunked(1).map { movieId ->
+//                Thread {
+//                    val movie = getMovieById(movieId[0])
+//                    if (movie != null) {
+//                        val movieForList = Movie(movie.title, movie.year)
+//                        allMovies.add(movieForList)
+//                    }
+//                }
+//            }
+//            threads.forEach { it.start() }
+//            threads.forEach { it.join() }
+//            onMoviesFetched(allMovies)
+//        }.start()
+//        }
     }
 }
