@@ -59,15 +59,12 @@ class ThreadingFragment : Fragment() {
     }
 
     private fun initList() {
-        moviesViewModel.moviesLive
-            .observe(viewLifecycleOwner) {
-                moviesAdapter = AdapterThreading {}
-                with(binding.moviesRecyclerView) {
-                    adapter = moviesAdapter
-                    layoutManager = LinearLayoutManager(requireContext())
-                    setHasFixedSize(true)
-                }
-            }
+        moviesAdapter = AdapterThreading {}
+        with(binding.moviesRecyclerView) {
+            adapter = moviesAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+        }
     }
 
     private fun addMovies() {

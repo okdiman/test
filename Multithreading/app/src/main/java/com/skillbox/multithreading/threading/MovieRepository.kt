@@ -1,5 +1,7 @@
 package com.skillbox.multithreading.threading
 
+import android.provider.Settings
+import android.util.Log
 import com.skillbox.multithreading.networking.Movie
 import com.skillbox.multithreading.networking.Network
 import java.util.*
@@ -18,6 +20,7 @@ class MovieRepository {
         val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
         val allMovies = Collections.synchronizedList(mutableListOf<Movie>())
         var i = 0
+        val startTime = System.currentTimeMillis()
         executor.execute() {
             while (i <= listOfMoviesId.size-1) {
                 val movie = getMovieById(listOfMoviesId[i])
@@ -28,11 +31,17 @@ class MovieRepository {
                 i++
             }
             onMoviesFetched(allMovies)
+            val endTime = System.currentTimeMillis() - startTime
+            Log.d("timing", "$endTime")
         }
+
+
         executor.shutdown()
 
 
+
 //        Thread {
+//            val startTime = System.currentTimeMillis()
 //            val allMovies = Collections.synchronizedList(mutableListOf<Movie>())
 //            val threads = listOfMoviesId.chunked(1).map { movieId ->
 //                Thread {
@@ -46,7 +55,9 @@ class MovieRepository {
 //            threads.forEach { it.start() }
 //            threads.forEach { it.join() }
 //            onMoviesFetched(allMovies)
+//            val endTime = System.currentTimeMillis() - startTime
+//            Log.d("timing", "$endTime")
 //        }.start()
-//        }
+
     }
 }
