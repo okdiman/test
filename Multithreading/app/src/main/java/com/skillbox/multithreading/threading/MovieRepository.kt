@@ -1,11 +1,11 @@
 package com.skillbox.multithreading.threading
 
-import android.provider.Settings
 import android.util.Log
 import com.skillbox.multithreading.networking.Movie
 import com.skillbox.multithreading.networking.Network
 import java.util.*
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 class MovieRepository {
 
@@ -17,27 +17,25 @@ class MovieRepository {
         listOfMoviesId: List<String>,
         onMoviesFetched: (movies: MutableList<Movie>) -> Unit
     ) {
-        val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
-        val allMovies = Collections.synchronizedList(mutableListOf<Movie>())
-        var i = 0
-        val startTime = System.currentTimeMillis()
-        executor.execute() {
-            while (i <= listOfMoviesId.size-1) {
-                val movie = getMovieById(listOfMoviesId[i])
-                if (movie != null) {
-                    val movieForList = Movie(movie.title, movie.year)
-                    allMovies.add(movieForList)
+        Thread {
+            val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+            val allMovies = Collections.synchronizedList(mutableListOf<Movie>())
+            val startTime = System.currentTimeMillis()
+            listOfMoviesId.chunked(1).forEach { movieId ->
+                executor.execute() {
+                    val movie = getMovieById(movieId[0])
+                    if (movie != null) {
+                        val movieForList = Movie(movie.title, movie.year)
+                        allMovies.add(movieForList)
+                    }
                 }
-                i++
             }
+            executor.shutdown()
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)
             onMoviesFetched(allMovies)
             val endTime = System.currentTimeMillis() - startTime
             Log.d("timing", "$endTime")
-        }
-
-
-        executor.shutdown()
-
+        }.run()
 
 
 //        Thread {
