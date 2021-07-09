@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Networking</string>
+    <string name="name_movie">Enter title of movie</string>
+    <string name="year_movie">Enter year of movie</string>
+    <string name="type_movie">Choose type of movie</string>
+    <string-array name="movies_types_string_array">
+        <item>Serial</item>
+        <item>Movie</item>
+        <item>Episode</item>
+        <item>Not chosen</item>
+    </string-array>
+</resources>
