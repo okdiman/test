@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,32 +38,39 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initMenu()
-        initList()
+        initStartScreen()
         observeViewModel()
+        binding.searchButton.setOnClickListener {
+            movieViewModel.requestMovies(binding.TitleMovieEditText.text.toString())
+        }
     }
 
-    private fun initMenu() {
-        val adapter = ArrayAdapter(
+    private fun initStartScreen() {
+        val adapterMenu = ArrayAdapter(
             requireContext(),
             R.layout.item_menu_layout,
             resources.getStringArray(R.array.movies_types_string_array)
         )
-        AutoCompleteTextView.setAdapter(adapter)
-    }
-
-    private fun initList() {
+        AutoCompleteTextView.setAdapter(adapterMenu)
         adapterMovie = AdapterMovies {}
         with(binding.movieRecyclerView) {
             adapter = adapterMovie
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
+
     }
 
     private fun observeViewModel() {
         movieViewModel.movie.observe(viewLifecycleOwner) { newMovies ->
             adapterMovie?.items = newMovies
         }
+        movieViewModel.isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
+    }
+
+    private fun updateLoadingState(isLoading: Boolean) {
+        binding.movieRecyclerView.isVisible = isLoading.not()
+        binding.progressBar.isVisible = isLoading
+        binding.searchButton.isEnabled = isLoading.not()
     }
 }
