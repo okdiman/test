@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.networking.activityandfragments
 
+import android.app.AlertDialog
 import android.util.Log
 import com.skillbox.skillbox.networking.classes.Movie
 import com.skillbox.skillbox.networking.network.Network
@@ -11,8 +12,13 @@ import org.json.JSONObject
 import java.io.IOException
 
 class RepositoryMainFragment {
-    fun requestMovieByTitle(text: String, callback: (List<Movie>) -> Unit): Call {
-        return Network.searchMovieCall(text).apply {
+    fun requestMovieByTitle(
+        text: String,
+        year: String,
+        type: String,
+        callback: (List<Movie>) -> Unit
+    ): Call {
+        return Network.searchMovieCall(text, year, type).apply {
             enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     Log.e("Server", "execute request error = ${e.message}", e)

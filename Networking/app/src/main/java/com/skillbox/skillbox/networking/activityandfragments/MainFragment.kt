@@ -1,10 +1,12 @@
 package com.skillbox.skillbox.networking.activityandfragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,7 +43,12 @@ class MainFragment : Fragment() {
         initStartScreen()
         observeViewModel()
         binding.searchButton.setOnClickListener {
-            movieViewModel.requestMovies(binding.TitleMovieEditText.text.toString())
+            if (binding.TitleMovieEditText.text.isNotEmpty()) {
+                request()
+            } else {
+                Toast.makeText(requireContext(), "Enter title of film, please", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 
@@ -63,7 +70,15 @@ class MainFragment : Fragment() {
 
     private fun observeViewModel() {
         movieViewModel.movie.observe(viewLifecycleOwner) { newMovies ->
-            adapterMovie?.items = newMovies
+            if (newMovies.isEmpty()) {
+                AlertDialog.Builder(requireContext())
+                    .setMessage("Sorry, an error has occurred, please, check your internet connection and try again")
+                    .setNegativeButton("cancel") { _, _ -> }
+                    .setPositiveButton("repeat") { _, _ -> request() }
+                    .show()
+            } else {
+                adapterMovie?.items = newMovies
+            }
         }
         movieViewModel.isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
     }
@@ -72,5 +87,19 @@ class MainFragment : Fragment() {
         binding.movieRecyclerView.isVisible = isLoading.not()
         binding.progressBar.isVisible = isLoading
         binding.searchButton.isEnabled = isLoading.not()
+        binding.TitleMovieEditText.isEnabled = isLoading.not()
+        binding.YearMovieEditText.isEnabled = isLoading.not()
+    }
+
+    private fun request() {
+        movieViewModel.requestMovies(
+            binding.TitleMovieEditText.text.toString(),
+            binding.YearMovieEditText.text.toString(),
+            if (binding.AutoCompleteTextView.text.toString() == "Not chosen") {
+                ""
+            } else {
+                binding.AutoCompleteTextView.text.toString()
+            }
+        )
     }
 }

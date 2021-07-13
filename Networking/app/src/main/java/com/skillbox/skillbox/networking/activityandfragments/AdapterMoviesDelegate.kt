@@ -1,8 +1,10 @@
 package com.skillbox.skillbox.networking.activityandfragments
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.networking.R
 import com.skillbox.skillbox.networking.classes.Movie
@@ -18,9 +20,17 @@ class AdapterMoviesDelegate(private val onItemClick: (position: Int) -> Unit) :
             containerView.setOnClickListener { onItemClick(adapterPosition) }
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
+            idTextView.text = "id ${movie.id}"
+            typeTextView.text = movie.type
             movieTextView.text = movie.title
-            yearTextView.text = movie.year
+            yearTextView.text = "year ${movie.year}"
+            Glide.with(itemView)
+                .load(movie.poster)
+                .error(R.drawable.ic_sync_problem)
+                .placeholder(R.drawable.ic_cloud_download)
+                .into(pictureImageView)
         }
     }
 

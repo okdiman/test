@@ -19,10 +19,10 @@ class ViewModelMainFragment : ViewModel() {
 
     private var currentCall: Call? = null
 
-    fun requestMovies(text: String) {
+    fun requestMovies(text: String, year: String, type: String) {
         isLoadingLiveData.postValue(true)
         Thread {
-            currentCall = repository.requestMovieByTitle(text) { movies ->
+            currentCall = repository.requestMovieByTitle(text, year, type) { movies ->
                 isLoadingLiveData.postValue(false)
                 movieLiveData.postValue(movies)
                 currentCall = null
