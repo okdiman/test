@@ -43,12 +43,7 @@ class MainFragment : Fragment() {
         initStartScreen()
         observeViewModel()
         binding.searchButton.setOnClickListener {
-            if (binding.TitleMovieEditText.text.isNotEmpty()) {
-                request()
-            } else {
-                Toast.makeText(requireContext(), "Enter title of film, please", Toast.LENGTH_SHORT)
-                    .show()
-            }
+            initRequest()
         }
     }
 
@@ -101,5 +96,32 @@ class MainFragment : Fragment() {
                 binding.AutoCompleteTextView.text.toString()
             }
         )
+    }
+
+    private fun correctYear(): Boolean {
+        return binding.YearMovieEditText.text.toString().toInt() in 1900..2021
+    }
+
+    private fun initRequest() {
+        if (binding.TitleMovieEditText.text.isNotEmpty()) {
+            if (binding.YearMovieEditText.text.toString().isNotEmpty()) {
+                if (correctYear()) {
+                    request()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Enter correct year of film, please",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            } else {
+                request()
+            }
+
+        } else {
+            Toast.makeText(requireContext(), "Enter title of film, please", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 }
