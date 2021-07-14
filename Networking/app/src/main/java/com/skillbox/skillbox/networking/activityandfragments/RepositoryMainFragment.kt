@@ -1,6 +1,5 @@
 package com.skillbox.skillbox.networking.activityandfragments
 
-import android.app.AlertDialog
 import android.util.Log
 import com.skillbox.skillbox.networking.classes.Movie
 import com.skillbox.skillbox.networking.network.Network

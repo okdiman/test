@@ -2,7 +2,7 @@ package com.skillbox.skillbox.networking.network
 
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
-import com.skillbox.skillbox.networking.extensions.MOVIE_API_KEY
+import com.skillbox.skillbox.networking.files.MOVIE_API_KEY
 import okhttp3.Call
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -11,12 +11,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 object Network {
 
-    val flipperNetworkPlugin = NetworkFlipperPlugin()
+    private val flipperNetworkPlugin = NetworkFlipperPlugin()
 
     private val client = OkHttpClient.Builder()
-//        .addNetworkInterceptor(
-//            CustomInterceptor()
-//        )
+        .addNetworkInterceptor(
+            CustomInterceptor()
+        )
         .addNetworkInterceptor(
             HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)
