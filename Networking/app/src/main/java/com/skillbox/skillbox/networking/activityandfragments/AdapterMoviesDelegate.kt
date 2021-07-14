@@ -16,10 +16,12 @@ class AdapterMoviesDelegate(private val onItemClick: (position: Int) -> Unit) :
     AbsListItemAdapterDelegate<Movie, Movie, AdapterMoviesDelegate.MovieViewHolder>() {
     class MovieViewHolder(onItemClick: (position: Int) -> Unit, override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
+        //инициализируем кликлистенер для объектов списка
         init {
             containerView.setOnClickListener { onItemClick(bindingAdapterPosition) }
         }
 
+        //баиндим полученные данные в объект
         @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
             idTextView.text = "id ${movie.id}"

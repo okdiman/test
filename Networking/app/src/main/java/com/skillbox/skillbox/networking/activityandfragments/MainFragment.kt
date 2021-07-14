@@ -47,13 +47,16 @@ class MainFragment : Fragment() {
         }
     }
 
+    //инициализируем стартовый экран
     private fun initStartScreen() {
+        //инициализируем выпадающее меню
         val adapterMenu = ArrayAdapter(
             requireContext(),
             R.layout.item_menu_layout,
             resources.getStringArray(R.array.movies_types_string_array)
         )
         AutoCompleteTextView.setAdapter(adapterMenu)
+        //инициализируем список фильмов
         adapterMovie = AdapterMovies {}
         with(binding.movieRecyclerView) {
             adapter = adapterMovie
@@ -63,9 +66,11 @@ class MainFragment : Fragment() {
 
     }
 
+    //подписываемся на обновления ViewModel
     private fun observeViewModel() {
         movieViewModel.movie.observe(viewLifecycleOwner) { newMovies ->
             if (newMovies.isEmpty()) {
+                //вызываем AlertDialog в случае ошибки запроса
                 AlertDialog.Builder(requireContext())
                     .setMessage("Sorry, an error has occurred, please, check your internet connection and try again")
                     .setNegativeButton("cancel") { _, _ -> }
@@ -75,9 +80,11 @@ class MainFragment : Fragment() {
                 adapterMovie?.items = newMovies
             }
         }
+        //подписываемся на обновление статуса загрузки
         movieViewModel.isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
     }
 
+    //функция, отвечающая за поведение приложения при загрузке данных
     private fun updateLoadingState(isLoading: Boolean) {
         binding.movieRecyclerView.isVisible = isLoading.not()
         binding.progressBar.isVisible = isLoading
@@ -86,6 +93,7 @@ class MainFragment : Fragment() {
         binding.YearMovieEditText.isEnabled = isLoading.not()
     }
 
+    //выполнение запроса поиска фильмов
     private fun request() {
         movieViewModel.requestMovies(
             binding.TitleMovieEditText.text.toString(),
@@ -98,10 +106,12 @@ class MainFragment : Fragment() {
         )
     }
 
+    //проверка корректности введенного года
     private fun correctYear(): Boolean {
         return binding.YearMovieEditText.text.toString().toInt() in 1900..2021
     }
 
+    //инициализация запроса поиска
     private fun initRequest() {
         if (binding.TitleMovieEditText.text.isNotEmpty()) {
             if (binding.YearMovieEditText.text.toString().isNotEmpty()) {

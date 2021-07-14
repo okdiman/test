@@ -11,6 +11,7 @@ import org.json.JSONObject
 import java.io.IOException
 
 class RepositoryMainFragment {
+    //выполнение запроса данных из сети
     fun requestMovieByTitle(
         text: String,
         year: String,
@@ -19,12 +20,15 @@ class RepositoryMainFragment {
     ): Call {
         return Network.searchMovieCall(text, year, type).apply {
             enqueue(object : Callback {
+                //обрабатываем ошибку запроса
                 override fun onFailure(call: Call, e: IOException) {
                     Log.e("Server", "execute request error = ${e.message}", e)
                     callback(emptyList())
                 }
 
+                //обрабатываем отсутсвие ошибок при запросе
                 override fun onResponse(call: Call, response: Response) {
+                    //обрабатываем успешность запроса
                     if (response.isSuccessful) {
                         val responseString = response.body?.string().orEmpty()
                         val movies = parseMovieResponse(responseString)
@@ -37,7 +41,7 @@ class RepositoryMainFragment {
         }
     }
 
-
+    //парсим запрос
     private fun parseMovieResponse(responseBodeString: String): List<Movie> {
         return try {
             val jsonObject = JSONObject(responseBodeString)
@@ -51,6 +55,7 @@ class RepositoryMainFragment {
                     val type = movieJsonObject.getString("Type")
                     Movie(title, year, type, id, poster)
                 }
+         //обработка ошибки парсинга
         } catch (e: JSONException) {
             Log.e("Server", "parse response error = ${e.message}", e)
             emptyList()
