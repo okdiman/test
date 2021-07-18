@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.skillbox.skillbox.networking.classes.Movie
 import com.skillbox.skillbox.networking.classes.SingleLiveEvent
 import okhttp3.Call
+import java.text.FieldPosition
 
 class ViewModelMainFragment : ViewModel() {
     //создаес LiveData для фильмов и для статуса загрузки
@@ -47,6 +48,10 @@ class ViewModelMainFragment : ViewModel() {
                     currentCall = null
                 }
         }.run()
+    }
+
+    fun addScore(position: Int){
+        movieLiveData.value?.get(position)
     }
 
     //очищаем запрос в случае закрытия пользователем приложения

@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
         )
         AutoCompleteTextView.setAdapter(adapterMenu)
         //инициализируем список фильмов
-        adapterMovie = AdapterMovies {}
+        adapterMovie = AdapterMovies { position: Int -> addScore(position) }
         with(binding.movieRecyclerView) {
             adapter = adapterMovie
             layoutManager = LinearLayoutManager(requireContext())
@@ -138,5 +138,9 @@ class MainFragment : Fragment() {
             Toast.makeText(requireContext(), "Enter title of film, please", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    private fun addScore(position: Int) {
+
     }
 }
