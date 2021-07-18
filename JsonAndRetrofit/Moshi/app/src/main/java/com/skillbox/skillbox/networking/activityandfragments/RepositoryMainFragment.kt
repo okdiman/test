@@ -3,11 +3,11 @@ package com.skillbox.skillbox.networking.activityandfragments
 import android.util.Log
 import com.skillbox.skillbox.networking.classes.Movie
 import com.skillbox.skillbox.networking.network.Network
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.IOException
 
 class RepositoryMainFragment {
@@ -31,34 +31,28 @@ class RepositoryMainFragment {
                     //обрабатываем успешность запроса
                     if (response.isSuccessful) {
                         val responseString = response.body?.string().orEmpty()
-                        val movies = parseMovieResponse(responseString)
-                        callback(movies)
+                        val moshi = Moshi.Builder().build()
+                        val movieNewParametrizedType = Types.newParameterizedType(
+                            List::class.java,
+                            Movie::class.java
+                        )
+                        val adapter = moshi.adapter<List<Movie>>(movieNewParametrizedType).nonNull()
+                        try {
+                            val movies = adapter.fromJson(responseString)
+                            if (movies != null) {
+                                callback(movies)
+                            } else {
+                                callback(emptyList())
+                            }
+                        } catch (e: Exception) {
+                            Log.e("server", "${e.message}")
+                            callback(emptyList())
+                        }
                     } else {
                         callback(emptyList())
                     }
                 }
             })
-        }
-    }
-
-    //парсим запрос
-    private fun parseMovieResponse(responseBodeString: String): List<Movie> {
-        return try {
-            val jsonObject = JSONObject(responseBodeString)
-            val movieArray = jsonObject.getJSONArray("Search")
-            (0 until movieArray.length()).map { index -> movieArray.getJSONObject(index) }
-                .map { movieJsonObject ->
-                    val title = movieJsonObject.getString("Title")
-                    val year = movieJsonObject.getString("Year")
-                    val id = movieJsonObject.getString("imdbID")
-                    val poster = movieJsonObject.getString("Poster")
-                    val type = movieJsonObject.getString("Type")
-                    Movie(title, year, type, id, poster)
-                }
-         //обработка ошибки парсинга
-        } catch (e: JSONException) {
-            Log.e("Server", "parse response error = ${e.message}", e)
-            emptyList()
         }
     }
 }
