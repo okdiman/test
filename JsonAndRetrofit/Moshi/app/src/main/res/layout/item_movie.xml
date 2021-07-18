@@ -24,7 +24,7 @@
         tools:text="@tools:sample/cities" />
 
     <TextView
-        android:id="@+id/idTextView"
+        android:id="@+id/ganreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
@@ -47,12 +47,12 @@
         app:layout_constraintEnd_toStartOf="@id/pictureImageView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/idTextView"
+        app:layout_constraintTop_toBottomOf="@id/ganreTextView"
         tools:ignore="RtlSymmetry,SmallSp"
         tools:text="@tools:sample/cities" />
 
     <TextView
-        android:id="@+id/typeTextView"
+        android:id="@+id/ratingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
@@ -70,10 +70,23 @@
         android:layout_width="50dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="@id/typeTextView"
+        app:layout_constraintBottom_toBottomOf="@id/ratingTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/scoresTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pictureImageView"
+        tools:ignore="RtlSymmetry,SmallSp"
+        tools:text="@tools:sample/cities" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

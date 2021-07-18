@@ -24,10 +24,11 @@ class AdapterMoviesDelegate(private val onItemClick: (position: Int) -> Unit) :
         //баиндим полученные данные в объект
         @SuppressLint("SetTextI18n")
         fun bind(movie: Movie) {
-            idTextView.text = "id ${movie.id}"
-            typeTextView.text = movie.type
+            ganreTextView.text = movie.genre
+            ratingTextView.text = movie.rating.toString()
             movieTextView.text = movie.title
-            yearTextView.text = "year ${movie.year}"
+            yearTextView.text = "${movie.year} year"
+            scoresTextView.text = movie.scores.toString()
             Glide.with(itemView)
                 .load(movie.poster)
                 .error(R.drawable.ic_sync_problem)

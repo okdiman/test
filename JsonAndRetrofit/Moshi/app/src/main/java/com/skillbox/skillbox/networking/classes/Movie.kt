@@ -1,15 +1,20 @@
 package com.skillbox.skillbox.networking.classes
 
-import android.os.Parcelable
-import com.google.gson.annotations.JsonAdapter
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
 data class Movie(
+    @Json(name = "Title")
     val title: String,
+    @Json(name = "Year")
     val year: String,
-    val type: String,
-    val id: String,
-    val poster: String
+    @Json(name = "Genre")
+    val genre: String = "",
+    @Json(name = "Poster")
+    val poster: String,
+    @Json(name = "Ratings")
+    val scores: Map<String, String> = emptyMap(),
+    @Json(name = "Rated")
+    val rating: Rating = Rating.GENERAL
 )
