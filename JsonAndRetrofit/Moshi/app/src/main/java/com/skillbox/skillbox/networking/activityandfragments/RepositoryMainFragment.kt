@@ -16,12 +16,10 @@ class RepositoryMainFragment {
     //выполнение запроса данных из сети
     fun requestMovieByTitle(
         text: String,
-        year: String,
-        type: String,
         errorCallback: (String) -> Unit,
         callback: (List<Movie>) -> Unit
     ): Call {
-        return Network.searchMovieCall(text, year, type).apply {
+        return Network.searchMovieCall(text).apply {
             enqueue(object : Callback {
                 //обрабатываем ошибку запроса
                 override fun onFailure(call: Call, e: IOException) {
@@ -66,8 +64,9 @@ class RepositoryMainFragment {
                                     errorCallback("ошибка ${e.message}")
                                     callback(emptyList())
                                 }
-                            } catch (e: java.lang.Exception) {
-                                errorCallback("найдено слишком много результатов, уточните данные")
+                            } catch (e: Exception) {
+                                Log.e("server", "${e.message}")
+                                errorCallback("${e.message}")
                                 callback(emptyList())
                             }
 
@@ -82,5 +81,9 @@ class RepositoryMainFragment {
                 }
             })
         }
+    }
+
+    fun addScore(position: Int){
+
     }
 }

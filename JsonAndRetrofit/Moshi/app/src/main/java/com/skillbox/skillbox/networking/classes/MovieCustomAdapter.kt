@@ -6,25 +6,25 @@ import com.squareup.moshi.JsonClass
 
 class MovieCustomAdapter {
     @FromJson
-    fun fromJson(customMovie: customMovie): Movie {
-        val scores = customMovie.scores.sourceList.associateBy({ it.source }, { it.value })
+    fun fromJson(CustomMovie: CustomMovie): Movie {
+        val scores = CustomMovie.scores.sourceList.associateBy({ it.source }, { it.value })
         return Movie(
-            customMovie.title,
-            customMovie.year,
-            customMovie.genre,
-            customMovie.poster,
+            CustomMovie.title,
+            CustomMovie.year,
+            CustomMovie.genre,
+            CustomMovie.poster,
             scores,
-            customMovie.rating
+            CustomMovie.rating
         )
     }
 
     @JsonClass(generateAdapter = true)
-    data class listSourceWrapper(
+    data class ListSourceWrapper(
         val sourceList: List<Scores>
     )
 
     @JsonClass(generateAdapter = true)
-    data class customMovie(
+    data class CustomMovie(
         @Json(name = "Title")
         val title: String,
         @Json(name = "Year")
@@ -34,7 +34,7 @@ class MovieCustomAdapter {
         @Json(name = "Poster")
         val poster: String,
         @Json(name = "Ratings")
-        val scores: listSourceWrapper,
+        val scores: ListSourceWrapper,
         @Json(name = "Rated")
         val rating: Rating = Rating.GENERAL
     )

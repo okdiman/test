@@ -1,12 +1,10 @@
 package com.skillbox.skillbox.networking.activityandfragments
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.skillbox.skillbox.networking.classes.Movie
 import com.skillbox.skillbox.networking.classes.SingleLiveEvent
 import okhttp3.Call
-import java.text.FieldPosition
 
 class ViewModelMainFragment : ViewModel() {
     //создаес LiveData для фильмов и для статуса загрузки
@@ -35,23 +33,23 @@ class ViewModelMainFragment : ViewModel() {
     }
 
     //выполнение запроса
-    fun requestMovies(text: String, year: String, type: String) {
+    fun requestMovies(text: String) {
         gotError = ""
         errorToastLiveData.postValue(false)
         isLoadingLiveData.postValue(true)
         //выводим запрос в фоновый поток
         Thread {
             currentCall =
-                repository.requestMovieByTitle(text, year, type, isErrorCallback) { movies ->
+                repository.requestMovieByTitle(text,isErrorCallback) { movie ->
                     isLoadingLiveData.postValue(false)
-                    movieLiveData.postValue(movies)
+                    movieLiveData.postValue(movie)
                     currentCall = null
                 }
         }.run()
     }
 
     fun addScore(position: Int){
-        movieLiveData.value?.get(position)
+
     }
 
     //очищаем запрос в случае закрытия пользователем приложения

@@ -101,13 +101,7 @@ class MainFragment : Fragment() {
     //выполнение запроса поиска фильмов
     private fun request() {
         movieViewModel.requestMovies(
-            binding.TitleMovieEditText.text.toString(),
-            binding.YearMovieEditText.text.toString(),
-            if (binding.AutoCompleteTextView.text.toString() == "Not chosen") {
-                ""
-            } else {
-                binding.AutoCompleteTextView.text.toString()
-            }
+            binding.TitleMovieEditText.text.toString()
         )
     }
 
