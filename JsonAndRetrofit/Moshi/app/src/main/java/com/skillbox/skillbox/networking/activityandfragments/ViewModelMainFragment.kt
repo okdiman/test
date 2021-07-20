@@ -48,6 +48,7 @@ class ViewModelMainFragment : ViewModel() {
         }.run()
     }
 
+    //добавление оценки
     fun addScore(position: Int, source: String, value: String) {
         repository.addScore(movieLiveData.value!![position], source, value)
     }

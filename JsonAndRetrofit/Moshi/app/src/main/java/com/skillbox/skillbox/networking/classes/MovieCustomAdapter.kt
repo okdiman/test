@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 class MovieCustomAdapter {
     @FromJson
     fun fromJson(CustomMovie: CustomMovie): Movie {
-        val scores = CustomMovie.scores.sourceList.associateBy({ it.source }, { it.value })
+        val scores = CustomMovie.scores.sourceList.associateBy({ it.source }, { it.value }).toMutableMap()
         return Movie(
             CustomMovie.title,
             CustomMovie.year,

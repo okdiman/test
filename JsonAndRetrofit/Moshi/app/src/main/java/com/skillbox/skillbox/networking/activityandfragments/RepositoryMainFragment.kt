@@ -9,7 +9,6 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.io.IOException
 
@@ -35,32 +34,25 @@ class RepositoryMainFragment {
                     if (response.isSuccessful) {
                         //получаем строку тела запроса
                         val responseString = response.body?.string().orEmpty()
-                        responseString.toRequestBody()
                         Log.e("server", responseString)
-                        if (!responseString.contains("Error")) {
+                        try {
+                            val adapter = createMoshiAndAdapter()
                             try {
-                                val adapter = createMoshiAndAdapter()
-                                try {
-                                    val movies = adapter.fromJson(responseString)
-                                    if (movies != null) {
-                                        callback(movies)
-                                    } else {
-                                        errorCallback("Фильмы не найдены")
-                                        callback(emptyList())
-                                    }
-                                } catch (e: Exception) {
-                                    Log.e("server", "${e.message}")
-                                    errorCallback("ошибка ${e.message}")
+                                val movies = adapter.fromJson(responseString)
+                                if (movies != null) {
+                                    callback(movies)
+                                } else {
+                                    errorCallback("Фильмы не найдены")
                                     callback(emptyList())
                                 }
                             } catch (e: Exception) {
                                 Log.e("server", "${e.message}")
-                                errorCallback("${e.message}")
+                                errorCallback("ошибка ${e.message}")
                                 callback(emptyList())
                             }
-
-                        } else {
-                            errorCallback("Фильмы не найдены")
+                        } catch (e: Exception) {
+                            Log.e("server", "${e.message}")
+                            errorCallback("${e.message}")
                             callback(emptyList())
                         }
                     } else {
@@ -72,6 +64,7 @@ class RepositoryMainFragment {
         }
     }
 
+    //добавление оценки и вывод ее в лог
     fun addScore(movie: Movie, source: String, value: String) {
         movie.scores.put(source, value)
         try {
@@ -81,9 +74,9 @@ class RepositoryMainFragment {
         } catch (e: Exception) {
             Log.e("score", "${e.message}")
         }
-
     }
 
+    //создание адаптера
     private fun createMoshiAndAdapter(): JsonAdapter<List<Movie>> {
         //объект типа Moshi
         val moshi = Moshi.Builder()
