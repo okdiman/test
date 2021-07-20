@@ -40,7 +40,7 @@ class RepositoryMainFragment {
                             try {
                                 val movies = adapter.fromJson(responseString)
                                 if (movies != null) {
-                                    callback(movies)
+                                    callback(listOf(movies))
                                 } else {
                                     errorCallback("Фильмы не найдены")
                                     callback(emptyList())
@@ -69,7 +69,7 @@ class RepositoryMainFragment {
         movie.scores.put(source, value)
         try {
             val adapter = createMoshiAndAdapter()
-            val movieWithNewScore = adapter.toJson(listOf(movie))
+            val movieWithNewScore = adapter.toJson(movie)
             Log.i("score", movieWithNewScore)
         } catch (e: Exception) {
             Log.e("score", "${e.message}")
@@ -77,16 +77,11 @@ class RepositoryMainFragment {
     }
 
     //создание адаптера
-    private fun createMoshiAndAdapter(): JsonAdapter<List<Movie>> {
+    private fun createMoshiAndAdapter(): JsonAdapter<Movie> {
         //объект типа Moshi
         val moshi = Moshi.Builder()
             .add(MovieCustomAdapter())
             .build()
-        //новый параметрезированный тип
-        val movieNewParametrizedType = Types.newParameterizedType(
-            List::class.java,
-            Movie::class.java
-        )
-        return moshi.adapter<List<Movie>>(movieNewParametrizedType).nonNull()
+        return moshi.adapter(Movie::class.java).nonNull()
     }
 }
