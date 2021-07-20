@@ -87,10 +87,15 @@ class MainFragment : Fragment() {
         //подписываемся на обновление статуса загрузки
         movieViewModel.isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
         movieViewModel.isError.observe(viewLifecycleOwner) { isError() }
+        movieViewModel.isAdded.observe(viewLifecycleOwner) { isAddedScore() }
     }
 
     private fun isError() {
-        Toast.makeText(requireContext(), movieViewModel.gotError, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), movieViewModel.getError, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun isAddedScore() {
+        Toast.makeText(requireContext(), "Score was added", Toast.LENGTH_SHORT).show()
     }
 
     //функция, отвечающая за поведение приложения при загрузке данных

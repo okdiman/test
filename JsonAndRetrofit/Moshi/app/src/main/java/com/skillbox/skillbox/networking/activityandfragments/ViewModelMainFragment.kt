@@ -19,7 +19,11 @@ class ViewModelMainFragment : ViewModel() {
     private val errorToastLiveData = SingleLiveEvent<Boolean>()
     val isError: LiveData<Boolean>
         get() = errorToastLiveData
-    var gotError: String = ""
+    var getError: String = ""
+
+    private val addSourceToastLiveData = SingleLiveEvent<Boolean>()
+    val isAdded: LiveData<Boolean>
+        get() = addSourceToastLiveData
 
     private val repository = RepositoryMainFragment()
 
@@ -27,14 +31,14 @@ class ViewModelMainFragment : ViewModel() {
 
     private val isErrorCallback: (error: String) -> Unit = {
         if (it.isNotEmpty()) {
-            gotError = it
+            getError = it
             errorToastLiveData.postValue(true)
         }
     }
 
     //выполнение запроса
     fun requestMovies(text: String) {
-        gotError = ""
+        getError = ""
         errorToastLiveData.postValue(false)
         isLoadingLiveData.postValue(true)
         //выводим запрос в фоновый поток
@@ -50,7 +54,11 @@ class ViewModelMainFragment : ViewModel() {
 
     //добавление оценки
     fun addScore(position: Int, source: String, value: String) {
-        repository.addScore(movieLiveData.value!![position], source, value)
+        addSourceToastLiveData.postValue(false)
+        repository.addScore(movieLiveData.value!![position], source, value) { changedMovie ->
+            movieLiveData.postValue(changedMovie)
+            addSourceToastLiveData.postValue(true)
+        }
     }
 
     //очищаем запрос в случае закрытия пользователем приложения
