@@ -40,7 +40,7 @@ class ViewModelMainFragment : ViewModel() {
         //выводим запрос в фоновый поток
         Thread {
             currentCall =
-                repository.requestMovieByTitle(text,isErrorCallback) { movie ->
+                repository.requestMovieByTitle(text, isErrorCallback) { movie ->
                     isLoadingLiveData.postValue(false)
                     movieLiveData.postValue(movie)
                     currentCall = null
@@ -48,8 +48,8 @@ class ViewModelMainFragment : ViewModel() {
         }.run()
     }
 
-    fun addScore(position: Int){
-
+    fun addScore(position: Int, source: String, value: String) {
+        repository.addScore(movieLiveData.value!![position], source, value)
     }
 
     //очищаем запрос в случае закрытия пользователем приложения

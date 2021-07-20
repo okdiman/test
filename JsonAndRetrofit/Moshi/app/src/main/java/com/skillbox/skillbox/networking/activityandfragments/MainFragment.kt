@@ -13,7 +13,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.skillbox.networking.R
 import com.skillbox.skillbox.networking.databinding.MainFragmentBinding
+import com.skillbox.skillbox.networking.files.inflate
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.new_score.view.*
 
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
@@ -57,7 +59,31 @@ class MainFragment : Fragment() {
         )
         AutoCompleteTextView.setAdapter(adapterMenu)
         //инициализируем список фильмов
-        adapterMovie = AdapterMovies { position: Int -> addScore(position) }
+        val viewForAddingScore = (view as ViewGroup).inflate(R.layout.new_score)
+        adapterMovie = AdapterMovies { position: Int ->
+            AlertDialog.Builder(requireContext())
+                .setMessage("Введите источник оценки и саму оценку фильма")
+                .setView(viewForAddingScore)
+                .setNegativeButton("Cancel") { _, _ -> }
+                .setPositiveButton("enter") { _, _ ->
+                    if (viewForAddingScore.sourceEditText.text.isNotEmpty() &&
+                        viewForAddingScore.scoreEditText.text.isNotEmpty()
+                    ) {
+                        addScore(
+                            position,
+                            viewForAddingScore.sourceEditText.text.toString(),
+                            viewForAddingScore.scoreEditText.text.toString()
+                        )
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Please, check filling of the form and try again",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                .show()
+        }
         with(binding.movieRecyclerView) {
             adapter = adapterMovie
             layoutManager = LinearLayoutManager(requireContext())
@@ -134,7 +160,8 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun addScore(position: Int) {
-
+    //добавление новой оценки к фильму
+    private fun addScore(position: Int, source: String, value: String) {
+        movieViewModel.addScore(position, source, value)
     }
 }
