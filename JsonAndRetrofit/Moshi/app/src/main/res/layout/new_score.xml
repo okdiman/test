@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/enter_score"
         android:importantForAutofill="no"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/sourceEditText" />
 

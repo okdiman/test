@@ -47,6 +47,9 @@ class MainFragment : Fragment() {
         binding.searchButton.setOnClickListener {
             initRequest()
         }
+        binding.addNewScoreButton.setOnClickListener {
+            addScore()
+        }
     }
 
     //инициализируем стартовый экран
@@ -59,37 +62,12 @@ class MainFragment : Fragment() {
         )
         AutoCompleteTextView.setAdapter(adapterMenu)
         //инициализируем список фильмов
-        val viewForAddingScore = (view as ViewGroup).inflate(R.layout.new_score)
-        adapterMovie = AdapterMovies { position: Int ->
-            AlertDialog.Builder(requireContext())
-                .setMessage("Введите источник оценки и саму оценку фильма")
-                .setView(viewForAddingScore)
-                .setNegativeButton("Cancel") { _, _ -> }
-                .setPositiveButton("enter") { _, _ ->
-                    if (viewForAddingScore.sourceEditText.text.isNotEmpty() &&
-                        viewForAddingScore.scoreEditText.text.isNotEmpty()
-                    ) {
-                        addScore(
-                            position,
-                            viewForAddingScore.sourceEditText.text.toString(),
-                            viewForAddingScore.scoreEditText.text.toString()
-                        )
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Please, check filling of the form and try again",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-                .show()
-        }
+        adapterMovie = AdapterMovies {}
         with(binding.movieRecyclerView) {
             adapter = adapterMovie
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-
     }
 
     //подписываемся на обновления ViewModel
@@ -161,7 +139,34 @@ class MainFragment : Fragment() {
     }
 
     //добавление новой оценки к фильму
-    private fun addScore(position: Int, source: String, value: String) {
-        movieViewModel.addScore(position, source, value)
+    private fun addScore() {
+        if (!movieViewModel.movie.value.isNullOrEmpty()) {
+            val viewForAddingScore = (view as ViewGroup).inflate(R.layout.new_score)
+            AlertDialog.Builder(requireContext())
+                .setMessage("Введите источник оценки и саму оценку фильма")
+                .setView(viewForAddingScore)
+                .setNegativeButton("Cancel") { _, _ -> }
+                .setPositiveButton("enter") { _, _ ->
+                    if (viewForAddingScore.sourceEditText.text.isNotEmpty() &&
+                        viewForAddingScore.scoreEditText.text.isNotEmpty()
+                    ) {
+                        movieViewModel.addScore(
+                            0,
+                            viewForAddingScore.sourceEditText.text.toString(),
+                            viewForAddingScore.scoreEditText.text.toString()
+                        )
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Please, check filling of the form and try again",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                .show()
+        } else {
+            Toast.makeText(requireContext(), "first you need choose a film", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 }

@@ -6,6 +6,7 @@
     <string name="search">Search</string>
     <string name="enter_source_of_score">Enter source of score</string>
     <string name="enter_score">Enter score</string>
+    <string name="add_new_score">add new score</string>
     <string-array name="movies_types_string_array">
         <item>Series</item>
         <item>Movie</item>
