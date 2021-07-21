@@ -65,7 +65,7 @@ class RepositoryMainFragment {
 
     //добавление оценки и вывод ее в лог
     fun addScore(movie: Movie, source: String, value: String, callback: (List<Movie>) -> Unit) {
-        movie.scores[source] = value
+        movie.scores.put(source, value)
         try {
             val adapter = createMoshiAndAdapter()
             val movieWithNewScore = adapter.toJson(movie)
