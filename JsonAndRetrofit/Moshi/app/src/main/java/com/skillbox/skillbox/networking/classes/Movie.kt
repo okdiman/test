@@ -1,8 +1,11 @@
 package com.skillbox.skillbox.networking.classes
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Movie(
     @Json(name = "Title")
@@ -17,4 +20,4 @@ data class Movie(
     val scores: MutableMap<String, String>,
     @Json(name = "Rated")
     val rating: Rating = Rating.GENERAL
-)
+) : Parcelable

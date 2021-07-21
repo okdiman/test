@@ -1,8 +1,11 @@
 package com.skillbox.skillbox.networking.classes
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
-enum class Rating {
+@Parcelize
+enum class Rating : Parcelable {
     @Json(name = "G")
     GENERAL,
     PG,

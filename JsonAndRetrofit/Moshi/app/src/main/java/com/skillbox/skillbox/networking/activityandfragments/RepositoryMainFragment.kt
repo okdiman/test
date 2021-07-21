@@ -6,7 +6,6 @@ import com.skillbox.skillbox.networking.classes.MovieCustomAdapter
 import com.skillbox.skillbox.networking.network.Network
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -66,7 +65,7 @@ class RepositoryMainFragment {
 
     //добавление оценки и вывод ее в лог
     fun addScore(movie: Movie, source: String, value: String, callback: (List<Movie>) -> Unit) {
-        movie.scores.put(source, value)
+        movie.scores[source] = value
         try {
             val adapter = createMoshiAndAdapter()
             val movieWithNewScore = adapter.toJson(movie)
