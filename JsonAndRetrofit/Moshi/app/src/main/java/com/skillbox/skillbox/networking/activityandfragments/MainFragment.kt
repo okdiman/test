@@ -2,6 +2,7 @@ package com.skillbox.skillbox.networking.activityandfragments
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,9 +62,11 @@ class MainFragment : Fragment() {
             resources.getStringArray(R.array.movies_types_string_array)
         )
         AutoCompleteTextView.setAdapter(adapterMenu)
+        Log.i("movie", "${movieViewModel.movie.value}")
         //инициализируем список фильмов
         adapterMovie = AdapterMovies {}
         with(binding.movieRecyclerView) {
+            adapterMovie?.items = movieViewModel.movie.value
             adapter = adapterMovie
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
