@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
     private var locationsList = arrayListOf<PointOfLocation>()
     private var locationsAdapter: LocationsListAdapter? = null
 
-    private var image:Bitmap? = null
+    private var image: Bitmap? = null
 
     private var selectedLocationInstant: Instant? = null
 
@@ -118,6 +118,7 @@ class MainFragment : Fragment() {
         initLocationsList()
         locationsAdapter?.items = locationsList
         binding.addLocationButton.setOnClickListener {
+
             getLastLocation()
         }
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
@@ -189,17 +190,18 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == PHOTO_REQUEST_CODE){
-            if (resultCode == Activity.RESULT_OK){
-                image = data?.getParcelableExtra("data") as? Bitmap
-            } else {
-                Toast.makeText(requireContext(), "Фотография не получена", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (requestCode == PHOTO_REQUEST_CODE) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                image = data?.getParcelableExtra("data") as? Bitmap
+//            } else {
+//                Toast.makeText(requireContext(), "Фотография не получена", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//        } else {
+//            super.onActivityResult(requestCode, resultCode, data)
+//        }
+//    }
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLastLocation() {
@@ -212,10 +214,10 @@ class MainFragment : Fragment() {
             .setTitle("Please, enter a link to photo for the location")
             .setView(view)
             .setPositiveButton("Add") { _, _ ->
-                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                cameraIntent.resolveActivity(requireActivity().packageManager)?.also {
-                    startActivityForResult(cameraIntent, PHOTO_REQUEST_CODE)
-                }
+//                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                cameraIntent.resolveActivity(requireActivity().packageManager)?.also {
+//                    startActivityForResult(cameraIntent, PHOTO_REQUEST_CODE)
+//                }
                 if (view.addPhotoToNewLocation.text.isNotEmpty()) {
                     fusedLocationClient.lastLocation
                         .addOnSuccessListener {
