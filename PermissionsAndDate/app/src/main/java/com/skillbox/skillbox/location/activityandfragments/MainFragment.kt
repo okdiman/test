@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
     private var autoModeCheck: Boolean = false
 
     private val singleChoice = arrayListOf("Image", "Date and time")
-    private val typeOfProduct = arrayListOf("Нефть", "Газ")
+    private val typeOfProduct = arrayListOf("Oil", "Gas")
 
     private val changeFragmentToOil: StartOilFragment
         get() = activity.let { it as StartOilFragment }
@@ -124,21 +124,21 @@ class MainFragment : Fragment() {
             when (menuItem.itemId) {
                 R.id.calculateFlowButton -> {
                     AlertDialog.Builder(requireContext())
-                        .setTitle("Выберите тип продукта")
+                        .setTitle("Choose a type of product")
                         .setSingleChoiceItems(typeOfProduct.toTypedArray(), -1) { _, i ->
                             selectedItem = typeOfProduct[i]
                         }
                         .setPositiveButton("ok") { _, _ ->
                             when (selectedItem) {
-                                "Газ" -> {
+                                "Gas" -> {
                                     initGasFragment()
                                 }
-                                "Нефть" -> {
+                                "Oil" -> {
                                     initOilFragment()
                                 }
                                 else -> Toast.makeText(
                                     requireContext(),
-                                    "Вы не выбрали тип продукта",
+                                    "You didn't choose a type of product",
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
@@ -149,21 +149,21 @@ class MainFragment : Fragment() {
                 }
                 R.id.turnOnOffAutoModeButton -> {
                     if (!autoModeCheck) {
-                        menuItem.title = "Выключить режим записи маршрута"
+                        menuItem.title = "Turn off record mode of locations"
                         startLocationUpdates()
                         autoModeCheck = true
                         Toast.makeText(
                             requireContext(),
-                            "Включена запись маршрута",
+                            "Record mode of locations was turned on",
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        menuItem.title = "Включить режим записи маршрута"
+                        menuItem.title = "Turn on record mode of locations"
                         stopLocationUpdates()
                         autoModeCheck = false
                         Toast.makeText(
                             requireContext(),
-                            "Запись маршрута выключена",
+                            "Record mode of locations was turned off",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -330,7 +330,7 @@ class MainFragment : Fragment() {
                                         locationsAdapter?.items = locationsList
                                         Toast.makeText(
                                             requireContext(),
-                                            "Выбрано время: $selectedDateTime",
+                                            "Selected time: $selectedDateTime",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         selectedLocationInstant = null

@@ -33,9 +33,8 @@ class GasCalculateFragment : Fragment() {
             if (allFieldsIsNotEmpty()) {
                 calculateSpeed()
             } else {
-                Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Fill all fields", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 
@@ -46,9 +45,13 @@ class GasCalculateFragment : Fragment() {
         val pressure = binding.pressureEditText.text.toString().toFloat()
         val temperature = binding.temperatureEditText.text.toString().toInt()
 
-        val requestSpeed =  (0.1273 * flow * 1 * temperature)/(internalDiameter * internalDiameter * pressure)
+        val requestSpeed =
+            (0.1273 * flow * 1 * temperature) / (internalDiameter * internalDiameter * pressure)
 
-        binding.gasResultTextView.text = "расчетная скорость потока равна = $requestSpeed м/с"
+        val speedByKmPerSec = requestSpeed * 3.6
+
+        binding.gasResultTextView.text = "calculated speed: $requestSpeed m/s"
+        binding.gasResultTextViewKm.text = "calculated speed: $speedByKmPerSec km/h"
     }
 
     private fun allFieldsIsNotEmpty(): Boolean {

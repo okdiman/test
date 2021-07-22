@@ -67,13 +67,13 @@
         android:id="@+id/oilFlowRateEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="4dp"
+        android:importantForAutofill="no"
         android:inputType="numberDecimal"
+        android:padding="4dp"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/qTextView"
-        android:importantForAutofill="no"
         tools:ignore="LabelFor" />
 
     <TextView
@@ -92,13 +92,13 @@
         android:id="@+id/oilInternalDiameterEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:importantForAutofill="no"
         android:inputType="numberDecimal"
         android:padding="4dp"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/diameterTextView"
-        android:importantForAutofill="no"
         tools:ignore="LabelFor" />
 
     <TextView
@@ -113,6 +113,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/oilInternalDiameterEditText" />
 
+    <TextView
+        android:id="@+id/oilResultTextViewKm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="4dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/oilResultTextView" />
+
     <Button
         android:id="@+id/resultOilButton"
         android:layout_width="wrap_content"
@@ -121,7 +133,6 @@
         android:text="@string/calculate_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

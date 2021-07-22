@@ -8,22 +8,28 @@
     <string name="autocheck_location">turn on auto mode</string>
     <string name="off_autocheck_location">turn off auto mode</string>
     <string name="turn_on_automode">Включить режим записи маршрута</string>
+    <string name="turn_on_automode_en">Turn on record mode of locations</string>
     <string name="calculate_flow_rate">Рассчитать скорость продукта</string>
+    <string name="calculate_flow_rate_en">Calculate speed of product</string>
     <string name="gas_formula_explains">Где W-скорость движения газа в газопроводе, м/с; Q - расход газа м³/ч, z - коэффициент сжимаемости (для предварительных расчетов можем принять равным 1); T = (273 + t°C) - температура газа, °K; D - внутренний диаметр трубопровода, мм; p - абсолютное давление газа, МПа </string>
+    <string name="gas_formula_explains_en">Where W - the speed of gas movement the gas pipeline, m/s; Q - gas flow rate m³/h, z - compressibility factor (for preliminary calculations we can take it equal to 1); T = (273 + t ° C) - gas temperature, ° K; D - internal diameter of the pipeline, mm; p - absolute gas pressure, MPa </string>
     <string name="gas_speed">Формула расчета скорости газа в трубопроводе:</string>
+    <string name="gas_speed_en">Formula for calculating the speed of gas in a pipeline:</string>
     <string name="attention_text">Внимательно заполняйте поля, используя необходимые величины из системы СИ!!!</string>
     <string name="attention_text_en">Fill in the fields carefully using the required specified values!!!</string>
     <string name="flow">Расход газа, м³/ч:</string>
+    <string name="flow_en">Gas flow rate, m³/h:</string>
     <string name="flow_oil">Расход нефти, м³/ч:</string>
     <string name="flow_oil_en">Oil flow rate m³/h:</string>
     <string name="temperature">Температура газа, °K</string>
+    <string name="temperature_en">Gas temperature, °K</string>
     <string name="flow_et">Расход</string>
-    <string name="temperature_et">Температура</string>
     <string name="diameter">Внутренний диаметр, мм</string>
-    <string name="diameter_en">internal diameter of the pipeline, mm</string>
+    <string name="diameter_en">Internal diameter, mm</string>
     <string name="pressure">Давление, МПа</string>
-    <string name="pressure_et">Давление</string>
+    <string name="pressure_en">Pressure, MPa</string>
     <string name="calculate_button">Рассчитать</string>
+    <string name="calculate_button_en">Calculate</string>
     <string name="oil_speed">Формула расчета скорости нефти в трубопроводе:</string>
     <string name="oil_speed_en">Formula for calculating the speed of oil in a pipeline:</string>
     <string name="oil_speed_formula">W = (Q*10^3)/(3.6*p*(d/2)^2)</string>

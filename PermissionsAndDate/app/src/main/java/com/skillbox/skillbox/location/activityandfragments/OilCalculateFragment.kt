@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.skillbox.skillbox.location.databinding.OilCalculateFlowRateFragmentBinding
 
@@ -29,7 +30,11 @@ class OilCalculateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.resultOilButton.setOnClickListener {
-            calculateOilSpeed()
+            if (allFieldsIsNotEmpty()) {
+                calculateOilSpeed()
+            } else {
+                Toast.makeText(requireContext(), "Fill all fields", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -41,7 +46,11 @@ class OilCalculateFragment : Fragment() {
         val speed = (flow * 1000) / (3.14 * 3.6 * (diameter / 2) * (diameter / 2))
         val speedByKmPerSec = speed * 3.6
 
-        binding.oilResultTextView.text = "calculated speed = $speed m/s" +
-                "\"$speedByKmPerSec km/h"
+        binding.oilResultTextView.text = "calculated speed: $speed m/s"
+        binding.oilResultTextViewKm.text = "calculated speed: $speedByKmPerSec km/h"
+    }
+
+    private fun allFieldsIsNotEmpty(): Boolean {
+        return (binding.oilFlowRateEditText.text.isNotEmpty() && binding.oilInternalDiameterEditText.text.isNotEmpty())
     }
 }
