@@ -9,7 +9,7 @@ object AuthConfig {
     const val RESPONSE_TYPE = ResponseTypeValues.CODE
     const val SCOPE = "user,repo"
 
-    const val CLIENT_ID = "YOUR CLIENT ID"
-    const val CLIENT_SECRET = "YOUR CLIENT SECRET"
+    const val CLIENT_ID = "f4eb5bcce9f94fe6aae0"
+    const val CLIENT_SECRET = "a88500e0af300dc113f533bd01ab00626c5fae53"
     const val CALLBACK_URL = "skillbox://skillbox.ru/callback"
 }
