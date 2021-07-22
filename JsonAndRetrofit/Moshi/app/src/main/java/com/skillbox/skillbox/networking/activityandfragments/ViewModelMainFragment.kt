@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.networking.activityandfragments
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.skillbox.skillbox.networking.classes.Movie
 import com.skillbox.skillbox.networking.classes.SingleLiveEvent
@@ -8,7 +9,7 @@ import okhttp3.Call
 
 class ViewModelMainFragment : ViewModel() {
     //создаес LiveData для фильмов и для статуса загрузки
-    private val movieLiveData = SingleLiveEvent<List<Movie>>()
+    private val movieLiveData = MutableLiveData<List<Movie>>()
     val movie: LiveData<List<Movie>>
         get() = movieLiveData
 

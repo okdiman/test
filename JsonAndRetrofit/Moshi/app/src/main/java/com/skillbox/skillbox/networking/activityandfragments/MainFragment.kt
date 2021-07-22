@@ -163,7 +163,6 @@ class MainFragment : Fragment() {
                             viewForAddingScore.sourceEditText.text.toString(),
                             viewForAddingScore.scoreEditText.text.toString()
                         )
-                        initStartScreen()
                     } else {
                         Toast.makeText(
                             requireContext(),

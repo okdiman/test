@@ -65,12 +65,13 @@ class RepositoryMainFragment {
 
     //добавление оценки и вывод ее в лог
     fun addScore(movie: Movie, source: String, value: String, callback: (List<Movie>) -> Unit) {
-        movie.scores.put(source, value)
+        val changedMovie = movie.copy(scores = movie.scores.toMutableMap())
+        changedMovie.scores.put(source, value)
         try {
             val adapter = createMoshiAndAdapter()
             val movieWithNewScore = adapter.toJson(movie)
             Log.i("score", movieWithNewScore)
-            callback(listOf(movie))
+            callback(listOf(changedMovie))
         } catch (e: Exception) {
             Log.e("score", "${e.message}")
         }
