@@ -1,25 +1,21 @@
 package com.skillbox.github.ui.current_user
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.skillbox.github.data.Network
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.skillbox.github.databinding.CurrentUserFragmentBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class CurrentUserFragment : Fragment() {
 
     private var _binding: CurrentUserFragmentBinding? = null
     private val binding get() = _binding!!
-    private val onComplete: (String) -> Unit = { userData ->
-        binding.userInfoTextView.text = userData
-    }
+    private val infoViewModel: CurrentUserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,31 +33,23 @@ class CurrentUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getUsersInfo(onComplete) { errorMessage ->
-            Toast.makeText(requireContext(), "$errorMessage", Toast.LENGTH_SHORT).show()
-        }
+        getInfo()
+        observer()
     }
 
+    private fun getInfo() {
+        infoViewModel.getUsersInfo()
+    }
 
-    private fun getUsersInfo(
-        onComplete: (String) -> Unit,
-        onError: (Throwable) -> Unit
-    ) {
-        Network.githubApi.searchUsersInformation().enqueue(
-            object : Callback<String> {
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.e("server", "$t")
-                    onError(t)
-                }
-
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
-                        onComplete(response.body().toString())
-                    } else {
-                        onError(RuntimeException("incorrect status code"))
-                    }
-                }
-            }
-        )
+    private fun observer() {
+        infoViewModel.userInfo.observe(viewLifecycleOwner) { info ->
+            binding.userInfoTextView.text = info
+        }
+        infoViewModel.isError.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), infoViewModel.getError, Toast.LENGTH_SHORT).show()
+        }
+        infoViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.infoProgressBar.isVisible = it
+        }
     }
 }

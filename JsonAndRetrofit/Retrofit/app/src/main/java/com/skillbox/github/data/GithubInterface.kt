@@ -12,7 +12,7 @@ interface GithubInterface {
 
     @GET("repositories")
     fun searchUsersRepositories(
-        @Header("accept") header: String,
-        @Query("since") query: Int
-    ): Callback<ServerItemsWrapper<UsersRepository>>
+//        @Header("accept") header: String,
+//        @Query("since") query: Int
+    ): Call<ServerItemsWrapper<UsersRepository>>
 }
