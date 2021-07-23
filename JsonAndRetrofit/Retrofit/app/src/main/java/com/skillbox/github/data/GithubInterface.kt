@@ -8,7 +8,8 @@ import retrofit2.http.Query
 
 interface GithubInterface {
     @GET("user")
-    fun searchUsersInformation(): Call<String>
+    fun searchUsersInformation(
+    ): Call<String>
 
     @GET("repositories")
     fun searchUsersRepositories(

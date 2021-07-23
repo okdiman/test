@@ -1,5 +1,6 @@
 package com.skillbox.github.data
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -11,6 +12,7 @@ class CustomInterceptor : Interceptor {
         val modifiedRequest = originalRequest.newBuilder()
             .addHeader("Authorization", Network.accessToken)
             .build()
+        Log.i("token", Network.accessToken)
         //передаем дальше модифицированный запрос
         return chain.proceed(modifiedRequest)
     }
