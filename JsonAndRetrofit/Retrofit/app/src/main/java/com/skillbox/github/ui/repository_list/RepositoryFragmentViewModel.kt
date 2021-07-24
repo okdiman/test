@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.skillbox.github.data.UsersRepository
-import com.skillbox.github.ui.current_user.CurrentUserRepository
 import com.skillbox.github.utils.SingleLiveEvent
 
 class RepositoryFragmentViewModel : ViewModel() {
@@ -32,14 +31,13 @@ class RepositoryFragmentViewModel : ViewModel() {
 
     private val repository = RepositoryFragmentRepository()
 
-
     fun getUsersInfo() {
         isLoadingLiveData.postValue(true)
         getError = ""
         errorToastLiveData.postValue(false)
         //выводим запрос в фоновый поток
         Thread {
-            repository.getUsersInfo(onError = isErrorCallback, onComplete = { info ->
+            repository.getUsersRepoInfo(onError = isErrorCallback, onComplete = { info ->
                 isLoadingLiveData.postValue(false)
                 userInfoLiveData.postValue(info)
             })

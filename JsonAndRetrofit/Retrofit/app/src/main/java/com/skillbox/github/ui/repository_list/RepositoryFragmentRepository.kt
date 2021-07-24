@@ -4,14 +4,12 @@ import android.util.Log
 import com.skillbox.github.data.Network
 import com.skillbox.github.data.ServerItemsWrapper
 import com.skillbox.github.data.UsersRepository
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RepositoryFragmentRepository {
-    fun getUsersInfo(
+    fun getUsersRepoInfo(
         onError: (String) -> Unit,
         onComplete: (List<UsersRepository>) -> Unit
     ) {
