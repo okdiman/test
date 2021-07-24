@@ -30,28 +30,7 @@ class RepositoryFragmentRepository {
                     response: Response<ServerItemsWrapper<UsersRepository>>
                 ) {
                     if (response.isSuccessful) {
-                        val responseString = response.body().toString()
-                        Log.e("server", responseString)
-                        try {
-                            val adapter = createMoshiAndAdapter()
-                            try {
-                                val movies = adapter.fromJson(responseString)
-                                if (movies != null) {
-                                    onComplete(listOf(movies))
-                                } else {
-                                    onError("Фильмы не найдены")
-                                    onComplete(emptyList())
-                                }
-                            } catch (e: Exception) {
-                                Log.e("server", "${e.message}")
-                                onError("ошибка ${e.message}")
-                                onComplete(emptyList())
-                            }
-                        } catch (e: Exception) {
-                            Log.e("server", "${e.message}")
-                            onError("${e.message}")
-                            onComplete(emptyList())
-                        }
+                      onComplete(response.body()?.items.orEmpty())
                     } else {
                         onError("incorrect status code")
                         onComplete(emptyList())
@@ -59,13 +38,5 @@ class RepositoryFragmentRepository {
                 }
             }
         )
-    }
-
-    //создание адаптера
-    private fun createMoshiAndAdapter(): JsonAdapter<UsersRepository> {
-        //объект типа Moshi
-        val moshi = Moshi.Builder()
-            .build()
-        return moshi.adapter(UsersRepository::class.java).nonNull()
     }
 }

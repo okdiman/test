@@ -10,7 +10,7 @@ class CustomInterceptor : Interceptor {
         val originalRequest = chain.request()
         //модифицируем оригинальный запрос по нашим требованиям
         val modifiedRequest = originalRequest.newBuilder()
-            .addHeader("Authorization", Network.accessToken)
+            .addHeader("Authorization", "token ${Network.accessToken}")
             .build()
         Log.i("token", Network.accessToken)
         //передаем дальше модифицированный запрос
