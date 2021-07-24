@@ -30,7 +30,7 @@ class RepositoryFragmentViewModel : ViewModel() {
         }
     }
 
-    private val repository = CurrentUserRepository()
+    private val repository = RepositoryFragmentRepository()
 
 
     fun getUsersInfo() {
@@ -41,7 +41,7 @@ class RepositoryFragmentViewModel : ViewModel() {
         Thread {
             repository.getUsersInfo(onError = isErrorCallback, onComplete = { info ->
                 isLoadingLiveData.postValue(false)
-//                userInfoLiveData.postValue(info)
+                userInfoLiveData.postValue(info)
             })
         }.run()
     }
