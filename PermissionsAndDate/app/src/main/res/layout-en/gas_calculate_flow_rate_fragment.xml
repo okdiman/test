@@ -148,32 +148,6 @@
         tools:ignore="LabelFor" />
 
     <TextView
-        android:id="@+id/wallThicknessTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:text="@string/wall_thickness_en"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/internalDiametrEditText" />
-
-
-    <EditText
-        android:id="@+id/wallThicknessEditText"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        android:padding="4dp"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wallThicknessTextView"
-        tools:ignore="LabelFor" />
-
-
-    <TextView
         android:id="@+id/gasResultTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

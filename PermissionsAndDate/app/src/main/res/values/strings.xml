@@ -25,10 +25,9 @@
     <string name="temperature_en">Gas temperature, °K</string>
     <string name="flow_et">Расход</string>
     <string name="diameter">Внутренний диаметр, мм</string>
-    <string name="diameter_en">Diameter, inches</string>
+    <string name="diameter_en">Internal diameter, mm</string>
     <string name="pressure">Давление, МПа</string>
     <string name="pressure_en">Pressure, MPa</string>
-    <string name="wall_thickness_en">Wall thickness, inches</string>
     <string name="calculate_button">Рассчитать</string>
     <string name="calculate_button_en">Calculate</string>
     <string name="oil_speed">Формула расчета скорости нефти в трубопроводе:</string>
