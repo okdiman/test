@@ -42,7 +42,8 @@ class OilCalculateFragment : Fragment() {
     private fun calculateOilSpeed() {
         val flow = binding.oilFlowRateEditText.text.toString().toInt()
         val diameter = binding.oilInternalDiameterEditText.text.toString().toFloat()
-        val intDByInches = diameter * 25.4
+        val dByInches = diameter * 25.4
+        val intDByInches = dByInches - binding.wallThicknessEditText?.text.toString().toFloat()
 
         val speed = (flow * 1000) / (3.14 * 3.6 * (intDByInches / 2) * (intDByInches / 2))
         val speedByKmPerSec = speed * 3.6
@@ -52,6 +53,6 @@ class OilCalculateFragment : Fragment() {
     }
 
     private fun allFieldsIsNotEmpty(): Boolean {
-        return (binding.oilFlowRateEditText.text.isNotEmpty() && binding.oilInternalDiameterEditText.text.isNotEmpty())
+        return (binding.oilFlowRateEditText.text.isNotEmpty() && binding.oilInternalDiameterEditText.text.isNotEmpty() && binding.wallThicknessEditText!!.text.isNotEmpty())
     }
 }
