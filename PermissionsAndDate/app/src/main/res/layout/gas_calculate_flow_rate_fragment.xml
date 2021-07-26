@@ -63,7 +63,7 @@
 
     <EditText
         android:id="@+id/flowRateEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
@@ -87,7 +87,7 @@
 
     <EditText
         android:id="@+id/temperatureEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
@@ -111,7 +111,7 @@
 
     <EditText
         android:id="@+id/internalDiametrEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
@@ -136,7 +136,7 @@
 
     <EditText
         android:id="@+id/pressureEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
@@ -157,7 +157,8 @@
         app:layout_constraintBottom_toTopOf="@id/calculateGasButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pressureEditText" />
+        app:layout_constraintTop_toBottomOf="@id/pressureEditText"
+        app:layout_constraintVertical_bias="0.3" />
 
     <TextView
         android:id="@+id/gasResultTextViewKm"
