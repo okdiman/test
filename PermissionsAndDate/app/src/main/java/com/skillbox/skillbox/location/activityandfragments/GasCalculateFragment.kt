@@ -41,12 +41,14 @@ class GasCalculateFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun calculateSpeed() {
         val flow = binding.flowRateEditText.text.toString().toInt()
-        val internalDiameter = binding.internalDiametrEditText.text.toString().toFloat()
+        val diameter = binding.internalDiametrEditText.text.toString().toFloat()
+        val dByInches = diameter * 25.4
+        val intDByInches = dByInches - binding.wallThicknessEditText?.text.toString().toFloat()
         val pressure = binding.pressureEditText.text.toString().toFloat()
         val temperature = binding.temperatureEditText.text.toString().toInt()
 
         val requestSpeed =
-            (0.1273 * flow * 1 * temperature) / (internalDiameter * internalDiameter * pressure)
+            (0.1273 * flow * 1 * temperature) / (intDByInches * intDByInches * pressure)
 
         val speedByKmPerSec = requestSpeed * 3.6
 
@@ -56,6 +58,6 @@ class GasCalculateFragment : Fragment() {
 
     private fun allFieldsIsNotEmpty(): Boolean {
         return (binding.flowRateEditText.text.isNotEmpty() && binding.internalDiametrEditText.text.isNotEmpty() &&
-                binding.pressureEditText.text.isNotEmpty() && binding.temperatureEditText.text.isNotEmpty())
+                binding.pressureEditText.text.isNotEmpty() && binding.temperatureEditText.text.isNotEmpty())&& binding.wallThicknessEditText!!.text.isNotEmpty()
     }
 }

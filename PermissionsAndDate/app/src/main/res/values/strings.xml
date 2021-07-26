@@ -12,7 +12,7 @@
     <string name="calculate_flow_rate">Рассчитать скорость продукта</string>
     <string name="calculate_flow_rate_en">Calculate speed of product</string>
     <string name="gas_formula_explains">Где W-скорость движения газа в газопроводе, м/с; Q - расход газа м³/ч, z - коэффициент сжимаемости (для предварительных расчетов можем принять равным 1); T = (273 + t°C) - температура газа, °K; D - внутренний диаметр трубопровода, мм; p - абсолютное давление газа, МПа </string>
-    <string name="gas_formula_explains_en">Where W - the speed of gas movement the gas pipeline, m/s; Q - gas flow rate m³/h, z - compressibility factor (for preliminary calculations we can take it equal to 1); T = (273 + t ° C) - gas temperature, ° K; D - internal diameter of the pipeline, mm; p - absolute gas pressure, MPa </string>
+    <string name="gas_formula_explains_en">Where W - the speed of gas movement the gas pipeline, m/s; Q - gas flow rate m³/h, z - compressibility factor (for preliminary calculations we can take it equal to 1); T = (273 + t ° C) - gas temperature, ° K; D - internal diameter of the pipeline, inches; p - absolute gas pressure, MPa </string>
     <string name="gas_speed">Формула расчета скорости газа в трубопроводе:</string>
     <string name="gas_speed_en">Formula for calculating the speed of gas in a pipeline:</string>
     <string name="attention_text">Внимательно заполняйте поля, используя необходимые величины из системы СИ!!!</string>
@@ -25,14 +25,15 @@
     <string name="temperature_en">Gas temperature, °K</string>
     <string name="flow_et">Расход</string>
     <string name="diameter">Внутренний диаметр, мм</string>
-    <string name="diameter_en">Internal diameter, mm</string>
+    <string name="diameter_en">Diameter, inches</string>
     <string name="pressure">Давление, МПа</string>
     <string name="pressure_en">Pressure, MPa</string>
+    <string name="wall_thickness_en">Wall thickness, inches</string>
     <string name="calculate_button">Рассчитать</string>
     <string name="calculate_button_en">Calculate</string>
     <string name="oil_speed">Формула расчета скорости нефти в трубопроводе:</string>
     <string name="oil_speed_en">Formula for calculating the speed of oil in a pipeline:</string>
     <string name="oil_speed_formula">W = (Q*10^3)/(3.6*p*(d/2)^2)</string>
     <string name="oil_formula_explains">Где W-скорость движения нефти в нефтепроводе, м/с; Q - расход нефти м³/ч, p - число Пи, d - внутренний диаметр трубопровода</string>
-    <string name="oil_formula_explains_en">Where W - the speed of oil movement in the pipeline, m/s; Q - oil flow rate m³/h, p - Pi number, d - internal diameter of the pipeline, mm</string>
+    <string name="oil_formula_explains_en">Where W - the speed of oil movement in the pipeline, m/s; Q - oil flow rate m³/h, p - Pi number, d - internal diameter of the pipeline, inches</string>
 </resources>

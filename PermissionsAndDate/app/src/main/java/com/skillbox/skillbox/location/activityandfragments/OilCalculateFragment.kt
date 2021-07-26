@@ -42,8 +42,9 @@ class OilCalculateFragment : Fragment() {
     private fun calculateOilSpeed() {
         val flow = binding.oilFlowRateEditText.text.toString().toInt()
         val diameter = binding.oilInternalDiameterEditText.text.toString().toFloat()
+        val intDByInches = diameter * 25.4
 
-        val speed = (flow * 1000) / (3.14 * 3.6 * (diameter / 2) * (diameter / 2))
+        val speed = (flow * 1000) / (3.14 * 3.6 * (intDByInches / 2) * (intDByInches / 2))
         val speedByKmPerSec = speed * 3.6
 
         binding.oilResultTextView.text = "calculated speed: $speed m/s"
