@@ -45,5 +45,12 @@
     <fragment
         android:id="@+id/infoRepositoryFragment"
         android:name="com.skillbox.github.ui.repository_list.InfoRepositoryFragment"
-        android:label="InfoRepositoryFragment" />
+        android:label="InfoRepositoryFragment" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="owner"
+            app:argType="com.skillbox.github.data.UsersRepository" />
+    </fragment>
 </navigation>

@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.skillbox.github.R
 import com.skillbox.github.databinding.UsersRepositoryFragmentBinding
 import com.skillbox.github.ui.current_user.RepoListAdapter
 
@@ -46,6 +47,7 @@ class RepositoryListFragment : Fragment() {
         adapterRepo = RepoListAdapter() { position ->
             val action =
                 RepositoryListFragmentDirections.actionRepositoryListFragmentToInfoRepositoryFragment(
+                    repoViewModel.userInfo.value!![position].name,
                     repoViewModel.userInfo.value!![position]
                 )
             findNavController().navigate(action)
