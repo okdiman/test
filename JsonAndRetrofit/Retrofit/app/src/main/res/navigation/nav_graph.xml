@@ -31,9 +31,19 @@
     <fragment
         android:id="@+id/currentUserFragment"
         android:name="com.skillbox.github.ui.current_user.CurrentUserFragment"
-        android:label="CurrentUserFragment" />
+        android:label="CurrentUserFragment"
+        tools:layout="@layout/current_user_fragment" />
     <fragment
         android:id="@+id/repositoryListFragment"
         android:name="com.skillbox.github.ui.repository_list.RepositoryListFragment"
-        android:label="RepositoryListFragment" />
+        android:label="RepositoryListFragment"
+        tools:layout="@layout/users_repository_fragment">
+        <action
+            android:id="@+id/action_repositoryListFragment_to_infoRepositoryFragment"
+            app:destination="@id/infoRepositoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoRepositoryFragment"
+        android:name="com.skillbox.github.ui.repository_list.InfoRepositoryFragment"
+        android:label="InfoRepositoryFragment" />
 </navigation>

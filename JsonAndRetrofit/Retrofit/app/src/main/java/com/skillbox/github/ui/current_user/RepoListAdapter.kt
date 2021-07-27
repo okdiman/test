@@ -4,11 +4,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.skillbox.github.data.UsersRepository
 
-class RepoListAdapter :
+class RepoListAdapter(onItemClick: (position: Int) -> Unit) :
     AsyncListDifferDelegationAdapter<UsersRepository>(RepoDiffUtilCallback()) {
 
     init {
-        delegatesManager.addDelegate(RepoListAdapterDelegate())
+        delegatesManager.addDelegate(RepoListAdapterDelegate(onItemClick))
     }
 
     class RepoDiffUtilCallback : DiffUtil.ItemCallback<UsersRepository>() {

@@ -4,4 +4,5 @@
     <string name="main_repositories">Список репозиториев</string>
     <string name="auth_login">Войти</string>
     <string name="auth_canceled">Аутентификация не выполнена</string>
+    <string name="check_repo_is_starred_or_not">Check repo is starred or not</string>
 </resources>

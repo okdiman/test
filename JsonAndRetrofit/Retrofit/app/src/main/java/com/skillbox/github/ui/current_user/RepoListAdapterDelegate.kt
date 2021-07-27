@@ -10,13 +10,19 @@ import com.skillbox.github.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_for_repository_list.*
 
-class RepoListAdapterDelegate :
+class RepoListAdapterDelegate(private val onItemClick: (position: Int) -> Unit) :
     AbsListItemAdapterDelegate<UsersRepository, UsersRepository, RepoListAdapterDelegate.Holder>() {
 
     class Holder(
-        override val containerView: View
+        override val containerView: View,
+        onItemClick: (position: Int) -> Unit
     ) : RecyclerView.ViewHolder(containerView),
         LayoutContainer {
+        init {
+            containerView.setOnClickListener {
+                onItemClick(adapterPosition)
+            }
+        }
 
         fun bind(item: UsersRepository) {
             itemTextView.text = item.name
@@ -33,7 +39,7 @@ class RepoListAdapterDelegate :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
-        return Holder(parent.inflate(R.layout.item_for_repository_list))
+        return Holder(parent.inflate(R.layout.item_for_repository_list), onItemClick)
     }
 
     override fun onBindViewHolder(
