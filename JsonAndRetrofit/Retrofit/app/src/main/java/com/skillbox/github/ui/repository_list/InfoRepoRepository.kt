@@ -13,7 +13,7 @@ class InfoRepoRepository {
         onError: (String) -> Unit,
         onComplete: (Int) -> Unit
     ) {
-        Network.githubApi.checkIsStarredOrNot(nameOwner, nameRepo).enqueue(
+        Network.githubApi.checkIsStarredOrNot(nameRepo, nameOwner).enqueue(
             object : Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     onError(t.toString())

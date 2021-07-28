@@ -39,11 +39,11 @@ class InfoRepoViewModel : ViewModel() {
             repository.checkRepoStatus(nameRepo, nameOwner, isErrorCallback) { info ->
                 isLoadingLiveData.postValue(false)
                 when (info) {
-                    404 -> infoRepoLiveData.postValue("Resource not found")
+                    404 -> infoRepoLiveData.postValue("Repository is not starred by u")
                     403 -> infoRepoLiveData.postValue("Forbidden")
                     401 -> infoRepoLiveData.postValue("Unauthorized")
                     304 -> infoRepoLiveData.postValue("Not Modified")
-                    204 -> infoRepoLiveData.postValue("No Content")
+                    204 -> infoRepoLiveData.postValue("Repository is starred by u")
                     else -> infoRepoLiveData.postValue("Incorrect status code")
                 }
             }
@@ -62,7 +62,7 @@ class InfoRepoViewModel : ViewModel() {
                     403 -> infoRepoLiveData.postValue("Forbidden")
                     401 -> infoRepoLiveData.postValue("Unauthorized")
                     304 -> infoRepoLiveData.postValue("Not Modified")
-                    204 -> infoRepoLiveData.postValue("No Content")
+                    204 -> infoRepoLiveData.postValue("U have stared this repository now")
                     else -> infoRepoLiveData.postValue("Incorrect status code")
                 }
             }
@@ -81,7 +81,7 @@ class InfoRepoViewModel : ViewModel() {
                     403 -> infoRepoLiveData.postValue("Forbidden")
                     401 -> infoRepoLiveData.postValue("Unauthorized")
                     304 -> infoRepoLiveData.postValue("Not Modified")
-                    204 -> infoRepoLiveData.postValue("No Content")
+                    204 -> infoRepoLiveData.postValue("U have unstared this repository now")
                     else -> infoRepoLiveData.postValue("Incorrect status code")
                 }
             }
