@@ -36,4 +36,33 @@ class RepositoryFragmentRepository {
             }
         )
     }
+
+    fun getStarredRepo(
+        onError: (String) -> Unit,
+        onComplete: (List<UsersRepository>) -> Unit
+    ) {
+        return Network.githubApi.getStarredRepositories().enqueue(
+            object : Callback<List<UsersRepository>> {
+                override fun onFailure(
+                    call: Call<List<UsersRepository>>,
+                    t: Throwable
+                ) {
+                    Log.e("server", "$t")
+                    onError(t.toString())
+                }
+
+                override fun onResponse(
+                    call: Call<List<UsersRepository>>,
+                    response: Response<List<UsersRepository>>
+                ) {
+                    if (response.isSuccessful) {
+                        onComplete(response.body()!!)
+                    } else {
+                        onError("incorrect status code")
+                        onComplete(emptyList())
+                    }
+                }
+            }
+        )
+    }
 }

@@ -38,7 +38,52 @@ class InfoRepoViewModel : ViewModel() {
         Thread {
             repository.checkRepoStatus(nameRepo, nameOwner, isErrorCallback) { info ->
                 isLoadingLiveData.postValue(false)
-                infoRepoLiveData.postValue(info)
+                when (info) {
+                    404 -> infoRepoLiveData.postValue("Resource not found")
+                    403 -> infoRepoLiveData.postValue("Forbidden")
+                    401 -> infoRepoLiveData.postValue("Unauthorized")
+                    304 -> infoRepoLiveData.postValue("Not Modified")
+                    204 -> infoRepoLiveData.postValue("No Content")
+                    else -> infoRepoLiveData.postValue("Incorrect status code")
+                }
+            }
+        }.run()
+    }
+
+    fun addStar(nameRepo: String, nameOwner: String) {
+        isLoadingLiveData.postValue(true)
+        getError = ""
+        errorToastLiveData.postValue(false)
+        Thread {
+            repository.addStar(nameRepo, nameOwner, isErrorCallback) { info ->
+                isLoadingLiveData.postValue(false)
+                when (info) {
+                    404 -> infoRepoLiveData.postValue("Resource not found")
+                    403 -> infoRepoLiveData.postValue("Forbidden")
+                    401 -> infoRepoLiveData.postValue("Unauthorized")
+                    304 -> infoRepoLiveData.postValue("Not Modified")
+                    204 -> infoRepoLiveData.postValue("No Content")
+                    else -> infoRepoLiveData.postValue("Incorrect status code")
+                }
+            }
+        }.run()
+    }
+
+    fun delStar(nameRepo: String, nameOwner: String) {
+        isLoadingLiveData.postValue(true)
+        getError = ""
+        errorToastLiveData.postValue(false)
+        Thread {
+            repository.delStar(nameRepo, nameOwner, isErrorCallback) { info ->
+                isLoadingLiveData.postValue(false)
+                when (info) {
+                    404 -> infoRepoLiveData.postValue("Resource not found")
+                    403 -> infoRepoLiveData.postValue("Forbidden")
+                    401 -> infoRepoLiveData.postValue("Unauthorized")
+                    304 -> infoRepoLiveData.postValue("Not Modified")
+                    204 -> infoRepoLiveData.postValue("No Content")
+                    else -> infoRepoLiveData.postValue("Incorrect status code")
+                }
             }
         }.run()
     }

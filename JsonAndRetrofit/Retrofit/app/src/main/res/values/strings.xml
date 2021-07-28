@@ -5,4 +5,7 @@
     <string name="auth_login">Войти</string>
     <string name="auth_canceled">Аутентификация не выполнена</string>
     <string name="check_repo_is_starred_or_not">Check repo is starred or not</string>
+    <string name="add_star">Add star</string>
+    <string name="delete_star">Delete star</string>
+    <string name="get_starred_repo">Get starred repo</string>
 </resources>

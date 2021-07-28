@@ -1,10 +1,12 @@
 package com.skillbox.github.ui.repository_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -38,13 +40,26 @@ class InfoRepositoryFragment : Fragment() {
         binding.infoRepoButton.setOnClickListener {
             checkIsStarredStatus()
         }
+        binding.addStarRepoButton.setOnClickListener {
+            addStar()
+        }
+        binding.delStarRepoButton.setOnClickListener {
+            deleteStar()
+        }
         observer()
     }
 
     private fun checkIsStarredStatus() {
-        val nameRepo = args.name
-        val nameOwner = args.owner.name
-        checkStatusViewModel.getStatus(nameRepo, nameOwner)
+        checkStatusViewModel.getStatus(args.name, args.owner.owner.login)
+        Log.i("args", "${args.name} ${args.owner.owner.login}")
+    }
+
+    private fun addStar() {
+        checkStatusViewModel.addStar(args.name, args.owner.owner.login)
+    }
+
+    private fun deleteStar() {
+        checkStatusViewModel.delStar(args.name, args.owner.owner.login)
     }
 
     private fun observer() {
@@ -52,7 +67,11 @@ class InfoRepositoryFragment : Fragment() {
             binding.infoRepoTextView.text = status
         }
         checkStatusViewModel.isError.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), checkStatusViewModel.getError, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), checkStatusViewModel.getError, Toast.LENGTH_SHORT)
+                .show()
+        }
+        checkStatusViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.infoRepoProgressBar.isVisible = it
         }
     }
 

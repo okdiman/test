@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.skillbox.github.R
 import com.skillbox.github.databinding.UsersRepositoryFragmentBinding
 import com.skillbox.github.ui.current_user.RepoListAdapter
 
@@ -41,6 +40,9 @@ class RepositoryListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initList()
         observer()
+        binding.gettingStarredRepoButton.setOnClickListener {
+            getStarredRepo()
+        }
     }
 
     private fun initList() {
@@ -58,6 +60,10 @@ class RepositoryListFragment : Fragment() {
             setHasFixedSize(true)
         }
         repoViewModel.getUsersInfo()
+    }
+
+    private fun getStarredRepo() {
+        repoViewModel.getStarredRepo()
     }
 
     private fun observer() {

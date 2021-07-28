@@ -43,4 +43,17 @@ class RepositoryFragmentViewModel : ViewModel() {
             })
         }.run()
     }
+
+    fun getStarredRepo() {
+        isLoadingLiveData.postValue(true)
+        getError = ""
+        errorToastLiveData.postValue(false)
+        //выводим запрос в фоновый поток
+        Thread {
+            repository.getStarredRepo(onError = isErrorCallback, onComplete = { info ->
+                isLoadingLiveData.postValue(false)
+                userInfoLiveData.postValue(info)
+            })
+        }.run()
+    }
 }
