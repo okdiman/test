@@ -51,6 +51,6 @@
             app:argType="string" />
         <argument
             android:name="owner"
-            app:argType="com.skillbox.github.data.UsersRepository" />
+            app:argType="string" />
     </fragment>
 </navigation>

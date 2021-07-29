@@ -49,7 +49,7 @@ class RepositoryListFragment : Fragment() {
             val action =
                 RepositoryListFragmentDirections.actionRepositoryListFragmentToInfoRepositoryFragment(
                     repoViewModel.userInfo.value!![position].name,
-                    repoViewModel.userInfo.value!![position]
+                    repoViewModel.userInfo.value!![position].owner.login
                 )
             findNavController().navigate(action)
         }

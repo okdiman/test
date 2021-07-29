@@ -51,17 +51,17 @@ class InfoRepositoryFragment : Fragment() {
 
 //    проврека статуса отметки для репозитория
     private fun checkIsStarredStatus() {
-        checkStatusViewModel.getStatus(args.name, args.owner.owner.login)
-        Log.i("args", "${args.name} ${args.owner.owner.login}")
+        checkStatusViewModel.getStatus(args.name, args.owner)
+        Log.i("args", "${args.name} ${args.owner}")
     }
 
 //    проставление отметки для репозитория
     private fun addStar() {
-        checkStatusViewModel.addStar(args.name, args.owner.owner.login)
+        checkStatusViewModel.addStar(args.name, args.owner)
     }
 //    удаление отметки для репозитория
     private fun deleteStar() {
-        checkStatusViewModel.delStar(args.name, args.owner.owner.login)
+        checkStatusViewModel.delStar(args.name, args.owner)
     }
 
 //    подписка на изменения LiveData
