@@ -9,11 +9,14 @@ import retrofit2.Response
 
 class CurrentUserRepository {
 
+    //получение информации о пользователе
     fun getUsersInfo(
         onError: (String) -> Unit,
         onComplete: (String) -> Unit
     ) {
+        //запрос на получение инфо о пользователе
         Network.githubApi.searchUsersInformation().enqueue(
+            //создание объекта Callback для Retrofit
             object : Callback<UsersInfo> {
                 override fun onFailure(call: Call<UsersInfo>, t: Throwable) {
                     Log.e("server", "$t")

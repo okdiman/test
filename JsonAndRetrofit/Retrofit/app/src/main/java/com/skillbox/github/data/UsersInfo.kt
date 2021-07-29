@@ -2,6 +2,8 @@ package com.skillbox.github.data
 
 import com.squareup.moshi.JsonClass
 
+
+//класс информации о пользователе
 @JsonClass(generateAdapter = true)
 data class UsersInfo(
     val login: String = "",

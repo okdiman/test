@@ -49,19 +49,22 @@ class InfoRepositoryFragment : Fragment() {
         observer()
     }
 
+//    проврека статуса отметки для репозитория
     private fun checkIsStarredStatus() {
         checkStatusViewModel.getStatus(args.name, args.owner.owner.login)
         Log.i("args", "${args.name} ${args.owner.owner.login}")
     }
 
+//    проставление отметки для репозитория
     private fun addStar() {
         checkStatusViewModel.addStar(args.name, args.owner.owner.login)
     }
-
+//    удаление отметки для репозитория
     private fun deleteStar() {
         checkStatusViewModel.delStar(args.name, args.owner.owner.login)
     }
 
+//    подписка на изменения LiveData
     private fun observer() {
         checkStatusViewModel.infoRepo.observe(viewLifecycleOwner) { status ->
             binding.infoRepoTextView.text = status

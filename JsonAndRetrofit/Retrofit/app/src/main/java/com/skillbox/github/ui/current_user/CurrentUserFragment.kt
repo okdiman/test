@@ -37,10 +37,12 @@ class CurrentUserFragment : Fragment() {
         observer()
     }
 
+    //получение информации о пользователе
     private fun getInfo() {
         infoViewModel.getUsersInfo()
     }
 
+    //подписки на обновления liveData
     private fun observer() {
         infoViewModel.userInfo.observe(viewLifecycleOwner) { info ->
             binding.userInfoTextView.text = info

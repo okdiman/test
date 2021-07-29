@@ -8,11 +8,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RepositoryFragmentRepository {
+//    получение доступных репозиториев
     fun getUsersRepoInfo(
         onError: (String) -> Unit,
         onComplete: (List<UsersRepository>) -> Unit
     ) {
+//    запрос на полуение доступных репозиториев
         return Network.githubApi.searchUsersRepositories().enqueue(
+//            создание объекта Callback
             object : Callback<List<UsersRepository>> {
                 override fun onFailure(
                     call: Call<List<UsersRepository>>,
@@ -37,6 +40,7 @@ class RepositoryFragmentRepository {
         )
     }
 
+//    получение отмеченных репозиториев пользователем
     fun getStarredRepo(
         onError: (String) -> Unit,
         onComplete: (List<UsersRepository>) -> Unit

@@ -1,4 +1,4 @@
-package com.skillbox.github.ui.current_user
+package com.skillbox.github.ui.repository_list
 
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.item_for_repository_list.*
 class RepoListAdapterDelegate(private val onItemClick: (position: Int) -> Unit) :
     AbsListItemAdapterDelegate<UsersRepository, UsersRepository, RepoListAdapterDelegate.Holder>() {
 
+//holder для списка репозиториев
     class Holder(
         override val containerView: View,
         onItemClick: (position: Int) -> Unit
@@ -20,10 +21,10 @@ class RepoListAdapterDelegate(private val onItemClick: (position: Int) -> Unit) 
         LayoutContainer {
         init {
             containerView.setOnClickListener {
-                onItemClick(adapterPosition)
+                onItemClick(bindingAdapterPosition)
             }
         }
-
+//заполняем поля в элементе списка репозиториев
         fun bind(item: UsersRepository) {
             itemTextView.text = item.name
             itemIdTextView.text = item.id.toString()

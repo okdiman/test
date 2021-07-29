@@ -7,20 +7,23 @@ import com.skillbox.github.utils.SingleLiveEvent
 
 class InfoRepoViewModel : ViewModel() {
 
+    //LiveData для информации о репозитории
     private val infoRepoLiveData = MutableLiveData<String>()
     val infoRepo: LiveData<String>
         get() = infoRepoLiveData
 
+    //LiveData для обработки возникших ошибок
     private val errorToastLiveData = SingleLiveEvent<Boolean>()
     val isError: LiveData<Boolean>
         get() = errorToastLiveData
     var getError: String = ""
 
+    //LiveData для обработки момента загрузки запроса
     private val isLoadingLiveData = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
 
-
+    //лямбда-функция ошибки
     private val isErrorCallback: (error: String) -> Unit = {
         isLoadingLiveData.postValue(false)
         if (it.isNotEmpty()) {
@@ -31,6 +34,7 @@ class InfoRepoViewModel : ViewModel() {
 
     val repository = InfoRepoRepository()
 
+//    получение статуса отметки
     fun getStatus(nameRepo: String, nameOwner: String) {
         isLoadingLiveData.postValue(true)
         getError = ""
@@ -38,6 +42,7 @@ class InfoRepoViewModel : ViewModel() {
         Thread {
             repository.checkRepoStatus(nameRepo, nameOwner, isErrorCallback) { info ->
                 isLoadingLiveData.postValue(false)
+//                обработка ответов сервера
                 when (info) {
                     404 -> infoRepoLiveData.postValue("Repository is not starred by u")
                     403 -> infoRepoLiveData.postValue("Forbidden")
@@ -50,6 +55,7 @@ class InfoRepoViewModel : ViewModel() {
         }.run()
     }
 
+//    добавление отметки
     fun addStar(nameRepo: String, nameOwner: String) {
         isLoadingLiveData.postValue(true)
         getError = ""
@@ -58,6 +64,7 @@ class InfoRepoViewModel : ViewModel() {
             repository.addStar(nameRepo, nameOwner, isErrorCallback) { info ->
                 isLoadingLiveData.postValue(false)
                 when (info) {
+//                    обработка ответов сервера
                     404 -> infoRepoLiveData.postValue("Resource not found")
                     403 -> infoRepoLiveData.postValue("Forbidden")
                     401 -> infoRepoLiveData.postValue("Unauthorized")
@@ -69,6 +76,7 @@ class InfoRepoViewModel : ViewModel() {
         }.run()
     }
 
+//    удаление отметки
     fun delStar(nameRepo: String, nameOwner: String) {
         isLoadingLiveData.postValue(true)
         getError = ""
@@ -77,6 +85,7 @@ class InfoRepoViewModel : ViewModel() {
             repository.delStar(nameRepo, nameOwner, isErrorCallback) { info ->
                 isLoadingLiveData.postValue(false)
                 when (info) {
+//                    обработка ответов сервера
                     404 -> infoRepoLiveData.postValue("Resource not found")
                     403 -> infoRepoLiveData.postValue("Forbidden")
                     401 -> infoRepoLiveData.postValue("Unauthorized")

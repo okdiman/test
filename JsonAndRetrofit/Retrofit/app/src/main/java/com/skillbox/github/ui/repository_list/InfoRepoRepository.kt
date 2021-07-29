@@ -7,13 +7,16 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class InfoRepoRepository {
+//    проверка отмеченности репозитория пользователем
     fun checkRepoStatus(
         nameRepo: String,
         nameOwner: String,
         onError: (String) -> Unit,
         onComplete: (Int) -> Unit
     ) {
+//    выполнение запроса на проверку
         Network.githubApi.checkIsStarredOrNot(nameRepo, nameOwner).enqueue(
+//            создание Callback объекта
             object : Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     onError(t.toString())
@@ -29,6 +32,7 @@ class InfoRepoRepository {
 
     }
 
+//    проставление отметки репозиотрию
     fun addStar(
         nameRepo: String,
         nameOwner: String,
@@ -43,13 +47,14 @@ class InfoRepoRepository {
                 }
 
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.i("server", "${response}")
+                    Log.i("server", "$response")
                     onComplete(response.code())
                 }
             }
         )
     }
 
+//    удаление отметки для репозитория
     fun delStar(
         nameRepo: String,
         nameOwner: String,
@@ -64,7 +69,7 @@ class InfoRepoRepository {
                 }
 
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.i("server", "${response}")
+                    Log.i("server", "$response")
                     onComplete(response.code())
                 }
             }

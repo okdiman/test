@@ -17,10 +17,3 @@ fun Fragment.toast(@StringRes stringRes: Int) {
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
-
-fun <T : Fragment> T.withArguments(action: Bundle.() -> Unit): T {
-    return apply {
-        val args = Bundle().apply(action)
-        arguments = args
-    }
-}

@@ -12,7 +12,6 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.github.databinding.UsersRepositoryFragmentBinding
-import com.skillbox.github.ui.current_user.RepoListAdapter
 
 
 class RepositoryListFragment : Fragment() {

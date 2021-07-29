@@ -2,6 +2,7 @@ package com.skillbox.github.data
 
 import com.squareup.moshi.JsonClass
 
+//класс исплользуемого пользователем плана
 @JsonClass(generateAdapter = true)
 data class UsersPlan(
     val name: String,
