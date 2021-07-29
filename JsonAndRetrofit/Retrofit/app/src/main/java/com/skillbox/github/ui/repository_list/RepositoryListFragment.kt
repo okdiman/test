@@ -44,8 +44,10 @@ class RepositoryListFragment : Fragment() {
         }
     }
 
+//    инициализация списка
     private fun initList() {
         adapterRepo = RepoListAdapter() { position ->
+//            передаем данные о юзере и о выбранном репозитории в след фрагмент
             val action =
                 RepositoryListFragmentDirections.actionRepositoryListFragmentToInfoRepositoryFragment(
                     repoViewModel.userInfo.value!![position].name,
@@ -60,11 +62,11 @@ class RepositoryListFragment : Fragment() {
         }
         repoViewModel.getUsersInfo()
     }
-
+//   получаем только отмеченные репозитории
     private fun getStarredRepo() {
         repoViewModel.getStarredRepo()
     }
-
+//  подписка на LiveData
     private fun observer() {
         repoViewModel.userInfo.observe(viewLifecycleOwner) { info ->
             adapterRepo?.items = info
