@@ -13,10 +13,9 @@ class CurrentUserViewModel : ViewModel() {
         get() = userInfoLiveData
 
     //LiveData для обработки возникших ошибок
-    private val errorToastLiveData = SingleLiveEvent<Boolean>()
-    val isError: LiveData<Boolean>
+    private val errorToastLiveData = SingleLiveEvent<String>()
+    val isError: LiveData<String>
         get() = errorToastLiveData
-    var getError: String = ""
 
     //LiveData для обработки момента загрузки запроса
     private val isLoadingLiveData = MutableLiveData<Boolean>(false)
@@ -26,9 +25,8 @@ class CurrentUserViewModel : ViewModel() {
     //лямбда-функция ошибки
     private val isErrorCallback: (error: String) -> Unit = {
         isLoadingLiveData.postValue(false)
-        if (it.isNotEmpty()) {
-            getError = it
-            errorToastLiveData.postValue(true)
+        if (it.isEmpty()) {
+            errorToastLiveData.postValue(it)
         }
     }
 
@@ -37,8 +35,6 @@ class CurrentUserViewModel : ViewModel() {
     //получение информации о пользователе
     fun getUsersInfo() {
         isLoadingLiveData.postValue(true)
-        getError = ""
-        errorToastLiveData.postValue(false)
         //выводим запрос в фоновый поток
         Thread {
             repository.getUsersInfo(onError = isErrorCallback, onComplete = { info ->

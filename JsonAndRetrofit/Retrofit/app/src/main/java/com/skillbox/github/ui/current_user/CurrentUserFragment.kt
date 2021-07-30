@@ -48,7 +48,7 @@ class CurrentUserFragment : Fragment() {
             binding.userInfoTextView.text = info
         }
         infoViewModel.isError.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), infoViewModel.getError, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
         infoViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.infoProgressBar.isVisible = it

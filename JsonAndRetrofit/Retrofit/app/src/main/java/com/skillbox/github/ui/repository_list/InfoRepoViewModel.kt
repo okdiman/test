@@ -13,10 +13,9 @@ class InfoRepoViewModel : ViewModel() {
         get() = infoRepoLiveData
 
     //LiveData для обработки возникших ошибок
-    private val errorToastLiveData = SingleLiveEvent<Boolean>()
-    val isError: LiveData<Boolean>
+    private val errorToastLiveData = SingleLiveEvent<String>()
+    val isError: LiveData<String>
         get() = errorToastLiveData
-    var getError: String = ""
 
     //LiveData для обработки момента загрузки запроса
     private val isLoadingLiveData = MutableLiveData<Boolean>(false)
@@ -26,9 +25,8 @@ class InfoRepoViewModel : ViewModel() {
     //лямбда-функция ошибки
     private val isErrorCallback: (error: String) -> Unit = {
         isLoadingLiveData.postValue(false)
-        if (it.isNotEmpty()) {
-            getError = it
-            errorToastLiveData.postValue(true)
+        if (it.isEmpty()) {
+            errorToastLiveData.postValue(it)
         }
     }
 
@@ -37,8 +35,6 @@ class InfoRepoViewModel : ViewModel() {
 //    получение статуса отметки
     fun getStatus(nameRepo: String, nameOwner: String) {
         isLoadingLiveData.postValue(true)
-        getError = ""
-        errorToastLiveData.postValue(false)
         Thread {
             repository.checkRepoStatus(nameRepo, nameOwner, isErrorCallback) { info ->
                 isLoadingLiveData.postValue(false)
@@ -58,8 +54,6 @@ class InfoRepoViewModel : ViewModel() {
 //    добавление отметки
     fun addStar(nameRepo: String, nameOwner: String) {
         isLoadingLiveData.postValue(true)
-        getError = ""
-        errorToastLiveData.postValue(false)
         Thread {
             repository.addStar(nameRepo, nameOwner, isErrorCallback) { info ->
                 isLoadingLiveData.postValue(false)
@@ -79,8 +73,6 @@ class InfoRepoViewModel : ViewModel() {
 //    удаление отметки
     fun delStar(nameRepo: String, nameOwner: String) {
         isLoadingLiveData.postValue(true)
-        getError = ""
-        errorToastLiveData.postValue(false)
         Thread {
             repository.delStar(nameRepo, nameOwner, isErrorCallback) { info ->
                 isLoadingLiveData.postValue(false)

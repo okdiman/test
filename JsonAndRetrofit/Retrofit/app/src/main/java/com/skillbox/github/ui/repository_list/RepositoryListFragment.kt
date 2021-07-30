@@ -72,7 +72,7 @@ class RepositoryListFragment : Fragment() {
             adapterRepo?.items = info
         }
         repoViewModel.isError.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), repoViewModel.getError, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
         repoViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.repoProgressBar.isVisible = it

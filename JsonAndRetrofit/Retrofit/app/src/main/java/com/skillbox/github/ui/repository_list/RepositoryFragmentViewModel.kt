@@ -14,22 +14,21 @@ class RepositoryFragmentViewModel : ViewModel() {
         get() = userInfoLiveData
 
     //LiveData для обработки возникших ошибок
-    private val errorToastLiveData = SingleLiveEvent<Boolean>()
-    val isError: LiveData<Boolean>
+    private val errorToastLiveData = SingleLiveEvent<String>()
+    val isError: LiveData<String>
         get() = errorToastLiveData
-    var getError: String = ""
+
 
     //LiveData для обработки момента загрузки запроса
-    private val isLoadingLiveData = MutableLiveData<Boolean>(false)
+    private val isLoadingLiveData = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
 
     //лямбда-функция ошибки
     private val isErrorCallback: (error: String) -> Unit = {
         isLoadingLiveData.postValue(false)
-        if (it.isNotEmpty()) {
-            getError = it
-            errorToastLiveData.postValue(true)
+        if (it.isEmpty()) {
+            errorToastLiveData.postValue(it)
         }
     }
 
@@ -38,8 +37,6 @@ class RepositoryFragmentViewModel : ViewModel() {
 //    получение доступных пользователю репозиториев
     fun getUsersInfo() {
         isLoadingLiveData.postValue(true)
-        getError = ""
-        errorToastLiveData.postValue(false)
         //выводим запрос в фоновый поток
         Thread {
             repository.getUsersRepoInfo(onError = isErrorCallback, onComplete = { info ->
@@ -52,8 +49,6 @@ class RepositoryFragmentViewModel : ViewModel() {
 //    получение отмеченных пользователем репозиториев
     fun getStarredRepo() {
         isLoadingLiveData.postValue(true)
-        getError = ""
-        errorToastLiveData.postValue(false)
         //выводим запрос в фоновый поток
         Thread {
             repository.getStarredRepo(onError = isErrorCallback, onComplete = { info ->

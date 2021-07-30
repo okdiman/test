@@ -70,7 +70,7 @@ class InfoRepositoryFragment : Fragment() {
             binding.infoRepoTextView.text = status
         }
         checkStatusViewModel.isError.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), checkStatusViewModel.getError, Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT)
                 .show()
         }
         checkStatusViewModel.isLoading.observe(viewLifecycleOwner) {
