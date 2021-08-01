@@ -3,7 +3,9 @@ package com.skillbox.github.ui.repository_list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.skillbox.github.utils.SingleLiveEvent
+import kotlinx.coroutines.launch
 
 class InfoRepoViewModel : ViewModel() {
 
@@ -30,35 +32,39 @@ class InfoRepoViewModel : ViewModel() {
         }
     }
 
-    val repository = InfoRepoRepository()
+    private val repository = InfoRepoRepository()
 
-//    получение статуса отметки
+    //    получение статуса отметки
     fun getStatus(nameRepo: String, nameOwner: String) {
-        isLoadingLiveData.postValue(true)
-        Thread {
-            repository.checkRepoStatus(nameRepo, nameOwner, isErrorCallback) { info ->
-                isLoadingLiveData.postValue(false)
+        viewModelScope.launch {
+            isLoadingLiveData.postValue(true)
+            try {
+                repository.checkRepoStatus(nameRepo, nameOwner, isErrorCallback) { info ->
 //                обработка ответов сервера
-                when (info) {
-                    404 -> infoRepoLiveData.postValue("Repository is not starred by u")
-                    403 -> infoRepoLiveData.postValue("Forbidden")
-                    401 -> infoRepoLiveData.postValue("Unauthorized")
-                    304 -> infoRepoLiveData.postValue("Not Modified")
-                    204 -> infoRepoLiveData.postValue("Repository is starred by u")
-                    else -> infoRepoLiveData.postValue("Incorrect status code")
+                    when (info) {
+                        404 -> infoRepoLiveData.postValue("Repository is not starred by u")
+                        403 -> infoRepoLiveData.postValue("Forbidden")
+                        401 -> infoRepoLiveData.postValue("Unauthorized")
+                        304 -> infoRepoLiveData.postValue("Not Modified")
+                        204 -> infoRepoLiveData.postValue("Repository is starred by u")
+                        else -> infoRepoLiveData.postValue("Incorrect status code")
+                    }
+                    isLoadingLiveData.postValue(false)
                 }
+            } catch (t: Throwable) {
+                errorToastLiveData.postValue(t.message)
             }
-        }.run()
+        }
     }
 
-//    добавление отметки
+    //    добавление отметки
     fun addStar(nameRepo: String, nameOwner: String) {
-        isLoadingLiveData.postValue(true)
-        Thread {
-            repository.addStar(nameRepo, nameOwner, isErrorCallback) { info ->
-                isLoadingLiveData.postValue(false)
-                when (info) {
-//                    обработка ответов сервера
+        viewModelScope.launch {
+            isLoadingLiveData.postValue(true)
+            try {
+
+                when (repository.addStar(nameRepo, nameOwner)) {
+//                  обработка ответов сервера
                     404 -> infoRepoLiveData.postValue("Resource not found")
                     403 -> infoRepoLiveData.postValue("Forbidden")
                     401 -> infoRepoLiveData.postValue("Unauthorized")
@@ -66,26 +72,35 @@ class InfoRepoViewModel : ViewModel() {
                     204 -> infoRepoLiveData.postValue("U have stared this repository now")
                     else -> infoRepoLiveData.postValue("Incorrect status code")
                 }
+            } catch (t: Throwable) {
+                errorToastLiveData.postValue(t.message)
+            } finally {
+                isLoadingLiveData.postValue(false)
             }
-        }.run()
+        }
     }
 
-//    удаление отметки
+
+    //    удаление отметки
     fun delStar(nameRepo: String, nameOwner: String) {
-        isLoadingLiveData.postValue(true)
-        Thread {
-            repository.delStar(nameRepo, nameOwner, isErrorCallback) { info ->
-                isLoadingLiveData.postValue(false)
-                when (info) {
-//                    обработка ответов сервера
+        viewModelScope.launch {
+            isLoadingLiveData.postValue(true)
+            try {
+
+                when (repository.delStar(nameRepo, nameOwner)) {
+//                  обработка ответов сервера
                     404 -> infoRepoLiveData.postValue("Resource not found")
                     403 -> infoRepoLiveData.postValue("Forbidden")
                     401 -> infoRepoLiveData.postValue("Unauthorized")
                     304 -> infoRepoLiveData.postValue("Not Modified")
-                    204 -> infoRepoLiveData.postValue("U have unstared this repository now")
+                    204 -> infoRepoLiveData.postValue("U have unstarred this repository now")
                     else -> infoRepoLiveData.postValue("Incorrect status code")
                 }
+            } catch (t: Throwable) {
+                errorToastLiveData.postValue(t.message)
+            } finally {
+                isLoadingLiveData.postValue(false)
             }
-        }.run()
+        }
     }
 }

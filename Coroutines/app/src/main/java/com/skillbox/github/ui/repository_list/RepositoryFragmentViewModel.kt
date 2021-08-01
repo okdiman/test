@@ -33,7 +33,7 @@ class RepositoryFragmentViewModel : ViewModel() {
 
 
     //    получение доступных пользователю репозиториев
-    suspend fun getUsersInfo() {
+    fun getUsersInfo() {
         scope.launch {
             isLoadingLiveData.postValue(true)
             try {
@@ -49,7 +49,7 @@ class RepositoryFragmentViewModel : ViewModel() {
     }
 
     //    получение отмеченных пользователем репозиториев
-    suspend fun getStarredRepo() {
+    fun getStarredRepo() {
         scope.launch {
             isLoadingLiveData.postValue(true)
             try {

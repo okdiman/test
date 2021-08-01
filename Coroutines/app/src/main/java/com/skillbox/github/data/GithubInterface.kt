@@ -29,17 +29,17 @@ interface GithubInterface {
 
     //запрос на проставление отметки пользователем на репозиторий
     @PUT("user/starred/{owner}/{repo}")
-    fun addStar(
+    suspend fun addStar(
         @Path("repo") repo: String,
         @Path("owner") owner: String
-    ): Call <String>
+    ): Int
 
     //запрос на удаление отметки пользователем на репозиторий
     @DELETE("user/starred/{owner}/{repo}")
-    fun delStar(
+    suspend fun delStar(
         @Path("repo") repo: String,
         @Path("owner") owner: String
-    ): Call <String>
+    ): Int
 
     //запрос на получение только отмеченных пользователем репозиториев
     @GET("user/starred")

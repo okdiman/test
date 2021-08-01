@@ -8,13 +8,10 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.github.databinding.UsersRepositoryFragmentBinding
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 
 
 class RepositoryListFragment : Fragment() {
@@ -63,16 +60,12 @@ class RepositoryListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-        lifecycleScope.launch(SupervisorJob()) {
-            repoViewModel.getUsersInfo()
-        }
+        repoViewModel.getUsersInfo()
     }
 
     //   получаем только отмеченные репозитории
     private fun getStarredRepo() {
-        lifecycleScope.launch(SupervisorJob()) {
-            repoViewModel.getStarredRepo()
-        }
+        repoViewModel.getStarredRepo()
     }
 
     //  подписка на LiveData
