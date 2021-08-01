@@ -22,17 +22,9 @@ class CurrentUserViewModel : ViewModel() {
         get() = errorToastLiveData
 
     //LiveData для обработки момента загрузки запроса
-    private val isLoadingLiveData = MutableLiveData<Boolean>(false)
+    private val isLoadingLiveData = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
-
-    //лямбда-функция ошибки
-    private val isErrorCallback: (error: String) -> Unit = {
-        isLoadingLiveData.postValue(false)
-        if (it.isEmpty()) {
-            errorToastLiveData.postValue(it)
-        }
-    }
 
     private val repository = CurrentUserRepository()
 
@@ -51,7 +43,8 @@ class CurrentUserViewModel : ViewModel() {
             }
             val info = infoUser.await()
             val followings = usersFollowings.await()
-            userInfoLiveData.postValue(info.toString() + followings)
+            userInfoLiveData.postValue("$info " +
+                    "$followings")
             isLoadingLiveData.postValue(false)
         }
     }

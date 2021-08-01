@@ -30,8 +30,6 @@ class RepositoryFragmentViewModel : ViewModel() {
 
     private val scope = CoroutineScope(SupervisorJob())
 
-
-
     //    получение доступных пользователю репозиториев
     fun getUsersInfo() {
         scope.launch {
