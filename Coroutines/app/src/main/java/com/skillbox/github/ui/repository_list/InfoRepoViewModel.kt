@@ -62,7 +62,6 @@ class InfoRepoViewModel : ViewModel() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
             try {
-
                 when (repository.addStar(nameRepo, nameOwner)) {
 //                  обработка ответов сервера
                     404 -> infoRepoLiveData.postValue("Resource not found")
@@ -86,7 +85,6 @@ class InfoRepoViewModel : ViewModel() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
             try {
-
                 when (repository.delStar(nameRepo, nameOwner)) {
 //                  обработка ответов сервера
                     404 -> infoRepoLiveData.postValue("Resource not found")
