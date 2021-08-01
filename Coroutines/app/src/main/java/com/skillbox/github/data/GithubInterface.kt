@@ -10,8 +10,8 @@ interface GithubInterface {
 
     //запрос на получение инофрмации о пользователе
     @GET("user")
-    fun searchUsersInformation(
-    ): Call<UsersInfo>
+    suspend fun searchUsersInformation(
+    ): UsersInfo
 
     //запрос на получение инофрмации о репозиториях, доступных для пользователя
     @GET("repositories")
@@ -45,4 +45,8 @@ interface GithubInterface {
     @GET("user/starred")
     suspend fun getStarredRepositories(
     ): List<UsersRepository>
+
+    //запрос на получение списка подписок
+    @GET("user/following")
+    suspend fun getFollowing(): List<Followings>
 }

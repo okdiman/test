@@ -3,7 +3,11 @@ package com.skillbox.github.ui.current_user
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.skillbox.github.utils.SingleLiveEvent
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class CurrentUserViewModel : ViewModel() {
 
@@ -34,13 +38,21 @@ class CurrentUserViewModel : ViewModel() {
 
     //получение информации о пользователе
     fun getUsersInfo() {
-        isLoadingLiveData.postValue(true)
-        //выводим запрос в фоновый поток
-        Thread {
-            repository.getUsersInfo(onError = isErrorCallback, onComplete = { info ->
-                isLoadingLiveData.postValue(false)
-                userInfoLiveData.postValue(info)
-            })
-        }.run()
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            errorToastLiveData.postValue(throwable.message)
+        }
+        viewModelScope.launch(exceptionHandler) {
+            isLoadingLiveData.postValue(true)
+            val infoUser = async {
+                repository.getUsersInfo()
+            }
+            val usersFollowings = async {
+                repository.getUsersFollowing()
+            }
+            val info = infoUser.await()
+            val followings = usersFollowings.await()
+            userInfoLiveData.postValue(info.toString() + followings)
+            isLoadingLiveData.postValue(false)
+        }
     }
 }
