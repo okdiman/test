@@ -15,10 +15,10 @@ interface GithubInterface {
 
     //запрос на получение инофрмации о репозиториях, доступных для пользователя
     @GET("repositories")
-    fun searchUsersRepositories(
+    suspend fun searchUsersRepositories(
 //        @Header("accept") header: String,
 //        @Query("since") query: Int
-    ): Call<List<UsersRepository>>
+    ): List<UsersRepository>
 
     //запрос на получение инофрмации об отмеченности пользователем выбранного репозиотрия
     @GET("user/starred/{owner}/{repo}")
@@ -32,17 +32,17 @@ interface GithubInterface {
     fun addStar(
         @Path("repo") repo: String,
         @Path("owner") owner: String
-    ): Call<String>
+    ): Call <String>
 
     //запрос на удаление отметки пользователем на репозиторий
     @DELETE("user/starred/{owner}/{repo}")
     fun delStar(
         @Path("repo") repo: String,
         @Path("owner") owner: String
-    ): Call<String>
+    ): Call <String>
 
     //запрос на получение только отмеченных пользователем репозиториев
     @GET("user/starred")
-    fun getStarredRepositories(
-    ): Call<List<UsersRepository>>
+    suspend fun getStarredRepositories(
+    ): List<UsersRepository>
 }

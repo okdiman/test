@@ -8,10 +8,13 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.github.databinding.UsersRepositoryFragmentBinding
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 
 class RepositoryListFragment : Fragment() {
@@ -44,14 +47,14 @@ class RepositoryListFragment : Fragment() {
         }
     }
 
-//    инициализация списка
+    //    инициализация списка
     private fun initList() {
         adapterRepo = RepoListAdapter() { position ->
 //            передаем данные о юзере и о выбранном репозитории в след фрагмент
             val action =
                 RepositoryListFragmentDirections.actionRepositoryListFragmentToInfoRepositoryFragment(
-                    repoViewModel.userInfo.value!![position].name,
-                    repoViewModel.userInfo.value!![position].owner.login
+                    repoViewModel.publicRepo.value!![position].name,
+                    repoViewModel.publicRepo.value!![position].owner.login
                 )
             findNavController().navigate(action)
         }
@@ -60,15 +63,21 @@ class RepositoryListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-        repoViewModel.getUsersInfo()
+        lifecycleScope.launch(SupervisorJob()) {
+            repoViewModel.getUsersInfo()
+        }
     }
-//   получаем только отмеченные репозитории
+
+    //   получаем только отмеченные репозитории
     private fun getStarredRepo() {
-        repoViewModel.getStarredRepo()
+        lifecycleScope.launch(SupervisorJob()) {
+            repoViewModel.getStarredRepo()
+        }
     }
-//  подписка на LiveData
+
+    //  подписка на LiveData
     private fun observer() {
-        repoViewModel.userInfo.observe(viewLifecycleOwner) { info ->
+        repoViewModel.publicRepo.observe(viewLifecycleOwner) { info ->
             adapterRepo?.items = info
         }
         repoViewModel.isError.observe(viewLifecycleOwner) {

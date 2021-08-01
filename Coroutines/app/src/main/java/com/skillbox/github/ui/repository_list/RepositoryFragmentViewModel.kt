@@ -3,15 +3,17 @@ package com.skillbox.github.ui.repository_list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.skillbox.github.data.UsersRepository
 import com.skillbox.github.utils.SingleLiveEvent
+import kotlinx.coroutines.*
 
 class RepositoryFragmentViewModel : ViewModel() {
 
     //LiveData для информации о репозитории
-    private val userInfoLiveData = MutableLiveData<List<UsersRepository>>()
-    val userInfo: LiveData<List<UsersRepository>>
-        get() = userInfoLiveData
+    private val publicRepoLiveData = MutableLiveData<List<UsersRepository>>()
+    val publicRepo: LiveData<List<UsersRepository>>
+        get() = publicRepoLiveData
 
     //LiveData для обработки возникших ошибок
     private val errorToastLiveData = SingleLiveEvent<String>()
@@ -24,37 +26,46 @@ class RepositoryFragmentViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
 
-    //лямбда-функция ошибки
-    private val isErrorCallback: (error: String) -> Unit = {
-        isLoadingLiveData.postValue(false)
-        if (it.isEmpty()) {
-            errorToastLiveData.postValue(it)
+    private val repository = RepositoryFragmentRepository()
+
+    private val scope = CoroutineScope(SupervisorJob())
+
+
+
+    //    получение доступных пользователю репозиториев
+    suspend fun getUsersInfo() {
+        scope.launch {
+            isLoadingLiveData.postValue(true)
+            try {
+                val publicRepo = repository.getPublicRepoInfo()
+                publicRepoLiveData.postValue(publicRepo)
+            } catch (t: Throwable) {
+                publicRepoLiveData.postValue(emptyList())
+                errorToastLiveData.postValue(t.message)
+            } finally {
+                isLoadingLiveData.postValue(false)
+            }
         }
     }
 
-    private val repository = RepositoryFragmentRepository()
-
-//    получение доступных пользователю репозиториев
-    fun getUsersInfo() {
-        isLoadingLiveData.postValue(true)
-        //выводим запрос в фоновый поток
-        Thread {
-            repository.getUsersRepoInfo(onError = isErrorCallback, onComplete = { info ->
+    //    получение отмеченных пользователем репозиториев
+    suspend fun getStarredRepo() {
+        scope.launch {
+            isLoadingLiveData.postValue(true)
+            try {
+                val starredRepo = repository.getStarredRepo()
+                publicRepoLiveData.postValue(starredRepo)
+            } catch (t: Throwable) {
+                publicRepoLiveData.postValue(emptyList())
+                errorToastLiveData.postValue(t.message)
+            } finally {
                 isLoadingLiveData.postValue(false)
-                userInfoLiveData.postValue(info)
-            })
-        }.run()
+            }
+        }
     }
 
-//    получение отмеченных пользователем репозиториев
-    fun getStarredRepo() {
-        isLoadingLiveData.postValue(true)
-        //выводим запрос в фоновый поток
-        Thread {
-            repository.getStarredRepo(onError = isErrorCallback, onComplete = { info ->
-                isLoadingLiveData.postValue(false)
-                userInfoLiveData.postValue(info)
-            })
-        }.run()
+    override fun onCleared() {
+        super.onCleared()
+        scope.cancel()
     }
 }
