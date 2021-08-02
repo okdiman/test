@@ -41,7 +41,7 @@ class InfoRepoRepository {
     suspend fun addStar(
         nameRepo: String,
         nameOwner: String
-    ): Int {
+    ) {
         return Network.githubApi.addStar(nameRepo, nameOwner)
     }
 
@@ -49,7 +49,7 @@ class InfoRepoRepository {
     suspend fun delStar(
         nameRepo: String,
         nameOwner: String
-    ): Int {
+    ) {
         return Network.githubApi.delStar(nameRepo, nameOwner)
     }
 }

@@ -32,14 +32,14 @@ interface GithubInterface {
     suspend fun addStar(
         @Path("repo") repo: String,
         @Path("owner") owner: String
-    ): Int
+    )
 
     //запрос на удаление отметки пользователем на репозиторий
     @DELETE("user/starred/{owner}/{repo}")
     suspend fun delStar(
         @Path("repo") repo: String,
         @Path("owner") owner: String
-    ): Int
+    )
 
     //запрос на получение только отмеченных пользователем репозиториев
     @GET("user/starred")

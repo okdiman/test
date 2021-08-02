@@ -62,15 +62,8 @@ class InfoRepoViewModel : ViewModel() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
             try {
-                when (repository.addStar(nameRepo, nameOwner)) {
-//                  обработка ответов сервера
-                    404 -> infoRepoLiveData.postValue("Resource not found")
-                    403 -> infoRepoLiveData.postValue("Forbidden")
-                    401 -> infoRepoLiveData.postValue("Unauthorized")
-                    304 -> infoRepoLiveData.postValue("Not Modified")
-                    204 -> infoRepoLiveData.postValue("U have stared this repository now")
-                    else -> infoRepoLiveData.postValue("Incorrect status code")
-                }
+                repository.addStar(nameRepo, nameOwner)
+                infoRepoLiveData.postValue("U have stared this repository now")
             } catch (t: Throwable) {
                 errorToastLiveData.postValue(t.message)
             } finally {
@@ -85,15 +78,8 @@ class InfoRepoViewModel : ViewModel() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
             try {
-                when (repository.delStar(nameRepo, nameOwner)) {
-//                  обработка ответов сервера
-                    404 -> infoRepoLiveData.postValue("Resource not found")
-                    403 -> infoRepoLiveData.postValue("Forbidden")
-                    401 -> infoRepoLiveData.postValue("Unauthorized")
-                    304 -> infoRepoLiveData.postValue("Not Modified")
-                    204 -> infoRepoLiveData.postValue("U have unstarred this repository now")
-                    else -> infoRepoLiveData.postValue("Incorrect status code")
-                }
+                repository.delStar(nameRepo, nameOwner)
+                infoRepoLiveData.postValue("U have unstarred this repository now")
             } catch (t: Throwable) {
                 errorToastLiveData.postValue(t.message)
             } finally {
