@@ -9,7 +9,8 @@ class RepositoryFragmentRepository {
     //    получение доступных репозиториев
     suspend fun getPublicRepoInfo(): List<UsersRepository> {
 //    запрос на полуение доступных репозиториев
-        return withContext(Dispatchers.IO) { Network.githubApi.searchUsersRepositories() }
+        val response = withContext(Dispatchers.IO) { Network.githubApi.searchUsersRepositories().execute() }
+        return response.body()!!
     }
 
     //    получение отмеченных репозиториев пользователем

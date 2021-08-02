@@ -15,10 +15,10 @@ interface GithubInterface {
 
     //запрос на получение инофрмации о репозиториях, доступных для пользователя
     @GET("repositories")
-    suspend fun searchUsersRepositories(
+    fun searchUsersRepositories(
 //        @Header("accept") header: String,
 //        @Query("since") query: Int
-    ): List<UsersRepository>
+    ): Call <List<UsersRepository>>
 
     //запрос на получение инофрмации об отмеченности пользователем выбранного репозиотрия
     @GET("user/starred/{owner}/{repo}")
