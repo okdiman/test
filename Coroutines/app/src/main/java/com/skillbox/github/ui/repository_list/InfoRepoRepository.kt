@@ -42,7 +42,7 @@ class InfoRepoRepository {
         nameRepo: String,
         nameOwner: String
     ) {
-        return Network.githubApi.addStar(nameRepo, nameOwner)
+        Network.githubApi.addStar(nameRepo, nameOwner)
     }
 
     //    удаление отметки для репозитория
@@ -50,6 +50,6 @@ class InfoRepoRepository {
         nameRepo: String,
         nameOwner: String
     ) {
-        return Network.githubApi.delStar(nameRepo, nameOwner)
+        Network.githubApi.delStar(nameRepo, nameOwner)
     }
 }
