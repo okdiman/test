@@ -1,6 +1,7 @@
 package com.skillbox.github.data
 
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PUT
@@ -18,7 +19,7 @@ interface GithubInterface {
     fun searchUsersRepositories(
 //        @Header("accept") header: String,
 //        @Query("since") query: Int
-    ): Call <List<UsersRepository>>
+    ): Call<List<UsersRepository>>
 
     //запрос на получение инофрмации об отмеченности пользователем выбранного репозиотрия
     @GET("user/starred/{owner}/{repo}")
@@ -32,14 +33,14 @@ interface GithubInterface {
     suspend fun addStar(
         @Path("repo") repo: String,
         @Path("owner") owner: String
-    )
+    ): Response<Unit>
 
     //запрос на удаление отметки пользователем на репозиторий
     @DELETE("user/starred/{owner}/{repo}")
     suspend fun delStar(
         @Path("repo") repo: String,
         @Path("owner") owner: String
-    )
+    ): Response<Unit>
 
     //запрос на получение только отмеченных пользователем репозиториев
     @GET("user/starred")
