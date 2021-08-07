@@ -21,6 +21,7 @@ interface GithubInterface {
 //        @Query("since") query: Int
     ): Call<List<UsersRepository>>
 
+
     //запрос на получение инофрмации об отмеченности пользователем выбранного репозиотрия
     @GET("user/starred/{owner}/{repo}")
     fun checkIsStarredOrNot(
