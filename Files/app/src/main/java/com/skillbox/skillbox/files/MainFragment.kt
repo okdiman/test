@@ -1,16 +1,22 @@
 package com.skillbox.skillbox.files
 
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.skillbox.skillbox.files.databinding.MainFragmentBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import java.net.URL
 
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
@@ -40,19 +46,74 @@ class MainFragment : Fragment() {
     private fun downloadFile() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch
+            val url = binding.fileEditText.text.toString()
             val filesDir = requireContext().getExternalFilesDir("Folder for downloads files")
-            val file = File(filesDir, "Internet File")
+            val fileName = "${System.currentTimeMillis()}_name"
+            val file = File(filesDir, fileName)
+//            val request = DownloadManager.Request(Uri.parse(url))
+//                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+//                .setDestinationUri(Uri.fromFile(file))
+//                .setTitle(fileName)
+//                .setDescription("Downloading")
+//                .setRequiresCharging(false)
+//                .setAllowedOverMetered(true)
+//            val downloadManager =
+//                requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+//            val downloadID = downloadManager.enqueue(request)
+//
+//            //проверка завершения
+//            var finishLoad = false
+//            val progress: Int
+//            val loading = binding.downloadProgressBar
+//            while (!finishLoad) {
+//                val cursor =
+//                    downloadManager.query(DownloadManager.Query().setFilterById(downloadID))
+//                if (cursor.moveToFirst()) {
+//                    when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+//                        DownloadManager.STATUS_FAILED -> {
+//                            finishLoad = true
+//                            break
+//                        }
+//                        DownloadManager.STATUS_PAUSED -> break
+//                        DownloadManager.STATUS_PENDING -> break
+//                        DownloadManager.STATUS_RUNNING -> {
+//                            val total =
+//                                cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+//                            if (total >= 0) {
+//                                val downloaded =
+//                                    cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+//                                progress = ((downloaded * 100L) / total).toInt()
+//                                loading.isVisible = true
+//                                loading.progress = progress
+//                            }
+//                            break
+//                        }
+//                        DownloadManager.STATUS_SUCCESSFUL -> {
+//                            loading.isVisible = false
+//                            progress = 100
+//                            finishLoad = true
+//                            Toast.makeText(
+//                                requireContext(),
+//                                "Download completed",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                            break
+//                        }
+//                    }
+//                }
+//            }
+
             try {
                 file.outputStream().use { fileOutputSteram ->
                     Network.api
-                        .getFile(binding.fileEditText.text.toString())
+                        .getFile(url)
                         .byteStream()
                         .use {
                             it.copyTo(fileOutputSteram)
                         }
                 }
-            } catch (t: Throwable) {
-            }
+            } catch (t: Throwable) {}
         }
     }
+
 }
