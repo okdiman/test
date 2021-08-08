@@ -1,27 +1,20 @@
 package com.skillbox.skillbox.files
 
-import android.content.Context
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import com.skillbox.skillbox.files.databinding.MainFragmentBinding
-import com.skillbox.skillbox.files.network.Network
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.io.File
 
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val sharedPrefs by lazy {
-        requireContext().getSharedPreferences("SharedPref", Context.MODE_PRIVATE)
-    }
+    private val viewModel: MainFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,38 +35,14 @@ class MainFragment : Fragment() {
         binding.filesButton.setOnClickListener {
             downloadFile()
         }
+        observe()
     }
 
     private fun downloadFile() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch
-            isLoading()
-            val url = binding.fileEditText.text.toString()
-            val filesDir = requireContext().getExternalFilesDir("Folder for downloads files")
-            val fileName = "${System.currentTimeMillis()}_name"
-            val file = File(filesDir, fileName)
+        viewModel.downloadFile(binding.fileEditText.toString())
 
 
-            try {
-                file.outputStream().use { fileOutputSteram ->
-                    Network.api
-                        .getFile(url)
-                        .byteStream()
-                        .use {
-                            it.copyTo(fileOutputSteram)
-                        }
-                    sharedPrefs.edit()
-                        .putString(url, fileName)
-                        .apply()
-                }
-            } catch (t: Throwable) {
-                file.delete()
-            } finally {
-                finishLoading()
-            }
-
-
-            //            val request = DownloadManager.Request(Uri.parse(url))
+        //            val request = DownloadManager.Request(Uri.parse(url))
 //                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
 //                .setDestinationUri(Uri.fromFile(file))
 //                .setTitle(fileName)
@@ -125,16 +94,32 @@ class MainFragment : Fragment() {
 //                    }
 //                }
 //            }
+
+    }
+
+    private fun observe() {
+        viewModel.download.observe(viewLifecycleOwner) { download ->
+            if (download) {
+                isLoading()
+            } else {
+                finishLoading()
+            }
+        }
+        viewModel.isError.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.isFinished.observe(viewLifecycleOwner) { finishString ->
+            Toast.makeText(requireContext(), finishString, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun isLoading(){
+    private fun isLoading() {
         binding.fileEditText.isEnabled = false
         binding.filesButton.isEnabled = false
         binding.downloadProgressBar.isVisible = true
     }
 
-    private fun finishLoading(){
+    private fun finishLoading() {
         binding.fileEditText.isEnabled = true
         binding.filesButton.isEnabled = true
         binding.downloadProgressBar.isVisible = false
