@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.files
+package com.skillbox.skillbox.files.network
 
 import okhttp3.ResponseBody
 import retrofit2.http.GET

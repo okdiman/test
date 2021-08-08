@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.files
+package com.skillbox.skillbox.files.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

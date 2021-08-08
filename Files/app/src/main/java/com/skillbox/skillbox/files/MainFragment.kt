@@ -1,22 +1,17 @@
 package com.skillbox.skillbox.files
 
-import android.app.DownloadManager
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.skillbox.skillbox.files.databinding.MainFragmentBinding
+import com.skillbox.skillbox.files.network.Network
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
-import java.net.URL
 
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
@@ -50,7 +45,20 @@ class MainFragment : Fragment() {
             val filesDir = requireContext().getExternalFilesDir("Folder for downloads files")
             val fileName = "${System.currentTimeMillis()}_name"
             val file = File(filesDir, fileName)
-//            val request = DownloadManager.Request(Uri.parse(url))
+
+
+            try {
+                file.outputStream().use { fileOutputSteram ->
+                    Network.api
+                        .getFile(url)
+                        .byteStream()
+                        .use {
+                            it.copyTo(fileOutputSteram)
+                        }
+                }
+            } catch (t: Throwable) {
+            }
+        //            val request = DownloadManager.Request(Uri.parse(url))
 //                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
 //                .setDestinationUri(Uri.fromFile(file))
 //                .setTitle(fileName)
@@ -102,17 +110,6 @@ class MainFragment : Fragment() {
 //                    }
 //                }
 //            }
-
-            try {
-                file.outputStream().use { fileOutputSteram ->
-                    Network.api
-                        .getFile(url)
-                        .byteStream()
-                        .use {
-                            it.copyTo(fileOutputSteram)
-                        }
-                }
-            } catch (t: Throwable) {}
         }
     }
 
