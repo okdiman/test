@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.skillbox.skillbox.files;
+package com.skillbox.skillbox.files.additionally;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.files
+package com.skillbox.skillbox.files.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
     }
 
     private fun downloadFile() {
-        viewModel.downloadFile(binding.fileEditText.toString())
+        viewModel.downloadFile(binding.fileEditText.toString(), requireContext())
 
 
         //            val request = DownloadManager.Request(Uri.parse(url))

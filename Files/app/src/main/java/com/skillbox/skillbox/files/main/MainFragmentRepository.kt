@@ -1,34 +1,34 @@
-package com.skillbox.skillbox.files
+package com.skillbox.skillbox.files.main
 
 import android.content.Context
 import android.os.Environment
+import android.util.Log
 import com.skillbox.skillbox.files.network.Network
 import java.io.File
 
-class MainFragmentRepository(private val context: Context) {
-
-    private val sharedPrefs = context.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
-
-    suspend fun downloadFile(urlAdress: String) {
+class MainFragmentRepository() {
+    suspend fun downloadFile(urlAddress: String, context: Context) {
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return
-        val url = urlAdress
+        val sharedPrefs = context.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
         val filesDir = context.getExternalFilesDir(FILES_DIR_NAME)
         val fileName = "${System.currentTimeMillis()}_name"
         val file = File(filesDir, fileName)
+        Log.i("download" ,"$filesDir, $fileName, $sharedPrefs")
         try {
-            file.outputStream().use { fileOutputSteram ->
+            file.outputStream().use { fileOutputStream ->
                 Network.api
-                    .getFile(url)
+                    .getFile(urlAddress)
                     .byteStream()
                     .use {
-                        it.copyTo(fileOutputSteram)
+                        it.copyTo(fileOutputStream)
                     }
                 sharedPrefs.edit()
-                    .putString(url, fileName)
-                    .apply()
+                    .putString(urlAddress, fileName)
+                    .commit()
             }
         } catch (t: Throwable) {
-            file.delete()
+            Log.i("download", t.toString())
+//            file.delete()
         } finally {
 
         }
