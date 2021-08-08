@@ -1,10 +1,12 @@
 package com.skillbox.skillbox.files
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.skillbox.skillbox.files.databinding.MainFragmentBinding
@@ -16,6 +18,10 @@ import java.io.File
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val sharedPrefs by lazy {
+        requireContext().getSharedPreferences("SharedPref", Context.MODE_PRIVATE)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +47,7 @@ class MainFragment : Fragment() {
     private fun downloadFile() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch
+            isLoading()
             val url = binding.fileEditText.text.toString()
             val filesDir = requireContext().getExternalFilesDir("Folder for downloads files")
             val fileName = "${System.currentTimeMillis()}_name"
@@ -55,10 +62,18 @@ class MainFragment : Fragment() {
                         .use {
                             it.copyTo(fileOutputSteram)
                         }
+                    sharedPrefs.edit()
+                        .putString(url, fileName)
+                        .apply()
                 }
             } catch (t: Throwable) {
+                file.delete()
+            } finally {
+                finishLoading()
             }
-        //            val request = DownloadManager.Request(Uri.parse(url))
+
+
+            //            val request = DownloadManager.Request(Uri.parse(url))
 //                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
 //                .setDestinationUri(Uri.fromFile(file))
 //                .setTitle(fileName)
@@ -111,6 +126,18 @@ class MainFragment : Fragment() {
 //                }
 //            }
         }
+    }
+
+    private fun isLoading(){
+        binding.fileEditText.isEnabled = false
+        binding.filesButton.isEnabled = false
+        binding.downloadProgressBar.isVisible = true
+    }
+
+    private fun finishLoading(){
+        binding.fileEditText.isEnabled = true
+        binding.filesButton.isEnabled = true
+        binding.downloadProgressBar.isVisible = false
     }
 
 }
