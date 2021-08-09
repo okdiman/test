@@ -1,12 +1,13 @@
 package com.skillbox.skillbox.files.main
 
-import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.files.additionally.SingleLiveEvent
 import kotlinx.coroutines.launch
+import java.io.File
 
 class MainFragmentViewModel() : ViewModel() {
     private val downloadLiveData = MutableLiveData<Boolean>(false)
@@ -28,14 +29,22 @@ class MainFragmentViewModel() : ViewModel() {
 
     private val repo = MainFragmentRepository()
 
-    fun downloadFile(url: String, context: Context) {
+    fun downloadFile(
+        urlAddress: String,
+        name: String,
+        sharedPrefs: SharedPreferences,
+        filesDir: File
+    ) {
         downloadLiveData.postValue(true)
         viewModelScope.launch {
             try {
-                repo.downloadFile(url, context)
-                finalToastLiveData.postValue("File was downloaded")
+                if (repo.downloadFile(urlAddress, name, sharedPrefs, filesDir)) {
+                    finalToastLiveData.postValue("File was downloaded")
+                } else {
+                    errorToastLiveData.postValue("Something wrong, file wasn't downloaded:(")
+                }
             } catch (t: Throwable) {
-                errorToastLiveData.postValue("Something wrong, file was deleted:(")
+                errorToastLiveData.postValue("${t.message}")
             } finally {
                 downloadLiveData.postValue(false)
             }

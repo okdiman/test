@@ -1,6 +1,11 @@
 package com.skillbox.skillbox.files.main
 
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +14,23 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.skillbox.skillbox.files.databinding.MainFragmentBinding
+import java.io.File
 
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MainFragmentViewModel by viewModels()
+
+    private lateinit var url: String
+
+    private val sharedPrefs by lazy {
+        requireContext().getSharedPreferences(
+            MainFragmentRepository.SHARED_PREF,
+            Context.MODE_PRIVATE
+        )
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,69 +48,116 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (sharedPrefs.getBoolean(MainFragmentRepository.FIRST_RUN, true)) {
+            firstRunDownload()
+            sharedPrefs.edit()
+                .putBoolean(MainFragmentRepository.FIRST_RUN, false)
+                .apply()
+        }
         binding.filesButton.setOnClickListener {
-            downloadFile()
+            url = binding.fileEditText.text.toString()
+            downloadFileByNetwork(url)
+//            downloadFileByDownloadManager()
         }
         observe()
     }
 
-    private fun downloadFile() {
-        viewModel.downloadFile(binding.fileEditText.toString(), requireContext())
+    private fun downloadFileByNetwork(url: String) {
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return
+        val sharedPrefs = requireContext().getSharedPreferences(
+            MainFragmentRepository.SHARED_PREF,
+            Context.MODE_PRIVATE
+        )
+        val filesDir = requireContext().getExternalFilesDir(MainFragmentRepository.FILES_DIR_NAME)
+        val name = url.substring(url.lastIndexOf('/') + 1, url.length)
+        if (!sharedPrefs.contains(url)) {
+            viewModel.downloadFile(url, name, sharedPrefs, filesDir!!)
+        } else {
+            Toast.makeText(requireContext(), "File was downloaded earlier", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
 
+    private fun firstRunDownload() {
+        resources.assets.open("file_for_first_run_download.txt")
+            .bufferedReader()
+            .use {
+                it.readText()
+            }
+            .split(",").toTypedArray().forEach { firstRunDownloads ->
+                downloadFileByNetwork(firstRunDownloads)
+            }
+    }
 
-        //            val request = DownloadManager.Request(Uri.parse(url))
-//                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-//                .setDestinationUri(Uri.fromFile(file))
-//                .setTitle(fileName)
-//                .setDescription("Downloading")
-//                .setRequiresCharging(false)
-//                .setAllowedOverMetered(true)
-//            val downloadManager =
-//                requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-//            val downloadID = downloadManager.enqueue(request)
-//
-//            //проверка завершения
-//            var finishLoad = false
-//            val progress: Int
-//            val loading = binding.downloadProgressBar
-//            while (!finishLoad) {
-//                val cursor =
-//                    downloadManager.query(DownloadManager.Query().setFilterById(downloadID))
-//                if (cursor.moveToFirst()) {
-//                    when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
-//                        DownloadManager.STATUS_FAILED -> {
-//                            finishLoad = true
-//                            break
-//                        }
-//                        DownloadManager.STATUS_PAUSED -> break
-//                        DownloadManager.STATUS_PENDING -> break
-//                        DownloadManager.STATUS_RUNNING -> {
-//                            val total =
-//                                cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
-//                            if (total >= 0) {
-//                                val downloaded =
-//                                    cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-//                                progress = ((downloaded * 100L) / total).toInt()
-//                                loading.isVisible = true
-//                                loading.progress = progress
-//                            }
-//                            break
-//                        }
-//                        DownloadManager.STATUS_SUCCESSFUL -> {
-//                            loading.isVisible = false
-//                            progress = 100
-//                            finishLoad = true
-//                            Toast.makeText(
-//                                requireContext(),
-//                                "Download completed",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                            break
-//                        }
-//                    }
-//                }
-//            }
+    private fun downloadFileByDownloadManager() {
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return
+        val filesDir = requireContext().getExternalFilesDir(MainFragmentRepository.FILES_DIR_NAME)
+        val url = binding.fileEditText.text.toString()
+        val name = url.substring(
+            url.lastIndexOf('/') + 1,
+            url.length
+        )
+        val fileName = "${System.currentTimeMillis()}_$name"
+        val file = File(filesDir, fileName)
+        val request = DownloadManager.Request(Uri.parse(url))
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            .setDestinationUri(Uri.fromFile(file))
+            .setTitle(fileName)
+            .setDescription("Downloading")
+            .setRequiresCharging(false)
+            .setAllowedOverMetered(true)
+        val downloadManager =
+            requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadID = downloadManager.enqueue(request)
 
+        //проверка завершения
+        var finishLoad = false
+        var progress: Int
+        val loading = binding.downloadProgressBar
+        while (!finishLoad) {
+            val cursor =
+                downloadManager.query(DownloadManager.Query().setFilterById(downloadID))
+            sharedPrefs.edit()
+                .putString(url, fileName)
+                .apply()
+            if (cursor.moveToFirst()) {
+                Log.i("cursor", "${cursor.moveToFirst()}")
+                Log.i("cursor", "${cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)}")
+                Log.i(
+                    "cursor",
+                    "${cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)}"
+                )
+                Log.i("cursor", "${cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)}")
+                when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+                    DownloadManager.STATUS_FAILED -> {
+                        finishLoad = true
+                    }
+                    DownloadManager.STATUS_PAUSED -> break
+                    DownloadManager.STATUS_PENDING -> break
+                    DownloadManager.STATUS_RUNNING -> {
+                        val total =
+                            cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+                        if (total >= 0) {
+                            val downloaded =
+                                cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+                            progress = ((downloaded * 100L) / total).toInt()
+                            loading.isVisible = true
+                            loading.progress = progress
+                        }
+                    }
+                    DownloadManager.STATUS_SUCCESSFUL -> {
+                        loading.isVisible = false
+                        progress = 100
+                        Toast.makeText(
+                            requireContext(),
+                            "Download completed",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finishLoad = true
+                    }
+                }
+            }
+        }
     }
 
     private fun observe() {
