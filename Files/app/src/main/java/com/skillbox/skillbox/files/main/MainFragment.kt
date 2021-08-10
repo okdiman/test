@@ -17,13 +17,17 @@ import com.skillbox.skillbox.files.databinding.MainFragmentBinding
 import java.io.File
 
 class MainFragment : Fragment() {
+    //баиндинг
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
+    //создание viewModel
     private val viewModel: MainFragmentViewModel by viewModels()
 
+    //лэйтинит url для дальнейшего использования в нескольких местах
     private lateinit var url: String
 
+    //lazy shared prefs для более удобной инициализации
     private val sharedPrefs by lazy {
         requireContext().getSharedPreferences(
             MainFragmentRepository.SHARED_PREF,
@@ -48,28 +52,36 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//      проверяем первый ли запуск приложения
         if (sharedPrefs.getBoolean(MainFragmentRepository.FIRST_RUN, true)) {
+//            если первый, то выполняем специальный блок кода для этого и изменяем флаг
             firstRunDownload()
             sharedPrefs.edit()
                 .putBoolean(MainFragmentRepository.FIRST_RUN, false)
                 .apply()
         }
         binding.filesButton.setOnClickListener {
+//            инициализируем url для клика
             url = binding.fileEditText.text.toString()
             downloadFileByNetwork(url)
 //            downloadFileByDownloadManager()
         }
+//        подписка на обновления LiveData
         observe()
     }
 
+    //    загрузка файлов через Network
     private fun downloadFileByNetwork(url: String) {
-        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return
-        val sharedPrefs = requireContext().getSharedPreferences(
-            MainFragmentRepository.SHARED_PREF,
-            Context.MODE_PRIVATE
-        )
+//    проверяем доступность внешнего хранилища, если недоступен, то заканчиваем функцию
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return Toast.makeText(
+            requireContext(),
+            "Storage isn't available, sorry, request was interrupted",
+            Toast.LENGTH_SHORT
+        ).show()
+//        задаем адрес директории и имя файла для скачивания с расширением
         val filesDir = requireContext().getExternalFilesDir(MainFragmentRepository.FILES_DIR_NAME)
         val name = url.substring(url.lastIndexOf('/') + 1, url.length)
+//        проверяем sharedPrefs на содержание в нем файла, который пользователь хочет скачать
         if (!sharedPrefs.contains(url)) {
             viewModel.downloadFile(url, name, sharedPrefs, filesDir!!)
         } else {
@@ -78,12 +90,17 @@ class MainFragment : Fragment() {
         }
     }
 
+    //    загрузка файлов из assets при первом запуске
     private fun firstRunDownload() {
+//    открытие файла из assets
         resources.assets.open("file_for_first_run_download.txt")
+//                чтение
             .bufferedReader()
+//                запись
             .use {
                 it.readText()
             }
+//                выполнение загрузки для каждой ссылки
             .split(",").toTypedArray().forEach { firstRunDownloads ->
                 downloadFileByNetwork(firstRunDownloads)
             }
@@ -160,6 +177,7 @@ class MainFragment : Fragment() {
         }
     }
 
+//    подписка на обновления LiveData
     private fun observe() {
         viewModel.download.observe(viewLifecycleOwner) { download ->
             if (download) {
@@ -176,12 +194,14 @@ class MainFragment : Fragment() {
         }
     }
 
+//    статус Вьюшек при загрузке файлов
     private fun isLoading() {
         binding.fileEditText.isEnabled = false
         binding.filesButton.isEnabled = false
         binding.downloadProgressBar.isVisible = true
     }
 
+//    обычный статус Вьюшек
     private fun finishLoading() {
         binding.fileEditText.isEnabled = true
         binding.filesButton.isEnabled = true

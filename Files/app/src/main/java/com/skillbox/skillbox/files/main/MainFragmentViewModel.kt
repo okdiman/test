@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 class MainFragmentViewModel() : ViewModel() {
+
+    //LiveData для статуса загрузки
     private val downloadLiveData = MutableLiveData<Boolean>(false)
     val download: LiveData<Boolean>
         get() = downloadLiveData
@@ -20,15 +22,16 @@ class MainFragmentViewModel() : ViewModel() {
     val isError: LiveData<String>
         get() = errorToastLiveData
 
-    //LiveData для обработки возникших ошибок
+    //LiveData для выдачи финального тоста
     private val finalToastLiveData =
         SingleLiveEvent<String>()
     val isFinished: LiveData<String>
         get() = finalToastLiveData
 
-
+    //репозиторий
     private val repo = MainFragmentRepository()
 
+    //скачивание файла через Network
     fun downloadFile(
         urlAddress: String,
         name: String,
@@ -36,6 +39,7 @@ class MainFragmentViewModel() : ViewModel() {
         filesDir: File
     ) {
         downloadLiveData.postValue(true)
+//        используем корутину для выноса запроса во внешний поток
         viewModelScope.launch {
             try {
                 if (repo.downloadFile(urlAddress, name, sharedPrefs, filesDir)) {
