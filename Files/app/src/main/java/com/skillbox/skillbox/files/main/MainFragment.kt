@@ -169,7 +169,8 @@ class MainFragment : Fragment() {
                         name,
                         sharedPrefs,
                         filesDir!!,
-                        downloadManager
+                        downloadManager,
+                        binding.downloadLinearProgressBar
                     )
                 } else {
                     toast(R.string.fail_was_download_earlier)
@@ -182,56 +183,6 @@ class MainFragment : Fragment() {
             }
 
         }
-
-
-//        //проверка завершения
-//        var finishLoad = false
-//        var progress: Int
-//        val loading = binding.downloadProgressBar
-//        while (!finishLoad) {
-//            val cursor =
-//                downloadManager.query(DownloadManager.Query().setFilterById(downloadID))
-//            sharedPrefs.edit()
-//                .putString(url, fileName)
-//                .apply()
-//            if (cursor.moveToFirst()) {
-//                Log.i("cursor", "${cursor.moveToFirst()}")
-//                Log.i("cursor", "${cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)}")
-//                Log.i(
-//                    "cursor",
-//                    "${cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)}"
-//                )
-//                Log.i("cursor", "${cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)}")
-//                when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
-//                    DownloadManager.STATUS_FAILED -> {
-//                        finishLoad = true
-//                    }
-//                    DownloadManager.STATUS_PAUSED -> break
-//                    DownloadManager.STATUS_PENDING -> break
-//                    DownloadManager.STATUS_RUNNING -> {
-//                        val total =
-//                            cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
-//                        if (total >= 0) {
-//                            val downloaded =
-//                                cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-//                            progress = ((downloaded * 100L) / total).toInt()
-//                            loading.isVisible = true
-//                            loading.progress = progress
-//                        }
-//                    }
-//                    DownloadManager.STATUS_SUCCESSFUL -> {
-//                        loading.isVisible = false
-//                        progress = 100
-//                        Toast.makeText(
-//                            requireContext(),
-//                            "Download completed",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                        finishLoad = true
-//                    }
-//                }
-//            }
-//        }
     }
 
     //    подписка на обновления LiveData

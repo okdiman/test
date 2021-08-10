@@ -2,6 +2,7 @@ package com.skillbox.skillbox.files.main
 
 import android.app.DownloadManager
 import android.content.SharedPreferences
+import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +11,10 @@ import com.skillbox.skillbox.files.additionally.SingleLiveEvent
 import kotlinx.coroutines.launch
 import java.io.File
 
-class MainFragmentViewModel() : ViewModel() {
+class MainFragmentViewModel : ViewModel() {
 
     //LiveData для статуса загрузки
-    private val downloadLiveData = MutableLiveData<Boolean>(false)
+    private val downloadLiveData = MutableLiveData(false)
     val download: LiveData<Boolean>
         get() = downloadLiveData
 
@@ -61,19 +62,26 @@ class MainFragmentViewModel() : ViewModel() {
         name: String,
         sharedPrefs: SharedPreferences,
         filesDir: File,
-        downloadManager: DownloadManager
+        downloadManager: DownloadManager,
+        loader: ProgressBar
     ) {
         downloadLiveData.postValue(true)
+//        используем корутину для выноса запроса во внешний поток
         viewModelScope.launch {
             try {
-                repo.downloadFileByDownloadManager(
-                    urlAddress,
-                    name,
-                    sharedPrefs,
-                    filesDir,
-                    downloadManager
-                )
-                finalToastLiveData.postValue("File was downloaded")
+                if (repo.downloadFileByDownloadManager(
+                        urlAddress,
+                        name,
+                        sharedPrefs,
+                        filesDir,
+                        downloadManager,
+                        loader
+                    )
+                ) {
+                    finalToastLiveData.postValue("File was downloaded")
+                } else {
+                    errorToastLiveData.postValue("Something wrong, file wasn't downloaded:(")
+                }
             } catch (t: Throwable) {
                 errorToastLiveData.postValue("${t.message}")
             } finally {
