@@ -1,6 +1,8 @@
 package com.skillbox.skillbox.files.main
 
+import android.app.DownloadManager
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import com.skillbox.skillbox.files.network.Network
 import java.io.File
@@ -36,6 +38,26 @@ class MainFragmentRepository() {
             file.delete()
             return false
         }
+    }
+
+    fun downloadFileByDownloadManager(
+        urlAddress: String,
+        name: String,
+        sharedPrefs: SharedPreferences,
+        filesDir: File,
+        downloadManager: DownloadManager
+    ) {
+        val fileName = "${System.currentTimeMillis()}_$name"
+        val file = File(filesDir, fileName)
+        val request = DownloadManager.Request(Uri.parse(urlAddress))
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            .setDestinationUri(Uri.fromFile(file))
+            .setTitle(fileName)
+            .setDescription("Downloading")
+            .setRequiresCharging(false)
+            .setAllowedOverMetered(true)
+
+        val downloadID = downloadManager.enqueue(request)
     }
 
 
