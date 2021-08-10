@@ -14,9 +14,12 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.skillbox.skillbox.files.R
 import com.skillbox.skillbox.files.databinding.MainFragmentBinding
 import com.skillbox.skillbox.files.toast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 
 class MainFragment : Fragment() {
@@ -86,33 +89,49 @@ class MainFragment : Fragment() {
 
     //    загрузка файлов через Network
     private fun downloadFileByNetwork(url: String) {
-//    проверяем доступность внешнего хранилища, если недоступен, то заканчиваем функцию
-        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return toast(R.string.storage_is_not_available)
-//        задаем адрес директории и имя файла для скачивания с расширением
-        val filesDir = requireContext().getExternalFilesDir(MainFragmentRepository.FILES_DIR_NAME)
-        val name = url.substring(url.lastIndexOf('/') + 1, url.length)
-//        проверяем sharedPrefs на содержание в нем файла, который пользователь хочет скачать
-        if (!sharedPrefs.contains(url)) {
-            viewModel.downloadFile(url, name, sharedPrefs, filesDir!!)
-        } else {
-            toast(R.string.fail_was_download_earlier)
+//        создаем корутину для работы с внешним хранилищем
+        lifecycleScope.launch(Dispatchers.IO) {
+//           проверяем доступность внешнего хранилища, если недоступен, то заканчиваем функцию
+            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch toast(
+                R.string.storage_is_not_available
+            )
+            try {
+//              задаем адрес директории и имя файла для скачивания с расширением
+                val filesDir =
+                    requireContext().getExternalFilesDir(MainFragmentRepository.FILES_DIR_NAME)
+                val name = url.substring(url.lastIndexOf('/') + 1, url.length)
+//              проверяем sharedPrefs на содержание в нем файла, который пользователь хочет скачать
+                if (!sharedPrefs.contains(url)) {
+                    viewModel.downloadFile(url, name, sharedPrefs, filesDir!!)
+                } else {
+                    toast(R.string.fail_was_download_earlier)
+                }
+            } catch (t: Throwable) {
+                toast(R.string.something_wrong)
+            }
         }
     }
 
     //    загрузка файлов из assets при первом запуске
     private fun firstRunDownload() {
-//    открытие файла из assets
-        resources.assets.open("file_for_first_run_download.txt")
-//                чтение
-            .bufferedReader()
-//                запись
-            .use {
-                it.readText()
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                //    открытие файла из assets
+                resources.assets.open("file_for_first_run_download.txt")
+//          чтение
+                    .bufferedReader()
+//          запись
+                    .use {
+                        it.readText()
+                    }
+//           выполнение загрузки для каждой ссылки
+                    .split(",").toTypedArray().forEach { firstRunDownloads ->
+                        downloadFileByNetwork(firstRunDownloads)
+                    }
+            } catch (t: Throwable) {
+                toast(R.string.something_wrong)
             }
-//                выполнение загрузки для каждой ссылки
-            .split(",").toTypedArray().forEach { firstRunDownloads ->
-                downloadFileByNetwork(firstRunDownloads)
-            }
+        }
     }
 
     private fun downloadFileByDownloadManager() {
