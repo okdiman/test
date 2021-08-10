@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,9 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.skillbox.skillbox.files.R
 import com.skillbox.skillbox.files.databinding.MainFragmentBinding
+import com.skillbox.skillbox.files.toast
 import java.io.File
 
 class MainFragment : Fragment() {
@@ -61,10 +64,21 @@ class MainFragment : Fragment() {
                 .apply()
         }
         binding.filesButton.setOnClickListener {
-//            инициализируем url для клика
-            url = binding.fileEditText.text.toString()
-            downloadFileByNetwork(url)
-//            downloadFileByDownloadManager()
+//            проверяем заполненность поля ссылки
+            if (binding.fileEditText.text.toString().isNotEmpty()) {
+//              инициализируем url для клика
+                url = binding.fileEditText.text.toString()
+//                проверяем соотвествие введенной ссылки с типом Url
+                val isUrlValid = Patterns.WEB_URL.matcher(url).matches()
+                if (isUrlValid) {
+                    downloadFileByNetwork(url)
+                } else {
+                    toast(R.string.incorrect_url)
+                }
+//                downloadFileByDownloadManager()
+            } else {
+                toast(R.string.url_is_empty)
+            }
         }
 //        подписка на обновления LiveData
         observe()
@@ -73,11 +87,7 @@ class MainFragment : Fragment() {
     //    загрузка файлов через Network
     private fun downloadFileByNetwork(url: String) {
 //    проверяем доступность внешнего хранилища, если недоступен, то заканчиваем функцию
-        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return Toast.makeText(
-            requireContext(),
-            "Storage isn't available, sorry, request was interrupted",
-            Toast.LENGTH_SHORT
-        ).show()
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return toast(R.string.storage_is_not_available)
 //        задаем адрес директории и имя файла для скачивания с расширением
         val filesDir = requireContext().getExternalFilesDir(MainFragmentRepository.FILES_DIR_NAME)
         val name = url.substring(url.lastIndexOf('/') + 1, url.length)
@@ -85,8 +95,7 @@ class MainFragment : Fragment() {
         if (!sharedPrefs.contains(url)) {
             viewModel.downloadFile(url, name, sharedPrefs, filesDir!!)
         } else {
-            Toast.makeText(requireContext(), "File was downloaded earlier", Toast.LENGTH_SHORT)
-                .show()
+            toast(R.string.fail_was_download_earlier)
         }
     }
 
@@ -177,7 +186,7 @@ class MainFragment : Fragment() {
         }
     }
 
-//    подписка на обновления LiveData
+    //    подписка на обновления LiveData
     private fun observe() {
         viewModel.download.observe(viewLifecycleOwner) { download ->
             if (download) {
@@ -194,14 +203,14 @@ class MainFragment : Fragment() {
         }
     }
 
-//    статус Вьюшек при загрузке файлов
+    //    статус Вьюшек при загрузке файлов
     private fun isLoading() {
         binding.fileEditText.isEnabled = false
         binding.filesButton.isEnabled = false
         binding.downloadProgressBar.isVisible = true
     }
 
-//    обычный статус Вьюшек
+    //    обычный статус Вьюшек
     private fun finishLoading() {
         binding.fileEditText.isEnabled = true
         binding.filesButton.isEnabled = true

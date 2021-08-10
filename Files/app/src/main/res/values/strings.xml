@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Files</string>
     <string name="download">download</string>
+    <string name="incorrect_url">Incorrect Url entered</string>
+    <string name="url_is_empty">Please, enter Url link</string>
+    <string name="storage_is_not_available">Storage is not available, sorry, request was interrupted</string>
+    <string name="fail_was_download_earlier">File was downloaded earlier</string>
 </resources>
