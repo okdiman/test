@@ -87,7 +87,7 @@ class MainFragmentRepository {
                         "cursor",
                         "${cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)}"
                     )
-//                    проверка статуса загрузки
+//                   проверка статуса загрузки
                     when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
                         DownloadManager.STATUS_FAILED -> {
                             finishLoad = true
@@ -99,10 +99,10 @@ class MainFragmentRepository {
                             val total =
                                 cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
                             if (total >= 0) {
-//                                получение скаченного объема
+//                               получение скаченного объема
                                 val downloaded =
                                     cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-//                                расчет прогресса
+//                               расчет прогресса
                                 progress = ((downloaded * 100L) / total).toInt()
 
                             }
