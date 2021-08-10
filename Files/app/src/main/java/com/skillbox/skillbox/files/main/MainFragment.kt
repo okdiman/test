@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -29,6 +31,9 @@ class MainFragment : Fragment() {
 
     //создание viewModel
     private val viewModel: MainFragmentViewModel by viewModels()
+
+    //хэндлер для взаимодействия с потоками
+    private val mainHandler = Handler(Looper.getMainLooper())
 
     //лэйтинит url для дальнейшего использования в нескольких местах
     private lateinit var url: String
@@ -107,7 +112,10 @@ class MainFragment : Fragment() {
                     toast(R.string.fail_was_download_earlier)
                 }
             } catch (t: Throwable) {
-                toast(R.string.something_wrong)
+//                переходим на главный потом для выброса тоста
+                mainHandler.post {
+                    toast(R.string.something_wrong)
+                }
             }
         }
     }
@@ -116,20 +124,23 @@ class MainFragment : Fragment() {
     private fun firstRunDownload() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                //    открытие файла из assets
+//              открытие файла из assets
                 resources.assets.open("file_for_first_run_download.txt")
-//          чтение
+//                   чтение
                     .bufferedReader()
-//          запись
+//                   запись
                     .use {
                         it.readText()
                     }
-//           выполнение загрузки для каждой ссылки
+//                  выполнение загрузки для каждой ссылки
                     .split(",").toTypedArray().forEach { firstRunDownloads ->
                         downloadFileByNetwork(firstRunDownloads)
                     }
             } catch (t: Throwable) {
-                toast(R.string.something_wrong)
+//              переходим на главный потом для выброса тоста
+                mainHandler.post {
+                    toast(R.string.something_wrong)
+                }
             }
         }
     }
