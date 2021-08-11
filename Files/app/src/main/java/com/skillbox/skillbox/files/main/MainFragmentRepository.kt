@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import com.skillbox.skillbox.files.network.Network
+import kotlinx.coroutines.delay
 import java.io.File
 
 class MainFragmentRepository {
@@ -42,7 +43,7 @@ class MainFragmentRepository {
         }
     }
 
-    fun downloadFileByDownloadManager(
+    suspend fun downloadFileByDownloadManager(
         urlAddress: String,
         name: String,
         sharedPrefs: SharedPreferences,
@@ -50,11 +51,11 @@ class MainFragmentRepository {
         downloadManager: DownloadManager,
         loader: ProgressBar
     ): Boolean {
-//        устанавливаем имя файла и адрес
+//      устанавливаем имя файла и адрес
         val fileName = "${System.currentTimeMillis()}_$name"
         val file = File(filesDir, fileName)
         try {
-//            создаем запрос на скачивание файла через downloadManager
+//          создаем запрос на скачивание файла через downloadManager
             val request = DownloadManager.Request(Uri.parse(urlAddress))
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
                 .setDestinationUri(Uri.fromFile(file))
@@ -62,59 +63,91 @@ class MainFragmentRepository {
                 .setDescription("Downloading")
                 .setRequiresCharging(false)
                 .setAllowedOverMetered(true)
-//            производим запрос
+//          производим запрос
             val downloadID = downloadManager.enqueue(request)
-//          проверка завершения
-            var finishLoad = false
-//          показатель прогресса
-            var progress = 0
-            while (!finishLoad) {
-//                получение объекта курсора
-                val cursor =
-                    downloadManager.query(DownloadManager.Query().setFilterById(downloadID))
-                Log.i("cursor", "$cursor")
+//          проверка статсуса загрузки
+            var downloading = true
+            while (downloading) {
+                val query = DownloadManager.Query()
+                query.setFilterById(downloadID)
+//              создаем объект cursor
+                val cursor = downloadManager.query(query)
                 if (cursor.moveToFirst()) {
-//                    активация лоадера
-                    loader.isVisible = true
-                    loader.progress = progress
-                    Log.i("cursor", "${cursor.moveToFirst()}")
-                    Log.i("cursor", "${cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)}")
-                    Log.i(
-                        "cursor",
-                        "${cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)}"
-                    )
-                    Log.i(
-                        "cursor",
-                        "${cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)}"
-                    )
-//                   проверка статуса загрузки
-                    when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
-                        DownloadManager.STATUS_FAILED -> {
-                            finishLoad = true
-                        }
-                        DownloadManager.STATUS_PAUSED -> break
-                        DownloadManager.STATUS_PENDING -> break
-                        DownloadManager.STATUS_RUNNING -> {
-//                            получение общего объема файла
-                            val total =
-                                cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
-                            if (total >= 0) {
-//                               получение скаченного объема
-                                val downloaded =
-                                    cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-//                               расчет прогресса
-                                progress = ((downloaded * 100L) / total).toInt()
-
-                            }
-                        }
-                        DownloadManager.STATUS_SUCCESSFUL -> {
-                            loader.isVisible = false
-                            progress = 100
-                            finishLoad = true
-                        }
+//                  получаем объем загруженных данных
+                    val bytesDownloaded =
+                        cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+//                  получаем общий объем данных
+                    val bytesTotal =
+                        cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+//                  если загрузка завершена, завершаем цикл
+                    if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
+                        downloading = false
                     }
+//                  привязываем лоадер к прогрессу
+                    loader.isVisible = true
+//                  рассчитываем прогресс
+                    val progress = ((bytesDownloaded * 100L) / bytesTotal).toInt()
+                    loader.progress = progress
+                    Log.i("cursor", progress.toString())
+//                  закрываем объект cursor
+                    cursor.close()
+//                  с небольшой задержкой закрываем лоадер, для лучшего отображения и понимания при загрузке файлов малых объемов
+                    delay(500)
+                    loader.isVisible = false
                 }
             }
+
+////          проверка завершения
+//            var finishLoad = false
+////          показатель прогресса
+//            var progress = 0
+//            while (!finishLoad) {
+////                получение объекта курсора
+//                val cursor =
+//                    downloadManager.query(DownloadManager.Query().setFilterById(downloadID))
+//                Log.i("cursor", "$cursor")
+//                if (cursor.moveToFirst()) {
+////                    активация лоадера
+//                    loader.isVisible = true
+//                    loader.progress = progress
+//                    Log.i("cursor", "${cursor.moveToFirst()}")
+//                    Log.i("cursor", "${cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)}")
+//                    Log.i(
+//                        "cursor",
+//                        "${cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)}"
+//                    )
+//                    Log.i(
+//                        "cursor",
+//                        "${cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)}"
+//                    )
+////                   проверка статуса загрузки
+//                    when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+//                        DownloadManager.STATUS_FAILED -> {
+//                            finishLoad = true
+//                        }
+//                        DownloadManager.STATUS_PAUSED -> break
+//                        DownloadManager.STATUS_PENDING -> break
+//                        DownloadManager.STATUS_RUNNING -> {
+////                            получение общего объема файла
+//                            val total =
+//                                cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+//                            if (total >= 0) {
+////                               получение скаченного объема
+//                                val downloaded =
+//                                    cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+////                               расчет прогресса
+//                                progress = ((downloaded * 100L) / total).toInt()
+//
+//                            }
+//                        }
+//                        DownloadManager.STATUS_SUCCESSFUL -> {
+//                            loader.isVisible = false
+//                            progress = 100
+//                            finishLoad = true
+//                        }
+//                    }
+//                }
+//            }
 //            делаем запись в shared prefs о скачивании файла
             sharedPrefs.edit()
                 .putString(urlAddress, fileName)

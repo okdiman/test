@@ -6,4 +6,7 @@
     <string name="storage_is_not_available">Storage is not available, sorry, request was interrupted</string>
     <string name="fail_was_download_earlier">File was downloaded earlier</string>
     <string name="something_wrong">Something wrong, sorry :(</string>
+    <string name="clear_link">Clear link</string>
+    <string name="enter_link_for_downloading">Enter link for downloading</string>
+    <string name="first_run_download">we are downloading the program files necessary for work. This only happens on first launch</string>
 </resources>

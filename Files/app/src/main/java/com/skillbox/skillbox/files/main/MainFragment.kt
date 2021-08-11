@@ -43,7 +43,6 @@ class MainFragment : Fragment() {
         )
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,6 +64,7 @@ class MainFragment : Fragment() {
 //            если первый, то выполняем специальный блок кода
             firstRunDownload()
         }
+//        кнопка загрузки файла
         binding.filesButton.setOnClickListener {
 //            проверяем заполненность поля ссылки
             if (binding.fileEditText.text.toString().isNotEmpty()) {
@@ -73,14 +73,18 @@ class MainFragment : Fragment() {
 //                проверяем соотвествие введенной ссылки с типом Url
                 val isUrlValid = Patterns.WEB_URL.matcher(url).matches()
                 if (isUrlValid) {
-                    downloadFileByNetwork(url)
-//                    downloadFileByDownloadManager(url)
+//                    downloadFileByNetwork(url)
+                    downloadFileByDownloadManager(url)
                 } else {
                     toast(R.string.incorrect_url)
                 }
             } else {
                 toast(R.string.url_is_empty)
             }
+        }
+//        кнопка очистки строки ссылки
+        binding.clearEditTextButton.setOnClickListener {
+            binding.fileEditText.text.clear()
         }
 //        подписка на обновления LiveData
         observe()
@@ -137,6 +141,10 @@ class MainFragment : Fragment() {
                 sharedPrefs.edit()
                     .putBoolean(MainFragmentRepository.FIRST_RUN, false)
                     .apply()
+//                переходим на главный поток для выброса тоста
+                mainHandler.post {
+                    toast(R.string.first_run_download)
+                }
             } catch (t: Throwable) {
 //              переходим на главный потом для выброса тоста ошибки
                 mainHandler.post {
@@ -206,6 +214,13 @@ class MainFragment : Fragment() {
         viewModel.isFinished.observe(viewLifecycleOwner) { finishString ->
             Toast.makeText(requireContext(), finishString, Toast.LENGTH_SHORT).show()
         }
+        viewModel.downloadByDownloadManager.observe(viewLifecycleOwner) { downloadByDM ->
+            if (downloadByDM) {
+                isLoadingDM()
+            } else {
+                finishLoading()
+            }
+        }
     }
 
     //    статус Вьюшек при загрузке файлов
@@ -213,6 +228,12 @@ class MainFragment : Fragment() {
         binding.fileEditText.isEnabled = false
         binding.filesButton.isEnabled = false
         binding.downloadProgressBar.isVisible = true
+    }
+
+    //    статус Вьюшек при загрузке файлов через DownloadManager
+    private fun isLoadingDM() {
+        binding.fileEditText.isEnabled = false
+        binding.filesButton.isEnabled = false
     }
 
     //    обычный статус Вьюшек

@@ -18,6 +18,11 @@ class MainFragmentViewModel : ViewModel() {
     val download: LiveData<Boolean>
         get() = downloadLiveData
 
+    //LiveData для статуса загрузки через downloadManger
+    private val downloadByDownloadManagerLiveData = MutableLiveData(false)
+    val downloadByDownloadManager: LiveData<Boolean>
+        get() = downloadByDownloadManagerLiveData
+
     //LiveData для обработки возникших ошибок
     private val errorToastLiveData =
         SingleLiveEvent<String>()
@@ -65,7 +70,7 @@ class MainFragmentViewModel : ViewModel() {
         downloadManager: DownloadManager,
         loader: ProgressBar
     ) {
-        downloadLiveData.postValue(true)
+        downloadByDownloadManagerLiveData.postValue(true)
 //        используем корутину для выноса запроса во внешний поток
         viewModelScope.launch {
             try {
@@ -85,7 +90,7 @@ class MainFragmentViewModel : ViewModel() {
             } catch (t: Throwable) {
                 errorToastLiveData.postValue("${t.message}")
             } finally {
-                downloadLiveData.postValue(false)
+                downloadByDownloadManagerLiveData.postValue(false)
             }
         }
     }

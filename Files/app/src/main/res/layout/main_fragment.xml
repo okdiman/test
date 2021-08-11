@@ -8,12 +8,25 @@
         android:id="@+id/fileEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/enter_link_for_downloading"
         android:inputType="textUri"
         android:padding="8dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/clearEditTextButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/teal_700"
+        android:text="@string/clear_link"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filesButton" />
 
     <Button
         android:id="@+id/filesButton"
