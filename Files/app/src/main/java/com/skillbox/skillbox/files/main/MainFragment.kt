@@ -73,8 +73,8 @@ class MainFragment : Fragment() {
 //                проверяем соотвествие введенной ссылки с типом Url
                 val isUrlValid = Patterns.WEB_URL.matcher(url).matches()
                 if (isUrlValid) {
-//                    downloadFileByNetwork(url)
-                    downloadFileByDownloadManager(url)
+                    downloadFileByNetwork(url)
+//                    downloadFileByDownloadManager(url)
                 } else {
                     toast(R.string.incorrect_url)
                 }
@@ -103,7 +103,10 @@ class MainFragment : Fragment() {
                     val name = url.substring(url.lastIndexOf('/') + 1, url.length)
                     viewModel.downloadFile(url, name, sharedPrefs, filesDir!!)
                 } else {
-                    toast(R.string.fail_was_download_earlier)
+//                переходим на главный потом для выброса тоста ошибки
+                    mainHandler.post {
+                        toast(R.string.fail_was_download_earlier)
+                    }
                 }
             } catch (t: Throwable) {
 //                переходим на главный потом для выброса тоста ошибки
@@ -173,7 +176,10 @@ class MainFragment : Fragment() {
                         binding.downloadLinearProgressBar
                     )
                 } else {
-                    toast(R.string.fail_was_download_earlier)
+//                переходим на главный потом для выброса тоста ошибки
+                    mainHandler.post {
+                        toast(R.string.fail_was_download_earlier)
+                    }
                 }
             } catch (t: Throwable) {
 //                переходим на главный потом для выброса тоста ошибки
