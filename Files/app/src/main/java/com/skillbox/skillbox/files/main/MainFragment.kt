@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.datastore.dataStoreFile
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,6 +30,9 @@ class MainFragment : Fragment() {
 
     //создание viewModel
     private val viewModel: MainFragmentViewModel by viewModels()
+
+    //viewModel для dataStore
+    private val dataStoreViewModel: DataStoreViewModel by viewModels()
 
     //хэндлер для взаимодействия с потоками
     private val mainHandler = Handler(Looper.getMainLooper())
@@ -74,7 +79,8 @@ class MainFragment : Fragment() {
                 val isUrlValid = Patterns.WEB_URL.matcher(url).matches()
                 if (isUrlValid) {
 //                    downloadFileByNetwork(url)
-                    downloadFileByDownloadManager(url)
+//                    downloadFileByDownloadManager(url)
+                    downloadFileByNetworkAndDataStore(url)
                 } else {
                     toast(R.string.incorrect_url)
                 }
@@ -90,7 +96,7 @@ class MainFragment : Fragment() {
         observe()
     }
 
-    //    загрузка файлов через Network
+    //  загрузка файлов через Network и с использованием обычной ViewModel c SharedPrefs
     private fun downloadFileByNetwork(url: String) {
 //        создаем корутину для работы с внешним хранилищем
         lifecycleScope.launch(Dispatchers.IO) {
@@ -120,6 +126,30 @@ class MainFragment : Fragment() {
             }
         }
     }
+
+    //  загрузка файлов через Network и с использованием dataStore
+    private fun downloadFileByNetworkAndDataStore(url: String) {
+//        создаем корутину для работы с внешним хранилищем
+        lifecycleScope.launch(Dispatchers.IO) {
+//           проверяем доступность внешнего хранилища, если недоступен, то заканчиваем функцию
+            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch toast(
+                R.string.storage_is_not_available
+            )
+            try {
+//              задаем адрес директории и имя файла для скачивания с расширением
+                val filesDir =
+                    requireContext().getExternalFilesDir(MainFragmentRepository.FILES_DIR_NAME)
+                val name = url.substring(url.lastIndexOf('/') + 1, url.length)
+                dataStoreViewModel.downloadFile(url, name, filesDir!!)
+            } catch (t: Throwable) {
+//                переходим на главный потом для выброса тоста ошибки
+                mainHandler.post {
+                    toast(R.string.something_wrong)
+                }
+            }
+        }
+    }
+
 
     //    загрузка файлов из assets при первом запуске
     private fun firstRunDownload() {
@@ -199,8 +229,9 @@ class MainFragment : Fragment() {
         }
     }
 
-    //    подписка на обновления LiveData
+    //    подписка на обновления LiveData для обеих ViewModel
     private fun observe() {
+//        подписки на обычную ViewModel с испольованием SharedPrefs
         viewModel.download.observe(viewLifecycleOwner) { download ->
             if (download) {
                 isLoading()
@@ -220,6 +251,20 @@ class MainFragment : Fragment() {
             } else {
                 finishLoading()
             }
+        }
+//        подписки на ViewModel DataStore
+        dataStoreViewModel.download.observe(viewLifecycleOwner) { download ->
+            if (download) {
+                isLoading()
+            } else {
+                finishLoading()
+            }
+        }
+        dataStoreViewModel.isError.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+        }
+        dataStoreViewModel.isFinished.observe(viewLifecycleOwner) { finishString ->
+            Toast.makeText(requireContext(), finishString, Toast.LENGTH_SHORT).show()
         }
     }
 
