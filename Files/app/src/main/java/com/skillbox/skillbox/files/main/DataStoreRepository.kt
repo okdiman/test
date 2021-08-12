@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.skillbox.skillbox.files.network.Network
+import kotlinx.coroutines.flow.*
 import java.io.File
 
 
@@ -15,10 +16,9 @@ class DataStoreRepository(private val context: Context) {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(DATA_STORE_NAME)
 
-    private suspend fun save(key: String, text: String) {
+    private suspend fun save(key: Preferences.Key<String>, text: String) {
         context.dataStore.edit {
-            val specialKey = stringPreferencesKey(key)
-            it[specialKey] = text
+            it[key] = text
         }
     }
 
@@ -31,6 +31,11 @@ class DataStoreRepository(private val context: Context) {
         val fileName = "${System.currentTimeMillis()}_$name"
         val file = File(filesDir, fileName)
         try {
+            val specialKey = stringPreferencesKey(urlAddress)
+//            проверяем наличие данных в dataStore
+            if (checkingIfAFileExistsOnTheSystem(specialKey)){
+                return false
+            }
 //           производит запись данных в созданный файл из скачанного файла из сети
             file.outputStream().use { fileOutputStream ->
                 Network.api
@@ -40,7 +45,7 @@ class DataStoreRepository(private val context: Context) {
                         it.copyTo(fileOutputStream)
                     }
 //                делаем запись в dataStore о скачивании файла
-                save(urlAddress, fileName)
+                save(specialKey, fileName)
             }
             return true
         } catch (t: Throwable) {
@@ -49,6 +54,13 @@ class DataStoreRepository(private val context: Context) {
             file.delete()
             return false
         }
+    }
+
+//    проверка наличия данных в dataStore
+    private suspend fun checkingIfAFileExistsOnTheSystem(key: Preferences.Key<String>): Boolean {
+        return context.dataStore.data.map {
+            it.contains(key)
+        }.first()
     }
 
     companion object {

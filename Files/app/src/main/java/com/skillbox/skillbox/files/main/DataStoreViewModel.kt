@@ -45,7 +45,7 @@ class DataStoreViewModel(
                 if (repo.downloadFile(urlAddress, name, filesDir)) {
                     finalToastLiveData.postValue("File was downloaded")
                 } else {
-                    errorToastLiveData.postValue("Something wrong, file wasn't downloaded:(")
+                    errorToastLiveData.postValue("Something wrong, file wasn't downloaded, probably, it was downloaded earlier:(")
                 }
             } catch (t: Throwable) {
                 errorToastLiveData.postValue("${t.message}")

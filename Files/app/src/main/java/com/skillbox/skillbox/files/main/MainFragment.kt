@@ -76,9 +76,9 @@ class MainFragment : Fragment() {
 //                проверяем соотвествие введенной ссылки с типом Url
                 val isUrlValid = Patterns.WEB_URL.matcher(url).matches()
                 if (isUrlValid) {
-//                    downloadFileByNetwork(url)
+                    downloadFileByNetwork(url)
 //                    downloadFileByDownloadManager(url)
-                    downloadFileByNetworkAndDataStore(url)
+//                    downloadFileByNetworkAndDataStore(url)
                 } else {
                     toast(R.string.incorrect_url)
                 }
