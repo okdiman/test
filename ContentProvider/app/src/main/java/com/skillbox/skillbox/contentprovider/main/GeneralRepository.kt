@@ -3,6 +3,7 @@ package com.skillbox.skillbox.contentprovider.main
 import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
+import android.util.Log
 import com.skillbox.skillbox.contentprovider.classes.Contact
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,11 +32,15 @@ class GeneralRepository(private val context: Context) {
             val idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID)
             val id = cursor.getLong(idIndex)
 
-            list.add(Contact(id, name, getContactsPhones(id), getEmailsOfContact(id)))
+            list.add(Contact(id, name, null, null))
 
         } while (cursor.moveToNext())
 
         return list
+    }
+
+    fun getContactInfo(contactId: Long, name: String): Contact {
+        return Contact(contactId, name, getContactsPhones(contactId), getEmailsOfContact(contactId))
     }
 
     private fun getContactsPhones(contactId: Long): List<String> {
@@ -81,7 +86,9 @@ class GeneralRepository(private val context: Context) {
                 cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DISPLAY_NAME)
             val email = cursor.getString(emailIndex)
             list.add(email)
+            Log.i("contact", "$list")
         } while (cursor.moveToNext())
+        Log.i("contact", "$list")
         return list
     }
 }

@@ -1,11 +1,11 @@
 package com.skillbox.skillbox.contentprovider.detailfragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.skillbox.skillbox.contentprovider.databinding.DetailFragmentBinding
 import kotlinx.android.synthetic.main.view_toolbar.*
@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.view_toolbar.*
 class DetailFragment : Fragment() {
     private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: DetailInfoViewModel by viewModels()
 
     private val args: DetailFragmentArgs by navArgs()
 
@@ -33,17 +35,21 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolbar()
-        initContact()
+        initContactStartScreen()
+        bindViewModel()
     }
 
-    private fun initToolbar() {
+
+    private fun initContactStartScreen() {
         toolbar.title = "Информация о контакте"
+        viewModel.getContactData(args.contact.id, args.contact.name)
     }
 
-    private fun initContact() {
-        binding.nameOfContactDetailTextView.text = args.contact.name
-        binding.phonesOfContactDetailTextView.text = args.contact.phones.joinToString ( "\n" )
-        binding.emailsOfContactDetailTextView.text = args.contact.eMails?.joinToString ( "\n" )
+    private fun bindViewModel() {
+        viewModel.contact.observe(viewLifecycleOwner) { contact ->
+            binding.nameOfContactDetailTextView.text = contact.name
+            binding.phonesOfContactDetailTextView.text = contact.phones?.joinToString("\n")
+            binding.emailsOfContactDetailTextView.text = contact.eMails?.joinToString("\n")
+        }
     }
 }
