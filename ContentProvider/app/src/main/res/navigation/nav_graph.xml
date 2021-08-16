@@ -15,14 +15,26 @@
             app:destination="@id/detailFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_addContactFragment"
+            app:destination="@id/addContactFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.skillbox.skillbox.contentprovider.detailfragment.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/detail_fragment" >
+        tools:layout="@layout/detail_fragment">
         <argument
             android:name="contact"
             app:argType="com.skillbox.skillbox.contentprovider.classes.Contact" />
+    </fragment>
+    <fragment
+        android:id="@+id/addContactFragment"
+        android:name="com.skillbox.skillbox.contentprovider.detailfragment.AddContactFragment"
+        android:label="AddContactFragment"
+        tools:layout="@layout/add_contact_fragment" >
+        <action
+            android:id="@+id/action_addContactFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>
