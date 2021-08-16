@@ -148,7 +148,6 @@ class MainFragment : Fragment() {
         }
     }
 
-
     //    загрузка файлов из assets при первом запуске
     private fun firstRunDownload() {
         lifecycleScope.launch(Dispatchers.IO) {
