@@ -13,7 +13,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val contactList: LiveData<List<Contact>>
         get() = contactListLiveData
 
-    private val repo = MainFragmentRepository(application)
+    private val repo = GeneralRepository(application)
 
     fun getAllContacts() {
         viewModelScope.launch {

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skillbox.skillbox.contentprovider.R
 import com.skillbox.skillbox.contentprovider.adapter.ContactListAdapter
@@ -66,7 +67,10 @@ class MainFragment : Fragment() {
     }
 
     private fun initList() {
-        contactsAdapter = ContactListAdapter { }
+        contactsAdapter = ContactListAdapter { contact ->
+            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(contact)
+            findNavController().navigate(action)
+        }
         with(binding.contactsRecyclerView) {
             adapter = contactsAdapter
             setHasFixedSize(true)

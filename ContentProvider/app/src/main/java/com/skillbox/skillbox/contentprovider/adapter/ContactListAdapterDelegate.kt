@@ -10,7 +10,7 @@ import com.skillbox.skillbox.contentprovider.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.contact_item.*
 
-class ContactListAdapterDelegate(private val onContactClick: (Int) -> Unit) :
+class ContactListAdapterDelegate(private val onContactClick: (Contact) -> Unit) :
     AbsListItemAdapterDelegate<Contact, Contact, ContactListAdapterDelegate.Holder>() {
 
     override fun isForViewType(item: Contact, items: MutableList<Contact>, position: Int): Boolean {
@@ -27,16 +27,18 @@ class ContactListAdapterDelegate(private val onContactClick: (Int) -> Unit) :
 
     class Holder(
         override val containerView: View,
-        onContactClick: (Int) -> Unit
+        onContactClick: (Contact) -> Unit
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
+
+        private var currentContact: Contact? = null
+
         init {
-            containerView.setOnClickListener {
-                onContactClick(bindingAdapterPosition)
-            }
+            containerView.setOnClickListener { currentContact?.let(onContactClick) }
         }
 
         fun bind(contact: Contact) {
+            currentContact = contact
             contactName.text = contact.name
         }
     }

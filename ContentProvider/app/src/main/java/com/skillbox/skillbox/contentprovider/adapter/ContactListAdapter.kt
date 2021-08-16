@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.skillbox.skillbox.contentprovider.classes.Contact
 
-class ContactListAdapter(onContactClick: (Int) -> Unit) :
+class ContactListAdapter(onContactClick: (Contact) -> Unit) :
     AsyncListDifferDelegationAdapter<Contact>(ContactDiffUtilCallback()) {
 
     init {
