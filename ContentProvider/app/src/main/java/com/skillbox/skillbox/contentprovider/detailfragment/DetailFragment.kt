@@ -37,6 +37,9 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initContactStartScreen()
         bindViewModel()
+        binding.deleteContactActionButton.setOnClickListener {
+            deleteContact()
+        }
     }
 
 
@@ -49,7 +52,11 @@ class DetailFragment : Fragment() {
         viewModel.contact.observe(viewLifecycleOwner) { contact ->
             binding.nameOfContactDetailTextView.text = contact.name
             binding.phonesOfContactDetailTextView.text = contact.phones?.joinToString("\n")
-            binding.emailsOfContactDetailTextView.text = contact.eMails?.joinToString("\n")
+//            binding.emailsOfContactDetailTextView.text = contact.eMails?.joinToString("\n")
         }
+    }
+
+    private fun deleteContact(){
+
     }
 }

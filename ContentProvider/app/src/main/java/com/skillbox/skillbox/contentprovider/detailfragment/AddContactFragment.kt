@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -53,8 +54,8 @@ class AddContactFragment : Fragment() {
     private fun addNewContact() {
         viewModel.addNewContact(
             binding.nameEditText.text.toString(),
-            binding.phoneEditText.toString(),
-            binding.emailEditText.toString()
+            binding.phoneEditText.text.toString(),
+            binding.emailEditText.text.toString()
         )
     }
 

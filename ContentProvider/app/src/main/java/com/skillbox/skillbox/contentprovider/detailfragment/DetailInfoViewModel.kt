@@ -15,15 +15,30 @@ class DetailInfoViewModel(application: Application) : AndroidViewModel(applicati
     val contact: LiveData<Contact>
         get() = contactLiveData
 
+    private val deletingOfContact = MutableLiveData<Boolean>()
+    val deleting: LiveData<Boolean>
+        get() = deletingOfContact
+
     private val repo = GeneralRepository(application)
 
     fun getContactData(contactId: Long, name: String) {
         viewModelScope.launch {
-//            try {
+            try {
                 repo.getContactInfo(contactId, name)
-//            } catch (t: Throwable) {
-//
-//            }
+            } catch (t: Throwable) {
+
+            }
+        }
+    }
+
+    fun deleteContactFromMemory(contactId: Long) {
+        deletingOfContact.postValue(false)
+        viewModelScope.launch {
+            try {
+
+            } catch (t:Throwable){
+
+            }
         }
     }
 }

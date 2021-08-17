@@ -21,7 +21,7 @@ class GeneralRepository(private val context: Context) {
             null,
             null,
             null,
-            null
+            ContactsContract.Data.DISPLAY_NAME
         )?.use {
             getContactsFromCursor(it)
         }.orEmpty()
@@ -87,7 +87,7 @@ class GeneralRepository(private val context: Context) {
         val list = mutableListOf<String>()
         do {
             val emailIndex =
-                cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DISPLAY_NAME)
+                cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)
             val email = cursor.getString(emailIndex)
             list.add(email)
             Log.i("contact", "$list")
@@ -147,9 +147,15 @@ class GeneralRepository(private val context: Context) {
                 ContactsContract.Data.MIMETYPE,
                 ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE
             )
-            put(ContactsContract.CommonDataKinds.Email.DISPLAY_NAME, email)
+            put(ContactsContract.CommonDataKinds.Email.DATA, email)
         }
         context.contentResolver.insert(ContactsContract.Data.CONTENT_URI, contentValues)
     }
+
+//    suspend fun deleteContact(contactId: Long) = withContext(Dispatchers.IO){
+//        context.contentResolver.delete(
+//
+//        )
+//    }
 
 }
