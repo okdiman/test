@@ -51,8 +51,8 @@ class DetailFragment : Fragment() {
     private fun bindViewModel() {
         viewModel.contact.observe(viewLifecycleOwner) { contact ->
             binding.nameOfContactDetailTextView.text = contact.name
-            binding.phonesOfContactDetailTextView.text = contact.phones?.joinToString("\n")
-//            binding.emailsOfContactDetailTextView.text = contact.eMails?.joinToString("\n")
+            binding.phonesOfContactDetailTextView.text = contact.phones.joinToString("\n")
+            binding.emailsOfContactDetailTextView.text = contact.eMails.joinToString("\n")
         }
     }
 

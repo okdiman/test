@@ -23,11 +23,11 @@ class DetailInfoViewModel(application: Application) : AndroidViewModel(applicati
 
     fun getContactData(contactId: Long, name: String) {
         viewModelScope.launch {
-            try {
+//            try {
                 repo.getContactInfo(contactId, name)
-            } catch (t: Throwable) {
-
-            }
+//            } catch (t: Throwable) {
+//
+//            }
         }
     }
 
