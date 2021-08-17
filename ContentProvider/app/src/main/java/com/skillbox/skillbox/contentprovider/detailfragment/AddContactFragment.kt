@@ -51,7 +51,7 @@ class AddContactFragment : Fragment() {
 
     //    инициализируем Тулбар
     private fun initToolbar() {
-        toolbar.title = "Добавление контакта"
+        toolbar.title = "Add contact"
     }
 
     //    добавляем новый контакст
