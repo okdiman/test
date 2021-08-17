@@ -44,7 +44,7 @@ class DetailFragment : Fragment() {
 
 
     private fun initContactStartScreen() {
-        toolbar.title = "Информация о контакте"
+        toolbar.title = "Contact information"
         viewModel.getContactData(args.contact.id, args.contact.name)
     }
 
@@ -56,7 +56,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun deleteContact(){
+    private fun deleteContact() {
 
     }
 }
