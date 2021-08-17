@@ -7,6 +7,8 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +25,7 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
+    //    создаем ViewModel и Adapter
     private val viewModel: MainFragmentViewModel by viewModels()
     private var contactsAdapter: ContactListAdapter? = null
 
@@ -35,6 +38,7 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    //    обнуляем баиндинг и адаптер при закрытии фрагмента
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -43,19 +47,26 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        инициализируем тулбар
         initToolbar()
+//        запрашиваем разрешения на чтение списка контактов
         requestPermission()
+//        инициализиурем список контактов
         initList()
+//        подписываемся на обновления ViewModel
         bindViewModel()
+//        переходим на экран добавления контакта по клику на кнопку добавления
         binding.addContactActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addContactFragment)
         }
     }
 
+    //    инициализаиия тулбара
     private fun initToolbar() {
-        toolbar.title = "Список контактов"
+        toolbar.title = "List of contacts"
     }
 
+    //    запрос разрешений на чтение списка контактов
     private fun requestPermission() {
         Handler(Looper.getMainLooper()).post {
             constructPermissionsRequest(
@@ -69,11 +80,16 @@ class MainFragment : Fragment() {
         }
     }
 
+    //    инициализация списка контактов
     private fun initList() {
+//    инициализация адаптера
         contactsAdapter = ContactListAdapter { contact ->
+//            передаем объект контакта в фрагмент детальной информации
             val action = MainFragmentDirections.actionMainFragmentToDetailFragment(contact)
+//            переходим во фрагмент детальной информации при клике на контакт
             findNavController().navigate(action)
         }
+//    инициализируем список контактов
         with(binding.contactsRecyclerView) {
             adapter = contactsAdapter
             setHasFixedSize(true)
@@ -85,17 +101,31 @@ class MainFragment : Fragment() {
         request.proceed()
     }
 
+    //    ответ в случае, если пользователь отказал и поставил галочку "больше не спрашивать
     private fun onContactPermissionNeverAskAgain() {
         toast(R.string.on_never_ask_again_for_permission)
     }
 
+    //    ответ в случае отказа пользователя
     private fun onContactPermissionDenied() {
         toast(R.string.contact_list_permission_denied)
     }
 
+    //    баиндим ViewModel
     private fun bindViewModel() {
         viewModel.contactList.observe(viewLifecycleOwner) { listOfContacts ->
+//           передаем полученный список контактов в адаптер
             contactsAdapter?.items = listOfContacts
+        }
+
+//        следим за статусом загрузки и взависимости от этого меняем статус вьюшек
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
+            binding.progressBar.isVisible = loading
+        }
+
+//        выбрасываем тост с ошибкой в случае ошибки
+        viewModel.isError.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
     }
 

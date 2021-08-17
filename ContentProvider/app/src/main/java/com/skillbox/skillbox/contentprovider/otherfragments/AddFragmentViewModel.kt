@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.contentprovider.detailfragment
+package com.skillbox.skillbox.contentprovider.otherfragments
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

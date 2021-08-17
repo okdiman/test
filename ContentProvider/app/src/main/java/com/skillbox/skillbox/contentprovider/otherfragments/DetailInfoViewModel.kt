@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.contentprovider.detailfragment
+package com.skillbox.skillbox.contentprovider.otherfragments
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.contentprovider.classes.Contact
-import com.skillbox.skillbox.contentprovider.main.GeneralRepository
 import kotlinx.coroutines.launch
 
 
@@ -19,7 +18,7 @@ class DetailInfoViewModel(application: Application) : AndroidViewModel(applicati
     val deleting: LiveData<Boolean>
         get() = deletingOfContact
 
-    private val repo = GeneralRepository(application)
+    private val repo = DetailsFragmentRepository(application)
 
     fun getContactData(contactId: Long, name: String) {
         viewModelScope.launch {

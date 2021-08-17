@@ -1,43 +1,12 @@
-package com.skillbox.skillbox.contentprovider.main
+package com.skillbox.skillbox.contentprovider.otherfragments
 
 import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
 import android.util.Log
 import com.skillbox.skillbox.contentprovider.classes.Contact
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
-
-class GeneralRepository(private val context: Context) {
-
-    suspend fun getAllContacts(): List<Contact> = withContext(Dispatchers.IO) {
-        context.contentResolver.query(
-            ContactsContract.Contacts.CONTENT_URI,
-            null,
-            null,
-            null,
-            ContactsContract.Data.DISPLAY_NAME
-        )?.use {
-            getContactsFromCursor(it)
-        }.orEmpty()
-    }
-
-    private fun getContactsFromCursor(cursor: Cursor): List<Contact> {
-        if (cursor.moveToFirst().not()) return emptyList()
-        val list = mutableListOf<Contact>()
-        do {
-            val nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
-            val name = cursor.getString(nameIndex)
-
-            val idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID)
-            val id = cursor.getLong(idIndex)
-
-            list.add(Contact(id, name, emptyList(), emptyList()))
-
-        } while (cursor.moveToNext())
-        return list
-    }
+class DetailsFragmentRepository(private val context: Context) {
 
     fun getContactInfo(contactId: Long, name: String): Contact {
         return Contact(contactId, name, getContactsPhones(contactId), getEmailsOfContact(contactId))
@@ -47,7 +16,7 @@ class GeneralRepository(private val context: Context) {
         return context.contentResolver.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null,
-            "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = $contactId",
+            "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = ?",
             arrayOf(contactId.toString()),
             null
         )?.use {
@@ -70,7 +39,7 @@ class GeneralRepository(private val context: Context) {
         return context.contentResolver.query(
             ContactsContract.CommonDataKinds.Email.CONTENT_URI,
             null,
-            "${ContactsContract.CommonDataKinds.Email.CONTACT_ID} = $contactId",
+            "${ContactsContract.CommonDataKinds.Email.CONTACT_ID} = ?",
             arrayOf(contactId.toString()),
             null
         )?.use {
@@ -93,11 +62,9 @@ class GeneralRepository(private val context: Context) {
     }
 
 
-
 //    suspend fun deleteContact(contactId: Long) = withContext(Dispatchers.IO){
 //        context.contentResolver.delete(
 //
 //        )
 //    }
-
 }
