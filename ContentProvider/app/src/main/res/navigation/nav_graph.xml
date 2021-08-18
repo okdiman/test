@@ -27,6 +27,9 @@
         <argument
             android:name="contact"
             app:argType="com.skillbox.skillbox.contentprovider.classes.Contact" />
+        <action
+            android:id="@+id/action_detailFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/addContactFragment"

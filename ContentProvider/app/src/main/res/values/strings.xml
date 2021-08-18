@@ -6,4 +6,5 @@
     <string name="fill_the_form">Please, fill the form correctly</string>
     <string name="incorrect_number">U have entered incorrect phone, please try again</string>
     <string name="incorrect_email">U have entered incorrect E-mail, please try again</string>
+    <string name="contact_was_deleted">Contact was deleted successful</string>
 </resources>
