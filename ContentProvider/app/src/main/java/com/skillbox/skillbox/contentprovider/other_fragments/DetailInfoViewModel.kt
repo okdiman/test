@@ -54,16 +54,24 @@ class DetailInfoViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-//    удаление контакта из списка
-    fun deleteContactFromMemory(contactId: Long) {
+    //    удаление контакта из списка
+    fun deleteContactFromMemory(contact: Contact) {
+//    устанавливаем статусы лайв дат
+        isLoadingLiveData.postValue(true)
         deletingOfContact.postValue(false)
+//    открываем корутину для suspend функции репозитория
         viewModelScope.launch {
-//            try {
-            repo.deleteContact(contactId)
-            deletingOfContact.postValue(true)
-//            } catch (t:Throwable){
-//                deletingOfContact.postValue(false)
-//            }
+            try {
+//                выполняем удаление контакта и оповещаем об успешности операции лайв дату в случае отсутсвия ошибок
+                repo.deleteContact(contact)
+                deletingOfContact.postValue(true)
+            } catch (t: Throwable) {
+//                оповещаем лайв дату ошибки об ошибке
+                isErrorLiveData.postValue(t.message)
+            } finally {
+//                оповещаем лайв дату об окончании процесса удаления
+                isLoadingLiveData.postValue(false)
+            }
         }
     }
 }

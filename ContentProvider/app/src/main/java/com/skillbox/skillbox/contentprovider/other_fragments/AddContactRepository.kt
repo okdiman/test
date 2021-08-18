@@ -23,6 +23,7 @@ class AddContactRepository(private val context: Context) {
     private fun saveRawContact(): Long {
 //    сохраняем контакт
         val uri = context.contentResolver.insert(
+//            указываем тип Uri
             ContactsContract.RawContacts.CONTENT_URI,
             ContentValues()
         )

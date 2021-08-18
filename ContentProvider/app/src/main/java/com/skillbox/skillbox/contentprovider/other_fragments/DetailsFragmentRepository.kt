@@ -4,7 +4,6 @@ import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
 import com.skillbox.skillbox.contentprovider.classes.Contact
-import com.skillbox.skillbox.contentprovider.custom_content_provider.CustomContentProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -18,7 +17,7 @@ class DetailsFragmentRepository(private val context: Context) {
     //    получение списка номеров телефонов контакта
     private fun getContactsPhones(contactId: Long): List<String> {
         return context.contentResolver.query(
-//            указываем колонку в таблице
+//            указываем тип Uri
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null,
 //            делаем выборку по нашему ID
@@ -52,7 +51,7 @@ class DetailsFragmentRepository(private val context: Context) {
     //    получение списка e-mail'ов контакта
     private fun getEmailsOfContact(contactId: Long): List<String> {
         return context.contentResolver.query(
-//            указываем колонку в таблице
+//            указываем тип Uri
             ContactsContract.CommonDataKinds.Email.CONTENT_URI,
             null,
 //            делаем выборку по нашему ID
@@ -84,11 +83,13 @@ class DetailsFragmentRepository(private val context: Context) {
         return list
     }
 
-
-    suspend fun deleteContact(contactId: Long) = withContext(Dispatchers.IO) {
+//    удаление контакта
+    suspend fun deleteContact(contact: Contact) = withContext(Dispatchers.IO) {
         context.contentResolver.delete(
-            ContactsContract.Data.CONTENT_URI,
-            ContactsContract.Data._ID + "=?", arrayOf(contactId.toString())
+//            указываем uri
+            ContactsContract.RawContacts.CONTENT_URI,
+//            указываем id нужного нам контакта
+            ContactsContract.RawContacts.CONTACT_ID + " = ? ", arrayOf(contact.id.toString())
         )
     }
 

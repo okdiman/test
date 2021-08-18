@@ -14,6 +14,7 @@ class MainRepository(private val context: Context) {
     suspend fun getAllContacts(): List<Contact> = withContext(Dispatchers.IO) {
 //    получаем объект курсора для списка контактов
         context.contentResolver.query(
+//            указываем тип Uri
             ContactsContract.Contacts.CONTENT_URI,
             null,
             null,
@@ -36,7 +37,7 @@ class MainRepository(private val context: Context) {
 //            получаем индекс имени
             val nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
 //            получаем имя контакта из индекса
-            val name = cursor.getString(nameIndex)
+            val name = cursor.getString(nameIndex)?:"Without name"
 //            получаем индекс ID контакта
             val idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID)
 //            получаем ID контакта из индекса
