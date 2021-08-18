@@ -19,6 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".custom_content_provider.CustomContentProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="true" />
     </application>
+
 
 </manifest>

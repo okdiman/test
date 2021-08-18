@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.contentprovider.otherfragments
+package com.skillbox.skillbox.contentprovider.other_fragments
 
 import android.content.ContentValues
 import android.content.Context

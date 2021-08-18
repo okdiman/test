@@ -1,9 +1,10 @@
-package com.skillbox.skillbox.contentprovider.otherfragments
+package com.skillbox.skillbox.contentprovider.other_fragments
 
 import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
 import com.skillbox.skillbox.contentprovider.classes.Contact
+import com.skillbox.skillbox.contentprovider.custom_content_provider.CustomContentProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -86,8 +87,9 @@ class DetailsFragmentRepository(private val context: Context) {
 
     suspend fun deleteContact(contactId: Long) = withContext(Dispatchers.IO) {
         context.contentResolver.delete(
-            ContactsContract.RawContacts.CONTENT_URI,
-            ContactsContract.Data.RAW_CONTACT_ID + "=?", arrayOf(contactId.toString())
+            ContactsContract.Data.CONTENT_URI,
+            ContactsContract.Data._ID + "=?", arrayOf(contactId.toString())
         )
     }
+
 }

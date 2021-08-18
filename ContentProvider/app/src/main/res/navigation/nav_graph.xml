@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.skillbox.skillbox.contentprovider.otherfragments.DetailFragment"
+        android:name="com.skillbox.skillbox.contentprovider.other_fragments.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/detail_fragment">
         <argument
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/addContactFragment"
-        android:name="com.skillbox.skillbox.contentprovider.otherfragments.AddContactFragment"
+        android:name="com.skillbox.skillbox.contentprovider.other_fragments.AddContactFragment"
         android:label="AddContactFragment"
         tools:layout="@layout/add_contact_fragment" >
         <action
