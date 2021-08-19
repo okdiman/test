@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -43,8 +42,10 @@ class ShareFileFragment : Fragment() {
         )
     }
 
+    //    создаем лэйтинит лисенер для sharedPrefs
     private lateinit var changeListener: SharedPreferences.OnSharedPreferenceChangeListener
 
+    //    создаем объект адаптера
     private var fileAdapter: FileListAdapter? = null
 
     private val viewModel: ShareFileFragmentViewModel by viewModels()
@@ -61,7 +62,7 @@ class ShareFileFragment : Fragment() {
         return binding.root
     }
 
-    //    обнуляем баиндинг и адаптер при закрытии фрагмента
+    //    обнуляем баиндинг и адаптер, а атк же отключаем лисенер sharedPrefs при закрытии фрагмента
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -71,8 +72,11 @@ class ShareFileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        баиндим вью модель
         observe()
+//        инициализируем стартовый экран
         startScreen()
+//        лисенер кнопки загрузки файла
         binding.downloadFailButton.setOnClickListener {
 //            проверяем заполненность поля ссылки
             if (binding.uriEditText.text.toString().isNotEmpty()) {
@@ -91,40 +95,54 @@ class ShareFileFragment : Fragment() {
         }
     }
 
-
+    //    функция обновления списка
     private fun updateList(key: String) {
+//    используем фоновый поток для работы с sharedPrefs
         lifecycleScope.launch(Dispatchers.IO) {
+//            получаем имя файла
             val name = sharedPrefs.getString(key, "null")
-            Log.i("name", name.toString())
+//            обновляем список файлов в адаптере
             fileAdapter?.items =
                 fileAdapter?.items?.plus(listOf(FileForList(Random.nextLong(), name!!)))
         }
     }
 
+    //    инициализация стартового экрана
     private fun startScreen() {
+//    инициализация адаптера
         fileAdapter = FileListAdapter {
+//            шарим файл по клмку на него
             shareFile(it)
         }
+//    инициализцаия списка recyclerView
         with(binding.listOfDownloadedFiles) {
             adapter = fileAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-        val listOfFiles = mutableListOf<FileForList>()
-        sharedPrefs.all.mapNotNull {
-            listOfFiles.add(FileForList(Random.nextLong(), it.value.toString()))
-        }
-        fileAdapter?.items = listOfFiles
-        toolbar.title = "Sharing of File"
+//    используем фоновый поток для работы с sharedPrefs
         lifecycleScope.launch(Dispatchers.IO) {
+//            создаем объект списка фалйлов для получеенных файлов из sharedPrefs
+            val listOfFiles = mutableListOf<FileForList>()
+//            добавляем все файлы из sharedPrefs в наш список
+            sharedPrefs.all.mapNotNull {
+                listOfFiles.add(FileForList(Random.nextLong(), it.value.toString()))
+            }
+//            обновляем список
+            fileAdapter?.items = listOfFiles
+//            инициализируем заголовок тулбара
+            toolbar.title = "Sharing of File"
+//            инициализируем лисенер для sharedPrefs
             changeListener =
                 SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
                     updateList(key)
                 }
+//            регистрируем лисенер для наших sharedPrefs
             sharedPrefs.registerOnSharedPreferenceChangeListener(changeListener)
         }
     }
 
+    //    загрузка файла
     private fun downloadFileByDownloadManager(url: String) {
 //        создаем корутину для работы с внешним хранилищем
         lifecycleScope.launch(Dispatchers.IO) {
@@ -170,14 +188,16 @@ class ShareFileFragment : Fragment() {
         }
     }
 
-    //    подписка на обновления LiveData для обеих ViewModel
+    //    подписка на обновления LiveData
     private fun observe() {
+//        выбрасываем тосты в случае завершения загрузки или ошибки
         viewModel.isError.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
         viewModel.isFinished.observe(viewLifecycleOwner) { finishString ->
             Toast.makeText(requireContext(), finishString, Toast.LENGTH_SHORT).show()
         }
+//        устанавливаем статус вьюшек в зависимости от статуса загрузки
         viewModel.downloadByDownloadManager.observe(viewLifecycleOwner) { downloadByDM ->
             if (downloadByDM) {
                 isLoadingDM()
@@ -187,26 +207,39 @@ class ShareFileFragment : Fragment() {
         }
     }
 
+    //    делимся файлом
     private fun shareFile(fileForList: FileForList) {
+//    создаем корутину для работы на фоновом потоке
         lifecycleScope.launch {
+//            проверяем доступность внешного хранилища
             if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch toast(
                 R.string.storage_is_not_available
             )
+//            создаем объект папки, в которой находится файл
             val filesDir =
                 requireContext().getExternalFilesDir(FILES_DIR_NAME)
+//            создаем объект нашего файла, который необходимо передать
             val file = File(filesDir, fileForList.name)
+//            если файл отсутсвует в памяти, то завершаем функцию
             if (file.exists().not()) return@launch
+//            получаем uri файла из FileProvider
             val uri = FileProvider.getUriForFile(
                 requireContext(),
                 "${BuildConfig.APPLICATION_ID}.file_provider",
                 file
             )
+//            создаем объект интента для нашего файла
             val intent = Intent(Intent.ACTION_SEND).apply {
+//                кладем в него uri файла
                 putExtra(Intent.EXTRA_STREAM, uri)
+//                указываем тип файла получая его из uri
                 type = requireContext().contentResolver.getType(uri)
+//                разрешаем другим приложениям читать файл по этому uri
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             }
+//            создаем интент для передачи данных
             val shareIntent = Intent.createChooser(intent, null)
+//            передаем данные
             startActivity(shareIntent)
         }
     }
@@ -227,6 +260,7 @@ class ShareFileFragment : Fragment() {
         binding.shareTextView.isEnabled = false
     }
 
+    //    константы для директорий sharedPrefs и файлов
     companion object {
         const val FILES_DIR_NAME = "Folder for downloads files"
         const val SHARED_PREF = "Shared preferences"

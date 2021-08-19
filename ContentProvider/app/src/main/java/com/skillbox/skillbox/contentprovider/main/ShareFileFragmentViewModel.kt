@@ -33,6 +33,7 @@ class ShareFileFragmentViewModel : ViewModel() {
     //репозиторий
     private val repo = ShareFileFragmentRepository()
 
+    //    удаление файла
     fun downloadFromDownloadManager(
         urlAddress: String,
         name: String,

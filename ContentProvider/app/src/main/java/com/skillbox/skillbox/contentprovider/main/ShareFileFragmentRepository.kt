@@ -10,6 +10,7 @@ import kotlinx.coroutines.delay
 import java.io.File
 
 class ShareFileFragmentRepository {
+    //    удаление файла
     suspend fun downloadFileByDownloadManager(
         urlAddress: String,
         name: String,
