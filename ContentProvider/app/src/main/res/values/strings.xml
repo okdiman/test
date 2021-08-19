@@ -13,6 +13,8 @@
     <string name="download_and_share_file">Download and share file</string>
     <string name="enter_uri_of_fail">Enter uri of fail</string>
     <string name="download">Download</string>
-    <string name="share_file">Share file</string>
+    <string name="share_file">if you want to share file, just click on it!</string>
     <string name="fail_was_download_earlier">File was downloaded earlier</string>
+    <string name="incorrect_url">Incorrect Url entered</string>
+    <string name="url_is_empty">Please, enter Url link</string>
 </resources>

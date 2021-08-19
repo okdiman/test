@@ -4,7 +4,6 @@ import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
 import com.skillbox.skillbox.contentprovider.classes.Contact
-import com.skillbox.skillbox.contentprovider.custom_content_provider.CustomContentProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

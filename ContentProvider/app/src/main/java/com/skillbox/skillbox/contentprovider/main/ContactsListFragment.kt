@@ -85,7 +85,8 @@ class ContactsListFragment : Fragment() {
 //    инициализация адаптера
         contactsAdapter = ContactListAdapter { contact ->
 //            передаем объект контакта в фрагмент детальной информации
-            val action = ContactsListFragmentDirections.actionContactsListFragmentToDetailFragment(contact)
+            val action =
+                ContactsListFragmentDirections.actionContactsListFragmentToDetailFragment(contact)
 //            переходим во фрагмент детальной информации при клике на контакт
             findNavController().navigate(action)
         }
@@ -127,10 +128,6 @@ class ContactsListFragment : Fragment() {
         viewModel.isError.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    companion object {
-        const val FILES_DIR_NAME = "Folder for downloads files"
     }
 
 }

@@ -47,11 +47,13 @@
         app:layout_constraintTop_toBottomOf="@+id/downloadFailButton"
         tools:listitem="@layout/list_of_files_item" />
 
-    <Button
-        android:id="@+id/shareFileButton"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/shareTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         android:text="@string/share_file"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +66,7 @@
         android:layout_marginBottom="8dp"
         android:elevation="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/shareFileButton"
+        app:layout_constraintBottom_toTopOf="@id/shareTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

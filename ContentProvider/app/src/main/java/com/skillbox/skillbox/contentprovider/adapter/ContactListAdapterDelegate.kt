@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.contact_item.*
 
 class ContactListAdapterDelegate(private val onContactClick: (Contact) -> Unit) :
     AbsListItemAdapterDelegate<Contact, Contact, ContactListAdapterDelegate.Holder>() {
-
+//    имплементируем методы AbsListItemAdapterDelegate
     override fun isForViewType(item: Contact, items: MutableList<Contact>, position: Int): Boolean {
         return true
     }
@@ -24,19 +24,18 @@ class ContactListAdapterDelegate(private val onContactClick: (Contact) -> Unit) 
     override fun onBindViewHolder(item: Contact, holder: Holder, payloads: MutableList<Any>) {
         holder.bind(item)
     }
-
+//    создаем ViewHolder для работы с нашими элементами списка (заполнение и клик лисенер)
     class Holder(
         override val containerView: View,
         onContactClick: (Contact) -> Unit
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-
         private var currentContact: Contact? = null
-
+//    инициализруем клик лисенер
         init {
             containerView.setOnClickListener { currentContact?.let(onContactClick) }
         }
-
+//    баиндим данные в элемент списка
         fun bind(contact: Contact) {
             currentContact = contact
             contactName.text = contact.name

@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.contentprovider.classes
 
-data class File(
+
+data class FileForList(
     val id: Long,
     val name: String
 )

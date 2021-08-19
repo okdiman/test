@@ -7,10 +7,11 @@ import com.skillbox.skillbox.contentprovider.classes.Contact
 class ContactListAdapter(onContactClick: (Contact) -> Unit) :
     AsyncListDifferDelegationAdapter<Contact>(ContactDiffUtilCallback()) {
 
+//    создаем делегат для нашего адаптера
     init {
         delegatesManager.addDelegate(ContactListAdapterDelegate(onContactClick))
     }
-
+//    создаем класс DiffUtilCallback для нашего адаптера
     class ContactDiffUtilCallback : DiffUtil.ItemCallback<Contact>() {
         override fun areItemsTheSame(oldItem: Contact, newItem: Contact): Boolean {
             return oldItem.id == newItem.id

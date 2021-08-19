@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -24,6 +25,16 @@
             android:name=".custom_content_provider.CustomContentProvider"
             android:authorities="${applicationId}.provider"
             android:exported="true" />
+
+        <provider
+            android:authorities="${applicationId}.file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:name="androidx.core.content.FileProvider">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/files" />
+        </provider>
     </application>
 
 </manifest>
