@@ -20,10 +20,10 @@ class DetailFragment : Fragment() {
     private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
 
-//    получаем вью модель
+    //    получаем вью модель
     private val viewModel: DetailInfoViewModel by viewModels()
 
-//    получаем аргументы, переданные из пред фрагмента
+    //    получаем аргументы, переданные из пред фрагмента
     private val args: DetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -52,7 +52,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-//    инициализация стартового экрана
+    //    инициализация стартового экрана
     private fun initContactStartScreen() {
 //    инициализируем тулбар
         toolbar.title = "Contact information"
@@ -72,7 +72,7 @@ class DetailFragment : Fragment() {
         viewModel.deleting.observe(viewLifecycleOwner) { deleted ->
             if (deleted) {
                 toast(R.string.contact_was_deleted)
-                findNavController().navigate(R.id.action_detailFragment_to_mainFragment)
+                findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToContactsListFragment())
             }
         }
 
@@ -87,7 +87,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-//    удаление контакта
+    //    удаление контакта
     private fun deleteContact() {
         viewModel.deleteContactFromMemory(args.contact)
     }

@@ -11,33 +11,48 @@
         android:label="MainFragment"
         tools:layout="@layout/main_fragment">
         <action
-            android:id="@+id/action_mainFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            android:id="@+id/action_mainFragment_to_contactsListFragment"
+            app:destination="@id/contactsListFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_addContactFragment"
+            android:id="@+id/action_mainFragment_to_shareFileFragment"
+            app:destination="@id/shareFileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addContactFragment"
+        android:name="com.skillbox.skillbox.contentprovider.other_fragments.AddContactFragment"
+        android:label="AddContactFragment"
+        tools:layout="@layout/add_contact_fragment">
+        <action
+            android:id="@+id/action_addContactFragment_to_contactsListFragment"
+            app:destination="@id/contactsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactsListFragment"
+        android:name="com.skillbox.skillbox.contentprovider.main.ContactsListFragment"
+        android:label="ContactsListFragment"
+        tools:layout="@layout/contact_fragment">
+        <action
+            android:id="@+id/action_contactsListFragment_to_addContactFragment"
             app:destination="@id/addContactFragment" />
+        <action
+            android:id="@+id/action_contactsListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.skillbox.skillbox.contentprovider.other_fragments.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/detail_fragment">
+        <action
+            android:id="@+id/action_detailFragment_to_contactsListFragment"
+            app:destination="@id/contactsListFragment" />
         <argument
             android:name="contact"
             app:argType="com.skillbox.skillbox.contentprovider.classes.Contact" />
-        <action
-            android:id="@+id/action_detailFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addContactFragment"
-        android:name="com.skillbox.skillbox.contentprovider.other_fragments.AddContactFragment"
-        android:label="AddContactFragment"
-        tools:layout="@layout/add_contact_fragment" >
-        <action
-            android:id="@+id/action_addContactFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
+        android:id="@+id/shareFileFragment"
+        android:name="com.skillbox.skillbox.contentprovider.main.ShareFileFragment"
+        android:label="ShareFileFragment"
+        tools:layout="@layout/share_file_fragment" />
 </navigation>

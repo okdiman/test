@@ -101,7 +101,7 @@ class AddContactFragment : Fragment() {
             if (add) {
 //               в случае успешного добавления выводим тост и возвращаемся на экран списка контактов
                 toast(R.string.adding_new_contact)
-                findNavController().navigate(R.id.action_addContactFragment_to_mainFragment)
+                findNavController().navigate(AddContactFragmentDirections.actionAddContactFragmentToContactsListFragment())
             }
         }
 //        выбрасываем тост с ошибкой в случае ошибки

@@ -4,11 +4,12 @@ import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
 import com.skillbox.skillbox.contentprovider.classes.Contact
+import com.skillbox.skillbox.contentprovider.custom_content_provider.CustomContentProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-class MainRepository(private val context: Context) {
+class ContactsListRepository(private val context: Context) {
 
     //    получаем список всех контактов на фоновом потоке с помощью диспетчера
     suspend fun getAllContacts(): List<Contact> = withContext(Dispatchers.IO) {

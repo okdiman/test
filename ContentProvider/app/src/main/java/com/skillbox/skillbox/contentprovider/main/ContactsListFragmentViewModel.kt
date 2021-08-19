@@ -9,7 +9,7 @@ import com.skillbox.skillbox.contentprovider.classes.Contact
 import com.skillbox.skillbox.contentprovider.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
+class ContactsListFragmentViewModel(application: Application) : AndroidViewModel(application) {
     //    создаем лайв дату для передачи списка контактов
     private val contactListLiveData = MutableLiveData<List<Contact>>()
     val contactList: LiveData<List<Contact>>
@@ -26,7 +26,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         get() = isErrorLiveData
 
     //    получаем репозиторий
-    private val repo = MainRepository(application)
+    private val repo = ContactsListRepository(application)
 
     //    получение списка контактов
     fun getAllContacts() {
