@@ -1,58 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/usersList"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coursesListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/getAllUsersButton" />
+        app:layout_constraintTop_toBottomOf="@id/saveNewCourseButton"
+        tools:listitem="@layout/course_item" />
 
     <EditText
-        android:id="@+id/enterUserNameEditText"
+        android:id="@+id/enterCourseTitleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:hint="@string/enter_name"
+        android:hint="@string/enter_title"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/enterAgeNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="@string/enter_age"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/enterUserNameEditText" />
-
     <Button
-        android:id="@+id/saveNewUserButton"
+        android:id="@+id/saveNewCourseButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="@string/save_user"
+        android:text="@string/save_course"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/enterAgeNameEditText" />
+        app:layout_constraintTop_toBottomOf="@id/enterCourseTitleEditText" />
 
-    <Button
-        android:id="@+id/getAllUsersButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:text="@string/get_user_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/saveNewUserButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

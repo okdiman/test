@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
-import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
@@ -32,9 +31,6 @@ class MainFragmentRepository(private val context: Context) {
 //              кладем contentValues
                 contentValues
             )
-//              высвечиваем тост в конце выполнения
-            Toast.makeText(context, "The course was added", Toast.LENGTH_SHORT)
-                .show()
         }
 
     //    удаление курса по Id
@@ -45,9 +41,6 @@ class MainFragmentRepository(private val context: Context) {
 //            указываем id нужного нам курса
             "$ID = ? ", arrayOf(id.toString())
         )
-//              высвечиваем тост в конце выполнения
-        Toast.makeText(context, "The course was deleted", Toast.LENGTH_SHORT)
-            .show()
     }
 
     //    удаление всех курсов сразу
@@ -57,9 +50,6 @@ class MainFragmentRepository(private val context: Context) {
             COURSES_CONTENT_URI,
             "$ID = ? ", arrayOf()
         )
-//              высвечиваем тост в конце выполнения
-        Toast.makeText(context, "All courses were deleted", Toast.LENGTH_SHORT)
-            .show()
     }
 
 
@@ -73,9 +63,6 @@ class MainFragmentRepository(private val context: Context) {
 //            указываем id нужного нам курса
             "$ID = ? ", arrayOf(id.toString())
         )
-//              высвечиваем тост в конце выполнения
-        Toast.makeText(context, "The course was updated", Toast.LENGTH_SHORT)
-            .show()
     }
 
 

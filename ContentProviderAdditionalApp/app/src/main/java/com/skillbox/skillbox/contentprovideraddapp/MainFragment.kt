@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.skillbox.skillbox.contentprovider.toast
 import com.skillbox.skillbox.contentprovideraddapp.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
@@ -35,36 +34,26 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.saveNewUserButton.setOnClickListener {
-            saveUser(
-                binding.enterUserNameEditText.text.toString(),
-                binding.enterAgeNameEditText.text.toString().toInt()
+        binding.saveNewCourseButton.setOnClickListener {
+            saveCourse(
+                binding.enterCourseTitleEditText.text.toString()
             )
-        }
-        binding.getAllUsersButton.setOnClickListener {
-            getAllUsers()
         }
         bindViewModel()
     }
 
-    private fun saveUser(name: String, age: Int) {
-        viewModel.addNewContact(name, age)
+    private fun saveCourse(title: String) {
+        viewModel.addNewCourse(title)
     }
 
-    private fun getAllUsers() {
-        viewModel.getAllContacts()
+    private fun getAllCourses() {
+        viewModel.getAllCourses()
     }
 
     //    баиндим ViewModel
     private fun bindViewModel() {
         viewModel.courseList.observe(viewLifecycleOwner) { listOfContacts ->
-//           передаем полученный список контактов в адаптер
-            Toast.makeText(
-                requireContext(),
-                "в списке пользователей: $listOfContacts",
-                Toast.LENGTH_SHORT
-            ).show()
-            binding.usersList.text = listOfContacts.toString()
+
         }
 //        выбрасываем тост с ошибкой в случае ошибки
         viewModel.isError.observe(viewLifecycleOwner) { error ->

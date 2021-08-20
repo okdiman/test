@@ -31,6 +31,11 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val isError: LiveData<String>
         get() = isErrorLiveData
 
+    //    лайв дата завершения процесса
+    private val isFinishedLiveData = SingleLiveEvent<String>()
+    val isFinished: LiveData<String>
+        get() = isFinishedLiveData
+
     //    репозиторий
     private val repo = MainFragmentRepository(application)
 
@@ -43,6 +48,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             try {
 //                пытаемся сохранить курс
                 repo.saveCourse(title)
+                isFinishedLiveData.postValue("The course was added")
             } catch (t: Throwable) {
 //                в случае ошибки оповещаем лайв дату ошибок
                 isErrorLiveData.postValue(t.message)
@@ -62,6 +68,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             try {
 //                получаем список курсов и передаем в лайв дату
                 courseListLiveData.postValue(repo.getAllCourses())
+                isFinishedLiveData.postValue("All courses were got")
             } catch (t: Throwable) {
 //                в случае ошибки передаем ошибку в лайв дату ошибки
                 courseListLiveData.postValue(emptyList())
@@ -82,6 +89,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             try {
 //                выполняем удаление курса
                 repo.deleteCourseById(id)
+                isFinishedLiveData.postValue("The course was deleted")
             } catch (t: Throwable) {
 //                оповещаем лайв дату ошибки об ошибке
                 isErrorLiveData.postValue(t.message)
@@ -101,6 +109,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             try {
 //                выполняем удаление всех курсов
                 repo.deleteAllCourses()
+                isFinishedLiveData.postValue("All courses were deleted")
             } catch (t: Throwable) {
 //                оповещаем лайв дату ошибки об ошибке
                 isErrorLiveData.postValue(t.message)
@@ -120,6 +129,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             try {
 //                получаем курс по ID и передаем в лайв дату
                 courseByIdLiveData.postValue(repo.getCourseByID(id))
+                isFinishedLiveData.postValue("The course was got")
             } catch (t: Throwable) {
 //                оповещаем лайв дату ошибки об ошибке
                 isErrorLiveData.postValue(t.message)
@@ -139,6 +149,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             try {
 //                изменяем курс
                 repo.updateCourse(id, contentValues)
+                isFinishedLiveData.postValue("The course was updated")
             } catch (t: Throwable) {
 //                оповещаем лайв дату ошибки об ошибке
                 isErrorLiveData.postValue(t.message)
