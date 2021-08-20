@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
 
     //    баиндим ViewModel
     private fun bindViewModel() {
-        viewModel.contactList.observe(viewLifecycleOwner) { listOfContacts ->
+        viewModel.courseList.observe(viewLifecycleOwner) { listOfContacts ->
 //           передаем полученный список контактов в адаптер
             Toast.makeText(
                 requireContext(),
@@ -65,13 +65,6 @@ class MainFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
             binding.usersList.text = listOfContacts.toString()
-        }
-//        следим за успешностью сохранения контакта
-        viewModel.gettingOfNewContact.observe(viewLifecycleOwner) { id ->
-            if (id.toInt() != 0) {
-//               в случае успешного добавления выводим тост и возвращаемся на экран списка контактов
-                toast(R.string.user_was_added)
-            }
         }
 //        выбрасываем тост с ошибкой в случае ошибки
         viewModel.isError.observe(viewLifecycleOwner) { error ->

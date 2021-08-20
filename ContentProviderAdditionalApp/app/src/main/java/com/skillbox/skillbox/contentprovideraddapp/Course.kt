@@ -1,7 +1,6 @@
 package com.skillbox.skillbox.contentprovideraddapp
 
-data class User(
+data class Course(
     val id: Long,
-    val name: String,
-    val age: Int
+    val title: String
 )
