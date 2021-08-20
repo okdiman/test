@@ -14,6 +14,11 @@ class MainFragmentViewModel (application: Application) : AndroidViewModel(applic
     val contactList: LiveData<List<User>>
         get() = contactListLiveData
 
+    //    лайв дата успешности удаления контакта
+    private val deletingOfContact = MutableLiveData<Boolean>()
+    val deleting: LiveData<Boolean>
+        get() = deletingOfContact
+
     //    лайв дата успешности загрузки
     private val gettingOfNewContactLiveData = MutableLiveData<Boolean>()
     val gettingOfNewContact: LiveData<Boolean>
@@ -68,6 +73,27 @@ class MainFragmentViewModel (application: Application) : AndroidViewModel(applic
                 isErrorLiveData.postValue(t.message)
             } finally {
 //                сообщаем о завершении загрузки
+                isLoadingLiveData.postValue(false)
+            }
+        }
+    }
+
+    //    удаление контакта из списка
+    fun deleteContactFromMemory(id: Long) {
+//    устанавливаем статусы лайв дат
+        isLoadingLiveData.postValue(true)
+        deletingOfContact.postValue(false)
+//    открываем корутину для suspend функции репозитория
+        viewModelScope.launch {
+            try {
+//                выполняем удаление контакта и оповещаем об успешности операции лайв дату в случае отсутсвия ошибок
+                repo.deleteContact(id)
+                deletingOfContact.postValue(true)
+            } catch (t: Throwable) {
+//                оповещаем лайв дату ошибки об ошибке
+                isErrorLiveData.postValue(t.message)
+            } finally {
+//                оповещаем лайв дату об окончании процесса удаления
                 isLoadingLiveData.postValue(false)
             }
         }

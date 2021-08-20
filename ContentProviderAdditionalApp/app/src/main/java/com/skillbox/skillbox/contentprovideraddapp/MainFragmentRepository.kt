@@ -6,63 +6,116 @@ import android.database.Cursor
 import android.net.Uri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.random.Random
 
 class MainFragmentRepository(private val context: Context) {
     //    сохраняем пользователя
     suspend fun saveUser(name: String, age: Int) =
 //        переходим в фоновый поток с помощью диспетчера
         withContext(Dispatchers.IO) {
-//            выполняем последовательно сохранение пользователя и всех его данных
-            val contactId = saveRawUser()
-            saveUserName(contactId, name)
-            saveUsersAge(contactId, age)
-        }
-
-    //    сохраняем объект пользователя, получаем Uri пользователя
-    private fun saveRawUser(): Long {
+            try {
+                //            выполняем последовательно сохранение пользователя и всех его данных
+                val contactId = Random.nextLong()
+                //        создаем объект content values
+                val contentValues = ContentValues().apply {
+//            заполняем колонку ID пользователя
+                    put(ID, contactId)
+//            заполняем колонку имени пользователя
+                    put(NAME, name)
+//             заполняем колонку возраста пользователя
+                    put(AGE, age)
+                }
 //    сохраняем пользователя
-        val uri = context.contentResolver.insert(
+                context.contentResolver.insert(
 //            указываем тип Uri
+                    USERS_CONTENT_URI,
+                    contentValues
+                )
+                return@withContext true
+            } catch (t: Throwable) {
+                return@withContext false
+            }
+        }
+
+
+    //    сохраняем курс
+    suspend fun saveCourse(title: String) =
+//        переходим в фоновый поток с помощью диспетчера
+        withContext(Dispatchers.IO) {
+            try {
+                //            выполняем последовательно сохранение пользователя и всех его данных
+                val contactId = Random.nextLong()
+                //        создаем объект content values
+                val contentValues = ContentValues().apply {
+//            заполняем колонку ID пользователя
+                    put(ID, contactId)
+//            заполняем колонку имени пользователя
+                    put(TITLE, title)
+                }
+//    сохраняем пользователя
+                context.contentResolver.insert(
+//            указываем тип Uri
+                    COURSES_CONTENT_URI,
+                    contentValues
+                )
+                return@withContext true
+            } catch (t: Throwable) {
+                return@withContext false
+            }
+        }
+
+
+    //    удаление пользователя
+    suspend fun deleteContact(id: Long) = withContext(Dispatchers.IO) {
+        context.contentResolver.delete(
+//            указываем uri
             USERS_CONTENT_URI,
-            ContentValues()
+//            указываем id нужного нам контакта
+            "$ID = ? ", arrayOf(id.toString())
         )
-        return uri?.lastPathSegment?.toLongOrNull() ?: error("Can't save the raw, $uri")
     }
 
-    //    присваиваем созданному пользователю имя
-    private fun saveUserName(contactId: Long, name: String) {
-//    создаем объект ContentValues, который хотим положить к пользователю
-        val contentValues = ContentValues().apply {
-//            находим пользователя по ID
-            put(COLUMN_USER_ID, contactId)
-//            указываем какой тип данных кладем
-            put(
-                MIMETYPE,
-                CONTENT_ITEM_TYPE_NAME
-            )
-//            указываем какой файл и в какое поле кладем
-            put(DATA, name)
-        }
-//    присваиваем нашему пользователю объект ContentValues
-        context.contentResolver.insert(USERS_CONTENT_URI, contentValues)
+    //    удаление курса
+    suspend fun deleteCourse(id: Long) = withContext(Dispatchers.IO) {
+        context.contentResolver.delete(
+//            указываем uri
+            COURSES_CONTENT_URI,
+//            указываем id нужного нам контакта
+            "$ID = ? ", arrayOf(id.toString())
+        )
     }
 
-    //    присваиваем созданному пользователю возраст
-    private fun saveUsersAge(contactId: Long, age: Int) {
-//    создаем объект ContentValues, который хотим положить к пользователю
-        val contentValues = ContentValues().apply {
-//            находим пользователя по ID
-            put(COLUMN_USER_ID, contactId)
-//            указываем какой тип данных кладем
-            put(
-                MIMETYPE,
-                CONTENT_ITEM_TYPE_AGE
-            )
-//            указываем какой файл и в какое поле кладем
-            put(DATA, age)
-        }
-//    присваиваем нашему пользователю объект ContentValues
-        context.contentResolver.insert(USERS_CONTENT_URI, contentValues)
+    //    удаление всех курсов сразу
+    suspend fun deleteAllCourses() = withContext(Dispatchers.IO) {
+        context.contentResolver.delete(
+//            указываем uri
+            COURSES_CONTENT_URI,
+//            указываем id нужного нам контакта
+            "$ID = ? ", arrayOf()
+        )
+    }
+
+
+
+    //    изменение пользователя
+    suspend fun updateUser(id: Long, contentValues: ContentValues) = withContext(Dispatchers.IO) {
+        context.contentResolver.update(
+//            указываем uri
+            USERS_CONTENT_URI,
+            contentValues,
+//            указываем id нужного нам контакта
+            "$ID = ? ", arrayOf(id.toString())
+        )
+    }
+    //    изменение курса
+    suspend fun updateCourse(id: Long, contentValues: ContentValues) = withContext(Dispatchers.IO) {
+        context.contentResolver.update(
+//            указываем uri
+            COURSES_CONTENT_URI,
+            contentValues,
+//            указываем id нужного нам контакта
+            "$ID = ? ", arrayOf(id.toString())
+        )
     }
 
 
@@ -70,12 +123,11 @@ class MainFragmentRepository(private val context: Context) {
     suspend fun getAllContacts(): List<User> = withContext(Dispatchers.IO) {
 //    получаем объект курсора для списка контактов
         context.contentResolver.query(
-//            указываем тип Uri
+//            указываем Uri
             USERS_CONTENT_URI,
             null,
             null,
             null,
-//            сортируем по имени
             null
         )?.use {
 //            получаем контакты из объекта курсора
@@ -95,7 +147,7 @@ class MainFragmentRepository(private val context: Context) {
 //            получаем имя контакта из индекса
             val name = cursor.getString(nameIndex) ?: "Without name"
 //            получаем индекс ID контакта
-            val idIndex = cursor.getColumnIndex(_ID)
+            val idIndex = cursor.getColumnIndex(ID)
 //            получаем ID контакта из индекса
             val id = cursor.getLong(idIndex)
             val ageIndex = cursor.getColumnIndex(AGE)
@@ -107,27 +159,18 @@ class MainFragmentRepository(private val context: Context) {
         return list
     }
 
+
     companion object {
         private const val AUTHORITY = "com.skillbox.skillbox.contentprovider.provider"
         private val AUTHORITY_URI = Uri.parse("content://$AUTHORITY")
         private val USERS_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, "users")
+        private val COURSES_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, "courses")
+        private val COURSES_CONTENT_URI_ID = Uri.withAppendedPath(AUTHORITY_URI, "courses/#")
 
-        private const val COLUMN_USER_ID = "id"
-        private const val CONTENT_ITEM_TYPE_NAME = "vnd.android.cursor.item/name"
-        private const val CONTENT_ITEM_TYPE_AGE = "vnd.android.cursor.item/age"
-        private const val MIMETYPE = "mimetype"
-        private const val DATA = "data1"
         private const val NAME = "name"
-        private const val _ID = "id"
+        private const val ID = "id"
         private const val AGE = "age"
+        private const val TITLE = "title"
 
-
-        private const val USERS = "com.skillbox.skillbox.contentprovider.provider.users"
-        private const val COURSES = "com.skillbox.skillbox.contentprovider.provider.courses"
-
-        private const val TYPE_USERS = 1
-        private const val TYPE_COURSES = 2
-        private const val TYPE_USER_ID = 3
-        private const val TYPE_COURSE_ID = 4
     }
 }

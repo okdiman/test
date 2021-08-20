@@ -129,9 +129,9 @@ class CustomContentProvider : ContentProvider() {
     //    сохраняем нового пользователя
     private fun saveUser(contentValues: ContentValues): Uri? {
 //    из пришедших contentValues получаем имя, id и возраст пользователя
-        val id = contentValues.getAsLong(COLUMN_USER_ID) ?: return null
-        val name = contentValues.getAsString(COLUMN_USER_NAME) ?: return null
-        val age = contentValues.getAsInteger(COLUMN_USER_AGE) ?: return null
+        val id = contentValues.getAsLong(COLUMN_USER_ID)
+        val name = contentValues.getAsString(COLUMN_USER_NAME)
+        val age = contentValues.getAsInteger(COLUMN_USER_AGE)
 //    создаем объект пользователя
         val user = User(id, name, age)
 //    добавляем пользователя в userPrefs

@@ -15,6 +15,7 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
+
     private val viewModel: MainFragmentViewModel by viewModels()
 
     override fun onCreateView(
@@ -66,8 +67,8 @@ class MainFragment : Fragment() {
             binding.usersList.text = listOfContacts.toString()
         }
 //        следим за успешностью сохранения контакта
-        viewModel.gettingOfNewContact.observe(viewLifecycleOwner) { add ->
-            if (add) {
+        viewModel.gettingOfNewContact.observe(viewLifecycleOwner) { id ->
+            if (id.toInt() != 0) {
 //               в случае успешного добавления выводим тост и возвращаемся на экран списка контактов
                 toast(R.string.user_was_added)
             }
