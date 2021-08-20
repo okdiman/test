@@ -62,7 +62,7 @@ class ShareFileFragment : Fragment() {
         return binding.root
     }
 
-    //    обнуляем баиндинг и адаптер, а атк же отключаем лисенер sharedPrefs при закрытии фрагмента
+    //    обнуляем баиндинг и адаптер, а так же отключаем лисенер sharedPrefs при закрытии фрагмента
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -134,7 +134,7 @@ class ShareFileFragment : Fragment() {
             toolbar.title = "Sharing of File"
 //            инициализируем лисенер для sharedPrefs
             changeListener =
-                SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+                SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
                     updateList(key)
                 }
 //            регистрируем лисенер для наших sharedPrefs

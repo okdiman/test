@@ -9,6 +9,11 @@ import kotlinx.coroutines.launch
 
 class MainFragmentViewModel (application: Application) : AndroidViewModel(application) {
 
+    //    создаем лайв дату для передачи списка контактов
+    private val contactListLiveData = MutableLiveData<List<User>>()
+    val contactList: LiveData<List<User>>
+        get() = contactListLiveData
+
     //    лайв дата успешности загрузки
     private val gettingOfNewContactLiveData = MutableLiveData<Boolean>()
     val gettingOfNewContact: LiveData<Boolean>
@@ -28,7 +33,7 @@ class MainFragmentViewModel (application: Application) : AndroidViewModel(applic
     private val repo = MainFragmentRepository(application)
 
     //    добавление контакта
-    fun addNewContact(name: String, phone: String, email: String) {
+    fun addNewContact(name: String, age: Int) {
 //        устанавливаем значения в лайв даты
         isLoadingLiveData.postValue(true)
         gettingOfNewContactLiveData.postValue(false)
@@ -36,13 +41,33 @@ class MainFragmentViewModel (application: Application) : AndroidViewModel(applic
         viewModelScope.launch {
             try {
 //                пытаемся сохранить контакт
-                repo.saveContact(name, phone, email)
+                repo.saveUser(name, age)
                 gettingOfNewContactLiveData.postValue(true)
             } catch (t: Throwable) {
 //                в случае ошибки оповещаем лайв дату ошибок
                 isErrorLiveData.postValue(t.message)
             } finally {
 //                оповещаем лайв дату загрузки о завершении работы
+                isLoadingLiveData.postValue(false)
+            }
+        }
+    }
+
+    //    получение списка контактов
+    fun getAllContacts() {
+//    сообщаем о начале загрузки
+        isLoadingLiveData.postValue(true)
+//    создаем корутину для работы с suspend функциями
+        viewModelScope.launch {
+            try {
+//                получаем список контактов
+                contactListLiveData.postValue(repo.getAllContacts())
+            } catch (t: Throwable) {
+//                в случае ошибки передаем ошибку в лайв дату ошибки
+                contactListLiveData.postValue(emptyList())
+                isErrorLiveData.postValue(t.message)
+            } finally {
+//                сообщаем о завершении загрузки
                 isLoadingLiveData.postValue(false)
             }
         }

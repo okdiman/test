@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="get_user_list">get user list</string>
+    <string name="save_user">save user</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_age">Enter age</string>
+    <string name="user_was_added">New user was added</string>
 </resources>
