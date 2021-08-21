@@ -8,12 +8,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/coursesListRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/saveNewCourseButton"
-        tools:listitem="@layout/course_item" />
+        app:layout_constraintTop_toBottomOf="@id/getAllCoursesButton"
+        tools:listitem="@layout/course_for_list_item" />
 
     <EditText
         android:id="@+id/enterCourseTitleEditText"
@@ -35,6 +35,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enterCourseTitleEditText" />
+
+    <Button
+        android:id="@+id/getAllCoursesButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/get_course_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveNewCourseButton" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/deleteAllCoursesButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/clear_courses_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

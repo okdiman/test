@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="get_user_list">get user list</string>
+    <string name="get_course_list">get courses list</string>
     <string name="save_course">save course</string>
     <string name="enter_title">Enter title of new course</string>
     <string name="user_was_added">New user was added</string>
+    <string name="enter_new_id">Enter new id</string>
+    <string name="enter_new_title">Enter new title</string>
+    <string name="clear_courses_list">Clear courses list</string>
 </resources>

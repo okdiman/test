@@ -6,6 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.skillbox.skillbox.contentprovideraddapp.course.Course
+import com.skillbox.skillbox.contentprovideraddapp.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
@@ -27,12 +29,14 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         get() = isLoadingLiveData
 
     //    лайв дата ошибок
-    private val isErrorLiveData = SingleLiveEvent<String>()
+    private val isErrorLiveData =
+        SingleLiveEvent<String>()
     val isError: LiveData<String>
         get() = isErrorLiveData
 
     //    лайв дата завершения процесса
-    private val isFinishedLiveData = SingleLiveEvent<String>()
+    private val isFinishedLiveData =
+        SingleLiveEvent<String>()
     val isFinished: LiveData<String>
         get() = isFinishedLiveData
 
@@ -68,7 +72,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             try {
 //                получаем список курсов и передаем в лайв дату
                 courseListLiveData.postValue(repo.getAllCourses())
-                isFinishedLiveData.postValue("All courses were got")
             } catch (t: Throwable) {
 //                в случае ошибки передаем ошибку в лайв дату ошибки
                 courseListLiveData.postValue(emptyList())

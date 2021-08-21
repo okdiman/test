@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.contentprovideraddapp
+package com.skillbox.skillbox.contentprovideraddapp.course
 
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter

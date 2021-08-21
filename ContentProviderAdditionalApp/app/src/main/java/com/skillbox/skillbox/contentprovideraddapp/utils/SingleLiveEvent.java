@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.skillbox.skillbox.contentprovideraddapp;
+package com.skillbox.skillbox.contentprovideraddapp.utils;
 
 import android.util.Log;
 

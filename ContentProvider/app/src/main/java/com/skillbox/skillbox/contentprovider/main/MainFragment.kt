@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.contentprovider.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,5 +37,6 @@ class MainFragment : Fragment() {
         binding.shareFileButton.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToShareFileFragment())
         }
+        Log.i("provider", "started fragment")
     }
 }

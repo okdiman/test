@@ -1,12 +1,14 @@
-package com.skillbox.skillbox.contentprovideraddapp
+package com.skillbox.skillbox.contentprovideraddapp.course
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.contentprovider.inflate
+import com.skillbox.skillbox.contentprovideraddapp.R
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.course_item.*
+import kotlinx.android.synthetic.main.course_for_list_item.*
 
 class CourseListAdapterDelegate(private val onCourseClick: (Course) -> Unit) :
     AbsListItemAdapterDelegate<Course, Course, CourseListAdapterDelegate.Holder>() {
@@ -24,9 +26,9 @@ class CourseListAdapterDelegate(private val onCourseClick: (Course) -> Unit) :
         }
 
         //    баиндим данные в элемент списка
+        @SuppressLint("SetTextI18n")
         fun bind(courseForList: Course) {
             currentCourseForList = courseForList
-            idOfCourseTextView.text = courseForList.id.toString()
             titleOfCourseTextView.text = courseForList.title
         }
     }
@@ -41,7 +43,7 @@ class CourseListAdapterDelegate(private val onCourseClick: (Course) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
-        return Holder(parent.inflate(R.layout.course_item), onCourseClick)
+        return Holder(parent.inflate(R.layout.course_for_list_item), onCourseClick)
     }
 
     override fun onBindViewHolder(

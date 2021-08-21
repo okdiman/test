@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
+import com.skillbox.skillbox.contentprovideraddapp.course.Course
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
@@ -24,6 +26,7 @@ class MainFragmentRepository(private val context: Context) {
 //              заполняем колонку названия курса
                 put(TITLE, title)
             }
+            Log.i("saving", "${Thread.currentThread()}")
 //              сохраняем курс
             context.contentResolver.insert(
 //              указываем тип Uri
@@ -110,7 +113,7 @@ class MainFragmentRepository(private val context: Context) {
 //    получаем объект курсора для списка курсов
         context.contentResolver.query(
 //            указываем Uri
-            COURSES_CONTENT_URI_ID,
+            COURSES_CONTENT_URI,
             null,
 //            устанавливаем выборку по ID
             "$ID = ?",
@@ -145,7 +148,7 @@ class MainFragmentRepository(private val context: Context) {
         private val AUTHORITY_URI = Uri.parse("content://$AUTHORITY")
         private val COURSES_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, "courses")
         private val COURSES_CONTENT_URI_ID = Uri.withAppendedPath(AUTHORITY_URI, "courses/#")
-        private const val ID = "id"
-        private const val TITLE = "title"
+        const val ID = "id"
+        const val TITLE = "title"
     }
 }

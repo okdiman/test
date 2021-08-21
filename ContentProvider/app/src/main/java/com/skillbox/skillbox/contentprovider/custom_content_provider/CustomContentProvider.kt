@@ -4,6 +4,7 @@ import android.content.*
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
+import android.util.Log
 import com.skillbox.skillbox.contentprovider.BuildConfig.APPLICATION_ID
 import com.squareup.moshi.Moshi
 
@@ -144,6 +145,7 @@ class CustomContentProvider : ContentProvider() {
 
     //    сохраняем новый курс
     private fun saveCourse(contentValues: ContentValues): Uri? {
+        Log.i("saving", "${Thread.currentThread()}")
 //    из пришедших contentValues получаем название и id курса
         val id = contentValues.getAsLong(COLUMN_COURSE_ID) ?: return null
         val title = contentValues.getAsString(COLUMN_COURSE_TITLE) ?: return null
