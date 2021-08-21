@@ -17,5 +17,3 @@ fun ViewGroup.inflate (@LayoutRes layoutRes: Int, attachToRoot: Boolean = false)
 fun <T: Fragment> T.toast(@StringRes message: Int) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
-//    создаем паттерн для телефонного номера
-val phonePattern = Pattern.compile("^\\+?[0-9]{3}-?[0-9]{6,12}\$")!!

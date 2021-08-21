@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,10 +109,6 @@ class MainFragment : Fragment() {
                                 .setPositiveButton("Ok") { _, _ ->
                                     val contentValues = ContentValues().apply {
                                         put(
-                                            MainFragmentRepository.ID,
-                                            view.idUpdateEditText.text.toString().toLong()
-                                        )
-                                        put(
                                             MainFragmentRepository.TITLE,
                                             view.titleUpdateEditText.text.toString()
                                         )
@@ -173,6 +170,7 @@ class MainFragment : Fragment() {
             }
         }
         viewModel.courseById.observe(viewLifecycleOwner) { course ->
+            Log.i("course", course.toString())
             val view = (view as ViewGroup).inflate(R.layout.course_item)
             view.titleInfoOfCourseTextView.text = "title: ${course.title}"
             view.idInfoOfCourseTextView.text = "id: ${course.id}"

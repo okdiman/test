@@ -40,9 +40,9 @@ class MainFragmentRepository(private val context: Context) {
     suspend fun deleteCourseById(id: Long) = withContext(Dispatchers.IO) {
         context.contentResolver.delete(
 //            указываем uri
-            COURSES_CONTENT_URI_ID,
+            Uri.withAppendedPath(COURSES_CONTENT_URI, id.toString()),
 //            указываем id нужного нам курса
-            "$ID = ? ", arrayOf(id.toString())
+            "$ID= ? ", arrayOf(id.toString())
         )
     }
 
@@ -60,11 +60,11 @@ class MainFragmentRepository(private val context: Context) {
     suspend fun updateCourse(id: Long, contentValues: ContentValues) = withContext(Dispatchers.IO) {
         context.contentResolver.update(
 //            указываем uri
-            COURSES_CONTENT_URI_ID,
+            Uri.withAppendedPath(COURSES_CONTENT_URI, id.toString()),
 //            кладем contentValues
             contentValues,
 //            указываем id нужного нам курса
-            "$ID = ? ", arrayOf(id.toString())
+            "$ID = $id ", arrayOf(id.toString())
         )
     }
 
@@ -78,7 +78,7 @@ class MainFragmentRepository(private val context: Context) {
             null,
             null,
             null,
-            null
+            TITLE
         )?.use {
 //            получаем курсы из объекта курсора
             getAllCoursesFromCursor(it)
@@ -113,7 +113,7 @@ class MainFragmentRepository(private val context: Context) {
 //    получаем объект курсора для списка курсов
         context.contentResolver.query(
 //            указываем Uri
-            COURSES_CONTENT_URI,
+            Uri.withAppendedPath(COURSES_CONTENT_URI, id.toString()),
             null,
 //            устанавливаем выборку по ID
             "$ID = ?",
@@ -147,7 +147,7 @@ class MainFragmentRepository(private val context: Context) {
         private const val AUTHORITY = "com.skillbox.skillbox.contentprovider.provider"
         private val AUTHORITY_URI = Uri.parse("content://$AUTHORITY")
         private val COURSES_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, "courses")
-        private val COURSES_CONTENT_URI_ID = Uri.withAppendedPath(AUTHORITY_URI, "courses/#")
+        private val COURSES_CONTENT_URI_TITLE = Uri.withAppendedPath(COURSES_CONTENT_URI, "title")
         const val ID = "id"
         const val TITLE = "title"
     }

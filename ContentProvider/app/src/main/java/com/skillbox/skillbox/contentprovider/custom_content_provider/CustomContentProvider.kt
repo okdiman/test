@@ -39,6 +39,7 @@ class CustomContentProvider : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
+        Log.i("course", uri.toString())
 //        в зависимости от пришедшего к нам uri выполняем различные методы получения данных для заказчика
         return when (uriMatcher.match(uri)) {
             TYPE_USERS -> getAllUsersCursor()
@@ -156,10 +157,13 @@ class CustomContentProvider : ContentProvider() {
             .putString(id.toString(), courseAdapter.toJson(course))
             .apply()
 //    возвращаем uri добавленного курса
+        val q = Uri.parse("content://$AUTHORITIES/$PATH_COURSES/$id")
+        Log.i("course", q.toString())
         return Uri.parse("content://$AUTHORITIES/$PATH_COURSES/$id")
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
+        Log.i("course", uri.toString())
         return when (uriMatcher.match(uri)) {
 //    в зависимости от пришедшего типа uri выполняем определенный метод удаления юзера/курса(-ов)
             TYPE_USER_ID -> deleteUser(uri)
@@ -213,6 +217,7 @@ class CustomContentProvider : ContentProvider() {
         selection: String?,
         selectionArgs: Array<out String>?
     ): Int {
+        Log.i("course", uri.toString())
 //    если изменений нет, то сразу возвращаем 0
         values ?: return 0
 //    в зависимости от пришедшего типа uri обновляем определенный элемент
