@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.contentprovideraddapp.course.Course
 import com.skillbox.skillbox.contentprovideraddapp.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 
 class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -57,6 +58,8 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 //                в случае ошибки оповещаем лайв дату ошибок
                 isErrorLiveData.postValue(t.message)
             } finally {
+//                обновляем полный список
+                getAllCourses()
 //                оповещаем лайв дату загрузки о завершении работы
                 isLoadingLiveData.postValue(false)
             }
@@ -97,6 +100,8 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 //                оповещаем лайв дату ошибки об ошибке
                 isErrorLiveData.postValue(t.message)
             } finally {
+//                обновляем полный список
+                getAllCourses()
 //                оповещаем лайв дату об окончании процесса удаления
                 isLoadingLiveData.postValue(false)
             }
@@ -117,6 +122,8 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 //                оповещаем лайв дату ошибки об ошибке
                 isErrorLiveData.postValue(t.message)
             } finally {
+//                обновляем полный список
+                getAllCourses()
 //                оповещаем лайв дату об окончании процесса удаления
                 isLoadingLiveData.postValue(false)
             }
@@ -157,6 +164,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 //                оповещаем лайв дату ошибки об ошибке
                 isErrorLiveData.postValue(t.message)
             } finally {
+                getAllCourses()
 //                оповещаем лайв дату об окончании процесса удаления
                 isLoadingLiveData.postValue(false)
             }

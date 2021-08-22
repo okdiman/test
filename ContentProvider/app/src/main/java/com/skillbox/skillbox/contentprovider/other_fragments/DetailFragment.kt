@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -89,6 +90,12 @@ class DetailFragment : Fragment() {
 
     //    удаление контакта
     private fun deleteContact() {
-        viewModel.deleteContactFromMemory(args.contact)
+//       уточняем у пользователя уверенность в его действиях
+        AlertDialog.Builder(requireContext())
+            .setTitle("Deleting of the contact")
+            .setMessage("Are u sure u want to delete the contact?")
+            .setPositiveButton("Yeap") { _, _ -> viewModel.deleteContactFromMemory(args.contact) }
+            .setNegativeButton("No") { _, _ -> }
+            .show()
     }
 }

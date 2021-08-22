@@ -101,9 +101,11 @@ class ShareFileFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
 //            получаем имя файла
             val name = sharedPrefs.getString(key, "null")
+//            создаем новый список файлов из старого списка и нового файла и сортируем его по имени
+            val newList = fileAdapter?.items?.plus(listOf(FileForList(Random.nextLong(), name!!)))
+            val sortedList = newList?.sortedWith(compareBy { it.name })
 //            обновляем список файлов в адаптере
-            fileAdapter?.items =
-                fileAdapter?.items?.plus(listOf(FileForList(Random.nextLong(), name!!)))
+            fileAdapter?.items = sortedList
         }
     }
 

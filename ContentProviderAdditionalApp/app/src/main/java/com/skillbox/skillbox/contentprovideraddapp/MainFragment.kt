@@ -37,6 +37,7 @@ class MainFragment : Fragment() {
     //    переменная для выбронного пользователем действия
     private var selectedAction: String? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -88,8 +89,6 @@ class MainFragment : Fragment() {
 //            проверяем доступность кастомного контент провайдера на устройстве
             if (isCustomProviderAvailable()) {
                 viewModel.deleteAllCoursesFromMemory()
-//                по окончанию обновляем список курсов
-                getAllCourses()
             }
         }
 //        баиндим вью модель
@@ -121,8 +120,17 @@ class MainFragment : Fragment() {
                         }
 //                        удаление выбранного курса
                         "Delete" -> {
-                            viewModel.deleteCourseByIDFromMemory(course.id)
-                            getAllCourses()
+//                            уточняем у пользователя уверенность в его действиях
+                            AlertDialog.Builder(requireContext())
+                                .setTitle("Deleting of the course")
+                                .setMessage("Are u sure u want to delete the course?")
+                                .setPositiveButton("Yeap") { _, _ ->
+                                    viewModel.deleteCourseByIDFromMemory(
+                                        course.id
+                                    )
+                                }
+                                .setNegativeButton("No") { _, _ -> }
+                                .show()
                         }
 //                        обновление данных выбранного курса
                         "Update" -> {
@@ -144,8 +152,6 @@ class MainFragment : Fragment() {
                                         }
 //                                        обновляем данные курса
                                         viewModel.updateCourse(course.id, contentValues)
-//                                        обновляем список курсов
-                                        getAllCourses()
                                     } else {
 //                                        выводим тост в случае, если пользователь не заполнил поле ввода
                                         Toast.makeText(
@@ -184,8 +190,6 @@ class MainFragment : Fragment() {
     //    сохранение курса
     private fun saveCourse(title: String) {
         viewModel.addNewCourse(title)
-//    обнолвяем список
-        getAllCourses()
     }
 
     //    получение всех курсов
@@ -198,7 +202,10 @@ class MainFragment : Fragment() {
     private fun bindViewModel() {
 //        обновляем список курсов в адаптере
         viewModel.courseList.observe(viewLifecycleOwner) { listOfCourses ->
-            coursesAdapter?.items = listOfCourses
+//            сортируем полученный список курсов по их названию
+            val sorted = listOfCourses.sortedWith(compareBy { it.title })
+//            передаем список в адаптер
+            coursesAdapter?.items = sorted
         }
 //        выбрасываем тост с ошибкой в случае ошибки
         viewModel.isError.observe(viewLifecycleOwner) { error ->
@@ -233,7 +240,7 @@ class MainFragment : Fragment() {
         }
     }
 
-//    контроль статуса вью при загрузке
+    //    контроль статуса вью при загрузке
     private fun isLoading() {
         binding.progressBar.isVisible = true
         binding.getAllCoursesButton.isEnabled = false
@@ -241,7 +248,8 @@ class MainFragment : Fragment() {
         binding.saveNewCourseButton.isEnabled = false
         binding.enterCourseTitleEditText.isEnabled = false
     }
-//    контроль статуса вью при обычном состоянии
+
+    //    контроль статуса вью при обычном состоянии
     private fun idle() {
         binding.progressBar.isVisible = false
         binding.getAllCoursesButton.isEnabled = true
@@ -250,7 +258,7 @@ class MainFragment : Fragment() {
         binding.enterCourseTitleEditText.isEnabled = true
     }
 
-//    проверка доступности провайдера
+    //    проверка доступности провайдера
     @SuppressLint("Recycle")
     private fun isCustomProviderAvailable(): Boolean {
 //    создаем объект необходимого провайдера
