@@ -148,9 +148,10 @@ class MainFragmentRepository(private val context: Context) {
 
     companion object {
         private const val AUTHORITY = "com.skillbox.skillbox.contentprovider.provider"
+        const val ID = "id"
         private val AUTHORITY_URI = Uri.parse("content://$AUTHORITY")
         private val COURSES_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, "courses")
-        const val ID = "id"
+        private val COURSES_CONTENT_URI_ID = Uri.withAppendedPath(COURSES_CONTENT_URI, ID)
         const val TITLE = "title"
     }
 }

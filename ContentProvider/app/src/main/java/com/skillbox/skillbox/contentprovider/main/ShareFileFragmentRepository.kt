@@ -36,11 +36,13 @@ class ShareFileFragmentRepository {
 //          проверка статсуса загрузки
             var downloading = true
             while (downloading) {
+                Log.i("download", "started")
                 val query = DownloadManager.Query()
                 query.setFilterById(downloadID)
 //              создаем объект cursor
                 val cursor = downloadManager.query(query)
                 if (cursor.moveToFirst()) {
+                    Log.i("download", (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)).toString()))
 //                  получаем объем загруженных данных
                     val bytesDownloaded =
                         cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))

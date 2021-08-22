@@ -1,5 +1,7 @@
 package com.skillbox.skillbox.contentprovider
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,3 +21,10 @@ fun <T: Fragment> T.toast(@StringRes message: Int) {
 }
 //    создаем паттерн для телефонного номера
 val phonePattern = Pattern.compile("^\\+?[0-9]{3}-?[0-9]{6,12}\$")!!
+
+// расширение для проверки доступа к сети
+val Context.isConnected: Boolean
+    get() {
+        return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+            .activeNetworkInfo?.isConnected == true
+    }

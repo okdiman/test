@@ -4,6 +4,7 @@ import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -23,6 +24,7 @@ import com.skillbox.skillbox.contentprovider.R
 import com.skillbox.skillbox.contentprovider.adapter.FileListAdapter
 import com.skillbox.skillbox.contentprovider.classes.FileForList
 import com.skillbox.skillbox.contentprovider.databinding.ShareFileFragmentBinding
+import com.skillbox.skillbox.contentprovider.isConnected
 import com.skillbox.skillbox.contentprovider.toast
 import kotlinx.android.synthetic.main.view_toolbar.*
 import kotlinx.coroutines.Dispatchers
@@ -78,21 +80,26 @@ class ShareFileFragment : Fragment() {
         startScreen()
 //        лисенер кнопки загрузки файла
         binding.downloadFailButton.setOnClickListener {
-//            проверяем заполненность поля ссылки
-            if (binding.uriEditText.text.toString().isNotEmpty()) {
+            if (requireContext().isConnected) {
+                //            проверяем заполненность поля ссылки
+                if (binding.uriEditText.text.toString().isNotEmpty()) {
 //              инициализируем url для клика
-                val url = binding.uriEditText.text.toString()
+                    val url = binding.uriEditText.text.toString()
 //                проверяем соотвествие введенной ссылки с типом Url
-                val isUrlValid = Patterns.WEB_URL.matcher(url).matches()
-                if (isUrlValid) {
-                    downloadFileByDownloadManager(url)
+                    val isUrlValid = Patterns.WEB_URL.matcher(url).matches()
+                    if (isUrlValid) {
+                        downloadFileByDownloadManager(url)
+                    } else {
+                        toast(R.string.incorrect_url)
+                    }
                 } else {
-                    toast(R.string.incorrect_url)
+                    toast(R.string.url_is_empty)
                 }
             } else {
-                toast(R.string.url_is_empty)
+                toast(R.string.internet_is_not_available)
             }
         }
+
     }
 
     //    функция обновления списка
@@ -262,7 +269,7 @@ class ShareFileFragment : Fragment() {
         binding.shareTextView.isEnabled = false
     }
 
-    //    константы для директорий sharedPrefs и файлов
+     //    константы для директорий sharedPrefs и файлов
     companion object {
         const val FILES_DIR_NAME = "Folder for downloads files"
         const val SHARED_PREF = "Shared preferences"

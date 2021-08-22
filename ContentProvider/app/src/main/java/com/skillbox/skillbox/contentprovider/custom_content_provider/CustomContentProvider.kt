@@ -161,8 +161,6 @@ class CustomContentProvider : ContentProvider() {
             .putString(id.toString(), courseAdapter.toJson(course))
             .apply()
 //    возвращаем uri добавленного курса
-        val q = Uri.parse("content://$AUTHORITIES/$PATH_COURSES/$id")
-        Log.i("course", q.toString())
         return Uri.parse("content://$AUTHORITIES/$PATH_COURSES/$id")
     }
 
@@ -249,6 +247,7 @@ class CustomContentProvider : ContentProvider() {
     private fun updateCourseById(uri: Uri, contentValues: ContentValues): Int {
 //    получаем id курса
         val courseId = uri.lastPathSegment?.toLongOrNull()?.toString() ?: return 0
+//    кладем id курса в contentValues
         contentValues.put(COLUMN_COURSE_ID, courseId)
         Log.i("Course", "update $contentValues")
 //    в зависимости от успешности операции изменения возращаем ответ
