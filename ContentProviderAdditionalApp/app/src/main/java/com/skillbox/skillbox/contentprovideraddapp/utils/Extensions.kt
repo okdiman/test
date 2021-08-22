@@ -13,7 +13,3 @@ import java.util.regex.Pattern
 fun ViewGroup.inflate (@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
-
-fun <T: Fragment> T.toast(@StringRes message: Int) {
-    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-}
