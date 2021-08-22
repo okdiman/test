@@ -76,6 +76,7 @@ class CustomContentProvider : ContentProvider() {
             val courseJsonString = it.value as String
             courseAdapter.fromJson(courseJsonString)
         }
+        Log.i("Course", allCourses.toString())
 //    создаем курсор с колонками параметров курса
         val cursor = MatrixCursor(arrayOf(COLUMN_COURSE_ID, COLUMN_COURSE_TITLE))
 //    заполняем таблицу курсора из списка курсов
@@ -90,6 +91,7 @@ class CustomContentProvider : ContentProvider() {
 
     //    получаем курсор определенного курса
     private fun getCourseById(uri: Uri): Cursor? {
+        Log.i("Course", uri.toString())
 //    получаем id курса
         val id = uri.lastPathSegment?.toLongOrNull()?.toString() ?: return null
 //    если такой id отсутствует в coursePrefs то возвращаем null
@@ -98,6 +100,7 @@ class CustomContentProvider : ContentProvider() {
             val courseJsonString = coursesPrefs.getString(id, "")
 //            получаем объект курса
             val course = courseAdapter.fromJson(courseJsonString!!)
+            Log.i("Course", course.toString())
 //            создаем курсор с колонками параметров курса
             val cursor = MatrixCursor(arrayOf(COLUMN_COURSE_ID, COLUMN_COURSE_TITLE))
 //            заполняем курсор
@@ -152,6 +155,7 @@ class CustomContentProvider : ContentProvider() {
         val title = contentValues.getAsString(COLUMN_COURSE_TITLE) ?: return null
 //    получаем объект курса
         val course = Course(id, title)
+        Log.i("Course", course.toString())
 //    добавляем курс в coursesPrefs
         coursesPrefs.edit()
             .putString(id.toString(), courseAdapter.toJson(course))
@@ -228,7 +232,7 @@ class CustomContentProvider : ContentProvider() {
         }
     }
 
-//    обновляем данные пользователя
+    //    обновляем данные пользователя
     private fun updateUser(uri: Uri, contentValues: ContentValues): Int {
 //    получаем id пользователя
         val userId = uri.lastPathSegment?.toLongOrNull()?.toString() ?: return 0
@@ -240,10 +244,13 @@ class CustomContentProvider : ContentProvider() {
             0
         }
     }
-//    обновляем данные курса
+
+    //    обновляем данные курса
     private fun updateCourseById(uri: Uri, contentValues: ContentValues): Int {
 //    получаем id курса
         val courseId = uri.lastPathSegment?.toLongOrNull()?.toString() ?: return 0
+        contentValues.put(COLUMN_COURSE_ID, courseId)
+        Log.i("Course", "update $contentValues")
 //    в зависимости от успешности операции изменения возращаем ответ
         return if (coursesPrefs.contains(courseId)) {
             saveCourse(contentValues)
@@ -253,9 +260,9 @@ class CustomContentProvider : ContentProvider() {
         }
     }
 
-//    создаем константы для контент провайдера
+    //    создаем константы для контент провайдера
     companion object {
-//    константы для uri
+        //    константы для uri
         private const val AUTHORITIES = "${APPLICATION_ID}.provider"
         private const val PATH_USERS = "users"
         private const val PATH_COURSES = "courses"
@@ -265,7 +272,7 @@ class CustomContentProvider : ContentProvider() {
         private const val TYPE_USER_ID = 3
         private const val TYPE_COURSE_ID = 4
 
-//     константы для колонок курсора пользователя и курсов
+        //     константы для колонок курсора пользователя и курсов
         private const val COLUMN_USER_ID = "id"
         private const val COLUMN_USER_NAME = "name"
         private const val COLUMN_USER_AGE = "age"

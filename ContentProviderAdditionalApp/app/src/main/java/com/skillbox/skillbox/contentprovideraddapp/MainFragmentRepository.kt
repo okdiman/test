@@ -18,7 +18,7 @@ class MainFragmentRepository(private val context: Context) {
         withContext(Dispatchers.IO) {
 //              выполняем последовательно сохранение курса и всех его данных
 //              присваиваем курсу ID
-            val courseId = Random.nextLong()
+            val courseId = Random.nextLong(1, 999999999999999999)
 //              создаем объект content values
             val contentValues = ContentValues().apply {
 //              заполняем колонку ID курса
@@ -111,7 +111,7 @@ class MainFragmentRepository(private val context: Context) {
     //    получаем определенный курс по ID
     suspend fun getCourseByID(id: Long): Course? = withContext(Dispatchers.IO) {
 //    получаем объект курсора для списка курсов
-        context.contentResolver.query(
+        val cursor = context.contentResolver.query(
 //            указываем Uri
             Uri.withAppendedPath(COURSES_CONTENT_URI, id.toString()),
             null,
@@ -120,14 +120,17 @@ class MainFragmentRepository(private val context: Context) {
 //            выполняем экранирование для защиты от SQL injection
             arrayOf(id.toString()),
             null
-        )?.use {
+        )
+        Log.i("Course", cursor.toString())
+            cursor.use {
 //            получаем курс из объекта курсора
-            getSingleCourseFromCursor(it)
+            getSingleCourseFromCursor(it!!)
         }
     }
 
     //    получение курса из объекта курсора
     private fun getSingleCourseFromCursor(cursor: Cursor): Course? {
+        Log.i("Course", cursor.toString())
 //    проверяем присутсвие первой строки в курсоре
         if (cursor.moveToFirst().not()) return null
 //            получаем индекс названия
@@ -147,7 +150,6 @@ class MainFragmentRepository(private val context: Context) {
         private const val AUTHORITY = "com.skillbox.skillbox.contentprovider.provider"
         private val AUTHORITY_URI = Uri.parse("content://$AUTHORITY")
         private val COURSES_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, "courses")
-        private val COURSES_CONTENT_URI_TITLE = Uri.withAppendedPath(COURSES_CONTENT_URI, "title")
         const val ID = "id"
         const val TITLE = "title"
     }
