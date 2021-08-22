@@ -38,10 +38,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfDownloadedFiles"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="8dp"
         android:clipToPadding="false"
         android:paddingBottom="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/shareTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/downloadFailButton"
