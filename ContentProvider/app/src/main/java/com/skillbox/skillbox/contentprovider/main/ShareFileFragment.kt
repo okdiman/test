@@ -82,7 +82,7 @@ class ShareFileFragment : Fragment() {
 //        лисенер кнопки загрузки файла
         binding.downloadFailButton.setOnClickListener {
             if (requireContext().isConnected) {
-                //            проверяем заполненность поля ссылки
+//            проверяем заполненность поля ссылки
                 if (binding.uriEditText.text.toString().isNotEmpty()) {
 //              инициализируем url для клика
                     val url = binding.uriEditText.text.toString()
