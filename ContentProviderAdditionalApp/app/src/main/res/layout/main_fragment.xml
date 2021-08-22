@@ -56,6 +56,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:layout_margin="4dp"
+        android:text="@string/if_u_want_make_any_actions_with_courses_just_click_on_it"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/deleteAllCoursesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/deleteAllCoursesButton"
         android:layout_width="150dp"
