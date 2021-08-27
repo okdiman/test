@@ -10,9 +10,11 @@ interface StadiumsDao {
     @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME}")
     suspend fun getAllStadiums(): List<Stadiums>
 
+    @Transaction
     @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME} WHERE  ${StadiumsContract.Columns.ID} = :stadiumId")
     suspend fun getStadiumsWithClubs(stadiumId: Long): StadiumWithClubs
 
+    @Transaction
     @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME} WHERE  ${StadiumsContract.Columns.ID} = :stadiumId")
     suspend fun getStadiumsWithAttendance(stadiumId: Long): StadiumsWithAttendance
 

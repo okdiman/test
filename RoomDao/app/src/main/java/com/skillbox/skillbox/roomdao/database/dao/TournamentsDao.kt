@@ -9,6 +9,7 @@ interface TournamentsDao {
     @Query("SELECT * FROM ${TournamentContract.TABLE_NAME}")
     suspend fun getAllTournaments(): List<Tournaments>
 
+    @Transaction
     @Query("SELECT * FROM ${TournamentContract.TABLE_NAME} WHERE  ${TournamentContract.Columns.ID} = :tournamentId")
     suspend fun getTournamentWithClubs(tournamentId: Long): TournamentsWithClubs
 

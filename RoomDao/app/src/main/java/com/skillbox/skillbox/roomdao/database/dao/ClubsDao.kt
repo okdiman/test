@@ -12,9 +12,11 @@ interface ClubsDao {
     @Query("SELECT * FROM ${ClubsContract.TABLE_NAME}")
     suspend fun getAllClubs(): List<Clubs>
 
+    @Transaction
     @Query("SELECT * FROM ${ClubsContract.TABLE_NAME} WHERE  ${ClubsContract.Columns.TITLE} = :title AND  ${ClubsContract.Columns.CITY} = :city")
     suspend fun getClubWithStadium(title: String, city: String): ClubsWithStadium
 
+    @Transaction
     @Query("SELECT * FROM ${ClubsContract.TABLE_NAME} WHERE  ${ClubsContract.Columns.TITLE} = :title AND  ${ClubsContract.Columns.CITY} = :city")
     suspend fun getClubWithTournament(title: String, city: String): ClubsWithTournaments
 
