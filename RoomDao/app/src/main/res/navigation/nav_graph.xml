@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
 
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.skillbox.skillbox.roomdao.fragments.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_tournamentsFragment"
+            app:destination="@id/tournamentsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_clubsFragment"
+            app:destination="@id/clubsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tournamentsFragment"
+        android:name="com.skillbox.skillbox.roomdao.fragments.tournaments.TournamentsFragment"
+        android:label="TournamentsFragment"
+        tools:layout="@layout/tournament_fragment">
+        <action
+            android:id="@+id/action_tournamentsFragment_to_tournamentDetailsFragment"
+            app:destination="@id/tournamentDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clubsFragment"
+        android:name="com.skillbox.skillbox.roomdao.fragments.clubs.ClubsFragment"
+        android:label="ClubsFragment"
+        tools:layout="@layout/clubs_fragment">
+        <action
+            android:id="@+id/action_clubsFragment_to_clubsDetailsFragment"
+            app:destination="@id/clubsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tournamentDetailsFragment"
+        android:name="com.skillbox.skillbox.roomdao.fragments.tournaments.TournamentDetailsFragment"
+        android:label="TournamentDetailsFragment"
+        tools:layout="@layout/tournament_details_fragment">
+        <action
+            android:id="@+id/action_tournamentDetailsFragment_to_clubsDetailsFragment"
+            app:destination="@id/clubsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clubsDetailsFragment"
+        android:name="com.skillbox.skillbox.roomdao.fragments.clubs.ClubsDetailsFragment"
+        android:label="ClubsDetailsFragment"
+        tools:layout="@layout/clubs_details_fragment">
+        <action
+            android:id="@+id/action_clubsDetailsFragment_to_stadiumDetailsFragment"
+            app:destination="@id/stadiumDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stadiumDetailsFragment"
+        android:name="com.skillbox.skillbox.roomdao.fragments.stadiums.StadiumDetailsFragment"
+        android:label="StadiumDetailsFragment"
+        tools:layout="@layout/stadium_details_fragment" />
 </navigation>

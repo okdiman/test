@@ -19,5 +19,9 @@ data class Tournaments(
     @ColumnInfo(name = TournamentContract.Columns.TYPE)
     val type: TypeOfTournament,
     @ColumnInfo(name = TournamentContract.Columns.PRIZE_MONEY)
-    val prize_money: Int?
+    val prize_money: Int?,
+    @ColumnInfo(name = TournamentContract.Columns.CUP_PICTURE)
+    val cupPicture: String,
+    @ColumnInfo(name = TournamentContract.Columns.CLUBS_COUNT)
+    val clubsCount: Int
 )

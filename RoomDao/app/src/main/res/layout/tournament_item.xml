@@ -3,86 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/detailCupPictureImageView"
+        android:id="@+id/cupPictureImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_margin="4dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/detailTitleOfTournamentTextView"
+        android:id="@+id/titleOfTournamentTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/detailDeleteTournamentButton"
-        app:layout_constraintStart_toEndOf="@+id/detailCupPictureImageView"
+        app:layout_constraintEnd_toStartOf="@id/deleteTournamentButton"
+        app:layout_constraintStart_toEndOf="@+id/cupPictureImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/cities" />
 
     <TextView
-        android:id="@+id/detailClubsCountInTournamentTextView"
+        android:id="@+id/clubsCountInTournamentTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/detailDeleteTournamentButton"
-        app:layout_constraintStart_toEndOf="@+id/detailCupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailTypeOfTournamentTextView"
+        app:layout_constraintEnd_toStartOf="@id/deleteTournamentButton"
+        app:layout_constraintStart_toEndOf="@+id/cupPictureImageView"
+        app:layout_constraintTop_toBottomOf="@id/typeOfTournamentTextView"
         tools:text="@tools:sample/us_phones" />
 
     <TextView
-        android:id="@+id/detailTypeOfTournamentTextView"
+        android:id="@+id/typeOfTournamentTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/detailDeleteTournamentButton"
-        app:layout_constraintStart_toEndOf="@+id/detailCupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailTitleOfTournamentTextView"
+        app:layout_constraintEnd_toStartOf="@id/deleteTournamentButton"
+        app:layout_constraintStart_toEndOf="@+id/cupPictureImageView"
+        app:layout_constraintTop_toBottomOf="@id/titleOfTournamentTextView"
         tools:text="@tools:sample/cities" />
 
     <TextView
-        android:id="@+id/detailPrizeMoneyOfTournamentTextView"
+        android:id="@+id/prizeMoneyOfTournamentTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/detailDeleteTournamentButton"
-        app:layout_constraintStart_toEndOf="@+id/detailCupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailClubsCountInTournamentTextView"
+        app:layout_constraintEnd_toStartOf="@id/deleteTournamentButton"
+        app:layout_constraintStart_toEndOf="@+id/cupPictureImageView"
+        app:layout_constraintTop_toBottomOf="@id/clubsCountInTournamentTextView"
         tools:text="@tools:sample/us_zipcodes" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/detailDeleteTournamentButton"
+        android:id="@+id/deleteTournamentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:backgroundTint="@color/white"
         android:src="@drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="@id/detailCupPictureImageView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="30dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/detailTournamentRV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailCupPictureImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

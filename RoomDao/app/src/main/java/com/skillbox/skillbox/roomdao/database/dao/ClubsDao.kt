@@ -31,5 +31,4 @@ interface ClubsDao {
 
     @Query("DELETE FROM ${ClubsContract.TABLE_NAME}")
     suspend fun deleteAllClubs()
-
 }
