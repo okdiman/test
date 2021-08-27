@@ -36,7 +36,6 @@ class MainFragmentRepository(private val context: Context) {
             )
         }
 
-
     //    удаление курса по Id
     suspend fun deleteCourseById(id: Long) = withContext(Dispatchers.IO) {
         context.contentResolver.delete(
