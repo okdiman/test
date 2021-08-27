@@ -3,6 +3,7 @@ package com.skillbox.skillbox.roomdao.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import com.skillbox.skillbox.roomdao.database.contracts.ClubsContract
 import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
 
@@ -13,7 +14,8 @@ import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
         entity = Stadiums::class,
         parentColumns = [StadiumsContract.Columns.ID],
         childColumns = [ClubsContract.Columns.STADIUM_ID]
-    )]
+    )],
+    indices = [Index(ClubsContract.Columns.TITLE)], inheritSuperIndices = false
 )
 data class Clubs(
     @ColumnInfo(name = ClubsContract.Columns.STADIUM_ID)
