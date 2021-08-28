@@ -52,6 +52,15 @@
         <action
             android:id="@+id/action_clubsDetailsFragment_to_stadiumDetailsFragment"
             app:destination="@id/stadiumDetailsFragment" />
+        <argument
+            android:name="club"
+            app:argType="com.skillbox.skillbox.roomdao.database.entities.Clubs" />
+        <action
+            android:id="@+id/action_clubsDetailsFragment_to_clubsFragment"
+            app:destination="@id/clubsFragment" />
+        <action
+            android:id="@+id/action_clubsDetailsFragment_to_tournamentDetailsFragment"
+            app:destination="@id/tournamentDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/stadiumDetailsFragment"

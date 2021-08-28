@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/clubImageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
@@ -33,9 +33,9 @@
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/clubImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleOfClubTextView"
-        app:layout_constraintEnd_toStartOf="@id/clubImageView"
         tools:text="@tools:sample/us_phones" />
 
     <TextView
@@ -45,9 +45,9 @@
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/clubImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityOfClubTextView"
-        app:layout_constraintEnd_toStartOf="@id/clubImageView"
         tools:text="@tools:sample/cities" />
 
 

@@ -1,11 +1,13 @@
 package com.skillbox.skillbox.roomdao.database.entities
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import com.skillbox.skillbox.roomdao.database.contracts.ClubsContract
 import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
+import kotlinx.android.parcel.Parcelize
 
 @Entity(
     tableName = ClubsContract.TABLE_NAME,
@@ -15,11 +17,13 @@ import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
         parentColumns = [StadiumsContract.Columns.ID],
         childColumns = [ClubsContract.Columns.STADIUM_ID]
     )],
-    indices = [Index(ClubsContract.Columns.CLUB_TITLE), Index(ClubsContract.Columns.STADIUM_ID)], inheritSuperIndices = false
+    indices = [Index(ClubsContract.Columns.CLUB_TITLE), Index(ClubsContract.Columns.STADIUM_ID)],
+    inheritSuperIndices = false
 )
+@Parcelize
 data class Clubs(
     @ColumnInfo(name = ClubsContract.Columns.STADIUM_ID)
-    val stadium_id: Long,
+    val stadium_id: Long?,
     @ColumnInfo(name = ClubsContract.Columns.CLUB_TITLE)
     val title: String,
     @ColumnInfo(name = ClubsContract.Columns.CITY)
@@ -30,4 +34,4 @@ data class Clubs(
     val emblem: String?,
     @ColumnInfo(name = ClubsContract.Columns.YEAR_OF_FOUNDATION)
     val yearOfFoundation: Int?
-)
+) : Parcelable

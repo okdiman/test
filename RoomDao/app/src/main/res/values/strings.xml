@@ -7,4 +7,13 @@
     <string name="tournament_participants">Tournament participants:</string>
     <string name="a_lot_of_information_about_selected_football_club">A lot of information about selected football club</string>
     <string name="delete">delete</string>
+    <string name="updated_list">List of clubs was updated</string>
+    <string name="enter_club_s_title">Enter club\'s title</string>
+    <string name="enter_city_of_new_club">Enter city of new club</string>
+    <string name="enter_country_of_new_club">Enter country of new club</string>
+    <string name="enter_uri_link_for_emblem_of_club">Enter uri link for emblem of club*</string>
+    <string name="enter_year_of_foundation_of_club">Enter year of foundation of club*</string>
+    <string name="optional">*Optional</string>
+    <string name="incorrect_form">The form is filled out incorrectly, please try again</string>
+    <string name="error">Something has gone wrong(</string>
 </resources>

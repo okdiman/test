@@ -24,6 +24,7 @@ class ClubAdapterDelegate(private val onClubClick: (Clubs) -> Unit) :
         }
 
         fun bind(clubs: Clubs) {
+            currentClubs = clubs
             Glide.with(itemView)
                 .load(clubs.emblem)
                 .error(R.drawable.ic_sync_problem)

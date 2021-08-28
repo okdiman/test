@@ -5,7 +5,7 @@ import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 
 class ClubAdapter(onClubClick: (Clubs) -> Unit) :
-    AsyncListDifferDelegationAdapter<Clubs>(ClubAdapter.ClubDiffUtil()) {
+    AsyncListDifferDelegationAdapter<Clubs>(ClubDiffUtil()) {
     init {
         delegatesManager.addDelegate(ClubAdapterDelegate(onClubClick))
     }
