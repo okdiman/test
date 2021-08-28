@@ -4,4 +4,7 @@
     <string name="tournaments">Tournaments</string>
     <string name="clubs">Clubs</string>
     <string name="delete_all">delete all</string>
+    <string name="tournament_participants">Tournament participants:</string>
+    <string name="a_lot_of_information_about_selected_football_club">A lot of information about selected football club</string>
+    <string name="delete">delete</string>
 </resources>

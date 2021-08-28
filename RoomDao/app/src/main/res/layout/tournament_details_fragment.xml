@@ -75,14 +75,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="30dp" />
 
+    <TextView
+        android:id="@+id/participantsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/tournament_participants"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailCupPictureImageView" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detailTournamentRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
+        android:clipToPadding="false"
+        android:paddingBottom="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailCupPictureImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/participantsTextView"
+        tools:itemCount="15"
+        tools:listitem="@layout/clubs_item" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addClubToTournamentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_note_add_"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="30dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
