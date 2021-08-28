@@ -16,4 +16,7 @@
     <string name="optional">*Optional</string>
     <string name="incorrect_form">The form is filled out incorrectly, please try again</string>
     <string name="error">Something has gone wrong(</string>
+    <string name="enter_uri_link_for_image_of_tournament_trophy">Enter uri link for image of tournament trophy*</string>
+    <string name="enter_title_of_new_tournament">Enter title of new tournament</string>
+    <string name="enter_prize_money_of_tournament">Enter prize money of tournament*</string>
 </resources>

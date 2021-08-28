@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.roomdao.database.entities
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,9 +8,11 @@ import androidx.room.TypeConverters
 import com.skillbox.skillbox.roomdao.database.TournamentsTypeConverter
 import com.skillbox.skillbox.roomdao.database.TypeOfTournament
 import com.skillbox.skillbox.roomdao.database.contracts.TournamentContract
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = TournamentContract.TABLE_NAME)
 @TypeConverters(TournamentsTypeConverter::class)
+@Parcelize
 data class Tournaments(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = TournamentContract.Columns.ID)
@@ -23,5 +26,5 @@ data class Tournaments(
     @ColumnInfo(name = TournamentContract.Columns.CUP_PICTURE)
     val cupPicture: String,
     @ColumnInfo(name = TournamentContract.Columns.CLUBS_COUNT)
-    val clubsCount: Int
-)
+    val clubsCount: Int?
+) : Parcelable
