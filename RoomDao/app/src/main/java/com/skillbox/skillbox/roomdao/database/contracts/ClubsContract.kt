@@ -4,7 +4,7 @@ object ClubsContract {
     const val TABLE_NAME = "clubs"
     object Columns {
         const val STADIUM_ID = "stadium_id"
-        const val TITLE = "title"
+        const val CLUB_TITLE = "club_title"
         const val CITY = "city"
         const val COUNTRY = "country"
         const val EMBLEM = "emblem"

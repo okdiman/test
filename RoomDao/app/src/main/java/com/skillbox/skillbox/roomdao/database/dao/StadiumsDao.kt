@@ -6,17 +6,18 @@ import com.skillbox.skillbox.roomdao.database.connections.StadiumsWithAttendance
 import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 
+@Dao
 interface StadiumsDao {
     @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME}")
     suspend fun getAllStadiums(): List<Stadiums>
 
     @Transaction
     @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME} WHERE  ${StadiumsContract.Columns.ID} = :stadiumId")
-    suspend fun getStadiumsWithClubs(stadiumId: Long): StadiumWithClubs
+    suspend fun getStadiumsWithClubs(stadiumId: Long): StadiumWithClubs?
 
     @Transaction
     @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME} WHERE  ${StadiumsContract.Columns.ID} = :stadiumId")
-    suspend fun getStadiumsWithAttendance(stadiumId: Long): StadiumsWithAttendance
+    suspend fun getStadiumsWithAttendance(stadiumId: Long): StadiumsWithAttendance?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNewStadium(stadiums: List<Stadiums>)

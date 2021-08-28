@@ -9,18 +9,18 @@ import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
 
 @Entity(
     tableName = ClubsContract.TABLE_NAME,
-    primaryKeys = [ClubsContract.Columns.TITLE, ClubsContract.Columns.CITY],
+    primaryKeys = [ClubsContract.Columns.CLUB_TITLE, ClubsContract.Columns.CITY],
     foreignKeys = [ForeignKey(
         entity = Stadiums::class,
         parentColumns = [StadiumsContract.Columns.ID],
         childColumns = [ClubsContract.Columns.STADIUM_ID]
     )],
-    indices = [Index(ClubsContract.Columns.TITLE)], inheritSuperIndices = false
+    indices = [Index(ClubsContract.Columns.CLUB_TITLE), Index(ClubsContract.Columns.STADIUM_ID)], inheritSuperIndices = false
 )
 data class Clubs(
     @ColumnInfo(name = ClubsContract.Columns.STADIUM_ID)
     val stadium_id: Long,
-    @ColumnInfo(name = ClubsContract.Columns.TITLE)
+    @ColumnInfo(name = ClubsContract.Columns.CLUB_TITLE)
     val title: String,
     @ColumnInfo(name = ClubsContract.Columns.CITY)
     val city: String,

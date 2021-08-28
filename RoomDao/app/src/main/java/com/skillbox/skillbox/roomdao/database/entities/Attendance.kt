@@ -1,9 +1,6 @@
 package com.skillbox.skillbox.roomdao.database.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.skillbox.skillbox.roomdao.database.contracts.AttendanceContract
 import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
 
@@ -13,7 +10,8 @@ import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
         entity = Stadiums::class,
         parentColumns = [StadiumsContract.Columns.ID],
         childColumns = [AttendanceContract.Columns.STADIUM_ID]
-    )]
+    )],
+    indices = [Index(AttendanceContract.Columns.STADIUM_ID)], inheritSuperIndices = false
 )
 data class Attendance(
     @PrimaryKey(autoGenerate = true)

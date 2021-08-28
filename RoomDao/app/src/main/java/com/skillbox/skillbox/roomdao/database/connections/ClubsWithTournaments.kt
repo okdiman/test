@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.skillbox.skillbox.roomdao.database.contracts.ClubsContract
+import com.skillbox.skillbox.roomdao.database.contracts.TournamentAndClubsCrossRefContract
 import com.skillbox.skillbox.roomdao.database.contracts.TournamentContract
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Tournaments
@@ -13,8 +14,8 @@ data class ClubsWithTournaments(
     @Embedded
     val club: Clubs,
     @Relation(
-        parentColumn = ClubsContract.Columns.CITY + ClubsContract.Columns.CITY,
-        entityColumn = TournamentContract.Columns.ID,
+        parentColumn = ClubsContract.Columns.CLUB_TITLE,
+        entityColumn = TournamentAndClubsCrossRefContract.Columns.TOURNAMENT_ID,
         associateBy = Junction(TournamentsAndClubsCrossRef::class)
     )
     val tournaments: List<Tournaments>

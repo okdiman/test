@@ -67,7 +67,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     //Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0-alpha07"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0-alpha06"
 
 
     //Permissions

@@ -14,7 +14,7 @@ data class TournamentsWithClubs(
     val tournaments: Tournaments,
     @Relation(
         parentColumn = TournamentContract.Columns.ID,
-        entityColumn = ClubsContract.Columns.CITY + ClubsContract.Columns.CITY,
+        entityColumn = ClubsContract.Columns.CLUB_TITLE,
         associateBy = Junction(TournamentsAndClubsCrossRef::class)
     )
     val clubs: List<Clubs>
