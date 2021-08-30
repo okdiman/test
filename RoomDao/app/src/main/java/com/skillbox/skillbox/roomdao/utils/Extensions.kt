@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.contentprovider
+package com.skillbox.skillbox.roomdao.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -28,3 +28,4 @@ val Context.isConnected: Boolean
         return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
             .activeNetworkInfo?.isConnected == true
     }
+

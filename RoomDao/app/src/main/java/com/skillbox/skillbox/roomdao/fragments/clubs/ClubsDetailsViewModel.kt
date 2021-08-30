@@ -50,7 +50,7 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
 
     fun deleteClub(club: Clubs) {
         isLoadingLiveData.postValue(true)
-        deleteClubLiveData.postValue(false)
+//        deleteClubLiveData.postValue(false)
         viewModelScope.launch {
             try {
                 deleteClubLiveData.postValue(repo.deleteClub(club))

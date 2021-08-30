@@ -15,8 +15,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.skillbox.skillbox.contentprovider.inflate
-import com.skillbox.skillbox.contentprovider.toast
+import com.skillbox.skillbox.roomdao.utils.inflate
+import com.skillbox.skillbox.roomdao.utils.toast
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
