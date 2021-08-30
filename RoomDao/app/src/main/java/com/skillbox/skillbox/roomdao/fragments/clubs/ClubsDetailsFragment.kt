@@ -2,6 +2,7 @@ package com.skillbox.skillbox.roomdao.fragments.clubs
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -99,6 +100,7 @@ class ClubsDetailsFragment : Fragment() {
         binding.stadiumNameOfClubDetailTextView.isVisible = false
         binding.spinnerOfClubDetail.isVisible = true
         binding.addStadiumClubButton.isVisible = true
+        binding.addingStadiumInfoDetailTextView.isVisible = true
         binding.addStadiumClubButton.setOnClickListener {
             when (binding.spinnerOfClubDetail.selectedItem.toString()) {
                 "Add new" -> {
@@ -141,8 +143,7 @@ class ClubsDetailsFragment : Fragment() {
 
         detailClubViewModel.success.observe(viewLifecycleOwner) { added ->
             if (added) {
-                val clubForUpdate = Clubs(stadium.id, args.club.title, args.club.city, args.club.country, args.club.emblem, args.club.yearOfFoundation)
-                detailClubViewModel.updateClub(clubForUpdate)
+
             }
         }
 
@@ -157,10 +158,15 @@ class ClubsDetailsFragment : Fragment() {
         }
 
         detailClubViewModel.getStadium.observe(viewLifecycleOwner) { stadium ->
+            binding.addingStadiumInfoDetailTextView.isVisible = false
             binding.stadiumNameOfClubDetailTextView.isVisible = true
             binding.spinnerOfClubDetail.isVisible = false
             binding.addStadiumClubButton.isVisible = false
             binding.stadiumNameOfClubDetailTextView.text = stadium.stadiumName
+            if (args.club.stadium_id == null){
+                val clubForUpdate = Clubs(stadium.id, args.club.title, args.club.city, args.club.country, args.club.emblem, args.club.yearOfFoundation)
+                detailClubViewModel.updateClub(clubForUpdate)
+            }
         }
 
         detailClubViewModel.getAllStadiums.observe(viewLifecycleOwner) { listOfStadiums ->
