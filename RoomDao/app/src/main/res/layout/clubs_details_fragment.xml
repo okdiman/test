@@ -63,13 +63,52 @@
 
     <TextView
         android:id="@+id/stadiumOfClubDetailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/stadium"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/yearOfFoundationOfClubDetailTextView"
+        tools:text="@tools:sample/cities" />
+
+    <TextView
+        android:id="@+id/stadiumNameOfClubDetailTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/stadium"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@id/clubImageView"
+        app:layout_constraintStart_toEndOf="@id/stadiumOfClubDetailTextView"
+        app:layout_constraintTop_toBottomOf="@id/yearOfFoundationOfClubDetailTextView"
+        tools:text="@tools:sample/cities" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addStadiumClubButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_add"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="30dp" />
+
+    <Spinner
+        android:id="@+id/spinner_of_club_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/clubImageView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/stadiumOfClubDetailTextView"
         app:layout_constraintTop_toBottomOf="@id/yearOfFoundationOfClubDetailTextView"
         tools:text="@tools:sample/cities" />
 
@@ -78,11 +117,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
+        android:text="@string/a_lot_of_information_about_selected_football_club"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:text="@string/a_lot_of_information_about_selected_football_club"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stadiumOfClubDetailTextView" />
 

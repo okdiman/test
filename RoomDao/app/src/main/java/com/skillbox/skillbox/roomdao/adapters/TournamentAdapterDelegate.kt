@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.roomdao.adapters
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,16 +24,19 @@ class TournamentAdapterDelegate(private val onTournamentClick: (Tournaments) -> 
             containerView.setOnClickListener { currentTournament?.let(onTournamentClick) }
         }
 
+        @SuppressLint("SetTextI18n")
         fun bind(tournaments: Tournaments) {
             Glide.with(itemView)
                 .load(tournaments.cupPicture)
                 .error(R.drawable.ic_sync_problem)
                 .placeholder(R.drawable.ic_cloud_download)
                 .into(cupPictureImageView)
-            titleOfTournamentTextView.text = tournaments.title
-            typeOfTournamentTextView.text = tournaments.type.toString()
-            clubsCountInTournamentTextView.text = tournaments.clubsCount.toString()
-            prizeMoneyOfTournamentTextView.text = tournaments.prizeMoney.toString()
+            titleOfTournamentTextView.text = "Title: ${tournaments.title}"
+            typeOfTournamentTextView.text = "Type: ${tournaments.type.toString()}"
+            clubsCountInTournamentTextView.text =
+                "Clubs count: ${tournaments.clubsCount.toString()}"
+            prizeMoneyOfTournamentTextView.text =
+                "Prize money: ${tournaments.prizeMoney.toString()} euro"
         }
     }
 

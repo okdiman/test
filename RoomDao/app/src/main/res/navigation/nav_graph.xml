@@ -69,5 +69,9 @@
         android:id="@+id/stadiumDetailsFragment"
         android:name="com.skillbox.skillbox.roomdao.fragments.stadiums.StadiumDetailsFragment"
         android:label="StadiumDetailsFragment"
-        tools:layout="@layout/stadium_details_fragment" />
+        tools:layout="@layout/stadium_details_fragment" >
+        <argument
+            android:name="stadiumId"
+            app:argType="long" />
+    </fragment>
 </navigation>

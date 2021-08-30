@@ -19,6 +19,14 @@ interface StadiumsDao {
     @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME} WHERE  ${StadiumsContract.Columns.ID} = :stadiumId")
     suspend fun getStadiumsWithAttendance(stadiumId: Long): StadiumsWithAttendance?
 
+
+    @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME} WHERE  ${StadiumsContract.Columns.ID} = :stadiumId")
+    suspend fun getStadiumById(stadiumId: Long): Stadiums
+
+
+    @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME} WHERE  ${StadiumsContract.Columns.STADIUM_NAME} = :stadiumName")
+    suspend fun getStadiumByName(stadiumName: String): Stadiums
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNewStadium(stadiums: List<Stadiums>)
 

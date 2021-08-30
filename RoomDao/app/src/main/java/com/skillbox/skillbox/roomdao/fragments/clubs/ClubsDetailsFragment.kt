@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.contentValuesOf
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,9 +16,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.skillbox.skillbox.contentprovider.inflate
 import com.skillbox.skillbox.contentprovider.toast
 import com.skillbox.skillbox.roomdao.R
+import com.skillbox.skillbox.roomdao.database.contracts.ClubsContract
+import com.skillbox.skillbox.roomdao.database.entities.Clubs
+import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 import com.skillbox.skillbox.roomdao.databinding.ClubsDetailsFragmentBinding
+import kotlinx.android.synthetic.main.new_stadium.view.*
 
 class ClubsDetailsFragment : Fragment() {
     private var _binding: ClubsDetailsFragmentBinding? = null
@@ -24,6 +32,12 @@ class ClubsDetailsFragment : Fragment() {
     private val args: ClubsDetailsFragmentArgs by navArgs()
 
     private val detailClubViewModel: ClubsDetailsViewModel by viewModels()
+
+    private var stadiumsList = mutableListOf<String>(
+        "Add new"
+    )
+
+    private lateinit var stadium: Stadiums
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +76,58 @@ class ClubsDetailsFragment : Fragment() {
         binding.titleOfClubDetailTextView.text = "Title: ${args.club.title}"
         binding.yearOfFoundationOfClubDetailTextView.text =
             "Year of foundation: ${args.club.yearOfFoundation}"
+        if (args.club.stadium_id != null) {
+            getStadiumById(args.club.stadium_id!!.toLong())
+        } else {
+            initSpinner()
+        }
+    }
+
+    private fun getStadiumById(stadiumId: Long) {
+        detailClubViewModel.getStadiumById(stadiumId)
+    }
+
+    private fun initSpinner() {
+        detailClubViewModel.getAllStadiums()
+        val spinnerAdapter = ArrayAdapter<String>(
+            requireContext(),
+            R.layout.support_simple_spinner_dropdown_item,
+            stadiumsList
+        )
+        spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        binding.spinnerOfClubDetail.adapter = spinnerAdapter
+        binding.stadiumNameOfClubDetailTextView.isVisible = false
+        binding.spinnerOfClubDetail.isVisible = true
+        binding.addStadiumClubButton.isVisible = true
+        binding.addStadiumClubButton.setOnClickListener {
+            when (binding.spinnerOfClubDetail.selectedItem.toString()) {
+                "Add new" -> {
+                    val view = (view as ViewGroup).inflate(R.layout.new_stadium)
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Add new Stadium")
+                        .setView(view)
+                        .setPositiveButton("Ok") { _, _ ->
+                            if (view.nameOfNewStadiumET.text.isNotEmpty() &&
+                                view.capacityOfNewStadiumET.text.isNotEmpty()
+                            ) {
+                                stadium = Stadiums(
+                                    0,
+                                    view.nameOfNewStadiumET.text.toString(),
+                                    view.photoOfNewStadiumET.text.toString(),
+                                    view.capacityOfNewStadiumET.text.toString().toInt(),
+                                    view.yearOfBuildOfNewStadiumET.text.toString().toIntOrNull()
+                                )
+                                detailClubViewModel.addNewStadium(listOf(stadium))
+                            } else {
+                                toast(R.string.incorrect_form)
+                            }
+                        }
+                        .setNegativeButton("Cancel") { _, _ -> }
+                        .show()
+                }
+                else -> detailClubViewModel.getStadiumByName(binding.spinnerOfClubDetail.selectedItem.toString())
+            }
+        }
     }
 
     private fun bindingViewModel() {
@@ -73,6 +139,13 @@ class ClubsDetailsFragment : Fragment() {
             }
         }
 
+        detailClubViewModel.success.observe(viewLifecycleOwner) { added ->
+            if (added) {
+                val clubForUpdate = Clubs(stadium.id, args.club.title, args.club.city, args.club.country, args.club.emblem, args.club.yearOfFoundation)
+                detailClubViewModel.updateClub(clubForUpdate)
+            }
+        }
+
 //        следим за статусом загрузки и взависимости от этого меняем статус вьюшек
         detailClubViewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.progressBar.isVisible = loading
@@ -81,6 +154,19 @@ class ClubsDetailsFragment : Fragment() {
 //        выбрасываем тост с ошибкой в случае ошибки
         detailClubViewModel.isError.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+        }
+
+        detailClubViewModel.getStadium.observe(viewLifecycleOwner) { stadium ->
+            binding.stadiumNameOfClubDetailTextView.isVisible = true
+            binding.spinnerOfClubDetail.isVisible = false
+            binding.addStadiumClubButton.isVisible = false
+            binding.stadiumNameOfClubDetailTextView.text = stadium.stadiumName
+        }
+
+        detailClubViewModel.getAllStadiums.observe(viewLifecycleOwner) { listOfStadiums ->
+            listOfStadiums.forEach {
+                stadiumsList.add(it.stadiumName)
+            }
         }
     }
 }

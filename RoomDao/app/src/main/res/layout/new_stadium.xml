@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/nameOfNewStadiumET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:hint="@string/enter_title_of_stadium"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/photoOfNewStadiumET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:hint="@string/enter_url_link_for_photo_of_the_stadium"
+        android:inputType="textUri" />
+
+    <EditText
+        android:id="@+id/capacityOfNewStadiumET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:hint="@string/enter_capacity_of_the_stadium"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/yearOfBuildOfNewStadiumET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:hint="@string/enter_year_of_build"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/optionalTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:text="@string/optional"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+</LinearLayout>

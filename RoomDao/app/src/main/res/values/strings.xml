@@ -19,4 +19,9 @@
     <string name="enter_uri_link_for_image_of_tournament_trophy">Enter uri link for image of tournament trophy*</string>
     <string name="enter_title_of_new_tournament">Enter title of new tournament</string>
     <string name="enter_prize_money_of_tournament">Enter prize money of tournament*</string>
+    <string name="stadium">Stadium:</string>
+    <string name="enter_title_of_stadium">Enter title of stadium</string>
+    <string name="enter_url_link_for_photo_of_the_stadium">Enter URL link for photo of the stadium*</string>
+    <string name="enter_year_of_build">Enter year of build*</string>
+    <string name="enter_capacity_of_the_stadium">Enter capacity of the Stadium</string>
 </resources>
