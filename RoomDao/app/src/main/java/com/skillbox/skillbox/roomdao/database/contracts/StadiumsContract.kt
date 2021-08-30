@@ -9,5 +9,6 @@ object StadiumsContract {
         const val STADIUM_PICTURE = "stadium_picture"
         const val CAPACITY = "capacity"
         const val YEAR_OF_BUILD = "year_of_build"
+        const val AVERAGE_ATTENDANCE = "average_attendance"
     }
 }

@@ -14,16 +14,23 @@ import kotlinx.android.synthetic.main.tournament_item.*
 
 class TournamentAdapterDelegate(private val onTournamentClick: (Tournaments) -> Unit) :
     AbsListItemAdapterDelegate<Tournaments, Tournaments, TournamentAdapterDelegate.Holder>() {
+
+    //    создаем класс Холдера для наших итемов
     class Holder(
         override val containerView: View,
         onTournamentClick: (Tournaments) -> Unit
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+
+        //    создаем нуллабельный currentTournament так как хотим передать турнир в клик лисенер
         private var currentTournament: Tournaments? = null
+
+//    инициализируем клик Лисенер
 
         init {
             containerView.setOnClickListener { currentTournament?.let(onTournamentClick) }
         }
 
+        //    баиндим пришедший объект в нашу вьюшку
         @SuppressLint("SetTextI18n")
         fun bind(tournaments: Tournaments) {
             Glide.with(itemView)
@@ -32,7 +39,7 @@ class TournamentAdapterDelegate(private val onTournamentClick: (Tournaments) -> 
                 .placeholder(R.drawable.ic_cloud_download)
                 .into(cupPictureImageView)
             titleOfTournamentTextView.text = "Title: ${tournaments.title}"
-            typeOfTournamentTextView.text = "Type: ${tournaments.type.toString()}"
+            typeOfTournamentTextView.text = "Type: ${tournaments.type}"
             clubsCountInTournamentTextView.text =
                 "Clubs count: ${tournaments.clubsCount.toString()}"
             prizeMoneyOfTournamentTextView.text =
@@ -40,6 +47,7 @@ class TournamentAdapterDelegate(private val onTournamentClick: (Tournaments) -> 
         }
     }
 
+    //    имплементируем методы класса
     override fun isForViewType(
         item: Tournaments,
         items: MutableList<Tournaments>,

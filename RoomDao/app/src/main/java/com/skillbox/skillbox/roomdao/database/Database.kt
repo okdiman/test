@@ -5,9 +5,11 @@ import androidx.room.Room
 
 object Database {
 
+    //    создаем late init инстанс для последующего обращения к нему, в момент, когда контекст будут доступен
     lateinit var instance: AppDatabase
         private set
 
+    //    инициализируем БД
     fun init(context: Context) {
         instance = Room.databaseBuilder(
             context,

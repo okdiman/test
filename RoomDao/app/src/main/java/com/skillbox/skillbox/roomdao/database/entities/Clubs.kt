@@ -9,6 +9,7 @@ import com.skillbox.skillbox.roomdao.database.contracts.ClubsContract
 import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
 import kotlinx.android.parcel.Parcelize
 
+//   описываем в Entity название таблицы, составной primary key, foreign key и индексы
 @Entity(
     tableName = ClubsContract.TABLE_NAME,
     primaryKeys = [ClubsContract.Columns.CLUB_TITLE, ClubsContract.Columns.CITY],

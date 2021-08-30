@@ -124,6 +124,7 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {
+                getAllStadiums()
                 isLoadingLiveData.postValue(false)
             }
         }

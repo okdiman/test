@@ -2,6 +2,7 @@ package com.skillbox.skillbox.roomdao.database.contracts
 
 object TournamentContract {
     const val TABLE_NAME = "tournaments"
+
     object Columns {
         const val ID = "tournament_id"
         const val TITLE = "title"

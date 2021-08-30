@@ -82,7 +82,6 @@
         android:text="@string/stadium"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/clubImageView"
         app:layout_constraintStart_toEndOf="@id/stadiumOfClubDetailTextView"
         app:layout_constraintTop_toBottomOf="@id/yearOfFoundationOfClubDetailTextView"
@@ -117,10 +116,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="*choose stadium from list or create new using variant 'Add new' and button in right bottom part"
+        android:text="@string/choose_stadium_from_list_or_create_new_using_variant_add_new_and_button_in_right_bottom_part"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/deleteClubButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/stadiumInfoDetailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/click_to_stadium_to_get_more_information"
+        android:textColor="@color/black"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/deleteClubButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

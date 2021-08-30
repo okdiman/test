@@ -8,6 +8,7 @@ import com.skillbox.skillbox.roomdao.database.dao.TournamentsDao
 import com.skillbox.skillbox.roomdao.database.entities.*
 
 @Database(
+//    указываем все entities и версию БД
     entities = [
         Attendance::class,
         Clubs::class,
@@ -16,6 +17,7 @@ import com.skillbox.skillbox.roomdao.database.entities.*
         TournamentsAndClubsCrossRef::class
     ], version = AppDatabase.DB_VERSION
 )
+//    создаем астратный класс БД и абстрактные методы для всех Дао. Рум реализует их автоматически
 abstract class AppDatabase : RoomDatabase() {
     abstract fun clubsDao(): ClubsDao
     abstract fun stadiumsDao(): StadiumsDao

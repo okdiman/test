@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import com.skillbox.skillbox.roomdao.database.contracts.TournamentAndClubsCrossRefContract
 
+//   описываем в Entity название таблицы, составной primary key и индексы
 @Entity(
     tableName = TournamentAndClubsCrossRefContract.TABLE_NAME,
     primaryKeys = [TournamentAndClubsCrossRefContract.Columns.TOURNAMENT_ID, TournamentAndClubsCrossRefContract.Columns.CLUB_TITLE],

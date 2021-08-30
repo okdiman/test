@@ -10,8 +10,10 @@ import com.skillbox.skillbox.roomdao.database.entities.Tournaments
 import com.skillbox.skillbox.roomdao.database.entities.TournamentsAndClubsCrossRef
 
 data class TournamentsWithClubs(
+//    объявляем главным класс турнира
     @Embedded
     val tournaments: Tournaments,
+//    объявляем отношения между двумя классами
     @Relation(
         parentColumn = TournamentContract.Columns.ID,
         entityColumn = ClubsContract.Columns.CLUB_TITLE,

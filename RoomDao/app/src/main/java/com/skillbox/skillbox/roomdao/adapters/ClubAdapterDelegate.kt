@@ -13,16 +13,22 @@ import kotlinx.android.synthetic.main.clubs_item.*
 
 class ClubAdapterDelegate(private val onClubClick: (Clubs) -> Unit) :
     AbsListItemAdapterDelegate<Clubs, Clubs, ClubAdapterDelegate.Holder>() {
+
+    //    создаем класс Холдера для наших итемов
     class Holder(
         override val containerView: View,
         onClubClick: (Clubs) -> Unit
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+
+        //    создаем нуллабельный currentClub так как хотим передать клуб в клик лисенер
         private var currentClubs: Clubs? = null
 
+        //    инициализируем клик Лисенер
         init {
             containerView.setOnClickListener { currentClubs?.let(onClubClick) }
         }
 
+        //    баиндим пришедший объект в нашу вьюшку
         fun bind(clubs: Clubs) {
             currentClubs = clubs
             Glide.with(itemView)
@@ -36,6 +42,7 @@ class ClubAdapterDelegate(private val onClubClick: (Clubs) -> Unit) :
         }
     }
 
+    //    имплементируем методы класса
     override fun isForViewType(
         item: Clubs,
         items: MutableList<Clubs>,

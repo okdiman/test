@@ -71,7 +71,10 @@
         android:label="StadiumDetailsFragment"
         tools:layout="@layout/stadium_details_fragment" >
         <argument
-            android:name="stadiumId"
-            app:argType="long" />
+            android:name="stadiumName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_stadiumDetailsFragment_to_clubsDetailsFragment"
+            app:destination="@id/clubsDetailsFragment" />
     </fragment>
 </navigation>

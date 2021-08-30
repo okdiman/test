@@ -10,10 +10,13 @@ import com.skillbox.skillbox.roomdao.database.TypeOfTournament
 import com.skillbox.skillbox.roomdao.database.contracts.TournamentContract
 import kotlinx.android.parcel.Parcelize
 
+//    указываем название таблицы
 @Entity(tableName = TournamentContract.TABLE_NAME)
+//    указываем типовой конвертер
 @TypeConverters(TournamentsTypeConverter::class)
 @Parcelize
 data class Tournaments(
+//    устанавливаем автогенерацию id
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = TournamentContract.Columns.ID)
     val id: Long,

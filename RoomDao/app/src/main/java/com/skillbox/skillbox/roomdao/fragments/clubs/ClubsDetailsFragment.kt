@@ -2,14 +2,12 @@ package com.skillbox.skillbox.roomdao.fragments.clubs
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.contentValuesOf
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,7 +18,6 @@ import com.bumptech.glide.Glide
 import com.skillbox.skillbox.contentprovider.inflate
 import com.skillbox.skillbox.contentprovider.toast
 import com.skillbox.skillbox.roomdao.R
-import com.skillbox.skillbox.roomdao.database.contracts.ClubsContract
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 import com.skillbox.skillbox.roomdao.databinding.ClubsDetailsFragmentBinding
@@ -34,9 +31,17 @@ class ClubsDetailsFragment : Fragment() {
 
     private val detailClubViewModel: ClubsDetailsViewModel by viewModels()
 
-    private var stadiumsList = mutableListOf<String>(
+    private var stadiumsList = mutableListOf(
         "Add new"
     )
+
+    private val spinnerAdapter by lazy {
+        ArrayAdapter(
+            requireContext(),
+            R.layout.support_simple_spinner_dropdown_item,
+            stadiumsList
+        )
+    }
 
     private lateinit var stadium: Stadiums
 
@@ -61,6 +66,13 @@ class ClubsDetailsFragment : Fragment() {
             detailClubViewModel.deleteClub(args.club)
         }
         bindingViewModel()
+        binding.stadiumNameOfClubDetailTextView.setOnClickListener {
+            findNavController().navigate(
+                ClubsDetailsFragmentDirections.actionClubsDetailsFragmentToStadiumDetailsFragment(
+                    binding.stadiumNameOfClubDetailTextView.text.toString()
+                )
+            )
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -90,17 +102,13 @@ class ClubsDetailsFragment : Fragment() {
 
     private fun initSpinner() {
         detailClubViewModel.getAllStadiums()
-        val spinnerAdapter = ArrayAdapter<String>(
-            requireContext(),
-            R.layout.support_simple_spinner_dropdown_item,
-            stadiumsList
-        )
         spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.spinnerOfClubDetail.adapter = spinnerAdapter
         binding.stadiumNameOfClubDetailTextView.isVisible = false
         binding.spinnerOfClubDetail.isVisible = true
         binding.addStadiumClubButton.isVisible = true
         binding.addingStadiumInfoDetailTextView.isVisible = true
+        binding.stadiumInfoDetailTextView.isVisible = false
         binding.addStadiumClubButton.setOnClickListener {
             when (binding.spinnerOfClubDetail.selectedItem.toString()) {
                 "Add new" -> {
@@ -117,7 +125,8 @@ class ClubsDetailsFragment : Fragment() {
                                     view.nameOfNewStadiumET.text.toString(),
                                     view.photoOfNewStadiumET.text.toString(),
                                     view.capacityOfNewStadiumET.text.toString().toInt(),
-                                    view.yearOfBuildOfNewStadiumET.text.toString().toIntOrNull()
+                                    view.yearOfBuildOfNewStadiumET.text.toString().toIntOrNull(),
+                                    null
                                 )
                                 detailClubViewModel.addNewStadium(listOf(stadium))
                             } else {
@@ -158,13 +167,21 @@ class ClubsDetailsFragment : Fragment() {
         }
 
         detailClubViewModel.getStadium.observe(viewLifecycleOwner) { stadium ->
+            binding.stadiumInfoDetailTextView.isVisible = true
             binding.addingStadiumInfoDetailTextView.isVisible = false
             binding.stadiumNameOfClubDetailTextView.isVisible = true
             binding.spinnerOfClubDetail.isVisible = false
             binding.addStadiumClubButton.isVisible = false
             binding.stadiumNameOfClubDetailTextView.text = stadium.stadiumName
-            if (args.club.stadium_id == null){
-                val clubForUpdate = Clubs(stadium.id, args.club.title, args.club.city, args.club.country, args.club.emblem, args.club.yearOfFoundation)
+            if (args.club.stadium_id == null) {
+                val clubForUpdate = Clubs(
+                    stadium.id,
+                    args.club.title,
+                    args.club.city,
+                    args.club.country,
+                    args.club.emblem,
+                    args.club.yearOfFoundation
+                )
                 detailClubViewModel.updateClub(clubForUpdate)
             }
         }

@@ -5,8 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
 
+//    указываем название таблицы
 @Entity(tableName = StadiumsContract.TABLE_NAME)
 data class Stadiums(
+//    указываем автогенерацию id
     @ColumnInfo(name = StadiumsContract.Columns.ID)
     @PrimaryKey(autoGenerate = true)
     val id: Long,
@@ -17,5 +19,7 @@ data class Stadiums(
     @ColumnInfo(name = StadiumsContract.Columns.CAPACITY)
     val capacity: Int,
     @ColumnInfo(name = StadiumsContract.Columns.YEAR_OF_BUILD)
-    val yearOfBuild: Int?
+    val yearOfBuild: Int?,
+    @ColumnInfo(name = StadiumsContract.Columns.AVERAGE_ATTENDANCE)
+    val averageAttendanceOfStadium: Int?
 )
