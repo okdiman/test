@@ -46,9 +46,6 @@
         <argument
             android:name="tournament"
             app:argType="com.skillbox.skillbox.roomdao.database.entities.Tournaments" />
-        <action
-            android:id="@+id/action_tournamentDetailsFragment_to_tournamentsFragment"
-            app:destination="@id/tournamentsFragment" />
     </fragment>
     <fragment
         android:id="@+id/clubsDetailsFragment"
@@ -61,12 +58,6 @@
         <argument
             android:name="club"
             app:argType="com.skillbox.skillbox.roomdao.database.entities.Clubs" />
-        <action
-            android:id="@+id/action_clubsDetailsFragment_to_clubsFragment"
-            app:destination="@id/clubsFragment" />
-        <action
-            android:id="@+id/action_clubsDetailsFragment_to_tournamentDetailsFragment"
-            app:destination="@id/tournamentDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/stadiumDetailsFragment"
@@ -76,8 +67,5 @@
         <argument
             android:name="stadiumName"
             app:argType="string" />
-        <action
-            android:id="@+id/action_stadiumDetailsFragment_to_clubsDetailsFragment"
-            app:destination="@id/clubsDetailsFragment" />
     </fragment>
 </navigation>

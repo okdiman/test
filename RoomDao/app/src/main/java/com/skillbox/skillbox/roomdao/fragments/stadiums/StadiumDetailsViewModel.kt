@@ -5,21 +5,22 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.skillbox.skillbox.roomdao.database.connections.StadiumsWithAttendance
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 import com.skillbox.skillbox.roomdao.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class StadiumDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val getStadiumLiveData = MutableLiveData<Stadiums>()
-    val getStadium: LiveData<Stadiums>
+    //    лайв дата получения стадиона
+    private val getStadiumLiveData = MutableLiveData<StadiumsWithAttendance>()
+    val getStadium: LiveData<StadiumsWithAttendance>
         get() = getStadiumLiveData
 
-
-    private val successLiveData = MutableLiveData<Boolean>()
-    val success: LiveData<Boolean>
-        get() = successLiveData
-
+    //    лайв дата удаления стадиона
+    private val deleteLiveData = MutableLiveData<Boolean>()
+    val delete: LiveData<Boolean>
+        get() = deleteLiveData
 
     //    лайв дата статуса загрузки
     private val isLoadingLiveData = MutableLiveData<Boolean>()
@@ -33,6 +34,7 @@ class StadiumDetailsViewModel(application: Application) : AndroidViewModel(appli
 
     private val repo = StadiumDetailsRepository()
 
+    //    получение стадиона вместе с посещаемостью
     fun getStadiumWithAttendance(stadiumName: String) {
         isLoadingLiveData.postValue(true)
         viewModelScope.launch {
@@ -46,13 +48,14 @@ class StadiumDetailsViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
+    //    удаление стадиона
     fun deleteStadium(stadiums: Stadiums) {
         isLoadingLiveData.postValue(true)
-        successLiveData.postValue(false)
+        deleteLiveData.postValue(false)
         viewModelScope.launch {
             try {
                 repo.deleteStadium(stadiums)
-                successLiveData.postValue(true)
+                deleteLiveData.postValue(true)
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {

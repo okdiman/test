@@ -174,7 +174,7 @@ class TournamentDetailsFragment : Fragment() {
 
         tournamentViewModel.deleteTournamentLD.observe(viewLifecycleOwner) {
             if (it) {
-                findNavController().navigate(TournamentDetailsFragmentDirections.actionTournamentDetailsFragmentToTournamentsFragment())
+                findNavController().previousBackStackEntry
             }
         }
 

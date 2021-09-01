@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class ClubsViewModel(application: Application) : AndroidViewModel(application) {
 
+    //    лайв дата получения списка всех клубов
     private val clubsListLiveData = MutableLiveData<List<Clubs>>()
     val clubsList: LiveData<List<Clubs>>
         get() = clubsListLiveData
@@ -27,6 +28,7 @@ class ClubsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repo = ClubsRepository()
 
+    //    получение всех клубов
     fun getAllClubs() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
@@ -40,6 +42,7 @@ class ClubsViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    //    добавление нового клуба
     fun addNewClub(club: Clubs) {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
@@ -54,6 +57,7 @@ class ClubsViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    //    удаление всех клубов
     fun deleteAllClubs() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)

@@ -16,7 +16,6 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
 
     val tournamentWithClubsLiveData = MutableLiveData<TournamentsWithClubs>()
 
-
     //    лайв дата статуса загрузки
     private val isLoadingLiveData = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
