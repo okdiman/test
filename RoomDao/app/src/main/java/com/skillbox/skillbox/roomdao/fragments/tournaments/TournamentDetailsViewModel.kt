@@ -22,6 +22,10 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
 
+    private val gettingCrossTableForTournamentLiveData =
+        MutableLiveData<TournamentsAndClubsCrossRef>()
+    val gettingCrossTableForTournament: LiveData<TournamentsAndClubsCrossRef>
+        get() = gettingCrossTableForTournamentLiveData
 
     private val getAllClubsLiveData = MutableLiveData<List<Clubs>>()
     val getAllClubs: LiveData<List<Clubs>>
@@ -30,6 +34,10 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
     private val deleteTournamentLiveData = MutableLiveData<Boolean>()
     val deleteTournamentLD: LiveData<Boolean>
         get() = deleteTournamentLiveData
+
+    private val updateTournamentLiveData = MutableLiveData<Boolean>()
+    val updateTournament: LiveData<Boolean>
+        get() = updateTournamentLiveData
 
     //    лайв дата ошибок
     private val isErrorLiveData = SingleLiveEvent<String>()
@@ -63,13 +71,16 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
         }
     }
 
-    fun updateTournament(tournament: Tournaments, tournamentsAndClubsCrossRef: TournamentsAndClubsCrossRef) {
+    fun updateTournament(
+        tournament: Tournaments,
+        tournamentsAndClubsCrossRef: TournamentsAndClubsCrossRef
+    ) {
         isLoadingLiveData.postValue(true)
-        deleteTournamentLiveData.postValue(false)
+        updateTournamentLiveData.postValue(false)
         viewModelScope.launch {
             try {
                 repo.updateTournament(tournament, tournamentsAndClubsCrossRef)
-                deleteTournamentLiveData.postValue(true)
+                updateTournamentLiveData.postValue(true)
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {
@@ -85,6 +96,23 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
             try {
                 repo.deleteTournament(tournament)
                 deleteTournamentLiveData.postValue(true)
+            } catch (t: Throwable) {
+                isErrorLiveData.postValue(t.message)
+            } finally {
+                isLoadingLiveData.postValue(false)
+            }
+        }
+    }
+
+    fun gettingCrossTableForTournament(tournamentId: Long) {
+        isLoadingLiveData.postValue(true)
+        viewModelScope.launch {
+            try {
+                gettingCrossTableForTournamentLiveData.postValue(
+                    repo.gettingCrossTableForTournament(
+                        tournamentId
+                    )
+                )
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {

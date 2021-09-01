@@ -10,7 +10,7 @@ import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 interface StadiumsDao {
 
     //    получение списка всех стадионов
-    @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME}")
+    @Query("SELECT DISTINCT * FROM ${StadiumsContract.TABLE_NAME}")
     suspend fun getAllStadiums(): List<Stadiums>
 
     //    получение стадиона и его клуба. Через транзакцию для атомарности

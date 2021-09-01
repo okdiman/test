@@ -4,7 +4,6 @@ import androidx.room.*
 import com.skillbox.skillbox.roomdao.database.connections.TournamentsWithClubs
 import com.skillbox.skillbox.roomdao.database.contracts.TournamentContract
 import com.skillbox.skillbox.roomdao.database.entities.Tournaments
-import com.skillbox.skillbox.roomdao.database.entities.TournamentsAndClubsCrossRef
 
 @Dao
 interface TournamentsDao {
@@ -15,7 +14,10 @@ interface TournamentsDao {
 
     //    получение турнира со списком клубов. Через транзакцию для атомарности
     @Transaction
-    @Query("SELECT * FROM ${TournamentContract.TABLE_NAME} WHERE  ${TournamentContract.Columns.ID} = :tournamentId")
+    @Query(
+        "SELECT * FROM ${TournamentContract.TABLE_NAME} " +
+                "WHERE  ${TournamentContract.Columns.ID} = :tournamentId"
+    )
     suspend fun getTournamentWithClubs(tournamentId: Long): TournamentsWithClubs?
 
     //    добавление нового турнира
@@ -34,7 +36,4 @@ interface TournamentsDao {
     @Query("DELETE FROM ${TournamentContract.TABLE_NAME}")
     suspend fun deleteAllTournaments()
 
-
-    @Update
-    suspend fun updateClubsList(tournamentsAndClubsCrossRef: TournamentsAndClubsCrossRef)
 }

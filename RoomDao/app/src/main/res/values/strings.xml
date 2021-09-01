@@ -26,4 +26,5 @@
     <string name="enter_capacity_of_the_stadium">Enter capacity of the Stadium</string>
     <string name="choose_stadium_from_list_or_create_new_using_variant_add_new_and_button_in_right_bottom_part">*choose stadium from list or create new using variant \'Add new\' and button in right bottom part</string>
     <string name="click_to_stadium_to_get_more_information">Click to stadium to get more information</string>
+    <string name="selected_club_error">The selected club is already participating in this tournament</string>
 </resources>

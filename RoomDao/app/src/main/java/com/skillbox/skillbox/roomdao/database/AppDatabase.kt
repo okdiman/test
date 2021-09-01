@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.skillbox.skillbox.roomdao.database.dao.ClubsDao
 import com.skillbox.skillbox.roomdao.database.dao.StadiumsDao
+import com.skillbox.skillbox.roomdao.database.dao.TournamentsAndClubsDao
 import com.skillbox.skillbox.roomdao.database.dao.TournamentsDao
 import com.skillbox.skillbox.roomdao.database.entities.*
 
@@ -22,6 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun clubsDao(): ClubsDao
     abstract fun stadiumsDao(): StadiumsDao
     abstract fun tournamentsDao(): TournamentsDao
+    abstract fun tournamentsWithClubsDao(): TournamentsAndClubsDao
 
     companion object {
         const val DB_VERSION = 1

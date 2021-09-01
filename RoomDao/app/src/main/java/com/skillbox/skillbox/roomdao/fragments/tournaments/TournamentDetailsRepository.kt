@@ -12,6 +12,7 @@ class TournamentDetailsRepository {
 
     private val tournamentsDao = Database.instance.tournamentsDao()
     private val clubsDao = Database.instance.clubsDao()
+    private val tournamentsWithClubsDao = Database.instance.tournamentsWithClubsDao()
 
     suspend fun getTournamentWithClubs(tournamentId: Long): TournamentsWithClubs? {
         return tournamentsDao.getTournamentWithClubs(tournamentId)
@@ -21,8 +22,9 @@ class TournamentDetailsRepository {
         return clubsDao.getAllClubs()
     }
 
-    suspend fun deleteTournament(tournament: Tournaments){
+    suspend fun deleteTournament(tournament: Tournaments) {
         tournamentsDao.deleteTournament(tournament)
+        tournamentsWithClubsDao.deleteTournamentAndClubsList(tournament.id)
     }
 
     suspend fun updateTournament(
@@ -31,7 +33,11 @@ class TournamentDetailsRepository {
     ) {
         Database.instance.withTransaction {
             tournamentsDao.updateTournament(tournament)
-            tournamentsDao.updateClubsList(tournamentsAndClubsCrossRef)
+            tournamentsWithClubsDao.insertClubsList(tournamentsAndClubsCrossRef)
         }
+    }
+
+    suspend fun gettingCrossTableForTournament(tournamentId: Long): TournamentsAndClubsCrossRef? {
+        return tournamentsWithClubsDao.getTournamentAndClubsList(tournamentId)
     }
 }

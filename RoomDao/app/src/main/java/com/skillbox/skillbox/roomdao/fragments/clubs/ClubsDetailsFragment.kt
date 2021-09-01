@@ -78,15 +78,15 @@ class ClubsDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun init() {
         binding.cityOfClubDetailTextView.text = "City: ${args.club.city}"
-        if (args.club.emblem != null){
-            view?.let {
-                Glide.with(it)
-                    .load(args.club.emblem?.toUri())
-                    .error(R.drawable.ic_sync_problem)
-                    .placeholder(R.drawable.ic_cloud_download)
-                    .into(binding.clubImageView)
-            }
-        }
+//        if (args.club.emblem != null){
+//            view?.let {
+//                Glide.with(it)
+//                    .load(args.club.emblem?.toUri())
+//                    .error(R.drawable.ic_sync_problem)
+//                    .placeholder(R.drawable.ic_cloud_download)
+//                    .into(binding.clubImageView)
+//            }
+//        }
         binding.countryOfClubDetailTextView.text = "Country: ${args.club.country}"
         binding.titleOfClubDetailTextView.text = "Title: ${args.club.title}"
         binding.yearOfFoundationOfClubDetailTextView.text =

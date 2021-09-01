@@ -3,18 +3,17 @@ package com.skillbox.skillbox.roomdao.fragments.tournaments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.adapters.ClubAdapter
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
@@ -22,6 +21,7 @@ import com.skillbox.skillbox.roomdao.database.entities.Tournaments
 import com.skillbox.skillbox.roomdao.database.entities.TournamentsAndClubsCrossRef
 import com.skillbox.skillbox.roomdao.databinding.TournamentDetailsFragmentBinding
 import com.skillbox.skillbox.roomdao.utils.inflate
+import com.skillbox.skillbox.roomdao.utils.toast
 import kotlinx.android.synthetic.main.clubs_list.view.*
 
 
@@ -35,7 +35,11 @@ class TournamentDetailsFragment : Fragment() {
 
     private val args: TournamentDetailsFragmentArgs by navArgs()
 
+    private var tableTournamentsAndClubsCrossRef: TournamentsAndClubsCrossRef? = null
+
     private val tournamentViewModel: TournamentDetailsViewModel by viewModels()
+
+    private var tournament: Tournaments? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,14 +65,14 @@ class TournamentDetailsFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initStartScreen() {
-        view?.let {
-            Glide.with(it)
-                .load(args.tournament.cupPicture.toUri())
-                .error(R.drawable.ic_sync_problem)
-                .placeholder(R.drawable.ic_cloud_download)
-                .into(binding.detailCupPictureImageView)
-        }
-        binding.detailTypeOfTournamentTextView.text = "Type: ${args.tournament.type.toString()}"
+//        view?.let {
+//            Glide.with(it)
+//                .load(args.tournament.cupPicture.toUri())
+//                .error(R.drawable.ic_sync_problem)
+//                .placeholder(R.drawable.ic_cloud_download)
+//                .into(binding.detailCupPictureImageView)
+//        }
+        binding.detailTypeOfTournamentTextView.text = "Type: ${args.tournament.type}"
         binding.detailTitleOfTournamentTextView.text = "Title: ${args.tournament.title}"
         binding.detailPrizeMoneyOfTournamentTextView.text =
             "Prize money: ${args.tournament.prizeMoney.toString()}"
@@ -109,32 +113,63 @@ class TournamentDetailsFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun addClubToTournament(clubs: List<Clubs>) {
-        val view = (view as ViewGroup).inflate(R.layout.clubs_list)
+        tournamentViewModel.gettingCrossTableForTournament(args.tournament.id)
+        val viewDialog = (view as ViewGroup).inflate(R.layout.clubs_list)
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Add club to tournament")
-            .setView(view)
+            .setView(viewDialog)
             .setNegativeButton("Cancel") { _, _ -> }
             .show()
 
-        clubsListAdapterForAdding = ClubAdapter { club ->
-            val tournament = args.tournament.copy(clubsCount = args.tournament.clubsCount?.plus(1))
-            tournamentViewModel.updateTournament(
-                tournament,
-                TournamentsAndClubsCrossRef(tournament.id, club.title)
-            )
-            clubsListAdapter?.items = clubsListAdapter?.items?.plus(club)
-            binding.detailClubsCountInTournamentTextView.text =
-                "Clubs count: ${tournament.clubsCount.toString()}"
-            dialog.cancel()
+        var clubsCount: Int
+        if (tournament == null) {
+            clubsCount = args.tournament.clubsCount!!.toInt()
+        } else {
+            clubsCount = tournament!!.clubsCount!! + 1
+            tournamentViewModel.gettingCrossTableForTournament(tournament!!.id)
         }
-        with(view.clubsListForTournRV) {
+        Log.i("clubsCount", clubsCount.toString())
+
+
+
+        clubsListAdapterForAdding = ClubAdapter { club ->
+            val listOfClubsTitles = mutableListOf<String>()
+            tableTournamentsAndClubsCrossRef?.clubTitle?.forEach { title ->
+                listOfClubsTitles.add(title.toString())
+            }
+            Log.i("clubsCount", listOfClubsTitles.toString())
+            if (!listOfClubsTitles.contains(club.title)) {
+                clubsCount = if (clubsCount == 0) {
+                    1
+                } else {
+                    clubsCount++
+                }
+                tournament =
+                    args.tournament.copy(clubsCount = clubsCount)
+                Log.i("clubsCount", clubsCount.toString())
+                val tournamentsAndClubsCrossRef =
+                    TournamentsAndClubsCrossRef(tournament!!.id, club.title)
+                tournamentViewModel.updateTournament(
+                    tournament!!,
+                    tournamentsAndClubsCrossRef
+                )
+                getTournamentWithClubs(tournament!!.id)
+            } else {
+                toast(R.string.selected_club_error)
+            }
+            dialog.dismiss()
+        }
+
+        with(viewDialog.clubsListForTournRV) {
             adapter = clubsListAdapterForAdding
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
         clubsListAdapterForAdding?.items = clubs
+        tableTournamentsAndClubsCrossRef = null
     }
 
+    @SuppressLint("SetTextI18n")
     private fun bindingViewModel() {
 
         tournamentViewModel.deleteTournamentLD.observe(viewLifecycleOwner) {
@@ -143,12 +178,22 @@ class TournamentDetailsFragment : Fragment() {
             }
         }
 
+        tournamentViewModel.updateTournament.observe(viewLifecycleOwner) {
+            binding.detailClubsCountInTournamentTextView.text =
+                "Clubs count: ${tournament!!.clubsCount.toString()}"
+        }
+
         tournamentViewModel.getAllClubs.observe(viewLifecycleOwner) { clubsList ->
             addClubToTournament(clubsList)
         }
 
         tournamentViewModel.tournamentWithClubsLiveData.observe(viewLifecycleOwner) {
+            Log.i("tournamentWithClubs", it.toString())
             clubsListAdapter?.items = it.clubs
+        }
+
+        tournamentViewModel.gettingCrossTableForTournament.observe(viewLifecycleOwner) { table ->
+            tableTournamentsAndClubsCrossRef = table
         }
 
         //        следим за статусом загрузки и взависимости от этого меняем статус вьюшек
