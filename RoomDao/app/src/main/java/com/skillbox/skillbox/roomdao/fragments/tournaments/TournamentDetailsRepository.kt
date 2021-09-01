@@ -29,7 +29,7 @@ class TournamentDetailsRepository {
     suspend fun deleteTournament(tournament: Tournaments) {
         Database.instance.withTransaction {
             tournamentsDao.deleteTournament(tournament)
-            tournamentsWithClubsDao.deleteTournamentAndClubsList(tournament.id)
+            tournamentsWithClubsDao.deleteTournamentAndClubsListByTournament(tournament.id)
         }
     }
 

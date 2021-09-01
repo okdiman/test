@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.roomdao.fragments.clubs
 
+import androidx.room.withTransaction
 import com.skillbox.skillbox.roomdao.database.Database
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
@@ -9,11 +10,15 @@ class ClubsDetailsRepository {
     //    создаем инстансы необходимых Дао
     private val clubsDao = Database.instance.clubsDao()
     private val stadiumDao = Database.instance.stadiumsDao()
+    private val tournamentsWithClubsDao = Database.instance.tournamentsWithClubsDao()
 
-    //    удаление клуба
+    //    удаление клуба и его связей с турнирами
     suspend fun deleteClub(club: Clubs): Boolean {
         return try {
-            clubsDao.deleteClub(club)
+            Database.instance.withTransaction {
+                clubsDao.deleteClub(club)
+                tournamentsWithClubsDao.deleteTournamentAndClubsListByClub(club.title)
+            }
             true
         } catch (t: Throwable) {
             false
