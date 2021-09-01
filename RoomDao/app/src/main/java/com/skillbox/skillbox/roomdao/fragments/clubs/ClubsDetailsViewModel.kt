@@ -1,7 +1,6 @@
 package com.skillbox.skillbox.roomdao.fragments.clubs
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,10 +12,12 @@ import kotlinx.coroutines.launch
 
 class ClubsDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
+    //    лайв дата получения списка стадионов
     private val getAllStadiumsLiveData = MutableLiveData<List<Stadiums>>()
     val getAllStadiums: LiveData<List<Stadiums>>
         get() = getAllStadiumsLiveData
 
+    //    лайв дата получения одного стадиона
     private val getStadiumLiveData = MutableLiveData<Stadiums>()
     val getStadium: LiveData<Stadiums>
         get() = getStadiumLiveData
@@ -25,16 +26,6 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
     private val deleteClubLiveData = MutableLiveData<Boolean>()
     val deleteClub: LiveData<Boolean>
         get() = deleteClubLiveData
-
-    private val updateClubLiveData = MutableLiveData<Boolean>()
-    val updateClub: LiveData<Boolean>
-        get() = updateClubLiveData
-
-
-    private val successLiveData = MutableLiveData<Boolean>()
-    val success: LiveData<Boolean>
-        get() = successLiveData
-
 
     //    лайв дата статуса загрузки
     private val isLoadingLiveData = MutableLiveData<Boolean>()
@@ -46,11 +37,15 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
     val isError: LiveData<String>
         get() = isErrorLiveData
 
+    //    создание объекта репозитория
     private val repo = ClubsDetailsRepository()
 
+    //    удаление клуба
     fun deleteClub(club: Clubs) {
+//        устанавливаем стартовые статусы лайв дат
         isLoadingLiveData.postValue(true)
-//        deleteClubLiveData.postValue(false)
+        deleteClubLiveData.postValue(false)
+//        создаем корутину для использования саспенд функции
         viewModelScope.launch {
             try {
                 deleteClubLiveData.postValue(repo.deleteClub(club))
@@ -62,12 +57,14 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    //    обновление клуба
     fun updateClub(club: Clubs) {
+//        устанавливаем стартовые статус лайв даты загрузки
         isLoadingLiveData.postValue(true)
-        updateClubLiveData.postValue(false)
+//        создаем корутину для использования саспенд функции
         viewModelScope.launch {
             try {
-                updateClubLiveData.postValue(repo.updateClub(club))
+                repo.updateClub(club)
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {
@@ -76,8 +73,11 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    //    получение стадиона по id
     fun getStadiumById(stadiumId: Long) {
+        //        устанавливаем стартовые статус лайв даты загрузки
         isLoadingLiveData.postValue(true)
+        //        создаем корутину для использования саспенд функции
         viewModelScope.launch {
             try {
                 getStadiumLiveData.postValue(repo.getStadiumById(stadiumId))
@@ -89,8 +89,11 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    //    получение стадиона по названию
     fun getStadiumByName(stadiumName: String) {
+//        устанавливаем стартовые статус лайв даты загрузки
         isLoadingLiveData.postValue(true)
+//        создаем корутину для использования саспенд функции
         viewModelScope.launch {
             try {
                 getStadiumLiveData.postValue(repo.getStadiumByName(stadiumName))
@@ -102,8 +105,11 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    //    получение списка всех стадионов
     fun getAllStadiums() {
+//        устанавливаем стартовые статус лайв даты загрузки
         isLoadingLiveData.postValue(true)
+//        создаем корутину для использования саспенд функции
         viewModelScope.launch {
             try {
                 getAllStadiumsLiveData.postValue(repo.getAllStadiums())
@@ -115,12 +121,14 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    //    добавление нового стадиона
     fun addNewStadium(stadium: List<Stadiums>) {
+//        устанавливаем стартовые статус лайв даты загрузки
         isLoadingLiveData.postValue(true)
-        successLiveData.postValue(false)
+//        создаем корутину для использования саспенд функции
         viewModelScope.launch {
             try {
-                successLiveData.postValue(repo.addNewStadium(stadium))
+                repo.addNewStadium(stadium)
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {

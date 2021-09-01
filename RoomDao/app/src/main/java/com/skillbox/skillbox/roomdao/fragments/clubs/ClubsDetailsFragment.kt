@@ -8,42 +8,31 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
-import com.skillbox.skillbox.roomdao.utils.inflate
-import com.skillbox.skillbox.roomdao.utils.toast
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 import com.skillbox.skillbox.roomdao.databinding.ClubsDetailsFragmentBinding
+import com.skillbox.skillbox.roomdao.utils.inflate
+import com.skillbox.skillbox.roomdao.utils.toast
 import kotlinx.android.synthetic.main.new_stadium.view.*
 
 class ClubsDetailsFragment : Fragment() {
     private var _binding: ClubsDetailsFragmentBinding? = null
     private val binding get() = _binding!!
 
+    //    получаем аргументы, переданные на вход из предыдущего фрагмента
     private val args: ClubsDetailsFragmentArgs by navArgs()
-
     private val detailClubViewModel: ClubsDetailsViewModel by viewModels()
 
+    //    создаем список стадионов с полем добавления нового
     private var stadiumsList = mutableListOf(
         "Add new"
     )
-
-    private val spinnerAdapter by lazy {
-        ArrayAdapter(
-            requireContext(),
-            R.layout.support_simple_spinner_dropdown_item,
-            stadiumsList
-        )
-    }
-
-    private lateinit var stadium: Stadiums
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,23 +50,30 @@ class ClubsDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+//        инициализируем стартовый экран
+        initStartScreen()
+//        устанавливаем лисенер на кнопку удаления клуба
         binding.deleteClubButton.setOnClickListener {
             detailClubViewModel.deleteClub(args.club)
         }
+//        подписываемся на обновления ViewModel
         bindingViewModel()
+//        устанавливаем лисенер на названия стадиона для перехода на экран детальной информации о стадионе
         binding.stadiumNameOfClubDetailTextView.setOnClickListener {
+//            переход на экран детальной информации о стадионе
             findNavController().navigate(
                 ClubsDetailsFragmentDirections.actionClubsDetailsFragmentToStadiumDetailsFragment(
+//                    передаем во фрагмент детальной инфы о стадионе название стадиона
                     binding.stadiumNameOfClubDetailTextView.text.toString()
                 )
             )
         }
     }
 
+    //    инициализация стартового экрана
     @SuppressLint("SetTextI18n")
-    private fun init() {
-        binding.cityOfClubDetailTextView.text = "City: ${args.club.city}"
+    private fun initStartScreen() {
+//    заполняем все поля view для переданного нам клуба
 //        if (args.club.emblem != null){
 //            view?.let {
 //                Glide.with(it)
@@ -87,10 +83,12 @@ class ClubsDetailsFragment : Fragment() {
 //                    .into(binding.clubImageView)
 //            }
 //        }
+        binding.cityOfClubDetailTextView.text = "City: ${args.club.city}"
         binding.countryOfClubDetailTextView.text = "Country: ${args.club.country}"
         binding.titleOfClubDetailTextView.text = "Title: ${args.club.title}"
         binding.yearOfFoundationOfClubDetailTextView.text =
             "Year of foundation: ${args.club.yearOfFoundation}"
+//    если поле стадиона у клуба не заполнено, инициализируем поле спиннера вместо заполнения поля стадиона
         if (args.club.stadium_id != null) {
             getStadiumById(args.club.stadium_id!!.toLong())
         } else {
@@ -98,31 +96,45 @@ class ClubsDetailsFragment : Fragment() {
         }
     }
 
+    //    получение стадиона по Id
     private fun getStadiumById(stadiumId: Long) {
         detailClubViewModel.getStadiumById(stadiumId)
     }
 
+    //    инициализация спиннера для выбора стадиона пользователем или добавления нового
     private fun initSpinner() {
+//        создаем адаптер для спиннера
+        val spinnerAdapter =
+            ArrayAdapter(
+                requireContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                stadiumsList
+            )
+//        устнавливаем статусы view при активном спиннере
+        statusSpinnerActive()
+//        получаем список всех стадионов
         detailClubViewModel.getAllStadiums()
+//        устанавливаем адаптер для спиннера
         spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         binding.spinnerOfClubDetail.adapter = spinnerAdapter
-        binding.stadiumNameOfClubDetailTextView.isVisible = false
-        binding.spinnerOfClubDetail.isVisible = true
-        binding.addStadiumClubButton.isVisible = true
-        binding.addingStadiumInfoDetailTextView.isVisible = true
-        binding.stadiumInfoDetailTextView.isVisible = false
+//        обрабатываем клик на кнопку добавления стадиона
         binding.addStadiumClubButton.setOnClickListener {
             when (binding.spinnerOfClubDetail.selectedItem.toString()) {
+//                если пользователь выбирает добавление нового стадиона, то вызываем соответствующий диалог
                 "Add new" -> {
+//                    инфлейтим вьюшку добавления стадиона
                     val view = (view as ViewGroup).inflate(R.layout.new_stadium)
+//                    вызываем диалог
                     AlertDialog.Builder(requireContext())
                         .setTitle("Add new Stadium")
                         .setView(view)
                         .setPositiveButton("Ok") { _, _ ->
+//                            проверяем заполненностей обязательных полей
                             if (view.nameOfNewStadiumET.text.isNotEmpty() &&
                                 view.capacityOfNewStadiumET.text.isNotEmpty()
                             ) {
-                                stadium = Stadiums(
+//                                создаем объект стадиона, используя введенные пользователем данные
+                                val stadium = Stadiums(
                                     0,
                                     view.nameOfNewStadiumET.text.toString(),
                                     view.photoOfNewStadiumET.text.toString(),
@@ -130,52 +142,51 @@ class ClubsDetailsFragment : Fragment() {
                                     view.yearOfBuildOfNewStadiumET.text.toString().toIntOrNull(),
                                     null
                                 )
+//                                добавляем стадион в БД
                                 detailClubViewModel.addNewStadium(listOf(stadium))
                             } else {
+//                                выводим тост в случае неправильного заполенения полей пользователем
                                 toast(R.string.incorrect_form)
                             }
                         }
                         .setNegativeButton("Cancel") { _, _ -> }
                         .show()
                 }
+//                если пользователь выбирает один из имеющихся стадионов, то добавляем его в соотвествующее поле клуба
                 else -> detailClubViewModel.getStadiumByName(binding.spinnerOfClubDetail.selectedItem.toString())
             }
         }
     }
 
+    //    подписываемся на обновления ViewModel
     private fun bindingViewModel() {
+//    описываем действия в случае удаления клуба
         detailClubViewModel.deleteClub.observe(viewLifecycleOwner) { deleted ->
+//            если клуб успешно удален, то переходим в предыдущий фрагмент
             if (deleted) {
-                findNavController().navigate(ClubsDetailsFragmentDirections.actionClubsDetailsFragmentToClubsFragment())
-            } else {
-                toast(R.string.error)
+                findNavController().previousBackStackEntry
             }
         }
 
-        detailClubViewModel.success.observe(viewLifecycleOwner) { added ->
-            if (added) {
-
-            }
-        }
-
-//        следим за статусом загрузки и взависимости от этого меняем статус вьюшек
+//    следим за статусом загрузки и взависимости от этого меняем статус вьюшек
         detailClubViewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.progressBar.isVisible = loading
         }
 
-//        выбрасываем тост с ошибкой в случае ошибки
+//    выбрасываем тост с ошибкой в случае ошибки
         detailClubViewModel.isError.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
 
+//    действия при получении объекта стадиона
         detailClubViewModel.getStadium.observe(viewLifecycleOwner) { stadium ->
-            binding.stadiumInfoDetailTextView.isVisible = true
-            binding.addingStadiumInfoDetailTextView.isVisible = false
-            binding.stadiumNameOfClubDetailTextView.isVisible = true
-            binding.spinnerOfClubDetail.isVisible = false
-            binding.addStadiumClubButton.isVisible = false
+//            устанавливаем статус вьюшек при неактивном спиннере
+            statusSpinnerInactive()
+//            устанавиваем название стадиона в соотвествующее поле
             binding.stadiumNameOfClubDetailTextView.text = stadium.stadiumName
+//            если у клуба стадион был не установлен, то устанавливаем стадион в БД
             if (args.club.stadium_id == null) {
+//                создаем объект клуба
                 val clubForUpdate = Clubs(
                     stadium.id,
                     args.club.title,
@@ -184,14 +195,35 @@ class ClubsDetailsFragment : Fragment() {
                     args.club.emblem,
                     args.club.yearOfFoundation
                 )
+//                обновляем данные БД
                 detailClubViewModel.updateClub(clubForUpdate)
             }
         }
 
+//        добавляем все полученные стадионы в наш список
         detailClubViewModel.getAllStadiums.observe(viewLifecycleOwner) { listOfStadiums ->
             listOfStadiums.forEach {
                 stadiumsList.add(it.stadiumName)
             }
         }
     }
+
+    //    статус вью при активном спиннере
+    private fun statusSpinnerActive() {
+        binding.stadiumNameOfClubDetailTextView.isVisible = false
+        binding.spinnerOfClubDetail.isVisible = true
+        binding.addStadiumClubButton.isVisible = true
+        binding.addingStadiumInfoDetailTextView.isVisible = true
+        binding.stadiumInfoDetailTextView.isVisible = false
+    }
+
+    //    статус вью при неактивном спиннере
+    private fun statusSpinnerInactive() {
+        binding.stadiumInfoDetailTextView.isVisible = true
+        binding.addingStadiumInfoDetailTextView.isVisible = false
+        binding.stadiumNameOfClubDetailTextView.isVisible = true
+        binding.spinnerOfClubDetail.isVisible = false
+        binding.addStadiumClubButton.isVisible = false
+    }
+
 }
