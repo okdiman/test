@@ -59,14 +59,17 @@ class StadiumDetailsFragment : Fragment() {
         binding.titleOfStadiumTextView.text = "Stadium name: ${stadium.stadiumName}"
         binding.yearOfBuildOfStadiumTextView.text =
             "Year of construction ${stadium.yearOfBuild.toString()}"
-        binding.capacityStadiumTextView.text = "Capacity: ${stadium.capacity.toString()}"
-        view?.let {
-            Glide.with(it)
-                .load(stadium.stadiumPicture?.toUri())
-                .error(R.drawable.ic_sync_problem)
-                .placeholder(R.drawable.ic_cloud_download)
-                .into(binding.stadiumImageView)
+        binding.capacityStadiumTextView.text = "Capacity: ${stadium.capacity}"
+        if (stadium.stadiumPicture != null) {
+            view?.let {
+                Glide.with(it)
+                    .load(stadium.stadiumPicture.toUri())
+                    .error(R.drawable.ic_sync_problem)
+                    .placeholder(R.drawable.ic_cloud_download)
+                    .into(binding.stadiumImageView)
+            }
         }
+
         if (stadium.averageAttendanceOfStadium != null) {
             binding.averageAttendanceOfStadiumTextView.text =
                 stadium.averageAttendanceOfStadium.toString()
@@ -87,7 +90,7 @@ class StadiumDetailsFragment : Fragment() {
         }
 
         stadiumViewModel.success.observe(viewLifecycleOwner) { success ->
-            if (success){
+            if (success) {
                 findNavController().previousBackStackEntry
             }
         }
@@ -101,6 +104,5 @@ class StadiumDetailsFragment : Fragment() {
             stadium = gettedStadium
             init(stadium)
         }
-
     }
 }

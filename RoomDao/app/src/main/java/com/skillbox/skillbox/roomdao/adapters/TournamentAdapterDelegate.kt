@@ -33,6 +33,7 @@ class TournamentAdapterDelegate(private val onTournamentClick: (Tournaments) -> 
         //    баиндим пришедший объект в нашу вьюшку
         @SuppressLint("SetTextI18n")
         fun bind(tournaments: Tournaments) {
+            currentTournament = tournaments
             Glide.with(itemView)
                 .load(tournaments.cupPicture)
                 .error(R.drawable.ic_sync_problem)

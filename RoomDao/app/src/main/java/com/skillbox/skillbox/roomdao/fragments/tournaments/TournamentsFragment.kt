@@ -20,6 +20,7 @@ import com.skillbox.skillbox.roomdao.database.TypeOfTournament
 import com.skillbox.skillbox.roomdao.database.entities.Tournaments
 import com.skillbox.skillbox.roomdao.databinding.TournamentFragmentBinding
 import kotlinx.android.synthetic.main.new_tournament_item.view.*
+import kotlinx.android.synthetic.main.tournament_item.view.*
 
 class TournamentsFragment : Fragment() {
     private var _binding: TournamentFragmentBinding? = null

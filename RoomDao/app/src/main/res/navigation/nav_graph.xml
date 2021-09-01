@@ -46,6 +46,9 @@
         <argument
             android:name="tournament"
             app:argType="com.skillbox.skillbox.roomdao.database.entities.Tournaments" />
+        <action
+            android:id="@+id/action_tournamentDetailsFragment_to_tournamentsFragment"
+            app:destination="@id/tournamentsFragment" />
     </fragment>
     <fragment
         android:id="@+id/clubsDetailsFragment"

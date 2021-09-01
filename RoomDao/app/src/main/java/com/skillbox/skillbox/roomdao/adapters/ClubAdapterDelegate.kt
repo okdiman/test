@@ -31,11 +31,13 @@ class ClubAdapterDelegate(private val onClubClick: (Clubs) -> Unit) :
         //    баиндим пришедший объект в нашу вьюшку
         fun bind(clubs: Clubs) {
             currentClubs = clubs
-            Glide.with(itemView)
-                .load(clubs.emblem)
-                .error(R.drawable.ic_sync_problem)
-                .placeholder(R.drawable.ic_cloud_download)
-                .into(clubImageView)
+            if (clubs.emblem != null){
+                Glide.with(itemView)
+                    .load(clubs.emblem)
+                    .error(R.drawable.ic_sync_problem)
+                    .placeholder(R.drawable.ic_cloud_download)
+                    .into(clubImageView)
+            }
             titleOfClubTextView.text = clubs.title
             cityOfClubTextView.text = clubs.city
             countryOfClubTextView.text = clubs.country
