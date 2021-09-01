@@ -14,26 +14,33 @@ import kotlinx.coroutines.launch
 
 class TournamentDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val tournamentWithClubsLiveData = MutableLiveData<TournamentsWithClubs>()
+    //    лайв дата турнира и списка клубов-участников
+    private val tournamentWithClubsLiveData = MutableLiveData<TournamentsWithClubs>()
+    val tournamentWithClubs: LiveData<TournamentsWithClubs>
+        get() = tournamentWithClubsLiveData
 
     //    лайв дата статуса загрузки
     private val isLoadingLiveData = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
 
+    //    лайв дата получения вспомогательной таблицы турнира
     private val gettingCrossTableForTournamentLiveData =
         MutableLiveData<TournamentsAndClubsCrossRef>()
     val gettingCrossTableForTournament: LiveData<TournamentsAndClubsCrossRef>
         get() = gettingCrossTableForTournamentLiveData
 
+    //    лайв дата получения списка всех клубов
     private val getAllClubsLiveData = MutableLiveData<List<Clubs>>()
     val getAllClubs: LiveData<List<Clubs>>
         get() = getAllClubsLiveData
 
+    //    лайв дата удаления турнира
     private val deleteTournamentLiveData = MutableLiveData<Boolean>()
     val deleteTournamentLD: LiveData<Boolean>
         get() = deleteTournamentLiveData
 
+    //    лайв дата оновления турнира
     private val updateTournamentLiveData = MutableLiveData<Boolean>()
     val updateTournament: LiveData<Boolean>
         get() = updateTournamentLiveData
@@ -42,8 +49,10 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
     private val isErrorLiveData = SingleLiveEvent<String>()
     val isError: LiveData<String>
         get() = isErrorLiveData
+
     private val repo = TournamentDetailsRepository()
 
+    //    получение турнира со списком клубов-участников
     fun getTournamentWithClubs(tournamentId: Long) {
         isLoadingLiveData.postValue(true)
         viewModelScope.launch {
@@ -57,6 +66,7 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
         }
     }
 
+    //    получение списка клубов
     fun getAllClubs() {
         isLoadingLiveData.postValue(true)
         viewModelScope.launch {
@@ -70,6 +80,7 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
         }
     }
 
+    //    обновление турнира
     fun updateTournament(
         tournament: Tournaments,
         tournamentsAndClubsCrossRef: TournamentsAndClubsCrossRef
@@ -88,6 +99,7 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
         }
     }
 
+    //    удаление турнира
     fun deleteTournament(tournament: Tournaments) {
         isLoadingLiveData.postValue(true)
         deleteTournamentLiveData.postValue(false)
@@ -103,6 +115,7 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
         }
     }
 
+    //    получение вспомогательной таблицы
     fun gettingCrossTableForTournament(tournamentId: Long) {
         isLoadingLiveData.postValue(true)
         viewModelScope.launch {
