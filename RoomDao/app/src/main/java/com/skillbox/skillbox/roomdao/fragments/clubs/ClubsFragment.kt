@@ -49,7 +49,7 @@ class ClubsFragment : Fragment() {
         }
 //        устанавливаем лисенер для кнопки удаления всех клубов
         binding.deleteAllTClubsButton.setOnClickListener {
-            deleteAllClubs()
+            clubsViewModel.deleteAllClubs()
         }
 //        инициализируем список клубов
         initList()
@@ -107,11 +107,6 @@ class ClubsFragment : Fragment() {
             }
             .setNegativeButton("Cancel") { _, _ -> }
             .show()
-    }
-
-    //    удаление всех клубов
-    private fun deleteAllClubs() {
-        clubsViewModel.deleteAllClubs()
     }
 
     //    подписка на обновления viewModel

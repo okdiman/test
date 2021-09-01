@@ -12,27 +12,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.skillbox.skillbox.roomdao.utils.inflate
-import com.skillbox.skillbox.roomdao.utils.toast
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.adapters.TournamentAdapter
 import com.skillbox.skillbox.roomdao.database.TypeOfTournament
 import com.skillbox.skillbox.roomdao.database.entities.Tournaments
 import com.skillbox.skillbox.roomdao.databinding.TournamentFragmentBinding
+import com.skillbox.skillbox.roomdao.utils.inflate
+import com.skillbox.skillbox.roomdao.utils.toast
 import kotlinx.android.synthetic.main.new_tournament_item.view.*
-import kotlinx.android.synthetic.main.tournament_item.view.*
 
 class TournamentsFragment : Fragment() {
     private var _binding: TournamentFragmentBinding? = null
     private val binding get() = _binding!!
-
     private val tournamentViewModel: TournamentsViewModel by viewModels()
     private var tournamentAdapter: TournamentAdapter? = null
-
-    private val types = listOf(
-        "Championship",
-        "Cup"
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,18 +44,23 @@ class TournamentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        устанавливаем лисенер для кнопки добавляения турнира
         binding.addTournamentButton.setOnClickListener {
             addNewTournament()
         }
+//        устанавливаем лисенер для кнопки удаления всех турниров
         binding.deleteAllTournamentsButton.setOnClickListener {
-            deleteAllTournaments()
+            tournamentViewModel.deleteAllTournaments()
         }
+//        инициализируем стартовый экран
         init()
-        getAllTournaments()
+//        подписываемся на обновления ViewModel
         bindingViewModel()
     }
 
+    //    инициализация стартового экрана
     private fun init() {
+//        по клику на элемент списка переходим на экран детальной информации о турнире
         tournamentAdapter = TournamentAdapter { tournament ->
             val action =
                 TournamentsFragmentDirections.actionTournamentsFragmentToTournamentDetailsFragment(
@@ -75,31 +73,35 @@ class TournamentsFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-        getAllTournaments()
-    }
-
-    private fun getAllTournaments() {
+//        получаем список всех турниров
         tournamentViewModel.getAllTournaments()
     }
 
-    private fun deleteAllTournaments() {
-        tournamentViewModel.deleteAllTournaments()
-    }
-
+    //    добавление нового турнира
     private fun addNewTournament() {
+//        создание списка для выбора пользователем типа турнира
+        val types = listOf(
+            "Championship",
+            "Cup"
+        )
+//        инфлейтим вьюшку добавления нового турнира
         val view = (view as ViewGroup).inflate(R.layout.new_tournament_item)
-        val spinnerAdapter = ArrayAdapter<String>(
+//        создание адаптера для спиннера
+        val spinnerAdapter = ArrayAdapter(
             requireContext(),
             R.layout.support_simple_spinner_dropdown_item,
             types
         )
         spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         view.typeOfNewTournamentSpinner.adapter = spinnerAdapter
+//        вызываем диалог добавления нового турнира
         AlertDialog.Builder(requireContext())
             .setView(view)
             .setTitle("Add new tournament")
             .setPositiveButton("Ok") { _, _ ->
+//                проверяем корректность заполения полей пользователем
                 if (view.titleOfNewTournamentEditText.text.toString().isNotEmpty()) {
+//                    создаем объект турнира
                     val tournament = Tournaments(
                         0,
                         view.titleOfNewTournamentEditText.text.toString(),
@@ -118,8 +120,10 @@ class TournamentsFragment : Fragment() {
                         view.imageOfNewTournamentEditText.text.toString(),
                         0
                     )
+//                    добавляем турнир
                     tournamentViewModel.addNewTournament(tournament)
                 } else {
+//                    в случае некорректного заполнения пользователем формы, выдаем тост
                     toast(R.string.incorrect_form)
                 }
             }
@@ -127,9 +131,10 @@ class TournamentsFragment : Fragment() {
             .show()
     }
 
+    //    подписка на обновление viewModel
     private fun bindingViewModel() {
-        tournamentViewModel.tournamentsList.observe(viewLifecycleOwner) { tournamentList ->
 //           передаем полученный список контактов в адаптер
+        tournamentViewModel.tournamentsList.observe(viewLifecycleOwner) { tournamentList ->
             tournamentAdapter?.items = tournamentList
         }
 

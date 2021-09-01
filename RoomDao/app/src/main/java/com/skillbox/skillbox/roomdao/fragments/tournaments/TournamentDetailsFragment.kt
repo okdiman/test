@@ -93,7 +93,7 @@ class TournamentDetailsFragment : Fragment() {
         }
 //        устанавливаем лисенер на удаление турнира
         binding.detailDeleteTournamentButton.setOnClickListener {
-            deleteTournament(args.tournament)
+            tournamentViewModel.deleteTournament(args.tournament)
         }
 //        инициализируем список клубов для турнира
         initList()
@@ -116,11 +116,6 @@ class TournamentDetailsFragment : Fragment() {
         }
 //        получаем список турниров вместе с клубами-учатсниками
         tournamentViewModel.getTournamentWithClubs(args.tournament.id)
-    }
-
-    //    удаление турнира
-    private fun deleteTournament(tournament: Tournaments) {
-        tournamentViewModel.deleteTournament(tournament)
     }
 
     //    добавление клуба в турнир

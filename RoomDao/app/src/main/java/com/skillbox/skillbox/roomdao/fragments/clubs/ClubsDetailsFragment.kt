@@ -90,15 +90,11 @@ class ClubsDetailsFragment : Fragment() {
             "Year of foundation: ${args.club.yearOfFoundation}"
 //    если поле стадиона у клуба не заполнено, инициализируем поле спиннера вместо заполнения поля стадиона
         if (args.club.stadium_id != null) {
-            getStadiumById(args.club.stadium_id!!.toLong())
+//            получаем стадион по id
+            detailClubViewModel.getStadiumById(args.club.stadium_id!!.toLong())
         } else {
             initSpinner()
         }
-    }
-
-    //    получение стадиона по Id
-    private fun getStadiumById(stadiumId: Long) {
-        detailClubViewModel.getStadiumById(stadiumId)
     }
 
     //    инициализация спиннера для выбора стадиона пользователем или добавления нового

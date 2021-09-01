@@ -10,6 +10,8 @@ import com.skillbox.skillbox.roomdao.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class TournamentsViewModel(application: Application) : AndroidViewModel(application) {
+
+    //    лайв дата получения списка турниров
     private val tournamentsListLiveData = MutableLiveData<List<Tournaments>>()
     val tournamentsList: LiveData<List<Tournaments>>
         get() = tournamentsListLiveData
@@ -26,6 +28,7 @@ class TournamentsViewModel(application: Application) : AndroidViewModel(applicat
 
     private val repo = TournamentsRepository()
 
+    //    получение всех турниров
     fun getAllTournaments() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
@@ -39,6 +42,7 @@ class TournamentsViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    //    добавление нового турнира
     fun addNewTournament(tournament: Tournaments) {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
@@ -53,6 +57,7 @@ class TournamentsViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    //    удаление всех турниров
     fun deleteAllTournaments() {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)

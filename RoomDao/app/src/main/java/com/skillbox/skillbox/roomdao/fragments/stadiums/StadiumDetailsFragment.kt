@@ -48,7 +48,7 @@ class StadiumDetailsFragment : Fragment() {
         bindingViewModel()
 //        устанавливаем лисенер на кнопку удаления стадиона
         binding.deleteStadiumButton.setOnClickListener {
-            deleteStadium(stadium)
+            stadiumViewModel.deleteStadium(stadium)
         }
     }
 
@@ -75,11 +75,6 @@ class StadiumDetailsFragment : Fragment() {
             binding.averageAttendanceOfStadiumTextView.text =
                 stadium.averageAttendanceOfStadium.toString()
         }
-    }
-
-    //    удаление стадиона
-    private fun deleteStadium(stadium: Stadiums) {
-        stadiumViewModel.deleteStadium(stadium)
     }
 
     //    подписка на обновления ViewModel
