@@ -21,22 +21,13 @@
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailTypeOfTournamentTextView"
         app:layout_constraintEnd_toStartOf="@id/detailDeleteTournamentButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/detailCupPictureImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/cities" />
 
-    <TextView
-        android:id="@+id/detailClubsCountInTournamentTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@id/detailDeleteTournamentButton"
-        app:layout_constraintStart_toEndOf="@+id/detailCupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailTypeOfTournamentTextView"
-        tools:text="@tools:sample/us_phones" />
 
     <TextView
         android:id="@+id/detailTypeOfTournamentTextView"
@@ -44,10 +35,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailPrizeMoneyOfTournamentTextView"
         app:layout_constraintEnd_toStartOf="@id/detailDeleteTournamentButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/detailCupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailTitleOfTournamentTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailTitleOfTournamentTextView"
         tools:text="@tools:sample/cities" />
 
     <TextView
@@ -56,10 +49,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/participantsTextView"
         app:layout_constraintEnd_toStartOf="@id/detailDeleteTournamentButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/detailCupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailClubsCountInTournamentTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailTypeOfTournamentTextView"
         tools:text="@tools:sample/us_zipcodes" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

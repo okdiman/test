@@ -27,7 +27,5 @@ data class Tournaments(
     @ColumnInfo(name = TournamentContract.Columns.PRIZE_MONEY)
     val prizeMoney: Int?,
     @ColumnInfo(name = TournamentContract.Columns.CUP_PICTURE)
-    val cupPicture: String,
-    @ColumnInfo(name = TournamentContract.Columns.CLUBS_COUNT)
-    val clubsCount: Int?
+    val cupPicture: String
 ) : Parcelable

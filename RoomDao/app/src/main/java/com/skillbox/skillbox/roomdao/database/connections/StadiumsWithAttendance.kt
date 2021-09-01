@@ -16,5 +16,5 @@ data class StadiumsWithAttendance(
         parentColumn = StadiumsContract.Columns.ID,
         entityColumn = AttendanceContract.Columns.STADIUM_ID
     )
-    val attendance: Attendance
+    val attendance: Attendance?
 )

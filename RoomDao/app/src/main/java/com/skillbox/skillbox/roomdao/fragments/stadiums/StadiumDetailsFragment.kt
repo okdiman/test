@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 import com.skillbox.skillbox.roomdao.databinding.StadiumDetailsFragmentBinding
 
@@ -61,15 +64,15 @@ class StadiumDetailsFragment : Fragment() {
         binding.yearOfBuildOfStadiumTextView.text =
             "Year of construction ${stadium.yearOfBuild.toString()}"
         binding.capacityStadiumTextView.text = "Capacity: ${stadium.capacity}"
-//        if (stadium.stadiumPicture != null) {
-//            view?.let {
-//                Glide.with(it)
-//                    .load(stadium.stadiumPicture.toUri())
-//                    .error(R.drawable.ic_sync_problem)
-//                    .placeholder(R.drawable.ic_cloud_download)
-//                    .into(binding.stadiumImageView)
-//            }
-//        }
+        if (stadium.stadiumPicture != null) {
+            view?.let {
+                Glide.with(it)
+                    .load(stadium.stadiumPicture.toUri())
+                    .error(R.drawable.ic_sync_problem)
+                    .placeholder(R.drawable.ic_cloud_download)
+                    .into(binding.stadiumImageView)
+            }
+        }
 
         if (stadium.averageAttendanceOfStadium != null) {
             binding.averageAttendanceOfStadiumTextView.text =

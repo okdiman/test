@@ -117,8 +117,7 @@ class TournamentsFragment : Fragment() {
                             }
                         },
                         view.prizeMoneyOfNewTournamentEditText.text.toString().toIntOrNull(),
-                        view.imageOfNewTournamentEditText.text.toString(),
-                        0
+                        view.imageOfNewTournamentEditText.text.toString()
                     )
 //                    добавляем турнир
                     tournamentViewModel.addNewTournament(tournament)

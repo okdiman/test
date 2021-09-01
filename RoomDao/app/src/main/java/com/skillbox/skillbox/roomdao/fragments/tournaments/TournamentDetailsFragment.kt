@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.adapters.ClubAdapter
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
@@ -74,19 +76,17 @@ class TournamentDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun initStartScreen() {
 //        заполяняем все вьюшки в соотвествии с полученными данными турнира
-//        view?.let {
-//            Glide.with(it)
-//                .load(args.tournament.cupPicture.toUri())
-//                .error(R.drawable.ic_sync_problem)
-//                .placeholder(R.drawable.ic_cloud_download)
-//                .into(binding.detailCupPictureImageView)
-//        }
+        view?.let {
+            Glide.with(it)
+                .load(args.tournament.cupPicture.toUri())
+                .error(R.drawable.ic_sync_problem)
+                .placeholder(R.drawable.ic_cloud_download)
+                .into(binding.detailCupPictureImageView)
+        }
         binding.detailTypeOfTournamentTextView.text = "Type: ${args.tournament.type}"
         binding.detailTitleOfTournamentTextView.text = "Title: ${args.tournament.title}"
         binding.detailPrizeMoneyOfTournamentTextView.text =
             "Prize money: ${args.tournament.prizeMoney.toString()}"
-        binding.detailClubsCountInTournamentTextView.text =
-            "Clubs count: ${args.tournament.clubsCount.toString()}"
 //        устанавливаем лисенер на кнопку добавления нового клуба в турнир
         binding.addClubToTournamentButton.setOnClickListener {
             tournamentViewModel.getAllClubs()
@@ -131,20 +131,10 @@ class TournamentDetailsFragment : Fragment() {
             .setView(viewDialog)
             .setNegativeButton("Cancel") { _, _ -> }
             .show()
-//        создаем переменную количества клубов-участников турнира
-        var clubsCount: Int
-//        если обновлений турнира еще не происходило, то устанавливаем количество участников
-        //        турнира, который был передан во фрагмент
-        if (tournament == null) {
-            clubsCount = args.tournament.clubsCount!!
-        } else {
-//            если турнир уже был изменен, то иполучаем его количество клубов участников у него
-            //            и вызываем вспомогательную таблицу
-            clubsCount = tournament!!.clubsCount!!
+//            если турнир уже был изменен, то вызываем его вспомогательную таблицу
+        if (tournament != null) {
             tournamentViewModel.gettingCrossTableForTournament(tournament!!.id)
         }
-        Log.i("clubsCount", clubsCount.toString())
-
 //        создаем адаптер для списка-клубов для выбора
         clubsListAdapterForAdding = ClubAdapter { club ->
 //            создаем список названий клубов-учатсников
@@ -156,12 +146,10 @@ class TournamentDetailsFragment : Fragment() {
             Log.i("clubsCount", listOfClubsTitles.toString())
 //                если клуба в списке еще нет, то добавляем его
             if (!listOfClubsTitles.contains(club.title)) {
-//                инкрементируем количество клубов участников
-                clubsCount++
-//                создаем объект турнира
-                tournament =
-                    args.tournament.copy(clubsCount = clubsCount)
-                Log.i("clubsCount", clubsCount.toString())
+//                если турнир еще не был изменен, то устанавливаем его, как полученный из предыдущего фрагмента
+                if (tournament == null) {
+                    tournament = args.tournament
+                }
 //                создаем объект вспомогательной таблицы
                 val tournamentsAndClubsCrossRef =
                     TournamentsAndClubsCrossRef(tournament!!.id, club.title)
@@ -198,10 +186,12 @@ class TournamentDetailsFragment : Fragment() {
                 findNavController().previousBackStackEntry
             }
         }
-//        при обновлениии турнира обновляем статус вьюшки количества участников
+//        при обновлениии турнира показываем тост
         tournamentViewModel.updateTournament.observe(viewLifecycleOwner) {
-            binding.detailClubsCountInTournamentTextView.text =
-                "Clubs count: ${tournament!!.clubsCount.toString()}"
+            if (it) {
+                Toast.makeText(requireContext(), "Tournament was updated", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
 //        после получения всех клубов передаем список в диалог выбора клуба для добавления
         tournamentViewModel.getAllClubs.observe(viewLifecycleOwner) { clubsList ->

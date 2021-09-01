@@ -1,5 +1,8 @@
 package com.skillbox.skillbox.roomdao.fragments.stadiums
 
+import androidx.core.net.toUri
+import com.bumptech.glide.Glide
+import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.database.Database
 import com.skillbox.skillbox.roomdao.database.connections.StadiumsWithAttendance
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
@@ -18,4 +21,5 @@ class StadiumDetailsRepository {
     suspend fun deleteStadium(stadiums: Stadiums) {
         stadiumDao.deleteStadiums(stadiums)
     }
+
 }

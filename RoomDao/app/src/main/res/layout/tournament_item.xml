@@ -22,22 +22,12 @@
         android:layout_margin="4dp"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/typeOfTournamentTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cupPictureImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/cities" />
-
-    <TextView
-        android:id="@+id/clubsCountInTournamentTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/typeOfTournamentTextView"
-        tools:text="@tools:sample/us_phones" />
 
     <TextView
         android:id="@+id/typeOfTournamentTextView"
@@ -45,10 +35,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/prizeMoneyOfTournamentTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/titleOfTournamentTextView"
+        app:layout_constraintTop_toBottomOf="@+id/titleOfTournamentTextView"
         tools:text="@tools:sample/cities" />
 
     <TextView
@@ -57,10 +49,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cupPictureImageView"
-        app:layout_constraintTop_toBottomOf="@id/clubsCountInTournamentTextView"
+        app:layout_constraintTop_toBottomOf="@+id/typeOfTournamentTextView"
         tools:text="@tools:sample/us_zipcodes" />
 
 

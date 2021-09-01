@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
-import com.skillbox.skillbox.roomdao.utils.inflate
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.database.entities.Tournaments
+import com.skillbox.skillbox.roomdao.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.tournament_item.*
 
@@ -34,15 +34,13 @@ class TournamentAdapterDelegate(private val onTournamentClick: (Tournaments) -> 
         @SuppressLint("SetTextI18n")
         fun bind(tournaments: Tournaments) {
             currentTournament = tournaments
-//            Glide.with(itemView)
-//                .load(tournaments.cupPicture)
-//                .error(R.drawable.ic_sync_problem)
-//                .placeholder(R.drawable.ic_cloud_download)
-//                .into(cupPictureImageView)
+            Glide.with(itemView)
+                .load(tournaments.cupPicture)
+                .error(R.drawable.ic_sync_problem)
+                .placeholder(R.drawable.ic_cloud_download)
+                .into(cupPictureImageView)
             titleOfTournamentTextView.text = "Title: ${tournaments.title}"
             typeOfTournamentTextView.text = "Type: ${tournaments.type}"
-            clubsCountInTournamentTextView.text =
-                "Clubs count: ${tournaments.clubsCount.toString()}"
             prizeMoneyOfTournamentTextView.text =
                 "Prize money: ${tournaments.prizeMoney.toString()} euro"
         }
