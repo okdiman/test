@@ -29,15 +29,7 @@ interface StadiumsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNewStadium(stadiums: List<Stadiums>)
 
-    //    обновление стадиона
-    @Update
-    suspend fun updateStadiums(stadiums: Stadiums)
-
     //    удаление стадиона
     @Delete
     suspend fun deleteStadiums(stadiums: Stadiums)
-
-    //    удаление всех стадионов
-    @Query("DELETE FROM ${StadiumsContract.TABLE_NAME}")
-    suspend fun deleteAllStadiums()
 }

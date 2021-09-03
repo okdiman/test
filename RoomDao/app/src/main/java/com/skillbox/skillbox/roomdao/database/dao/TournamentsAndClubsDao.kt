@@ -3,7 +3,6 @@ package com.skillbox.skillbox.roomdao.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 import com.skillbox.skillbox.roomdao.database.contracts.TournamentAndClubsCrossRefContract
 import com.skillbox.skillbox.roomdao.database.entities.TournamentsAndClubsCrossRef
 
@@ -13,18 +12,14 @@ interface TournamentsAndClubsDao {
     @Insert
     suspend fun insertClubsList(tournamentsAndClubsCrossRef: TournamentsAndClubsCrossRef)
 
-    //    обновление данных вспомогательной таблицы турнир/клуб
-    @Update
-    suspend fun updateClubsList(tournamentsAndClubsCrossRef: TournamentsAndClubsCrossRef)
-
-    //    удаление данных вспомогательной таблицы турнир/клубдля клуба
+    //    удаление данных вспомогательной таблицы турнир/клуб для клуба
     @Query(
         "DELETE FROM ${TournamentAndClubsCrossRefContract.TABLE_NAME} " +
                 "WHERE ${TournamentAndClubsCrossRefContract.Columns.TOURNAMENT_ID} = :tournamentId"
     )
     suspend fun deleteTournamentAndClubsListByTournament(tournamentId: Long)
 
-    //    удаление данных вспомогательной таблицы турнир/клуб
+    //    удаление данных вспомогательной таблицы турнир/клуб для турнира
     @Query(
         "DELETE FROM ${TournamentAndClubsCrossRefContract.TABLE_NAME} " +
                 "WHERE ${TournamentAndClubsCrossRefContract.Columns.CLUB_TITLE} = :clubTitle"
@@ -35,6 +30,7 @@ interface TournamentsAndClubsDao {
     @Query("DELETE FROM ${TournamentAndClubsCrossRefContract.TABLE_NAME}")
     suspend fun deleteAllTournamentAndClubsList()
 
+    //    получение вспомогательной таблицы турнир/клуб
     @Query(
         "SELECT * FROM ${TournamentAndClubsCrossRefContract.TABLE_NAME} " +
                 "WHERE ${TournamentAndClubsCrossRefContract.Columns.TOURNAMENT_ID} = :tournamentId"
