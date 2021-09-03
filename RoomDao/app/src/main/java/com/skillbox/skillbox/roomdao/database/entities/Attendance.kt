@@ -17,8 +17,6 @@ import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
 data class Attendance(
 //    выставляем автогенерацию id
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = AttendanceContract.Columns.ID)
-    val id: Long,
     @ColumnInfo(name = AttendanceContract.Columns.STADIUM_ID)
     val stadiumId: Long,
     @ColumnInfo(name = AttendanceContract.Columns.AVERAGE_ATTENDANCE)

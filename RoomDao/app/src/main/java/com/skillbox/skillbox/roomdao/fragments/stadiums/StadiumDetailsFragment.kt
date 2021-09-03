@@ -103,7 +103,6 @@ class StadiumDetailsFragment : Fragment() {
 //                    устанавливаем посещаеомсть
                     stadiumViewModel.changeAttendance(
                         Attendance(
-                            0,
                             stadium.stadium.id,
                             (view.newAttendanceET.text.toString().toInt()),
                             0

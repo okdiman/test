@@ -2,18 +2,12 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fcca5595128a6c25b4ae25039074ea80",
+    "identityHash": "1100c5429cf22f29b77ff92fc2702946",
     "entities": [
       {
         "tableName": "attendance",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `stadium_id` INTEGER NOT NULL, `average_attendance` INTEGER, `count_of_matches` INTEGER, FOREIGN KEY(`stadium_id`) REFERENCES `stadiums`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`stadium_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `average_attendance` INTEGER, FOREIGN KEY(`stadium_id`) REFERENCES `stadiums`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "stadiumId",
             "columnName": "stadium_id",
@@ -25,17 +19,11 @@
             "columnName": "average_attendance",
             "affinity": "INTEGER",
             "notNull": false
-          },
-          {
-            "fieldPath": "countOfMatches",
-            "columnName": "count_of_matches",
-            "affinity": "INTEGER",
-            "notNull": false
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "stadium_id"
           ],
           "autoGenerate": true
         },
@@ -271,7 +259,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fcca5595128a6c25b4ae25039074ea80')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1100c5429cf22f29b77ff92fc2702946')"
     ]
   }
 }
