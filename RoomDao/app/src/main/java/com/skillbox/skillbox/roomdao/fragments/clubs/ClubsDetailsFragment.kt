@@ -199,6 +199,8 @@ class ClubsDetailsFragment : Fragment() {
 
 //        добавляем все полученные стадионы в наш список
         detailClubViewModel.getAllStadiums.observe(viewLifecycleOwner) { listOfStadiums ->
+            stadiumsList.clear()
+            stadiumsList.add("Add new")
             listOfStadiums.forEach {
                 stadiumsList.add(it.stadiumName)
             }

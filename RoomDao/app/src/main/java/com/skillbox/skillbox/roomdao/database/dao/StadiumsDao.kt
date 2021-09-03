@@ -8,8 +8,8 @@ import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 @Dao
 interface StadiumsDao {
 
-    //    получение списка всех стадионов
-    @Query("SELECT DISTINCT * FROM ${StadiumsContract.TABLE_NAME}")
+    //    получение списка всех стадионов сортированный по названию
+    @Query("SELECT DISTINCT * FROM ${StadiumsContract.TABLE_NAME} ORDER BY ${StadiumsContract.Columns.STADIUM_NAME}")
     suspend fun getAllStadiums(): List<Stadiums>
 
     //    получение стадиона и посещаемости. Через транзакцию для атомарности

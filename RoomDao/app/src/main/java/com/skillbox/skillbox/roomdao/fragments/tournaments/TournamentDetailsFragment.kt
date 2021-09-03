@@ -40,7 +40,7 @@ class TournamentDetailsFragment : Fragment() {
 
     //    создаем нуллабльный объект спомогательной таблицы для последующей работы
     //    с ним в нескольких участках кода и возможности проверить на нулл
-    private var tableTournamentsAndClubsCrossRef: TournamentsAndClubsCrossRef? = null
+    private var tableTournamentsAndClubsCrossRef: List<TournamentsAndClubsCrossRef?> = emptyList()
 
     private val tournamentViewModel: TournamentDetailsViewModel by viewModels()
 
@@ -141,8 +141,8 @@ class TournamentDetailsFragment : Fragment() {
 //            создаем список названий клубов-учатсников
             val listOfClubsTitles = mutableListOf<String>()
 //            заполяем список названий клубов-участников
-            tableTournamentsAndClubsCrossRef?.clubTitle?.forEach { title ->
-                listOfClubsTitles.add(title.toString())
+            tableTournamentsAndClubsCrossRef.forEach { table ->
+                listOfClubsTitles.add(table?.clubTitle.toString())
             }
             Log.i("clubsCount", listOfClubsTitles.toString())
 //                если клуба в списке еще нет, то добавляем его

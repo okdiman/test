@@ -8,8 +8,8 @@ import com.skillbox.skillbox.roomdao.database.entities.Tournaments
 @Dao
 interface TournamentsDao {
 
-    //    получение всех турниров
-    @Query("SELECT * FROM ${TournamentContract.TABLE_NAME}")
+    //    получение всех турниров сортированный по типу и по названию
+    @Query("SELECT * FROM ${TournamentContract.TABLE_NAME} ORDER BY ${TournamentContract.Columns.TYPE} AND ${TournamentContract.Columns.TITLE}")
     suspend fun getAllTournaments(): List<Tournaments>
 
     //    получение турнира со списком клубов. Через транзакцию для атомарности

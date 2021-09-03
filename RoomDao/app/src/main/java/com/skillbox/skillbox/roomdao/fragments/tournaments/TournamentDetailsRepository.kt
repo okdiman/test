@@ -45,7 +45,7 @@ class TournamentDetailsRepository {
     }
 
     //    получаем вспомогательную таблицу турнира
-    suspend fun gettingCrossTableForTournament(tournamentId: Long): TournamentsAndClubsCrossRef? {
+    suspend fun gettingCrossTableForTournament(tournamentId: Long): List<TournamentsAndClubsCrossRef?> {
         return tournamentsWithClubsDao.getTournamentAndClubsList(tournamentId)
     }
 }

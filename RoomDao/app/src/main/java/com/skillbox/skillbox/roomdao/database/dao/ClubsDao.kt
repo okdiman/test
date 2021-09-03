@@ -1,7 +1,6 @@
 package com.skillbox.skillbox.roomdao.database.dao
 
 import androidx.room.*
-import com.skillbox.skillbox.roomdao.database.connections.ClubsWithStadium
 import com.skillbox.skillbox.roomdao.database.connections.ClubsWithTournaments
 import com.skillbox.skillbox.roomdao.database.contracts.ClubsContract
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
@@ -9,8 +8,8 @@ import com.skillbox.skillbox.roomdao.database.entities.Clubs
 @Dao
 interface ClubsDao {
 
-    //    получение списка всех клубов
-    @Query("SELECT * FROM ${ClubsContract.TABLE_NAME}")
+    //    получение списка всех клубов, сортированного по стране и названиям
+    @Query("SELECT * FROM ${ClubsContract.TABLE_NAME} ORDER BY ${ClubsContract.Columns.COUNTRY} AND ${ClubsContract.Columns.CLUB_TITLE}")
     suspend fun getAllClubs(): List<Clubs>
 
     //    получение клуба со турнирами. Через транзакцию для обеспечения атомарности

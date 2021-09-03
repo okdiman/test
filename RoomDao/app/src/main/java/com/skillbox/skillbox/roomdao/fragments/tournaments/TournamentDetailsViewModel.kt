@@ -26,8 +26,8 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
 
     //    лайв дата получения вспомогательной таблицы турнира
     private val gettingCrossTableForTournamentLiveData =
-        MutableLiveData<TournamentsAndClubsCrossRef>()
-    val gettingCrossTableForTournament: LiveData<TournamentsAndClubsCrossRef>
+        MutableLiveData<List<TournamentsAndClubsCrossRef?>>()
+    val gettingCrossTableForTournament: LiveData<List<TournamentsAndClubsCrossRef?>>
         get() = gettingCrossTableForTournamentLiveData
 
     //    лайв дата получения списка всех клубов

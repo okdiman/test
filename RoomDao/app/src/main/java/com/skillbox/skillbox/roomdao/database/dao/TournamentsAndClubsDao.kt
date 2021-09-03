@@ -35,5 +35,5 @@ interface TournamentsAndClubsDao {
         "SELECT * FROM ${TournamentAndClubsCrossRefContract.TABLE_NAME} " +
                 "WHERE ${TournamentAndClubsCrossRefContract.Columns.TOURNAMENT_ID} = :tournamentId"
     )
-    suspend fun getTournamentAndClubsList(tournamentId: Long): TournamentsAndClubsCrossRef?
+    suspend fun getTournamentAndClubsList(tournamentId: Long): List<TournamentsAndClubsCrossRef?>
 }
