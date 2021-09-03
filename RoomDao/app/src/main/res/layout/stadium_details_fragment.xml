@@ -76,12 +76,10 @@
 
     <Button
         android:id="@+id/changeAttendanceStadiumButton"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/purple_200"
         android:text="@string/change_attendance"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/averageAttendanceOfStadiumTextView" />
 
