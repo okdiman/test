@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.roomdao.database.connections.StadiumsWithAttendance
 import com.skillbox.skillbox.roomdao.database.entities.Attendance
+import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 import com.skillbox.skillbox.roomdao.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
@@ -46,22 +47,6 @@ class StadiumDetailsViewModel(application: Application) : AndroidViewModel(appli
         viewModelScope.launch {
             try {
                 getStadiumLiveData.postValue(repo.getStadiumAndAttendance(stadiumName))
-            } catch (t: Throwable) {
-                isErrorLiveData.postValue(t.message)
-            } finally {
-                isLoadingLiveData.postValue(false)
-            }
-        }
-    }
-
-    //    удаление стадиона
-    fun deleteStadium(stadiums: Stadiums) {
-        isLoadingLiveData.postValue(true)
-        deleteLiveData.postValue(false)
-        viewModelScope.launch {
-            try {
-                repo.deleteStadium(stadiums)
-                deleteLiveData.postValue(true)
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {

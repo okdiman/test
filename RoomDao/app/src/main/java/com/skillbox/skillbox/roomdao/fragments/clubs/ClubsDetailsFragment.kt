@@ -65,7 +65,7 @@ class ClubsDetailsFragment : Fragment() {
 //            переход на экран детальной информации о стадионе
             findNavController().navigate(
                 ClubsDetailsFragmentDirections.actionClubsDetailsFragmentToStadiumDetailsFragment(
-//                    передаем во фрагмент детальной инфы о стадионе название стадиона
+//                    передаем во фрагмент детальной инфы о стадионе название стадиона и клуб-хозяин
                     binding.stadiumNameOfClubDetailTextView.text.toString()
                 )
             )

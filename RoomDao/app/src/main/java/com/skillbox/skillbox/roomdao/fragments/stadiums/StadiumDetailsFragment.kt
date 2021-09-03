@@ -54,10 +54,6 @@ class StadiumDetailsFragment : Fragment() {
         stadiumViewModel.getStadiumWithAttendance(args.stadiumName)
 //        подписываемся на обновления viewModel
         bindingViewModel()
-//        устанавливаем лисенер на кнопку удаления стадиона
-        binding.deleteStadiumButton.setOnClickListener {
-            stadiumViewModel.deleteStadium(stadium.stadium)
-        }
 //        устанавливаем лисенер для кнопки изменения посещаемости
         binding.changeAttendanceStadiumButton.setOnClickListener {
             changeAttendance()
@@ -113,8 +109,6 @@ class StadiumDetailsFragment : Fragment() {
                 }
             }
             .show()
-
-
     }
 
     //    подписка на обновления ViewModel
@@ -122,13 +116,6 @@ class StadiumDetailsFragment : Fragment() {
 //        следим за статусом загрузки и взависимости от этого меняем статус вьюшек
         stadiumViewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.progressBar.isVisible = loading
-        }
-
-//        при удалении стадиона возвращаемся на предудыщий экран
-        stadiumViewModel.delete.observe(viewLifecycleOwner) { success ->
-            if (success) {
-                findNavController().previousBackStackEntry
-            }
         }
 
 //        при обновлении стадиона обновляем данные экрана
