@@ -15,6 +15,8 @@ object Database {
             context,
             AppDatabase::class.java,
             AppDatabase.DB_NAME
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 }

@@ -105,7 +105,8 @@ class StadiumDetailsFragment : Fragment() {
                         Attendance(
                             0,
                             stadium.stadium.id,
-                            (view.newAttendanceET.text.toString().toInt())
+                            (view.newAttendanceET.text.toString().toInt()),
+                            0
                         )
                     )
                 } else {

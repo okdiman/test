@@ -7,5 +7,6 @@ object AttendanceContract {
         const val ID = "id"
         const val STADIUM_ID = "stadium_id"
         const val AVERAGE_ATTENDANCE = "average_attendance"
+        const val COUNT_OF_MATCHES = "count_of_matches"
     }
 }

@@ -22,5 +22,7 @@ data class Attendance(
     @ColumnInfo(name = AttendanceContract.Columns.STADIUM_ID)
     val stadiumId: Long,
     @ColumnInfo(name = AttendanceContract.Columns.AVERAGE_ATTENDANCE)
-    val averageAttendance: Int?
+    val averageAttendance: Int?,
+    @ColumnInfo(name = AttendanceContract.Columns.COUNT_OF_MATCHES)
+    val countOfMatches: Int?
 )

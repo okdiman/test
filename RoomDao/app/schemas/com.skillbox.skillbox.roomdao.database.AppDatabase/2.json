@@ -1,0 +1,277 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "fcca5595128a6c25b4ae25039074ea80",
+    "entities": [
+      {
+        "tableName": "attendance",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `stadium_id` INTEGER NOT NULL, `average_attendance` INTEGER, `count_of_matches` INTEGER, FOREIGN KEY(`stadium_id`) REFERENCES `stadiums`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stadiumId",
+            "columnName": "stadium_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "averageAttendance",
+            "columnName": "average_attendance",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "countOfMatches",
+            "columnName": "count_of_matches",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_attendance_stadium_id",
+            "unique": false,
+            "columnNames": [
+              "stadium_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_attendance_stadium_id` ON `${TABLE_NAME}` (`stadium_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "stadiums",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "stadium_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "clubs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`stadium_id` INTEGER, `club_title` TEXT NOT NULL, `city` TEXT NOT NULL, `country` TEXT NOT NULL, `emblem` TEXT NOT NULL, `year_of_foundation` INTEGER, PRIMARY KEY(`club_title`, `city`), FOREIGN KEY(`stadium_id`) REFERENCES `stadiums`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "stadium_id",
+            "columnName": "stadium_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "club_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "city",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emblem",
+            "columnName": "emblem",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yearOfFoundation",
+            "columnName": "year_of_foundation",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "club_title",
+            "city"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_clubs_club_title",
+            "unique": false,
+            "columnNames": [
+              "club_title"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clubs_club_title` ON `${TABLE_NAME}` (`club_title`)"
+          },
+          {
+            "name": "index_clubs_stadium_id",
+            "unique": false,
+            "columnNames": [
+              "stadium_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_clubs_stadium_id` ON `${TABLE_NAME}` (`stadium_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "stadiums",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "stadium_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "stadiums",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `stadium_name` TEXT NOT NULL, `stadium_picture` TEXT NOT NULL, `capacity` INTEGER NOT NULL, `year_of_build` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stadiumName",
+            "columnName": "stadium_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stadiumPicture",
+            "columnName": "stadium_picture",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capacity",
+            "columnName": "capacity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yearOfBuild",
+            "columnName": "year_of_build",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tournaments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tournament_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `type` TEXT NOT NULL, `prize_money` INTEGER, `cup_picture` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "tournament_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prizeMoney",
+            "columnName": "prize_money",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cupPicture",
+            "columnName": "cup_picture",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "tournament_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tournaments_and_clubs_cross_ref",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tournament_id` INTEGER NOT NULL, `club_title` TEXT NOT NULL, PRIMARY KEY(`tournament_id`, `club_title`))",
+        "fields": [
+          {
+            "fieldPath": "tournamentId",
+            "columnName": "tournament_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "clubTitle",
+            "columnName": "club_title",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "tournament_id",
+            "club_title"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_tournaments_and_clubs_cross_ref_club_title",
+            "unique": false,
+            "columnNames": [
+              "club_title"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tournaments_and_clubs_cross_ref_club_title` ON `${TABLE_NAME}` (`club_title`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fcca5595128a6c25b4ae25039074ea80')"
+    ]
+  }
+}
