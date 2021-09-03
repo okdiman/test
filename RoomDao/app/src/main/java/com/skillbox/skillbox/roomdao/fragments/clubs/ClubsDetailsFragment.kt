@@ -129,8 +129,7 @@ class ClubsDetailsFragment : Fragment() {
                                     view.nameOfNewStadiumET.text.toString(),
                                     view.photoOfNewStadiumET.text.toString(),
                                     view.capacityOfNewStadiumET.text.toString().toInt(),
-                                    view.yearOfBuildOfNewStadiumET.text.toString().toIntOrNull(),
-                                    null
+                                    view.yearOfBuildOfNewStadiumET.text.toString().toIntOrNull()
                                 )
 //                                добавляем стадион в БД
                                 detailClubViewModel.addNewStadium(listOf(stadium))

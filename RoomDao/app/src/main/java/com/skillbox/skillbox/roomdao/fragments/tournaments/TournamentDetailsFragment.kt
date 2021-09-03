@@ -81,10 +81,10 @@ class TournamentDetailsFragment : Fragment() {
         binding.detailTypeOfTournamentTextView.text = "Type: ${args.tournament.type}"
         binding.detailTitleOfTournamentTextView.text = "Title: ${args.tournament.title}"
         if (args.tournament.prizeMoney != null) {
-            prizeMoneyOfTournamentTextView.text =
+            binding.detailPrizeMoneyOfTournamentTextView.text =
                 "Prize money: ${args.tournament.prizeMoney.toString()} euro"
         } else {
-            prizeMoneyOfTournamentTextView.text =
+            binding.detailPrizeMoneyOfTournamentTextView.text =
                 "Prize money unknown"
         }
 //        устанавливаем лисенер на кнопку добавления нового клуба в турнир

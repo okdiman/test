@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.roomdao.fragments.stadiums
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,10 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.skillbox.skillbox.roomdao.R
-import com.skillbox.skillbox.roomdao.database.entities.Stadiums
+import com.skillbox.skillbox.roomdao.database.connections.StadiumsWithAttendance
+import com.skillbox.skillbox.roomdao.database.entities.Attendance
 import com.skillbox.skillbox.roomdao.databinding.StadiumDetailsFragmentBinding
+import com.skillbox.skillbox.roomdao.utils.glideLoadImage
+import com.skillbox.skillbox.roomdao.utils.inflate
+import com.skillbox.skillbox.roomdao.utils.toast
+import kotlinx.android.synthetic.main.set_attendance.view.*
 
 
 class StadiumDetailsFragment : Fragment() {
@@ -26,7 +31,7 @@ class StadiumDetailsFragment : Fragment() {
     private val args: StadiumDetailsFragmentArgs by navArgs()
 
     //    создаем late init объект стадиона для использования в разных частях кода
-    private lateinit var stadium: Stadiums
+    private lateinit var stadium: StadiumsWithAttendance
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,33 +56,61 @@ class StadiumDetailsFragment : Fragment() {
         bindingViewModel()
 //        устанавливаем лисенер на кнопку удаления стадиона
         binding.deleteStadiumButton.setOnClickListener {
-            stadiumViewModel.deleteStadium(stadium)
+            stadiumViewModel.deleteStadium(stadium.stadium)
+        }
+        binding.changeAttendanceStadiumButton.setOnClickListener {
+            changeAttendance()
         }
     }
 
     //    инициализируем стартовый экран
     @SuppressLint("SetTextI18n")
-    private fun init(stadium: Stadiums) {
+    private fun init(stadium: StadiumsWithAttendance) {
         Log.i("stadium", stadium.toString())
 //    заполняем все поля экрана в соотсвествии с полями переданного нам стадиона
-        binding.titleOfStadiumTextView.text = "Stadium name: ${stadium.stadiumName}"
-        binding.yearOfBuildOfStadiumTextView.text =
-            "Year of construction ${stadium.yearOfBuild.toString()}"
-        binding.capacityStadiumTextView.text = "Capacity: ${stadium.capacity}"
-        if (stadium.stadiumPicture != null) {
-            view?.let {
-                Glide.with(it)
-                    .load(stadium.stadiumPicture.toUri())
-                    .error(R.drawable.ic_sync_problem)
-                    .placeholder(R.drawable.ic_cloud_download)
-                    .into(binding.stadiumImageView)
-            }
+        binding.titleOfStadiumTextView.text = "Stadium name: ${stadium.stadium.stadiumName}"
+        if (stadium.stadium.yearOfBuild != null) {
+            binding.yearOfBuildOfStadiumTextView.text =
+                "Year of construction ${stadium.stadium.yearOfBuild}"
+        } else {
+            binding.yearOfBuildOfStadiumTextView.text =
+                "Year of construction not specified"
         }
-
-        if (stadium.averageAttendanceOfStadium != null) {
+        binding.capacityStadiumTextView.text = "Capacity: ${stadium.stadium.capacity}"
+        binding.stadiumImageView.glideLoadImage(stadium.stadium.stadiumPicture.toUri())
+        if (stadium.attendance?.averageAttendance != null) {
             binding.averageAttendanceOfStadiumTextView.text =
-                stadium.averageAttendanceOfStadium.toString()
+                "Attendance: ${stadium.attendance.averageAttendance}"
+        } else {
+            binding.averageAttendanceOfStadiumTextView.text = "Attendance not specified"
         }
+    }
+
+    private fun changeAttendance() {
+        val view = (view as ViewGroup).inflate(R.layout.set_attendance)
+        AlertDialog.Builder(requireContext())
+            .setMessage("Enter attendance of stadium")
+            .setView(view)
+            .setNegativeButton("Cancel") { _, _ -> }
+            .setPositiveButton("Ok") { _, _ ->
+                if (view.newAttendanceET.text.toString()
+                        .isNotEmpty() && view.newAttendanceET.text.toString()
+                        .toInt() <= stadium.stadium.capacity
+                ) {
+                    stadiumViewModel.changeAttendance(
+                        Attendance(
+                            0,
+                            stadium.stadium.id,
+                            (view.newAttendanceET.text.toString().toInt())
+                        )
+                    )
+                } else {
+                    toast(R.string.incorrect_form)
+                }
+            }
+            .show()
+
+
     }
 
     //    подписка на обновления ViewModel
@@ -94,6 +127,14 @@ class StadiumDetailsFragment : Fragment() {
             }
         }
 
+//        при обновлении стадиона обновляем данные экрана
+        stadiumViewModel.update.observe(viewLifecycleOwner) { update ->
+            if (update) {
+//              получаем объект стадиона вместе с посещаемостью
+                stadiumViewModel.getStadiumWithAttendance(args.stadiumName)
+            }
+        }
+
 //        выбрасываем тост с ошибкой в случае ошибки
         stadiumViewModel.isError.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
@@ -101,7 +142,7 @@ class StadiumDetailsFragment : Fragment() {
 
 //        получаем стадион и передаем его функции инициализации экрана
         stadiumViewModel.getStadium.observe(viewLifecycleOwner) { gotStadium ->
-            stadium = gotStadium.stadium
+            stadium = gotStadium
             init(stadium)
         }
     }

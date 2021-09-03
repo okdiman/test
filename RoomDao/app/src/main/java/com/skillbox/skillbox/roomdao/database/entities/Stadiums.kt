@@ -15,11 +15,9 @@ data class Stadiums(
     @ColumnInfo(name = StadiumsContract.Columns.STADIUM_NAME)
     val stadiumName: String,
     @ColumnInfo(name = StadiumsContract.Columns.STADIUM_PICTURE)
-    val stadiumPicture: String?,
+    val stadiumPicture: String,
     @ColumnInfo(name = StadiumsContract.Columns.CAPACITY)
     val capacity: Int,
     @ColumnInfo(name = StadiumsContract.Columns.YEAR_OF_BUILD)
-    val yearOfBuild: Int?,
-    @ColumnInfo(name = StadiumsContract.Columns.AVERAGE_ATTENDANCE)
-    val averageAttendanceOfStadium: Int?
+    val yearOfBuild: Int?
 )
