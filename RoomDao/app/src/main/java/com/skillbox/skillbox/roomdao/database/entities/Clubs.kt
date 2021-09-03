@@ -32,7 +32,7 @@ data class Clubs(
     @ColumnInfo(name = ClubsContract.Columns.COUNTRY)
     val country: String,
     @ColumnInfo(name = ClubsContract.Columns.EMBLEM)
-    val emblem: String?,
+    val emblem: String,
     @ColumnInfo(name = ClubsContract.Columns.YEAR_OF_FOUNDATION)
     val yearOfFoundation: Int?
 ) : Parcelable

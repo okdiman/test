@@ -2,12 +2,13 @@ package com.skillbox.skillbox.roomdao.adapters
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
-import com.skillbox.skillbox.roomdao.utils.inflate
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
+import com.skillbox.skillbox.roomdao.utils.glideLoadImage
+import com.skillbox.skillbox.roomdao.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.clubs_item.*
 
@@ -31,13 +32,7 @@ class ClubAdapterDelegate(private val onClubClick: (Clubs) -> Unit) :
         //    баиндим пришедший объект в нашу вьюшку
         fun bind(clubs: Clubs) {
             currentClubs = clubs
-//            if (clubs.emblem != null){
-//                Glide.with(itemView)
-//                    .load(clubs.emblem)
-//                    .error(R.drawable.ic_sync_problem)
-//                    .placeholder(R.drawable.ic_cloud_download)
-//                    .into(clubImageView)
-//            }
+            clubImageView.glideLoadImage(clubs.emblem.toUri())
             titleOfClubTextView.text = clubs.title
             cityOfClubTextView.text = clubs.city
             countryOfClubTextView.text = clubs.country

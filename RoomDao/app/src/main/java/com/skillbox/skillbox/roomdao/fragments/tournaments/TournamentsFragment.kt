@@ -66,6 +66,7 @@ class TournamentsFragment : Fragment() {
                 TournamentsFragmentDirections.actionTournamentsFragmentToTournamentDetailsFragment(
                     tournament
                 )
+            findNavController().getBackStackEntry(R.id.tournamentsFragment)
             findNavController().navigate(action)
         }
         with(binding.tournamentsListRV) {
@@ -100,7 +101,9 @@ class TournamentsFragment : Fragment() {
             .setTitle("Add new tournament")
             .setPositiveButton("Ok") { _, _ ->
 //                проверяем корректность заполения полей пользователем
-                if (view.titleOfNewTournamentEditText.text.toString().isNotEmpty()) {
+                if (view.titleOfNewTournamentEditText.text.toString()
+                        .isNotEmpty()
+                ) {
 //                    создаем объект турнира
                     val tournament = Tournaments(
                         0,

@@ -15,16 +15,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.adapters.ClubAdapter
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Tournaments
 import com.skillbox.skillbox.roomdao.database.entities.TournamentsAndClubsCrossRef
 import com.skillbox.skillbox.roomdao.databinding.TournamentDetailsFragmentBinding
+import com.skillbox.skillbox.roomdao.utils.glideLoadImage
 import com.skillbox.skillbox.roomdao.utils.inflate
 import com.skillbox.skillbox.roomdao.utils.toast
 import kotlinx.android.synthetic.main.clubs_list.view.*
+import kotlinx.android.synthetic.main.tournament_item.*
 
 
 class TournamentDetailsFragment : Fragment() {
@@ -76,17 +77,16 @@ class TournamentDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun initStartScreen() {
 //        заполяняем все вьюшки в соотвествии с полученными данными турнира
-        view?.let {
-            Glide.with(it)
-                .load(args.tournament.cupPicture.toUri())
-                .error(R.drawable.ic_sync_problem)
-                .placeholder(R.drawable.ic_cloud_download)
-                .into(binding.detailCupPictureImageView)
-        }
+        binding.detailCupPictureImageView.glideLoadImage(args.tournament.cupPicture.toUri())
         binding.detailTypeOfTournamentTextView.text = "Type: ${args.tournament.type}"
         binding.detailTitleOfTournamentTextView.text = "Title: ${args.tournament.title}"
-        binding.detailPrizeMoneyOfTournamentTextView.text =
-            "Prize money: ${args.tournament.prizeMoney.toString()}"
+        if (args.tournament.prizeMoney != null) {
+            prizeMoneyOfTournamentTextView.text =
+                "Prize money: ${args.tournament.prizeMoney.toString()} euro"
+        } else {
+            prizeMoneyOfTournamentTextView.text =
+                "Prize money unknown"
+        }
 //        устанавливаем лисенер на кнопку добавления нового клуба в турнир
         binding.addClubToTournamentButton.setOnClickListener {
             tournamentViewModel.getAllClubs()
@@ -107,6 +107,7 @@ class TournamentDetailsFragment : Fragment() {
                 TournamentDetailsFragmentDirections.actionTournamentDetailsFragmentToClubsDetailsFragment(
                     club
                 )
+            findNavController().getBackStackEntry(R.id.tournamentDetailsFragment)
             findNavController().navigate(action)
         }
         with(binding.detailTournamentRV) {
@@ -183,7 +184,7 @@ class TournamentDetailsFragment : Fragment() {
 //        при удалении турнира переходим на предыдущий экран
         tournamentViewModel.deleteTournamentLD.observe(viewLifecycleOwner) {
             if (it) {
-                findNavController().previousBackStackEntry
+                findNavController().popBackStack()
             }
         }
 //        при обновлениии турнира показываем тост

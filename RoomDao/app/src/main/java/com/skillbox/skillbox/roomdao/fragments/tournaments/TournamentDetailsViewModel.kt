@@ -41,8 +41,8 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
         get() = deleteTournamentLiveData
 
     //    лайв дата оновления турнира
-    private val updateTournamentLiveData = MutableLiveData<Boolean>()
-    val updateTournament: LiveData<Boolean>
+    private val updateTournamentLiveData = SingleLiveEvent<Boolean>()
+    val updateTournament: SingleLiveEvent<Boolean>
         get() = updateTournamentLiveData
 
     //    лайв дата ошибок

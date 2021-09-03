@@ -65,6 +65,7 @@ class ClubsFragment : Fragment() {
                 ClubsFragmentDirections.actionClubsFragmentToClubsDetailsFragment(
                     club
                 )
+            findNavController().getBackStackEntry(R.id.clubsFragment)
             findNavController().navigate(action)
         }
         with(binding.clubsListRV) {

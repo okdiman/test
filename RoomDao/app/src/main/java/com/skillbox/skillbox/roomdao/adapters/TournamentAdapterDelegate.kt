@@ -3,11 +3,12 @@ package com.skillbox.skillbox.roomdao.adapters
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.roomdao.R
 import com.skillbox.skillbox.roomdao.database.entities.Tournaments
+import com.skillbox.skillbox.roomdao.utils.glideLoadImage
 import com.skillbox.skillbox.roomdao.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.tournament_item.*
@@ -34,15 +35,16 @@ class TournamentAdapterDelegate(private val onTournamentClick: (Tournaments) -> 
         @SuppressLint("SetTextI18n")
         fun bind(tournaments: Tournaments) {
             currentTournament = tournaments
-            Glide.with(itemView)
-                .load(tournaments.cupPicture)
-                .error(R.drawable.ic_sync_problem)
-                .placeholder(R.drawable.ic_cloud_download)
-                .into(cupPictureImageView)
+            cupPictureImageView.glideLoadImage(tournaments.cupPicture.toUri())
             titleOfTournamentTextView.text = "Title: ${tournaments.title}"
             typeOfTournamentTextView.text = "Type: ${tournaments.type}"
-            prizeMoneyOfTournamentTextView.text =
-                "Prize money: ${tournaments.prizeMoney.toString()} euro"
+            if (tournaments.prizeMoney != null) {
+                prizeMoneyOfTournamentTextView.text =
+                    "Prize money: ${tournaments.prizeMoney.toString()} euro"
+            } else {
+                prizeMoneyOfTournamentTextView.text =
+                    "Prize money unknown"
+            }
         }
     }
 
