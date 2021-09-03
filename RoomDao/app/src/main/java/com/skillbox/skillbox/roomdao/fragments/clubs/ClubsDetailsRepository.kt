@@ -2,6 +2,7 @@ package com.skillbox.skillbox.roomdao.fragments.clubs
 
 import androidx.room.withTransaction
 import com.skillbox.skillbox.roomdao.database.Database
+import com.skillbox.skillbox.roomdao.database.connections.ClubsWithTournaments
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 
@@ -48,5 +49,10 @@ class ClubsDetailsRepository {
     //    добавление нового стадиона
     suspend fun addNewStadium(stadium: List<Stadiums>) {
         stadiumDao.addNewStadium(stadium)
+    }
+
+    //    получение клуба и всех турниров,в которых он участвует
+    suspend fun getClubWithTournaments(title: String, city: String): ClubsWithTournaments? {
+        return clubsDao.getClubWithTournament(title, city)
     }
 }

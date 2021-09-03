@@ -26,6 +26,7 @@ class StadiumDetailsRepository {
         }
     }
 
+    //    установка посещаемости
     suspend fun changeAttendance(attendance: Attendance) {
         Database.instance.withTransaction {
             attendanceDao.addAttendanceToClub(attendance)

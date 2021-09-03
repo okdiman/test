@@ -25,7 +25,6 @@ import com.skillbox.skillbox.roomdao.utils.glideLoadImage
 import com.skillbox.skillbox.roomdao.utils.inflate
 import com.skillbox.skillbox.roomdao.utils.toast
 import kotlinx.android.synthetic.main.clubs_list.view.*
-import kotlinx.android.synthetic.main.tournament_item.*
 
 
 class TournamentDetailsFragment : Fragment() {
@@ -107,6 +106,7 @@ class TournamentDetailsFragment : Fragment() {
                 TournamentDetailsFragmentDirections.actionTournamentDetailsFragmentToClubsDetailsFragment(
                     club
                 )
+//            добавляем фрагмент в back Stack
             findNavController().getBackStackEntry(R.id.tournamentDetailsFragment)
             findNavController().navigate(action)
         }

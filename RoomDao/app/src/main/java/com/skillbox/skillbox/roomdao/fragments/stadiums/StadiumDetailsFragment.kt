@@ -58,6 +58,7 @@ class StadiumDetailsFragment : Fragment() {
         binding.deleteStadiumButton.setOnClickListener {
             stadiumViewModel.deleteStadium(stadium.stadium)
         }
+//        устанавливаем лисенер для кнопки изменения посещаемости
         binding.changeAttendanceStadiumButton.setOnClickListener {
             changeAttendance()
         }
@@ -86,6 +87,7 @@ class StadiumDetailsFragment : Fragment() {
         }
     }
 
+    //    изменение посещаемости стадиона
     private fun changeAttendance() {
         val view = (view as ViewGroup).inflate(R.layout.set_attendance)
         AlertDialog.Builder(requireContext())
@@ -93,10 +95,12 @@ class StadiumDetailsFragment : Fragment() {
             .setView(view)
             .setNegativeButton("Cancel") { _, _ -> }
             .setPositiveButton("Ok") { _, _ ->
+//                проверяем поле на заполненность, так же посещаемость не может быть больше вместимости
                 if (view.newAttendanceET.text.toString()
                         .isNotEmpty() && view.newAttendanceET.text.toString()
                         .toInt() <= stadium.stadium.capacity
                 ) {
+//                    устанавливаем посещаеомсть
                     stadiumViewModel.changeAttendance(
                         Attendance(
                             0,

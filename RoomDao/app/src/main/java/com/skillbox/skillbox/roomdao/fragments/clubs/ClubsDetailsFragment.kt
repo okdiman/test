@@ -80,8 +80,15 @@ class ClubsDetailsFragment : Fragment() {
         binding.cityOfClubDetailTextView.text = "City: ${args.club.city}"
         binding.countryOfClubDetailTextView.text = "Country: ${args.club.country}"
         binding.titleOfClubDetailTextView.text = "Title: ${args.club.title}"
-        binding.yearOfFoundationOfClubDetailTextView.text =
-            "Year of foundation: ${args.club.yearOfFoundation}"
+        if (args.club.yearOfFoundation != null) {
+            binding.yearOfFoundationOfClubDetailTextView.text =
+                "Year of foundation: ${args.club.yearOfFoundation}"
+        } else {
+            binding.yearOfFoundationOfClubDetailTextView.text =
+                "Year of foundation not specified"
+        }
+//        получаем объект клуба с турнирами для вывода на экран списка турниров, в которых участвует клуб
+        detailClubViewModel.getClubWithTournaments(args.club.title, args.club.city)
 //    если поле стадиона у клуба не заполнено, инициализируем поле спиннера вместо заполнения поля стадиона
         if (args.club.stadium_id != null) {
 //            получаем стадион по id
@@ -148,6 +155,7 @@ class ClubsDetailsFragment : Fragment() {
     }
 
     //    подписываемся на обновления ViewModel
+    @SuppressLint("SetTextI18n")
     private fun bindingViewModel() {
 //    описываем действия в случае удаления клуба
         detailClubViewModel.deleteClub.observe(viewLifecycleOwner) { deleted ->
@@ -193,6 +201,21 @@ class ClubsDetailsFragment : Fragment() {
         detailClubViewModel.getAllStadiums.observe(viewLifecycleOwner) { listOfStadiums ->
             listOfStadiums.forEach {
                 stadiumsList.add(it.stadiumName)
+            }
+        }
+
+//        инициализируем поле списка турниров для клуба
+        detailClubViewModel.clubsWithTournaments.observe(viewLifecycleOwner) { clubWithTournaments ->
+            val list = mutableListOf<String>()
+            clubWithTournaments.tournaments.forEach {
+                list.add(it.title)
+            }
+            if (list.isNotEmpty()) {
+                binding.tournamentsOfClubDetailTextView.text =
+                    "Tournaments in which the club participates: ${list.joinToString(", ")}"
+            } else {
+                binding.tournamentsOfClubDetailTextView.text =
+                    "The club has not yet been registered in any tournament"
             }
         }
     }

@@ -66,6 +66,7 @@ class TournamentsFragment : Fragment() {
                 TournamentsFragmentDirections.actionTournamentsFragmentToTournamentDetailsFragment(
                     tournament
                 )
+//            добавляем фрагмент в back Stack
             findNavController().getBackStackEntry(R.id.tournamentsFragment)
             findNavController().navigate(action)
         }

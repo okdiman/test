@@ -32,6 +32,7 @@ class ClubAdapterDelegate(private val onClubClick: (Clubs) -> Unit) :
         //    баиндим пришедший объект в нашу вьюшку
         fun bind(clubs: Clubs) {
             currentClubs = clubs
+//            используем Extension для Glide
             clubImageView.glideLoadImage(clubs.emblem.toUri())
             titleOfClubTextView.text = clubs.title
             cityOfClubTextView.text = clubs.city

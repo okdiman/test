@@ -65,6 +65,7 @@ class ClubsFragment : Fragment() {
                 ClubsFragmentDirections.actionClubsFragmentToClubsDetailsFragment(
                     club
                 )
+//            добавляем в getBackStackEntry фрагмент
             findNavController().getBackStackEntry(R.id.clubsFragment)
             findNavController().navigate(action)
         }

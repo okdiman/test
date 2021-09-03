@@ -35,6 +35,7 @@ class TournamentAdapterDelegate(private val onTournamentClick: (Tournaments) -> 
         @SuppressLint("SetTextI18n")
         fun bind(tournaments: Tournaments) {
             currentTournament = tournaments
+//            используем Extension для Glide
             cupPictureImageView.glideLoadImage(tournaments.cupPicture.toUri())
             titleOfTournamentTextView.text = "Title: ${tournaments.title}"
             typeOfTournamentTextView.text = "Type: ${tournaments.type}"

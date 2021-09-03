@@ -1,7 +1,6 @@
 package com.skillbox.skillbox.roomdao.database.dao
 
 import androidx.room.*
-import com.skillbox.skillbox.roomdao.database.connections.StadiumWithClubs
 import com.skillbox.skillbox.roomdao.database.connections.StadiumsWithAttendance
 import com.skillbox.skillbox.roomdao.database.contracts.StadiumsContract
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
@@ -12,11 +11,6 @@ interface StadiumsDao {
     //    получение списка всех стадионов
     @Query("SELECT DISTINCT * FROM ${StadiumsContract.TABLE_NAME}")
     suspend fun getAllStadiums(): List<Stadiums>
-
-    //    получение стадиона и его клуба. Через транзакцию для атомарности
-    @Transaction
-    @Query("SELECT * FROM ${StadiumsContract.TABLE_NAME} WHERE  ${StadiumsContract.Columns.ID} = :stadiumId")
-    suspend fun getStadiumsWithClubs(stadiumId: Long): StadiumWithClubs?
 
     //    получение стадиона и посещаемости. Через транзакцию для атомарности
     @Transaction

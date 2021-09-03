@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.skillbox.skillbox.roomdao.database.connections.ClubsWithTournaments
 import com.skillbox.skillbox.roomdao.database.entities.Clubs
 import com.skillbox.skillbox.roomdao.database.entities.Stadiums
 import com.skillbox.skillbox.roomdao.utils.SingleLiveEvent
@@ -21,6 +22,11 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
     private val getStadiumLiveData = MutableLiveData<Stadiums>()
     val getStadium: LiveData<Stadiums>
         get() = getStadiumLiveData
+
+    //    лайв дата получения клуба с турнирами
+    private val clubsWithTournamentsLiveData = MutableLiveData<ClubsWithTournaments>()
+    val clubsWithTournaments: LiveData<ClubsWithTournaments>
+        get() = clubsWithTournamentsLiveData
 
     //    лайв дата успешности удаления
     private val deleteClubLiveData = MutableLiveData<Boolean>()
@@ -133,6 +139,22 @@ class ClubsDetailsViewModel(application: Application) : AndroidViewModel(applica
                 isErrorLiveData.postValue(t.message)
             } finally {
                 getAllStadiums()
+                isLoadingLiveData.postValue(false)
+            }
+        }
+    }
+
+    //    получение клуба и турниров, в которых он участвует
+    fun getClubWithTournaments(title: String, city: String) {
+        //        устанавливаем стартовые статус лайв даты загрузки
+        isLoadingLiveData.postValue(true)
+        //        создаем корутину для использования саспенд функции
+        viewModelScope.launch {
+            try {
+                clubsWithTournamentsLiveData.postValue(repo.getClubWithTournaments(title, city))
+            } catch (t: Throwable) {
+                isErrorLiveData.postValue(t.message)
+            } finally {
                 isLoadingLiveData.postValue(false)
             }
         }

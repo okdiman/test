@@ -31,8 +31,8 @@ class TournamentDetailsViewModel(application: Application) : AndroidViewModel(ap
         get() = gettingCrossTableForTournamentLiveData
 
     //    лайв дата получения списка всех клубов
-    private val getAllClubsLiveData = MutableLiveData<List<Clubs>>()
-    val getAllClubs: LiveData<List<Clubs>>
+    private val getAllClubsLiveData = SingleLiveEvent<List<Clubs>>()
+    val getAllClubs: SingleLiveEvent<List<Clubs>>
         get() = getAllClubsLiveData
 
     //    лайв дата удаления турнира
