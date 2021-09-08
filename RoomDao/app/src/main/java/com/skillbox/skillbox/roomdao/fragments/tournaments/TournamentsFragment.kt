@@ -140,12 +140,10 @@ class TournamentsFragment : Fragment() {
         tournamentViewModel.tournamentsList.observe(viewLifecycleOwner) { tournamentList ->
             tournamentAdapter?.items = tournamentList
         }
-
 //        следим за статусом загрузки и взависимости от этого меняем статус вьюшек
         tournamentViewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.progressBar.isVisible = loading
         }
-
 //        выбрасываем тост с ошибкой в случае ошибки
         tournamentViewModel.isError.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
