@@ -11,7 +11,7 @@ class VideoAdapter : AsyncListDifferDelegationAdapter<VideoForList>(VideoDiffUti
 
     class VideoDiffUtil : DiffUtil.ItemCallback<VideoForList>() {
         override fun areItemsTheSame(oldItem: VideoForList, newItem: VideoForList): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.id== newItem.id
         }
 
         override fun areContentsTheSame(oldItem: VideoForList, newItem: VideoForList): Boolean {

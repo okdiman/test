@@ -1,8 +1,8 @@
 package com.skillbox.skillbox.scopedstorage.adapters
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.scopedstorage.R
@@ -18,10 +18,11 @@ class VideoAdapterDelegate :
     class Holder(
         override val containerView: View
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+        @SuppressLint("SetTextI18n")
         fun bind(video: VideoForList) {
-            videoImageView.glideLoadImage(video.preview.toUri())
-            titleOfVideoTextView.text = video.title
-            sizeOfVideoTextView.text = video.size.toString()
+            videoImageView.glideLoadImage(video.uri)
+            titleOfVideoTextView.text = "Title: ${video.title}"
+            sizeOfVideoTextView.text = "Size: ${video.size / 1024} kb"
         }
     }
 
