@@ -10,4 +10,7 @@
     <string name="save">save</string>
     <string name="incorrect_form">please fill the form completely</string>
     <string name="incorrect_url">U entered incorrect url link</string>
+    <string name="successful_download">Video was downloaded</string>
+    <string name="unsuccessful_download">Something wrong, video was not downloaded</string>
+    <string name="internet_is_not_available">Please, check your internet connection, it is not available now</string>
 </resources>

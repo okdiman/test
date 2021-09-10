@@ -1,5 +1,7 @@
 package com.skillbox.skillbox.scopedstorage.utils
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
@@ -67,4 +69,11 @@ fun ImageView.glideLoadImage(
 fun haveQ(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 }
+
+// расширение для проверки доступа к сети
+val Context.isConnected: Boolean
+    get() {
+        return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+            .activeNetworkInfo?.isConnected == true
+    }
 

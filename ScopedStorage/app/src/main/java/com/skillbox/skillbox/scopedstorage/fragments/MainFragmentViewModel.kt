@@ -38,12 +38,11 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         if (isObservingStarted.not()) {
             repo.observeVideos { getAllVideos() }
             isObservingStarted = true
-        } else {
-            getAllVideos()
         }
+        getAllVideos()
     }
 
-    fun getAllVideos() {
+    private fun getAllVideos() {
         isLoadingLiveData.postValue(true)
         viewModelScope.launch {
             try {

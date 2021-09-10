@@ -6,12 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.scopedstorage.utils.SingleLiveEvent
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val videoDownloadedLiveData = SingleLiveEvent<Unit>()
-    val videoDownloaded: LiveData<Unit>
+    private val videoDownloadedLiveData = SingleLiveEvent<Boolean>()
+    val videoDownloaded: LiveData<Boolean>
         get() = videoDownloadedLiveData
 
     //    лайв дата статуса загрузки
@@ -27,11 +28,10 @@ class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(ap
     private val repo = AddDialogFragmentRepository(application)
 
     fun downloadVideo(title: String, url: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             isLoadingLiveData.postValue(true)
             try {
-                repo.downloadVideoFromNetwork(title, url)
-                videoDownloadedLiveData.postValue(Unit)
+                videoDownloadedLiveData.postValue(repo.downloadVideoFromNetwork(title, url))
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {

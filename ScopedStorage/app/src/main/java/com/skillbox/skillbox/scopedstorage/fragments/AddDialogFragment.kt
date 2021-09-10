@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.skillbox.skillbox.scopedstorage.R
 import com.skillbox.skillbox.scopedstorage.databinding.AddNewVideoBinding
+import com.skillbox.skillbox.scopedstorage.utils.isConnected
 import com.skillbox.skillbox.scopedstorage.utils.toast
 
 class AddDialogFragment : BottomSheetDialogFragment() {
@@ -41,26 +42,39 @@ class AddDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun saveNewVideo() {
-        if (binding.titleTextField.editText!!.text.toString().isNotEmpty() &&
-            binding.uriTextField.editText!!.text.toString().isNotEmpty()
-        ) {
-            val isValidUrl =
-                Patterns.WEB_URL.matcher(binding.uriTextField.editText!!.text.toString()).matches()
-            if (isValidUrl) {
-                addDialogViewModel.downloadVideo(
-                    binding.titleTextField.editText!!.text.toString(),
-                    binding.uriTextField.editText!!.text.toString()
-                )
+        if (requireContext().isConnected) {
+            if (binding.titleTextField.editText!!.text.toString().isNotEmpty() &&
+                binding.uriTextField.editText!!.text.toString().isNotEmpty()
+            ) {
+                val isValidUrl =
+                    Patterns.WEB_URL.matcher(binding.uriTextField.editText!!.text.toString())
+                        .matches()
+                if (isValidUrl) {
+                    addDialogViewModel.downloadVideo(
+                        binding.titleTextField.editText!!.text.toString(),
+                        binding.uriTextField.editText!!.text.toString()
+                    )
+                } else {
+                    toast(R.string.incorrect_url)
+                }
             } else {
-                toast(R.string.incorrect_url)
+                toast(R.string.incorrect_form)
             }
         } else {
-            toast(R.string.incorrect_form)
+            toast(R.string.internet_is_not_available)
         }
+
     }
 
     private fun bindingViewModel() {
-        addDialogViewModel.videoDownloaded.observe(viewLifecycleOwner) { dismiss() }
+        addDialogViewModel.videoDownloaded.observe(viewLifecycleOwner) { successful ->
+            if (successful) {
+                toast(R.string.successful_download)
+            } else {
+                toast(R.string.unsuccessful_download)
+            }
+            dismiss()
+        }
 
 //    следим за статусом загрузки и взависимости от этого меняем статус вьюшек
         addDialogViewModel.isLoading.observe(viewLifecycleOwner) { loading ->
@@ -72,5 +86,4 @@ class AddDialogFragment : BottomSheetDialogFragment() {
             toast(error)
         }
     }
-
 }

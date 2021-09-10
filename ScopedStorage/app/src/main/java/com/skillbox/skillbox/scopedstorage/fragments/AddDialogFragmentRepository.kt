@@ -6,16 +6,21 @@ import android.net.Uri
 import android.provider.MediaStore
 import com.skillbox.skillbox.scopedstorage.network.Network
 import com.skillbox.skillbox.scopedstorage.utils.haveQ
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class AddDialogFragmentRepository(private val context: Context) {
 
-    suspend fun downloadVideoFromNetwork(title: String, url: String) {
-        withContext(Dispatchers.IO) {
-            val videoIri = saveVideoDetails(title)
+    suspend fun downloadVideoFromNetwork(title: String, url: String): Boolean {
+        val videoIri = saveVideoDetails(title)
+        return try {
             downloadVideo(url, videoIri)
             makeVideoVisible(videoIri)
+            true
+        } catch (t: Throwable) {
+            context.contentResolver.delete(
+                videoIri,
+                null
+            )
+            false
         }
     }
 
