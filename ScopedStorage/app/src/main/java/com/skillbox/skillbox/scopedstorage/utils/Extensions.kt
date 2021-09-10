@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.scopedstorage.utils
 
 import android.net.Uri
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,5 +62,9 @@ fun ImageView.glideLoadImage(
         // также размещает картинку в центре, но учитывает ширину или высоту контейнера.
         .centerCrop()
         .into(this)
+}
+
+fun haveQ(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 }
 

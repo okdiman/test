@@ -6,4 +6,6 @@
     <string name="enter_title_of_video">Enter title of video</string>
     <string name="enter_url_of_video">Enter URL of video</string>
     <string name="save">save</string>
+    <string name="incorrect_form">please fill the form completely</string>
+    <string name="incorrect_url">U entered incorrect url link</string>
 </resources>

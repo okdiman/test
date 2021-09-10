@@ -7,9 +7,8 @@ import android.os.Looper
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.skillbox.skillbox.scopedstorage.R
 import com.skillbox.skillbox.scopedstorage.adapters.VideoAdapter
 import com.skillbox.skillbox.scopedstorage.databinding.MainFragmentBinding
@@ -45,7 +44,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
     }
 
     private fun addNewVideo() {
-
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddDialogFragment())
     }
 
     private fun requestPermission() {
@@ -55,7 +54,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
                 onShowRationale = ::onShowRationale,
                 onNeverAskAgain = ::onNeverAskAgain,
                 onPermissionDenied = ::onPermissionDenied,
-                requiresPermission = { mainViewModel.getAllVideos()}
+                requiresPermission = { mainViewModel.getAllVideos() }
             )
                 .launch()
         }
