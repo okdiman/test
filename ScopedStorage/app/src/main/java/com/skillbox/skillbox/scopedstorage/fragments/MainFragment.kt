@@ -59,7 +59,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
                 onShowRationale = ::onShowRationale,
                 onNeverAskAgain = ::onNeverAskAgain,
                 onPermissionDenied = ::onPermissionDenied,
-                requiresPermission = { mainViewModel.getAllVideos() }
+                requiresPermission = { mainViewModel.isObserving() }
             )
                 .launch()
         }

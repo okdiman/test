@@ -2,12 +2,34 @@ package com.skillbox.skillbox.scopedstorage.fragments
 
 import android.content.ContentUris
 import android.content.Context
+import android.database.ContentObserver
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import com.skillbox.skillbox.scopedstorage.classes.VideoForList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class MainFragmentRepository(private val context: Context) {
+    private var observer: ContentObserver? = null
+    fun observeVideos(onChange: () -> Unit) {
+        observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
+            override fun onChange(selfChange: Boolean) {
+                super.onChange(selfChange)
+                onChange()
+            }
+        }
+        context.contentResolver.registerContentObserver(
+            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+            true,
+            observer!!
+        )
+    }
+
+    fun unregisterObserver() {
+        observer?.let { context.contentResolver.unregisterContentObserver(it) }
+    }
+
     suspend fun getVideoList(): List<VideoForList> {
         val videos = mutableListOf<VideoForList>()
         withContext(Dispatchers.IO) {

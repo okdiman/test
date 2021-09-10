@@ -15,6 +15,8 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val videoForList: LiveData<List<VideoForList>>
         get() = videoListLiveData
 
+    private var isObservingStarted: Boolean = false
+
     //    лайв дата статуса загрузки
     private val isLoadingLiveData = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
@@ -26,6 +28,20 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         get() = isErrorLiveData
 
     private val repo = MainFragmentRepository(application)
+
+    override fun onCleared() {
+        super.onCleared()
+        repo.unregisterObserver()
+    }
+
+    fun isObserving() {
+        if (isObservingStarted.not()) {
+            repo.observeVideos { getAllVideos() }
+            isObservingStarted = true
+        } else {
+            getAllVideos()
+        }
+    }
 
     fun getAllVideos() {
         isLoadingLiveData.postValue(true)
