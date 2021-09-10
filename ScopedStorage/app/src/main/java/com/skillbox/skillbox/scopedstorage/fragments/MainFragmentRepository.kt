@@ -57,7 +57,7 @@ class MainFragmentRepository(private val context: Context) {
     suspend fun deleteVideo(id: Long) {
         withContext(Dispatchers.IO){
             val uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
-            context.contentResolver.delete(uri, null)
+            context.contentResolver.delete(uri, null, null)
         }
     }
 }
