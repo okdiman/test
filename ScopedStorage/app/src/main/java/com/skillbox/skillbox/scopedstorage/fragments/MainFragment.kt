@@ -13,6 +13,7 @@ import com.skillbox.skillbox.scopedstorage.R
 import com.skillbox.skillbox.scopedstorage.adapters.VideoAdapter
 import com.skillbox.skillbox.scopedstorage.databinding.MainFragmentBinding
 import com.skillbox.skillbox.scopedstorage.utils.ViewBindingFragment
+import com.skillbox.skillbox.scopedstorage.utils.haveQ
 import com.skillbox.skillbox.scopedstorage.utils.toast
 import permissions.dispatcher.ktx.constructPermissionsRequest
 
@@ -24,7 +25,11 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         initVideoList()
         bindingViewModel()
         binding.addNewVideoButton.setOnClickListener {
-            addNewVideo()
+            if (haveQ()) {
+                addNewVideo()
+            } else {
+                requestPermissionForWriting()
+            }
         }
     }
 
@@ -40,14 +45,14 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
-        requestPermission()
+        requestPermissionForReading()
     }
 
     private fun addNewVideo() {
         findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddDialogFragment())
     }
 
-    private fun requestPermission() {
+    private fun requestPermissionForReading() {
         Handler(Looper.getMainLooper()).post {
             constructPermissionsRequest(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -70,6 +75,27 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
 
     private fun onPermissionDenied() {
         toast(R.string.permission_denied)
+    }
+
+    private fun requestPermissionForWriting() {
+        Handler(Looper.getMainLooper()).post {
+            constructPermissionsRequest(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                onShowRationale = ::onShowRationale,
+                onNeverAskAgain = ::onNeverAskAgainWriting,
+                onPermissionDenied = ::onPermissionDeniedWriting,
+                requiresPermission = ::addNewVideo
+            )
+                .launch()
+        }
+    }
+
+    private fun onNeverAskAgainWriting() {
+        toast(R.string.on_never_ask_again_writing)
+    }
+
+    private fun onPermissionDeniedWriting() {
+        toast(R.string.permission_denied_writing)
     }
 
 

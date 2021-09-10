@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">ScopedStorage</string>
-    <string name="on_never_ask_again">If u want to use the application, you should allow access to reading od files in the settings</string>
+    <string name="on_never_ask_again">If u want to use the application, you should allow access to reading of files in the settings</string>
     <string name="permission_denied">U denied permission of reading files</string>
+    <string name="on_never_ask_again_writing">If u want to use the application, you should allow access to writing of files in the settings</string>
+    <string name="permission_denied_writing">U denied permission of writing files</string>
     <string name="add_video">Add video</string>
     <string name="enter_title_of_video">Enter title of video</string>
     <string name="enter_url_of_video">Enter URL of video</string>
