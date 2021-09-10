@@ -4,24 +4,34 @@ import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
+import android.webkit.MimeTypeMap
 import com.skillbox.skillbox.scopedstorage.network.Network
 import com.skillbox.skillbox.scopedstorage.utils.haveQ
 
 class AddDialogFragmentRepository(private val context: Context) {
 
     suspend fun downloadVideoFromNetwork(title: String, url: String): Boolean {
-        val videoIri = saveVideoDetails(title)
-        return try {
-            downloadVideo(url, videoIri)
-            makeVideoVisible(videoIri)
-            true
-        } catch (t: Throwable) {
-            context.contentResolver.delete(
-                videoIri,
-                null
-            )
-            false
+        val mt = MimeTypeMap.getSingleton()
+        val mimeType = MimeTypeMap.getFileExtensionFromUrl(url).apply {
+            mt.getMimeTypeFromExtension(this)
         }
+        Log.i("mimetype", mimeType)
+        if (mimeType == "video/*") {
+            val videoIri = saveVideoDetails(title)
+            return try {
+                downloadVideo(url, videoIri)
+                makeVideoVisible(videoIri)
+                true
+            } catch (t: Throwable) {
+                context.contentResolver.delete(
+                    videoIri,
+                    null
+                )
+                false
+            }
+        }
+        return false
     }
 
     private fun saveVideoDetails(title: String): Uri {

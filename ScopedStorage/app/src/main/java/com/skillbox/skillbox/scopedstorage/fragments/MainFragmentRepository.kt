@@ -6,6 +6,7 @@ import android.database.ContentObserver
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.webkit.MimeTypeMap
 import com.skillbox.skillbox.scopedstorage.classes.VideoForList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
