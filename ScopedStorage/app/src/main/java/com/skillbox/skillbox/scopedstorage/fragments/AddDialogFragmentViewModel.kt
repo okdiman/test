@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.scopedstorage.fragments
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,11 +28,11 @@ class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(ap
 
     private val repo = AddDialogFragmentRepository(application)
 
-    fun downloadVideo(title: String, url: String) {
+    fun downloadVideo(title: String, url: String, uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoadingLiveData.postValue(true)
             try {
-                videoDownloadedLiveData.postValue(repo.downloadVideoFromNetwork(title, url))
+                videoDownloadedLiveData.postValue(repo.downloadVideoFromNetwork(title, url, uri))
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {

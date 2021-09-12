@@ -3,6 +3,7 @@ package com.skillbox.skillbox.scopedstorage.fragments
 import android.Manifest
 import android.app.Activity
 import android.app.RemoteAction
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -28,10 +29,12 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
     private var videoAdapter: VideoAdapter? = null
     private val mainViewModel: MainFragmentViewModel by viewModels()
     private lateinit var recoverableActionLauncher: ActivityResultLauncher<IntentSenderRequest>
+    private lateinit var createDocumentLauncher: ActivityResultLauncher<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecoverableActionListener()
+        initCreateVideoLauncher()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,10 +43,13 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         bindingViewModel()
         binding.addNewVideoButton.setOnClickListener {
             if (haveQ()) {
-                addNewVideo()
+                addNewVideo(null)
             } else {
-                requestPermissionForWriting()
+                requestPermissionForWriting(null)
             }
+        }
+        binding.downloadToSelectedFolderButton.setOnClickListener {
+            createVideo()
         }
     }
 
@@ -62,8 +68,20 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         requestPermissionForReading()
     }
 
-    private fun addNewVideo() {
-        findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddDialogFragment())
+    private fun addNewVideo(uri: Uri?) {
+        if (uri != null) {
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToAddDialogFragment(
+                    uri.toString()
+                )
+            )
+        } else {
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToAddDialogFragment(
+                    null
+                )
+            )
+        }
     }
 
     private fun requestPermissionForReading() {
@@ -91,14 +109,14 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         toast(R.string.permission_denied)
     }
 
-    private fun requestPermissionForWriting() {
+    private fun requestPermissionForWriting(uri: Uri?) {
         Handler(Looper.getMainLooper()).post {
             constructPermissionsRequest(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 onShowRationale = ::onShowRationale,
                 onNeverAskAgain = ::onNeverAskAgainWriting,
                 onPermissionDenied = ::onPermissionDeniedWriting,
-                requiresPermission = ::addNewVideo
+                requiresPermission = { (::addNewVideo)(uri) }
             )
                 .launch()
         }
@@ -124,6 +142,31 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
             }
         }
     }
+
+    private fun initCreateVideoLauncher() {
+        createDocumentLauncher = registerForActivityResult(
+            ActivityResultContracts.CreateDocument()
+        ) { uri ->
+            handleCreateVideo(uri)
+        }
+    }
+
+    private fun createVideo() {
+        createDocumentLauncher.launch("new file.txt")
+    }
+
+    private fun handleCreateVideo(uri: Uri?) {
+        if (uri == null) {
+            toast("file not created")
+            return
+        }
+        if (haveQ()) {
+            addNewVideo(uri)
+        } else {
+            requestPermissionForWriting(uri)
+        }
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun handleRecoverableAction(action: RemoteAction) {

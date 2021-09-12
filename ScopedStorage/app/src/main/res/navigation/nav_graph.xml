@@ -18,5 +18,10 @@
         android:id="@+id/addDialogFragment"
         android:name="com.skillbox.skillbox.scopedstorage.fragments.AddDialogFragment"
         android:label="AddDialogFragment"
-        tools:layout="@layout/add_new_video" />
+        tools:layout="@layout/add_new_video" >
+        <argument
+            android:name="uri"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
 </navigation>

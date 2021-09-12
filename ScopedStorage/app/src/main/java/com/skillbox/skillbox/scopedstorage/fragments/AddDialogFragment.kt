@@ -5,8 +5,10 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.skillbox.skillbox.scopedstorage.R
 import com.skillbox.skillbox.scopedstorage.databinding.AddNewVideoBinding
@@ -16,6 +18,7 @@ import com.skillbox.skillbox.scopedstorage.utils.toast
 class AddDialogFragment : BottomSheetDialogFragment() {
     private var _binding: AddNewVideoBinding? = null
     private val binding get() = _binding!!
+    private val args: AddDialogFragmentArgs by navArgs()
 
     private val addDialogViewModel: AddDialogFragmentViewModel by viewModels()
 
@@ -50,10 +53,19 @@ class AddDialogFragment : BottomSheetDialogFragment() {
                     Patterns.WEB_URL.matcher(binding.uriTextField.editText!!.text.toString())
                         .matches()
                 if (isValidUrl) {
-                    addDialogViewModel.downloadVideo(
-                        binding.titleTextField.editText!!.text.toString(),
-                        binding.uriTextField.editText!!.text.toString()
-                    )
+                    if (args.uri != null) {
+                        addDialogViewModel.downloadVideo(
+                            binding.titleTextField.editText!!.text.toString(),
+                            binding.uriTextField.editText!!.text.toString(),
+                            args.uri!!.toUri()
+                        )
+                    } else {
+                        addDialogViewModel.downloadVideo(
+                            binding.titleTextField.editText!!.text.toString(),
+                            binding.uriTextField.editText!!.text.toString(),
+                            null
+                        )
+                    }
                 } else {
                     toast(R.string.incorrect_url)
                 }

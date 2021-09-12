@@ -11,21 +11,21 @@ import com.skillbox.skillbox.scopedstorage.utils.haveQ
 
 class AddDialogFragmentRepository(private val context: Context) {
 
-    suspend fun downloadVideoFromNetwork(title: String, url: String): Boolean {
+    suspend fun downloadVideoFromNetwork(title: String, url: String, uri: Uri?): Boolean {
         val mt = MimeTypeMap.getSingleton()
         val mimeType = MimeTypeMap.getFileExtensionFromUrl(url).apply {
             mt.getMimeTypeFromExtension(this)
         }
         Log.i("mimetype", mimeType)
         if (mimeType == "video/*") {
-            val videoIri = saveVideoDetails(title)
+            val videoUri: Uri = uri ?: saveVideoDetails(title)
             return try {
-                downloadVideo(url, videoIri)
-                makeVideoVisible(videoIri)
+                downloadVideo(url, videoUri)
+                makeVideoVisible(videoUri)
                 true
             } catch (t: Throwable) {
                 context.contentResolver.delete(
-                    videoIri,
+                    videoUri,
                     null
                 )
                 false
