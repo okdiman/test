@@ -152,7 +152,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
     }
 
     private fun createVideo() {
-        createDocumentLauncher.launch("new file.txt")
+        createDocumentLauncher.launch("new video")
     }
 
     private fun handleCreateVideo(uri: Uri?) {

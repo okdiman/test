@@ -26,6 +26,7 @@ class AddDialogFragmentRepository(private val context: Context) {
             } catch (t: Throwable) {
                 context.contentResolver.delete(
                     videoUri,
+                    null,
                     null
                 )
                 false
