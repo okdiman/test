@@ -5,6 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface Api {
+//    метод получения файла из сети
     @GET
     suspend fun getFile(
         @Url url: String

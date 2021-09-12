@@ -29,11 +29,13 @@ fun <T : ViewBinding> ViewGroup.inflate(
     val inflater = LayoutInflater.from(context)
     return inflateBinding(inflater, this, attachToRoot)
 }
+
 //    создаем исключение для инфлейта вьюшек
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
 
+//    расширение для тостов с строковыми ресурсами и объектами String
 fun <T : Fragment> T.toast(@StringRes message: Int) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
@@ -42,7 +44,7 @@ fun <T : Fragment> T.toast(message: String) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
-// расширение для работы с Glide
+//    расширение для работы с Glide
 fun ImageView.glideLoadImage(
     imageUri: Uri,
     @DrawableRes
@@ -66,6 +68,7 @@ fun ImageView.glideLoadImage(
         .into(this)
 }
 
+//   расширение для проверки версии android у пользователя
 fun haveQ(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 }

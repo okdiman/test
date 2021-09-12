@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(application) {
-
+    //    лайв дата загрузки видео
     private val videoDownloadedLiveData = SingleLiveEvent<Boolean>()
     val videoDownloaded: LiveData<Boolean>
         get() = videoDownloadedLiveData
@@ -28,6 +28,7 @@ class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(ap
 
     private val repo = AddDialogFragmentRepository(application)
 
+    //    загрузка видео
     fun downloadVideo(title: String, url: String, uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoadingLiveData.postValue(true)

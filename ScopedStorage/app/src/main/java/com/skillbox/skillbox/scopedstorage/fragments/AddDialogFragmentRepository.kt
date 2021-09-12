@@ -69,22 +69,30 @@ class AddDialogFragmentRepository(private val context: Context) {
 
     //    загрузка видео
     private suspend fun downloadVideo(url: String, uri: Uri) {
+//        открываем исходящий поток
         context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+//            делаем запрос в сеть
             Network.api
                 .getFile(url)
                 .byteStream()
+//                    открыаем входящий поток
                 .use { inputStream ->
+//                    записываем данные из входящего потока в исходящий
                     inputStream.copyTo(outputStream)
                 }
         }
     }
 
+    //    делаем файл видимым для пользователя
     private fun makeVideoVisible(videoUri: Uri) {
+//    если у пользователя <Android 10, просто return
         if (haveQ().not()) return
-
+//    создаем объект ContentValues
         val videoDetails = ContentValues().apply {
+//            изменяем значение флага загрузки
             put(MediaStore.Images.Media.IS_PENDING, 0)
         }
+//        обновляем видео файл
         context.contentResolver.update(videoUri, videoDetails, null, null)
     }
 }

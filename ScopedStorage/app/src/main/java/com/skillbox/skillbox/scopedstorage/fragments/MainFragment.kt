@@ -26,28 +26,40 @@ import com.skillbox.skillbox.scopedstorage.utils.toast
 import permissions.dispatcher.ktx.constructPermissionsRequest
 
 class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
+    //    создаем объект адаптера
     private var videoAdapter: VideoAdapter? = null
+
+    //    создаем объект вью модели
     private val mainViewModel: MainFragmentViewModel by viewModels()
+
+    //    создаем lateinit объекты лаунчеров для recoverable action и создания файла по выбранному пользваотелем адресу
     private lateinit var recoverableActionLauncher: ActivityResultLauncher<IntentSenderRequest>
     private lateinit var createDocumentLauncher: ActivityResultLauncher<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initRecoverableActionListener()
+//        инициализируем оба лаунчера
+        initRecoverableActionLauncher()
         initCreateVideoLauncher()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        инициализируем список видео
         initVideoList()
+//        подписываемся на обновления вью модели
         bindingViewModel()
+//        лисенер на снопку добавления видео
         binding.addNewVideoButton.setOnClickListener {
+//            если у пользователя Android 10 и выше, то запрос на WRITE_EXTERNAL_STORAGE не нужен
             if (haveQ()) {
                 addNewVideo(null)
             } else {
+//               если ниже,то нужен запрос
                 requestPermissionForWriting(null)
             }
         }
+//        лисенер на кнопку создания файла с указанной пользователем директорией
         binding.downloadToSelectedFolderButton.setOnClickListener {
             createVideo()
         }
@@ -55,9 +67,11 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
 
     override fun onDestroyView() {
         super.onDestroyView()
+//        зануляем адаптер
         videoAdapter = null
     }
 
+    //    инициализация списка видео
     private fun initVideoList() {
         videoAdapter = VideoAdapter(mainViewModel::deleteVideo)
         with(binding.videoRV) {
@@ -65,10 +79,13 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
         }
+//    выполняем запрос для чтения списка по необходимости
         requestPermissionForReading()
     }
 
+    //    добавление нового видео
     private fun addNewVideo(uri: Uri?) {
+//    в зависимости от значения uri передаем его или нулл
         if (uri != null) {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToAddDialogFragment(
@@ -84,8 +101,10 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         }
     }
 
+    //    запрос разрешения для чтение файлов
     private fun requestPermissionForReading() {
         Handler(Looper.getMainLooper()).post {
+//            с помощью добавленной библиотеки программа автоматически определяет какой тип действия ей нужно совершить, мы лишь указываем действия на каждое событие
             constructPermissionsRequest(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 onShowRationale = ::onShowRationale,
@@ -93,6 +112,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
                 onPermissionDenied = ::onPermissionDenied,
                 requiresPermission = { mainViewModel.isObserving() }
             )
+//                    запускаем constructPermissionsRequest
                 .launch()
         }
     }
@@ -109,6 +129,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         toast(R.string.permission_denied)
     }
 
+    //    запрос разрешения на запись файлов(актуально для версии Android < 10)
     private fun requestPermissionForWriting(uri: Uri?) {
         Handler(Looper.getMainLooper()).post {
             constructPermissionsRequest(
@@ -130,11 +151,15 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         toast(R.string.permission_denied_writing)
     }
 
-    private fun initRecoverableActionListener() {
+    //    инициализируем лаунчер для recoverable action (выдается диалог пользователю с выбором принятия или непринятия действия с видео другого приложения)
+    private fun initRecoverableActionLauncher() {
+//    указываем контракт для лаунчера
         recoverableActionLauncher = registerForActivityResult(
             ActivityResultContracts.StartIntentSenderForResult()
         ) { activityResult ->
+//            проверяем ответ пользователя
             val isConfirmed = activityResult.resultCode == Activity.RESULT_OK
+//            в зависимости от ответа выполняем определенные дейтсвия
             if (isConfirmed) {
                 mainViewModel.confirmDelete()
             } else {
@@ -143,23 +168,31 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         }
     }
 
+    //    инициализируем лаунчер для создания пикера, чтобы пользователь мог выбрать директорию для сохранения файла
     private fun initCreateVideoLauncher() {
+//    указываем контракт
         createDocumentLauncher = registerForActivityResult(
             ActivityResultContracts.CreateDocument()
         ) { uri ->
+//            передаем uri в handler
             handleCreateVideo(uri)
         }
     }
 
+    //    сохранение видео
     private fun createVideo() {
+//        активируем лаунчер
         createDocumentLauncher.launch("new video")
     }
 
+    //    хэндлер для сохранения видео после выбора пользователем директории
     private fun handleCreateVideo(uri: Uri?) {
+//        если пользователь не выбрал директорию, то выдаем тост
         if (uri == null) {
             toast("file not created")
             return
         }
+//        в зависимости от того имеет ли пользователь android 10 и выше или нет либо напрямую вызываем ф-ую загрузки, либо через конструкотр запросов
         if (haveQ()) {
             addNewVideo(uri)
         } else {
@@ -167,16 +200,19 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         }
     }
 
-
+    //    хэндлер для RecoverableAction
     @RequiresApi(Build.VERSION_CODES.O)
     private fun handleRecoverableAction(action: RemoteAction) {
+//    создаем интент SenderRequest
         val request = IntentSenderRequest.Builder(action.actionIntent.intentSender)
             .build()
+//        запускаем лаунчер, передавая ему интент
         recoverableActionLauncher.launch(request)
     }
 
-
+    //    подписка на обноления вью модели
     private fun bindingViewModel() {
+//    при получении списка видео, устанавливаем его в адаптер
         mainViewModel.videoForList.observe(viewLifecycleOwner) { videoAdapter?.items = it }
 
 //    следим за статусом загрузки и взависимости от этого меняем статус вьюшек
@@ -184,7 +220,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
 
 //    выбрасываем тост с ошибкой в случае ошибки
         mainViewModel.isError.observe(viewLifecycleOwner) { toast(it) }
-
+//        при получении ответа пользователя на диалог подствержения взаимодействия с файлом другого приложения вызываем хэндлер
         mainViewModel.recoverableActionLiveData.observe(
             viewLifecycleOwner,
             ::handleRecoverableAction

@@ -14,14 +14,18 @@ import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
+    //    переменная для промежуточного сохранения id видео во время запроса пользователю о работе с видео др приложения
     private var pendingDeleteId: Long? = null
 
+    //    флаг для понимания запуска обсервера
     private var isObservingStarted: Boolean = false
 
+    //    лайв дата получения списка видео
     private val videoListLiveData = MutableLiveData<List<VideoForList>>()
     val videoForList: LiveData<List<VideoForList>>
         get() = videoListLiveData
 
+    //    лайв дата recoverableAction
     private val recoverableActionMutableLiveData = MutableLiveData<RemoteAction>()
     val recoverableActionLiveData: LiveData<RemoteAction>
         get() = recoverableActionMutableLiveData
@@ -38,11 +42,13 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     private val repo = MainFragmentRepository(application)
 
+    //    в onCleared отписываемся от обсервера
     override fun onCleared() {
         super.onCleared()
         repo.unregisterObserver()
     }
 
+    //    подписываемся на обсервер
     fun isObserving() {
         if (isObservingStarted.not()) {
             repo.observeVideos { getAllVideos() }
@@ -51,6 +57,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         getAllVideos()
     }
 
+    //    получение всех видео
     private fun getAllVideos() {
         isLoadingLiveData.postValue(true)
         viewModelScope.launch {
@@ -64,6 +71,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    //    удаление видео по id
     fun deleteVideo(id: Long) {
         viewModelScope.launch {
             isLoadingLiveData.postValue(true)
@@ -71,6 +79,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
                 repo.deleteVideo(id)
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
+//                если мы хотим удалить видео другого приложения и это android 10 и выше, то открываем диалог
                 if (haveQ() && t is RecoverableSecurityException) {
                     pendingDeleteId = id
                     recoverableActionMutableLiveData.postValue(t.userAction)
@@ -83,12 +92,14 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+//    подтверждение удаления ползователем
     fun confirmDelete() {
         pendingDeleteId?.let {
             deleteVideo(it)
         }
     }
 
+//    отклонение удаления пользователем
     fun declineDelete() {
         pendingDeleteId = null
     }
