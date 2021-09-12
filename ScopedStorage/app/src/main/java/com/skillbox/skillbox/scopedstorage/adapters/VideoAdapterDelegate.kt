@@ -11,20 +11,24 @@ import com.skillbox.skillbox.scopedstorage.utils.inflate
 
 class VideoAdapterDelegate(private val onDeleteVideo: (id: Long) -> Unit) :
     AbsListItemAdapterDelegate<VideoForList, VideoForList, VideoAdapterDelegate.Holder>() {
-
+    //    создаем класс Holder для делегата, отвечающий за заполнение ячейки в списке
     class Holder(
+//    передаем баиндинг в качестве контейнера
         private val binding: VideoItemBinding,
         onDeleteVideo: (id: Long) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        //    указываем выбранный элемент списка для передачи его данных по клику
         private var currentVideoId: Long? = null
 
+        //    инициализируем клик лисенер для кнопки удаления
         init {
             binding.deleteActionButton.setOnClickListener {
                 currentVideoId?.let(onDeleteVideo)
             }
         }
 
+        //    баиндим данные пришедшего объекта в ячейку списка
         @SuppressLint("SetTextI18n")
         fun bind(video: VideoForList) {
             currentVideoId = video.id
@@ -42,6 +46,7 @@ class VideoAdapterDelegate(private val onDeleteVideo: (id: Long) -> Unit) :
         return true
     }
 
+    //    инфлейтим вьюшку ячейки списка из элемента вьюбаиндинга с помощью extension
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
         return Holder(parent.inflate(VideoItemBinding::inflate), onDeleteVideo)
     }
