@@ -2,6 +2,7 @@ package com.skillbox.skillbox.scopedstorage.fragments
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.RemoteAction
 import android.net.Uri
 import android.os.Build
@@ -73,7 +74,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
 
     //    инициализация списка видео
     private fun initVideoList() {
-        videoAdapter = VideoAdapter(mainViewModel::deleteVideo)
+        videoAdapter = VideoAdapter(::onDeleteVideo)
         with(binding.videoRV) {
             adapter = videoAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -81,6 +82,17 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         }
 //    выполняем запрос для чтения списка по необходимости
         requestPermissionForReading()
+    }
+
+    //    удаление видео
+    private fun onDeleteVideo(videoId: Long) {
+//    вызываем диалог чтобы пользователь подтвердил удаление
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.delete_confirmation)
+            .setMessage(R.string.delete_video)
+            .setPositiveButton("Yes") { _, _ -> mainViewModel.deleteVideo(videoId) }
+            .setNegativeButton("No") { _, _ -> }
+            .show()
     }
 
     //    добавление нового видео
