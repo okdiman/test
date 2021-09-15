@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-//   спецаильный класс для упрощенной инициализации баиндинга. Не нужно писать много кода в ручную, достаточно наследоваться от данного класса
+//   спецаильный класс для упрощенной инициализации баиндинга. Не нужно писать много кода в ручную,
+//   достаточно наследоваться от данного класса
 abstract class ViewBindingFragment<T : ViewBinding>(
     private val inflateBinding: (
         inflater: LayoutInflater,

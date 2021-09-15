@@ -17,6 +17,11 @@ class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(ap
         get() = videoDownloadedLiveData
 
     //    лайв дата статуса загрузки
+    private val deletedLiveData = MutableLiveData<Boolean>()
+    val deleted: LiveData<Boolean>
+        get() = deletedLiveData
+
+    //    лайв дата статуса загрузки
     private val isLoadingLiveData = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
         get() = isLoadingLiveData
@@ -34,6 +39,22 @@ class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(ap
             isLoadingLiveData.postValue(true)
             try {
                 videoDownloadedLiveData.postValue(repo.downloadVideoFromNetwork(title, url, uri))
+            } catch (t: Throwable) {
+                isErrorLiveData.postValue(t.message)
+            } finally {
+                isLoadingLiveData.postValue(false)
+            }
+        }
+    }
+
+    //    удаление видео по uri
+    fun deleteVideo(uri: Uri) {
+        viewModelScope.launch {
+            deletedLiveData.postValue(false)
+            isLoadingLiveData.postValue(true)
+            try {
+            repo.deleteVideo(uri)
+            deletedLiveData.postValue(true)
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {

@@ -16,4 +16,5 @@
     <string name="select_folder">select folder</string>
     <string name="delete_video">Are u sure want to delete this video?</string>
     <string name="delete_confirmation">Confirmation of deleting</string>
+    <string name="reject_adding">you decided not to add the file</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.skillbox.skillbox.scopedstorage.fragments
 
+import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.skillbox.skillbox.scopedstorage.R
 import com.skillbox.skillbox.scopedstorage.databinding.AddNewVideoBinding
@@ -26,8 +29,17 @@ class AddDialogFragment : BottomSheetDialogFragment() {
     //    создаем объект вью модели
     private val addDialogViewModel: AddDialogFragmentViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return object : BottomSheetDialog(requireContext()) {
+            override fun onBackPressed() {
+                Log.i("addDialogUri", "${args.uri?.toUri()}")
+                if (args.uri != null) {
+                    addDialogViewModel.deleteVideo(args.uri!!.toUri())
+                } else {
+                    super.onBackPressed()
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -90,7 +102,8 @@ class AddDialogFragment : BottomSheetDialogFragment() {
                     toast(R.string.incorrect_url)
                 }
             } else {
-//                выбрасываем тост о некорреткно заполненной форме в случае, если форма заполнена не полностью
+//                выбрасываем тост о некорреткно заполненной форме в случае,
+                //                если форма заполнена не полностью
                 toast(R.string.incorrect_form)
             }
         } else {
@@ -101,7 +114,8 @@ class AddDialogFragment : BottomSheetDialogFragment() {
 
     //    подписка на обновления вью модели
     private fun bindingViewModel() {
-//    выбрасываем тост в зависисмости от пришедшего результата и в любом случае закрываем диалог фрагмент
+//    выбрасываем тост в зависисмости от пришедшего результата
+//    и в любом случае закрываем диалог фрагмент
         addDialogViewModel.videoDownloaded.observe(viewLifecycleOwner) { successful ->
             if (successful) {
                 toast(R.string.successful_download)
@@ -112,9 +126,20 @@ class AddDialogFragment : BottomSheetDialogFragment() {
         }
 
 //    следим за статусом загрузки и взависимости от этого меняем статус вьюшек
-        addDialogViewModel.isLoading.observe(viewLifecycleOwner) {binding.progressBar.isVisible = it}
+        addDialogViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.progressBar.isVisible = it
+        }
 
 //    выбрасываем тост с ошибкой в случае ошибки
-        addDialogViewModel.isError.observe(viewLifecycleOwner) {toast(it)}
+        addDialogViewModel.isError.observe(viewLifecycleOwner) { toast(it) }
+
+//        в случае вынужденного удаления файла после нажатия кнопки назад пользователем,
+//        выдаем тост и закрываем диалог фрагмент
+        addDialogViewModel.deleted.observe(viewLifecycleOwner) { deleted ->
+            if (deleted) {
+                toast(R.string.reject_adding)
+                this.dismiss()
+            }
+        }
     }
 }

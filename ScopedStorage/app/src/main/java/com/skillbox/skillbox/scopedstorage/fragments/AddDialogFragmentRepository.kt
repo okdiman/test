@@ -6,8 +6,11 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.webkit.MimeTypeMap
+import androidx.documentfile.provider.DocumentFile
 import com.skillbox.skillbox.scopedstorage.network.Network
 import com.skillbox.skillbox.scopedstorage.utils.haveQ
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AddDialogFragmentRepository(private val context: Context) {
 
@@ -94,5 +97,14 @@ class AddDialogFragmentRepository(private val context: Context) {
         }
 //        обновляем видео файл
         context.contentResolver.update(videoUri, videoDetails, null, null)
+    }
+
+    //    удаление видео по uri
+    suspend fun deleteVideo(uri: Uri) {
+        withContext(Dispatchers.IO) {
+//            создаем объект класса DocumentFile для последующего его удаления
+            val file = DocumentFile.fromSingleUri(context, uri)
+            file?.delete()
+        }
     }
 }

@@ -33,7 +33,8 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
     //    создаем объект вью модели
     private val mainViewModel: MainFragmentViewModel by viewModels()
 
-    //    создаем lateinit объекты лаунчеров для recoverable action и создания файла по выбранному пользваотелем адресу
+    //    создаем lateinit объекты лаунчеров для recoverable action
+    //    и создания файла по выбранному пользваотелем адресу
     private lateinit var recoverableActionLauncher: ActivityResultLauncher<IntentSenderRequest>
     private lateinit var createDocumentLauncher: ActivityResultLauncher<String>
 
@@ -116,7 +117,8 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
     //    запрос разрешения для чтение файлов
     private fun requestPermissionForReading() {
         Handler(Looper.getMainLooper()).post {
-//            с помощью добавленной библиотеки программа автоматически определяет какой тип действия ей нужно совершить, мы лишь указываем действия на каждое событие
+//            с помощью добавленной библиотеки программа автоматически определяет какой тип действия
+//            ей нужно совершить, мы лишь указываем действия на каждое событие
             constructPermissionsRequest(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 onShowRationale = ::onShowRationale,
@@ -163,7 +165,8 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         toast(R.string.permission_denied_writing)
     }
 
-    //    инициализируем лаунчер для recoverable action (выдается диалог пользователю с выбором принятия или непринятия действия с видео другого приложения)
+    //    инициализируем лаунчер для recoverable action (выдается диалог пользователю
+    //    с выбором принятия или непринятия действия с видео другого приложения)
     private fun initRecoverableActionLauncher() {
 //    указываем контракт для лаунчера
         recoverableActionLauncher = registerForActivityResult(
@@ -180,7 +183,8 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
         }
     }
 
-    //    инициализируем лаунчер для создания пикера, чтобы пользователь мог выбрать директорию для сохранения файла
+    //    инициализируем лаунчер для создания пикера, чтобы пользователь мог выбрать
+    //    директорию для сохранения файла
     private fun initCreateVideoLauncher() {
 //    указываем контракт
         createDocumentLauncher = registerForActivityResult(
@@ -204,7 +208,8 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
             toast("file not created")
             return
         }
-//        в зависимости от того имеет ли пользователь android 10 и выше или нет либо напрямую вызываем ф-ую загрузки, либо через конструкотр запросов
+//        в зависимости от того имеет ли пользователь android 10 и выше или нет
+//        либо напрямую вызываем ф-ую загрузки, либо через конструкотр запросов
         if (haveQ()) {
             addNewVideo(uri)
         } else {
@@ -232,7 +237,8 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
 
 //    выбрасываем тост с ошибкой в случае ошибки
         mainViewModel.isError.observe(viewLifecycleOwner) { toast(it) }
-//        при получении ответа пользователя на диалог подствержения взаимодействия с файлом другого приложения вызываем хэндлер
+//        при получении ответа пользователя на диалог подствержения взаимодействия
+//        с файлом другого приложения вызываем хэндлер
         mainViewModel.recoverableActionLiveData.observe(
             viewLifecycleOwner,
             ::handleRecoverableAction
