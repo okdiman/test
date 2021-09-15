@@ -1,7 +1,9 @@
 package com.skillbox.skillbox.scopedstorage.fragments
 
 import android.app.Application
+import android.app.DownloadManager
 import android.net.Uri
+import android.widget.ProgressBar
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +18,7 @@ class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(ap
     val videoDownloaded: LiveData<String>
         get() = videoDownloadedLiveData
 
-    //    лайв дата статуса загрузки
+    //    лайв дата удаления файла
     private val deletedLiveData = MutableLiveData<Boolean>()
     val deleted: LiveData<Boolean>
         get() = deletedLiveData
@@ -34,11 +36,22 @@ class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(ap
     private val repo = AddDialogFragmentRepository(application)
 
     //    загрузка видео
-    fun downloadVideo(title: String, url: String, uri: Uri?) {
+    fun downloadVideo(
+        title: String, url: String, uri: Uri?, downloadManager: DownloadManager,
+        loader: ProgressBar
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoadingLiveData.postValue(true)
             try {
-                videoDownloadedLiveData.postValue(repo.downloadVideoFromNetwork(title, url, uri))
+                videoDownloadedLiveData.postValue(
+                    repo.downloadVideoFromNetwork(
+                        title,
+                        url,
+                        uri,
+                        downloadManager,
+                        loader
+                    )
+                )
             } catch (t: Throwable) {
                 isErrorLiveData.postValue(t.message)
             } finally {

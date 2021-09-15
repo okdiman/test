@@ -1,6 +1,8 @@
 package com.skillbox.skillbox.scopedstorage.fragments
 
 import android.app.Dialog
+import android.app.DownloadManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -29,10 +31,14 @@ class AddDialogFragment : BottomSheetDialogFragment() {
     //    создаем объект вью модели
     private val addDialogViewModel: AddDialogFragmentViewModel by viewModels()
 
+    //    переописываем метод создания диалога, изменяя ему действия при нажатии
+    //    пользователем кнопки назад
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return object : BottomSheetDialog(requireContext()) {
             override fun onBackPressed() {
                 Log.i("addDialogUri", "${args.uri?.toUri()}")
+//                если мы получили uri созданного пикером файла, то нам нужно удалить этот файл,
+//                если пользователь передумает что-то скачивать
                 if (args.uri != null) {
                     addDialogViewModel.deleteVideo(args.uri!!.toUri())
                 } else {
@@ -79,7 +85,9 @@ class AddDialogFragment : BottomSheetDialogFragment() {
                 val isValidUrl =
                     Patterns.WEB_URL.matcher(binding.urlTextField.editText!!.text.toString())
                         .matches()
-//                если url валиден, то идем дальше
+//                  создаем объект downloadManager
+                val downloadManager =
+                    requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
                 if (isValidUrl) {
 //                    проверяем передан во фрагмент uri путь для сохранения файла или нет
                     if (args.uri != null) {
@@ -87,14 +95,18 @@ class AddDialogFragment : BottomSheetDialogFragment() {
                         addDialogViewModel.downloadVideo(
                             binding.titleTextField.editText!!.text.toString(),
                             binding.urlTextField.editText!!.text.toString(),
-                            args.uri!!.toUri()
+                            args.uri!!.toUri(),
+                            downloadManager,
+                            binding.downloadLinearProgressBar
                         )
                     } else {
 //                        если нет, то передаем вместо uri null
                         addDialogViewModel.downloadVideo(
                             binding.titleTextField.editText!!.text.toString(),
                             binding.urlTextField.editText!!.text.toString(),
-                            null
+                            null,
+                            downloadManager,
+                            binding.downloadLinearProgressBar
                         )
                     }
                 } else {
