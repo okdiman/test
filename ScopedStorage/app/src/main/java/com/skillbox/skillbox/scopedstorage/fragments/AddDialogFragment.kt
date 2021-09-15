@@ -116,11 +116,12 @@ class AddDialogFragment : BottomSheetDialogFragment() {
     private fun bindingViewModel() {
 //    выбрасываем тост в зависисмости от пришедшего результата
 //    и в любом случае закрываем диалог фрагмент
-        addDialogViewModel.videoDownloaded.observe(viewLifecycleOwner) { successful ->
-            if (successful) {
-                toast(R.string.successful_download)
-            } else {
-                toast(R.string.unsuccessful_download)
+        addDialogViewModel.videoDownloaded.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                "Success" -> toast(R.string.successful_download)
+                "Throwable" -> toast(R.string.unsuccessful_download)
+                "Url error" -> toast(R.string.url_error)
+                else -> toast(R.string.incorrect_result)
             }
             dismiss()
         }

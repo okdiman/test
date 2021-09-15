@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 class AddDialogFragmentRepository(private val context: Context) {
 
     //    загрузка видео из сети
-    suspend fun downloadVideoFromNetwork(title: String, url: String, uri: Uri?): Boolean {
+    suspend fun downloadVideoFromNetwork(title: String, url: String, uri: Uri?): String {
 //    создаем синглтон объект MimeTypeMap
         val mimeTypeMap = MimeTypeMap.getSingleton()
 //    получаем mimeType видео по нашему Url
@@ -28,21 +28,22 @@ class AddDialogFragmentRepository(private val context: Context) {
 //            задаем uri для видео в зависимости от того, пришло оно к нам нуллом или нет
             val videoUri: Uri = uri ?: saveVideoDetails(title)
             return try {
-//                загружаем видео и делаем его видимым для пользователя
+        //                загружаем видео и делаем его видимым для пользователя
                 downloadVideo(url, videoUri)
                 makeVideoVisible(videoUri)
-                true
+                "Success"
             } catch (t: Throwable) {
-//                в случае ошибки удаляем созданный под видео файл
+        //                в случае ошибки удаляем созданный под видео файл
                 context.contentResolver.delete(
                     videoUri,
                     null,
                     null
                 )
-                false
+                "Throwable"
             }
+        } else{
+            return "Url error"
         }
-        return false
     }
 
     //    сохраняем необходимый параметры видео

@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 
 class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(application) {
     //    лайв дата загрузки видео
-    private val videoDownloadedLiveData = SingleLiveEvent<Boolean>()
-    val videoDownloaded: LiveData<Boolean>
+    private val videoDownloadedLiveData = SingleLiveEvent<String>()
+    val videoDownloaded: LiveData<String>
         get() = videoDownloadedLiveData
 
     //    лайв дата статуса загрузки
@@ -49,17 +49,12 @@ class AddDialogFragmentViewModel(application: Application) : AndroidViewModel(ap
 
     //    удаление видео по uri
     fun deleteVideo(uri: Uri) {
+        deletedLiveData.postValue(false)
+        isLoadingLiveData.postValue(true)
         viewModelScope.launch {
-            deletedLiveData.postValue(false)
-            isLoadingLiveData.postValue(true)
-            try {
             repo.deleteVideo(uri)
             deletedLiveData.postValue(true)
-            } catch (t: Throwable) {
-                isErrorLiveData.postValue(t.message)
-            } finally {
-                isLoadingLiveData.postValue(false)
-            }
+            isLoadingLiveData.postValue(false)
         }
     }
 }

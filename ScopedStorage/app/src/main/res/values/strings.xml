@@ -17,4 +17,6 @@
     <string name="delete_video">Are u sure want to delete this video?</string>
     <string name="delete_confirmation">Confirmation of deleting</string>
     <string name="reject_adding">you decided not to add the file</string>
+    <string name="url_error">Sorry, but url does not lead to a video file</string>
+    <string name="incorrect_result">incorrect result</string>
 </resources>
