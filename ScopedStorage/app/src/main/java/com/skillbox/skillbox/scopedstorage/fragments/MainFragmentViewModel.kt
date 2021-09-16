@@ -79,7 +79,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             try {
                 repo.deleteVideo(id)
             } catch (t: Throwable) {
-                isErrorLiveData.postValue(t.message)
 //                если мы хотим удалить видео другого приложения и это android 10 и выше,
 //                то открываем диалог
                 if (haveQ() && t is RecoverableSecurityException) {

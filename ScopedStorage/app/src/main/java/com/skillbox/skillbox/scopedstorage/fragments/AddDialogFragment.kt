@@ -1,8 +1,6 @@
 package com.skillbox.skillbox.scopedstorage.fragments
 
 import android.app.Dialog
-import android.app.DownloadManager
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -79,6 +77,10 @@ class AddDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (args.uri != null) {
+            binding.titleTextField.editText?.setText(R.string.picker)
+            binding.titleTextField.editText?.isEnabled = false
+        }
 //        по клику на floatingActionButton сохраняем видео
         binding.saveButton.setOnClickListener {
             saveNewVideo()
@@ -99,9 +101,6 @@ class AddDialogFragment : BottomSheetDialogFragment() {
                 val isValidUrl =
                     Patterns.WEB_URL.matcher(binding.urlTextField.editText!!.text.toString())
                         .matches()
-//                  создаем объект downloadManager
-                val downloadManager =
-                    requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
                 if (isValidUrl) {
 //                    проверяем передан во фрагмент uri путь для сохранения файла или нет
                     if (args.uri != null) {
@@ -109,18 +108,14 @@ class AddDialogFragment : BottomSheetDialogFragment() {
                         addDialogViewModel.downloadVideo(
                             binding.titleTextField.editText!!.text.toString(),
                             binding.urlTextField.editText!!.text.toString(),
-                            args.uri!!.toUri(),
-                            downloadManager,
-                            binding.downloadLinearProgressBar
+                            args.uri!!.toUri()
                         )
                     } else {
 //                        если нет, то передаем вместо uri null
                         addDialogViewModel.downloadVideo(
                             binding.titleTextField.editText!!.text.toString(),
                             binding.urlTextField.editText!!.text.toString(),
-                            null,
-                            downloadManager,
-                            binding.downloadLinearProgressBar
+                            null
                         )
                     }
                 } else {

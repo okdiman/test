@@ -19,4 +19,5 @@
     <string name="reject_adding">you decided not to add the file</string>
     <string name="url_error">Sorry, but url does not lead to a video file</string>
     <string name="incorrect_result">incorrect result</string>
+    <string name="picker">"U entered title of file earlier"</string>
 </resources>

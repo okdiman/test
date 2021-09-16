@@ -198,7 +198,7 @@ class MainFragment : ViewBindingFragment<MainFragmentBinding>(MainFragmentBindin
     //    сохранение видео
     private fun createVideo() {
 //        активируем лаунчер
-        createDocumentLauncher.launch("new video")
+        createDocumentLauncher.launch("newVideo.mp4")
     }
 
     //    хэндлер для сохранения видео после выбора пользователем директории

@@ -1,27 +1,22 @@
 package com.skillbox.skillbox.scopedstorage.fragments
 
-import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.webkit.MimeTypeMap
-import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import androidx.documentfile.provider.DocumentFile
 import com.skillbox.skillbox.scopedstorage.network.Network
 import com.skillbox.skillbox.scopedstorage.utils.haveQ
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 class AddDialogFragmentRepository(private val context: Context) {
 
     //    загрузка видео из сети
     suspend fun downloadVideoFromNetwork(
-        title: String, url: String, uri: Uri?, downloadManager: DownloadManager,
-        loader: ProgressBar
+        title: String, url: String, uri: Uri?
     ): String {
 //    создаем синглтон объект MimeTypeMap
         val mimeTypeMap = MimeTypeMap.getSingleton()
@@ -31,32 +26,29 @@ class AddDialogFragmentRepository(private val context: Context) {
         }
         Log.i("mimetype", mimeType)
 //    проверяем является ли файл по ссылке видео файлом
-        if (mimeType == "video/*") {
+        if (mimeType == "video/*" || mimeType == "mp4") {
 //            задаем uri для видео в зависимости от того, пришло оно к нам нуллом или нет
-            val videoUri: Uri = uri ?: saveVideoDetails(title)
-            return try {
+            val videoUri: Uri = uri ?: saveVideoDetails("$title.$mimeType")
+//            return try {
 //                загрузка видео через Network
                 downloadVideo(url, videoUri)
-//                загрузка видео через downloadManager
-//                downloadFileByDownloadManager(url, title, uri!!, downloadManager, loader)
+            if (uri == null){
                 makeVideoVisible(videoUri)
+            }
                 "Success"
-            } catch (t: Throwable) {
-//                в случае ошибки удаляем созданный под видео файл
-                context.contentResolver.delete(
-                    videoUri,
-                    null,
-                    null
-                )
-                "Throwable"
-            }
-        } else {
-//            если пикер передавал нам uri файла под видео, то удаляем файл
-            if (uri != null) {
-                deleteVideo(uri)
-            }
-            return "Url error"
+//            } catch (t: Throwable) {
+////                в случае ошибки удаляем созданный под видео файл
+//                deleteVideo(videoUri)
+//                "Throwable"
+//            }
+//        } else {
+////            если пикер передавал нам uri файла под видео, то удаляем файл
+//            if (uri != null) {
+//                deleteVideo(uri)
+//            }
+//            return "Url error"
         }
+        return "Success"
     }
 
     //    сохраняем необходимый параметры видео
@@ -74,7 +66,7 @@ class AddDialogFragmentRepository(private val context: Context) {
 //            кладем название файла
             put(MediaStore.Video.Media.DISPLAY_NAME, title)
 //            указываем тип файла (видео)
-            put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
+            put(MediaStore.Video.Media.MIME_TYPE, "video/*")
 //            если у пользователя версия android 10 и выше, то устанавливаем флаг загрузки
             if (haveQ()) {
                 put(MediaStore.Video.Media.IS_PENDING, 1)
@@ -97,56 +89,6 @@ class AddDialogFragmentRepository(private val context: Context) {
 //                    записываем данные из входящего потока в исходящий
                     inputStream.copyTo(outputStream)
                 }
-        }
-    }
-
-    //    скачивание видео через DownloadManager
-    private suspend fun downloadFileByDownloadManager(
-        urlAddress: String,
-        title: String,
-        uri: Uri,
-        downloadManager: DownloadManager,
-        loader: ProgressBar
-    ) {
-//          создаем запрос на скачивание файла через downloadManager
-        val request = DownloadManager.Request(Uri.parse(urlAddress))
-            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-            .setDestinationUri(uri)
-            .setTitle(title)
-            .setDescription("Downloading")
-            .setRequiresCharging(false)
-            .setAllowedOverMetered(true)
-//          производим запрос
-        val downloadID = downloadManager.enqueue(request)
-//          проверка статсуса загрузки
-        var downloading = true
-        while (downloading) {
-            val query = DownloadManager.Query()
-            query.setFilterById(downloadID)
-//              создаем объект cursor
-            downloadManager.query(query).use { cursor ->
-                if (cursor.moveToFirst()) {
-//                  получаем объем загруженных данных
-                    val bytesDownloaded =
-                        cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-//                  получаем общий объем данных
-                    val bytesTotal =
-                        cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
-//                  если загрузка завершена, завершаем цикл
-                    if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
-                        downloading = false
-                    }
-//                  привязываем лоадер к прогрессу
-                    loader.isVisible = true
-//                  рассчитываем прогресс
-                    val progress = ((bytesDownloaded * 100L) / bytesTotal).toInt()
-                    loader.progress = progress
-                    Log.i("cursor", progress.toString())
-//                  с небольшой задержкой закрываем лоадер, для лучшего отображения и понимания при загрузке файлов малых объемов
-                    delay(500)
-                    loader.isVisible = false
-                }
-            }
         }
     }
 
