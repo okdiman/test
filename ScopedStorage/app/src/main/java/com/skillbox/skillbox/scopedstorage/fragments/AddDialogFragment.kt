@@ -25,6 +25,9 @@ class AddDialogFragment : BottomSheetDialogFragment() {
     private var _binding: AddNewVideoBinding? = null
     private val binding get() = _binding!!
 
+    //    флаг для переопредления метода dismiss
+    private var doWeNeedToDeleteFile = true
+
     //    получаем переданные аргументы из предыдущего фрагмента
     private val args: AddDialogFragmentArgs by navArgs()
 
@@ -37,12 +40,23 @@ class AddDialogFragment : BottomSheetDialogFragment() {
         return object : BottomSheetDialog(requireContext()) {
             override fun onBackPressed() {
                 Log.i("addDialogUri", "${args.uri?.toUri()}")
+                doWeNeedToDeleteFile = false
 //                если мы получили uri созданного пикером файла, то нам нужно удалить этот файл,
 //                если пользователь передумает что-то скачивать
                 if (args.uri != null) {
                     addDialogViewModel.deleteVideo(args.uri!!.toUri())
                 } else {
                     super.onBackPressed()
+                }
+            }
+
+            //            переопределяем метод dismiss, чтобы при выходе из диалога кликом на область,
+//            созданный пикером файл удалялся, если он был создан
+            override fun dismiss() {
+                if (doWeNeedToDeleteFile && args.uri != null) {
+                    onBackPressed()
+                } else {
+                    super.dismiss()
                 }
             }
         }
@@ -135,6 +149,8 @@ class AddDialogFragment : BottomSheetDialogFragment() {
                 "Url error" -> toast(R.string.url_error)
                 else -> toast(R.string.incorrect_result)
             }
+//            выставляем флаг необходимости удаления файла в false
+            doWeNeedToDeleteFile = false
             dismiss()
         }
 

@@ -74,7 +74,7 @@ class AddDialogFragmentRepository(private val context: Context) {
 //            кладем название файла
             put(MediaStore.Video.Media.DISPLAY_NAME, title)
 //            указываем тип файла (видео)
-            put(MediaStore.Video.Media.MIME_TYPE, "video/*")
+            put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
 //            если у пользователя версия android 10 и выше, то устанавливаем флаг загрузки
             if (haveQ()) {
                 put(MediaStore.Video.Media.IS_PENDING, 1)
