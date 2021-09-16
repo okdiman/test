@@ -29,26 +29,25 @@ class AddDialogFragmentRepository(private val context: Context) {
         if (mimeType == "video/*" || mimeType == "mp4") {
 //            задаем uri для видео в зависимости от того, пришло оно к нам нуллом или нет
             val videoUri: Uri = uri ?: saveVideoDetails("$title.$mimeType")
-//            return try {
+            return try {
 //                загрузка видео через Network
                 downloadVideo(url, videoUri)
             if (uri == null){
                 makeVideoVisible(videoUri)
             }
                 "Success"
-//            } catch (t: Throwable) {
-////                в случае ошибки удаляем созданный под видео файл
-//                deleteVideo(videoUri)
-//                "Throwable"
-//            }
-//        } else {
-////            если пикер передавал нам uri файла под видео, то удаляем файл
-//            if (uri != null) {
-//                deleteVideo(uri)
-//            }
-//            return "Url error"
+            } catch (t: Throwable) {
+//                в случае ошибки удаляем созданный под видео файл
+                deleteVideo(videoUri)
+                "Throwable"
+            }
+        } else {
+//            если пикер передавал нам uri файла под видео, то удаляем файл
+            if (uri != null) {
+                deleteVideo(uri)
+            }
+            return "Url error"
         }
-        return "Success"
     }
 
     //    сохраняем необходимый параметры видео
