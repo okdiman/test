@@ -48,7 +48,6 @@ class AddDialogFragment : BottomSheetDialogFragment() {
                     super.onBackPressed()
                 }
             }
-
             //            переопределяем метод dismiss, чтобы при выходе из диалога кликом на область,
 //            созданный пикером файл удалялся, если он был создан
             override fun dismiss() {
