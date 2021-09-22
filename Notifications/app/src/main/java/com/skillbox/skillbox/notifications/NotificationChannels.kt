@@ -10,8 +10,8 @@ import androidx.core.app.NotificationManagerCompat
 
 object NotificationChannels {
 
-    private const val MESSAGE_CHANNEL_ID = "messages"
-    private const val NEWS_CHANNEL_ID = "news"
+    const val MESSAGE_CHANNEL_ID = "messages"
+    const val NEWS_CHANNEL_ID = "news"
 
     fun create(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

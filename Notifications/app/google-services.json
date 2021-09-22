@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "4749051148",
+    "project_id": "dmitrii-okunev",
+    "storage_bucket": "dmitrii-okunev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4749051148:android:71d5fb75c8aadae142f529",
+        "android_client_info": {
+          "package_name": "com.skillbox.skillbox.notifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4749051148-n4anedf4g287nlp79csgrjgip8adbk78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrEwepk8Aq8t5Xfwv6pXv7qXeTaA_mmO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4749051148-n4anedf4g287nlp79csgrjgip8adbk78.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
