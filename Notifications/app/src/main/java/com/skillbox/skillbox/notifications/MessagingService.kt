@@ -33,7 +33,7 @@ class MessagingService : FirebaseMessagingService() {
     }
 
     private fun showMessageNotification(user: String, message: String, userId: Long) {
-        val intent = Intent(this, MainFragment::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, PENDING_INTENT_REQUEST_CODE, intent, 0)
         val notification = NotificationCompat.Builder(this, NotificationChannels.MESSAGE_CHANNEL_ID)
             .setContentTitle("You have a new message from $user!")
@@ -55,7 +55,7 @@ class MessagingService : FirebaseMessagingService() {
             .error(R.drawable.ic_sync_problem)
             .submit()
             .get()
-        val intent = Intent(this, MainFragment::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, PENDING_INTENT_REQUEST_CODE, intent, 0)
         val notification = NotificationCompat.Builder(this, NotificationChannels.NEWS_CHANNEL_ID)
             .setContentTitle(title)
