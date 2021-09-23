@@ -3,6 +3,7 @@ package com.skillbox.skillbox.notifications.ui.main
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -14,6 +15,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private val viewModel: MainViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        NotificationManagerCompat.from(requireContext())
+            .cancelAll()
         viewModel.getToken()
         bindViewModel()
     }

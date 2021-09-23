@@ -2,10 +2,7 @@ package com.skillbox.github.data
 
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface GithubInterface {
 
@@ -51,4 +48,7 @@ interface GithubInterface {
     //запрос на получение списка подписок
     @GET("user/following")
     suspend fun getFollowing(): List<Followings>
+
+    //отправка сообщения в приложение Notifications
+    @POST()
 }
