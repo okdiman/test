@@ -1,6 +1,5 @@
 package com.skillbox.skillbox.notifications.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -28,10 +27,14 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         viewModel.getToken()
         bindViewModel()
         binding.synchronizeButton.setOnClickListener {
-            if (requireContext().isConnected){
+            if (requireContext().isConnected) {
                 showProgressNotification()
-            } else{
-                Toast.makeText(context, "Internet isn't working, please check your internet connection and try again", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    context,
+                    "Internet isn't working, please check your internet connection and try again",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -75,6 +78,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
             NotificationManagerCompat.from(requireContext())
                 .cancel(PROGRESS_NOTIFICATION_ID)
+            binding.synchronizeButton.isEnabled = true
         }
     }
 

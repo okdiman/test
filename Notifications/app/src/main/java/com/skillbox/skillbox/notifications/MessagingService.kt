@@ -1,14 +1,15 @@
 package com.skillbox.skillbox.notifications
 
-import android.app.NotificationManager
+
 import android.app.PendingIntent
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.bumptech.glide.Glide
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.skillbox.skillbox.notifications.ui.main.MainFragment
+
 
 class MessagingService : FirebaseMessagingService() {
 
@@ -18,17 +19,24 @@ class MessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        val userId = message.data["userId"]?.toLong()
-        val user = message.data["user"]
-        val messageText = message.data["message"]
-        if (user != null && messageText != null && userId != null) {
-            showMessageNotification(user, messageText, userId)
-        }
-        val title = message.data["title"]
-        val description = message.data["description"]
-        val imageURL = message.data["imageURL"]
-        if (title != null && description != null) {
-            showNewsNotification(title, description, imageURL)
+        Log.i("message", "$message")
+        when (message.data["type"]) {
+            "message" -> {
+                val userId = message.data["userId"]?.toLong()
+                val user = message.data["user"]
+                val messageText = message.data["text"]
+                if (user != null && messageText != null && userId != null) {
+                    showMessageNotification(user, messageText, userId)
+                }
+            }
+            "news" -> {
+                val title = message.data["title"]
+                val description = message.data["description"]
+                val imageURL = message.data["imageURL"]
+                if (title != null && description != null) {
+                    showNewsNotification(title, description, imageURL)
+                }
+            }
         }
     }
 
