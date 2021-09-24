@@ -14,7 +14,7 @@ object NotificationChannels {
     const val NEWS_CHANNEL_ID = "news"
 
     fun create(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (haveO()) {
             createMessagesChannel(context)
             createNewsChannel(context)
         }
