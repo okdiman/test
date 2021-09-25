@@ -3,6 +3,7 @@ package com.skillbox.skillbox.notifications.ui.main
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.system.Os.stat
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -71,7 +72,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             .setContentTitle("Update downloading")
             .setContentText("Download in progress")
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setSmallIcon(R.drawable.ic_notification_important)
+            .setSmallIcon(android.R.drawable.stat_sys_download)
         val maxProgress = 20
         lifecycleScope.launch {
             (0 until maxProgress).forEach { progress ->
@@ -85,6 +86,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
 
             val finalNotification = notificationBuilder
+                .setSmallIcon(R.drawable.ic_notification_important)
                 .setContentText("Download is completed")
                 .setProgress(0, 0, false)
                 .build()

@@ -3,6 +3,7 @@ package com.skillbox.skillbox.notifications
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -49,6 +50,7 @@ class MessagingService : FirebaseMessagingService() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSmallIcon(R.drawable.ic_message)
             .setAutoCancel(true)
+            .setLights(Color.RED, 1, 0)
             .setContentIntent(pendingIntent)
             .build()
         NotificationManagerCompat.from(this)
