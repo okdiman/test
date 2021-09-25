@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.notifications.ui.main
 
+import android.app.Notification
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -25,6 +26,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
     private val viewModel: MainViewModel by viewModels()
     private val receiver = InternetConnectionBroadcastReceiver()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         NotificationManagerCompat.from(requireContext())

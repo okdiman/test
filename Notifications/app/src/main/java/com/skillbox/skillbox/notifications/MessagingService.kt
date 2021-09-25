@@ -43,7 +43,21 @@ class MessagingService : FirebaseMessagingService() {
 
     private fun showMessageNotification(user: String, message: String, userId: Long) {
         val intent = Intent(this, MainActivity::class.java)
+        val replyIntent = Intent(this, MainActivity::class.java)
+            .putExtra(EXTRA_USER_ID, userId.toInt())
+            .setAction("Reply_action")
         val pendingIntent = PendingIntent.getActivity(this, PENDING_INTENT_REQUEST_CODE, intent, 0)
+        val replyPendingIntent = PendingIntent.getActivity(this, REPLY_PENDING_INTENT_REQUEST_CODE, replyIntent, 0)
+        val remoteInput = androidx.core.app.RemoteInput.Builder(EXTRA_TEXT_REPLY)
+            .setLabel("Type message")
+            .build()
+        val action = NotificationCompat.Action.Builder(
+            android.R.drawable.ic_menu_send,
+            "Reply",
+            replyPendingIntent
+        )
+            .addRemoteInput(remoteInput)
+            .build()
         val notification = NotificationCompat.Builder(this, NotificationChannels.MESSAGE_CHANNEL_ID)
             .setContentTitle("You have a new message from $user!")
             .setContentText(message)
@@ -52,6 +66,7 @@ class MessagingService : FirebaseMessagingService() {
             .setAutoCancel(true)
             .setLights(Color.RED, 1, 0)
             .setContentIntent(pendingIntent)
+            .addAction(action)
             .build()
         NotificationManagerCompat.from(this)
             .notify(userId.toInt(), notification)
@@ -83,6 +98,9 @@ class MessagingService : FirebaseMessagingService() {
 
     companion object {
         const val PENDING_INTENT_REQUEST_CODE = 7777
+        const val REPLY_PENDING_INTENT_REQUEST_CODE = 7779
         const val NEWS_NOTIFICATION_ID = 7778
+        const val EXTRA_TEXT_REPLY = "reply_text"
+        const val EXTRA_USER_ID = "user_id"
     }
 }
