@@ -5,8 +5,9 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class MainFragmentRepository {
-
+    //    получение токена
     suspend fun getToken(): String? = suspendCoroutine { continuation ->
+//    получаем токен с FirebaseMessaging
         FirebaseMessaging.getInstance().token
             .addOnSuccessListener { token ->
                 continuation.resume(token)

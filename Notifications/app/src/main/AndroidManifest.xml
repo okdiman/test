@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.skillbox.skillbox.notifications">
 
+<!--    указываем разрешения на использование интернета и статуса сети интернет-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -18,11 +19,10 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+<!--указываем наш messagingService и подписываемся на интенты сообщений firebase-->
         <service
             android:name=".notifications.MessagingService"
             android:exported="false">

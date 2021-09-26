@@ -22,6 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val isError: LiveData<String>
         get() = isErrorLiveData
 
+    //    получение токена
     fun getToken() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
