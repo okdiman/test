@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.notifications
+package com.skillbox.skillbox.notifications.notifications
 
 
 import android.app.PendingIntent
@@ -10,6 +10,8 @@ import androidx.core.app.NotificationManagerCompat
 import com.bumptech.glide.Glide
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.skillbox.skillbox.notifications.MainActivity
+import com.skillbox.skillbox.notifications.R
 
 
 class MessagingService : FirebaseMessagingService() {

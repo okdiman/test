@@ -1,10 +1,8 @@
-package com.skillbox.skillbox.notifications.ui.main
+package com.skillbox.skillbox.notifications.fragments
 
-import android.app.Notification
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.system.Os.stat
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -14,11 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.skillbox.skillbox.notifications.InternetConnectionBroadcastReceiver
-import com.skillbox.skillbox.notifications.NotificationChannels
 import com.skillbox.skillbox.notifications.R
 import com.skillbox.skillbox.notifications.databinding.MainFragmentBinding
 import com.skillbox.skillbox.notifications.isConnected
+import com.skillbox.skillbox.notifications.notifications.NotificationChannels
+import com.skillbox.skillbox.notifications.receiver.InternetConnectionBroadcastReceiver
+import com.skillbox.skillbox.notifications.toast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -62,6 +61,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun bindViewModel() {
         viewModel.token.observe(viewLifecycleOwner) { gotToken ->
             Log.i("token", "$gotToken")
+        }
+        viewModel.isError.observe(viewLifecycleOwner) { error ->
+            toast(error)
         }
     }
 

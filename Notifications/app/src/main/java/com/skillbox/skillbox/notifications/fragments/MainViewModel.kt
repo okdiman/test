@@ -1,11 +1,11 @@
-package com.skillbox.skillbox.notifications.ui.main
+package com.skillbox.skillbox.notifications.fragments
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.skillbox.skillbox.notifications.SingleLiveEvent
+import com.skillbox.skillbox.notifications.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,7 +17,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         get() = tokenLiveData
 
     //    лайв дата ошибок
-    private val isErrorLiveData = SingleLiveEvent<String>()
+    private val isErrorLiveData =
+        SingleLiveEvent<String>()
     val isError: LiveData<String>
         get() = isErrorLiveData
 

@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.notifications
+package com.skillbox.skillbox.notifications.notifications
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,6 +7,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationManagerCompat
+import com.skillbox.skillbox.notifications.haveO
 
 object NotificationChannels {
 

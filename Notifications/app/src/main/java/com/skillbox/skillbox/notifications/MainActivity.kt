@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.skillbox.skillbox.notifications.notifications.MessagingService
+import com.skillbox.skillbox.notifications.notifications.NotificationChannels
 
 class MainActivity : AppCompatActivity(R.layout.main_activity) {
     override fun onNewIntent(intent: Intent?) {

@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.notifications.ui.main
+package com.skillbox.skillbox.notifications.fragments
 
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlin.coroutines.resume

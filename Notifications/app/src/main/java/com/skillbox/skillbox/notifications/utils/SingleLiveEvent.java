@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.skillbox.skillbox.notifications;
+package com.skillbox.skillbox.notifications.utils;
 
 import android.util.Log;
 
