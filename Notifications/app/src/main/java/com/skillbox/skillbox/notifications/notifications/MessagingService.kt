@@ -59,7 +59,7 @@ class MessagingService : FirebaseMessagingService() {
         val replyIntent = Intent(this, MainActivity::class.java)
 //                кладем userIdи тип действия
             .putExtra(EXTRA_USER_ID, userId.toInt())
-            .setAction("Reply_action")
+            .setAction(REPLY_ACTION)
 //    оборачиваем пред интент в обертку pending, чтобы его мог использовать др процесс
         val replyPendingIntent =
             PendingIntent.getActivity(
@@ -143,5 +143,6 @@ class MessagingService : FirebaseMessagingService() {
         const val NEWS_NOTIFICATION_ID = 7778
         const val EXTRA_TEXT_REPLY = "reply_text"
         const val EXTRA_USER_ID = "user_id"
+        const val REPLY_ACTION = "Reply_action"
     }
 }

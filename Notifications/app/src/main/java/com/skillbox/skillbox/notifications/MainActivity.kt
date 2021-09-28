@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
         Log.i("intent", "$intent")
         super.onNewIntent(intent)
 //        проверяем пришедший интнет на наш reply интент
-        if ("Reply_action" == intent?.action) {
-//            считываемнапечатанный нами текст
+        if (MessagingService.REPLY_ACTION == intent?.action) {
+//            считываем напечатанный нами текст
             val replyText = intent.getCharSequenceExtra(MessagingService.EXTRA_TEXT_REPLY)
             Log.i("reply_text", "$replyText")
 //            считываем userId отправителя
