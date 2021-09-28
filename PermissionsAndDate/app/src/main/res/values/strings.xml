@@ -35,4 +35,5 @@
     <string name="oil_speed_formula">W = (Q*10^3)/(3.6*p*(d/2)^2)</string>
     <string name="oil_formula_explains">Где W-скорость движения нефти в нефтепроводе, м/с; Q - расход нефти м³/ч, p - число Пи, d - внутренний диаметр трубопровода</string>
     <string name="oil_formula_explains_en">Where W - the speed of oil movement in the pipeline, m/s; Q - oil flow rate m³/h, p - Pi number, d - internal diameter of the pipeline, mm</string>
+    <string name="test">Test</string>
 </resources>
