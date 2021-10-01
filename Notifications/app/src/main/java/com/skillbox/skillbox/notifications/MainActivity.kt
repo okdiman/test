@@ -9,6 +9,7 @@ import com.skillbox.skillbox.notifications.notifications.MessagingService
 import com.skillbox.skillbox.notifications.notifications.NotificationChannels
 
 class MainActivity : AppCompatActivity(R.layout.main_activity) {
+
     //    описываем действия при получении нового интента
     override fun onNewIntent(intent: Intent?) {
         Log.i("intent", "$intent")
