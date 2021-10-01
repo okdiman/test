@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Flow</string>
+    <string name="enter_title_of_film_for_searching">Enter title of film for searching</string>
+    <string name="movie">Movie</string>
+    <string name="series">Series</string>
+    <string name="episode">Episode</string>
+    <string name="please_choose_type_of_film">Please, choose type of film:</string>
+    <string name="search">Search</string>
+</resources>
