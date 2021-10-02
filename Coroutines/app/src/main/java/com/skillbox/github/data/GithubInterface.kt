@@ -49,6 +49,4 @@ interface GithubInterface {
     @GET("user/following")
     suspend fun getFollowing(): List<Followings>
 
-    //отправка сообщения в приложение Notifications
-    @POST()
 }

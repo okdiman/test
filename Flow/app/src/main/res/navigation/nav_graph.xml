@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.skillbox.skillbox.flow.MainFragment"
+        android:name="com.skillbox.skillbox.flow.fragments.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment" />
 </navigation>
