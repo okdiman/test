@@ -1,12 +1,13 @@
 package com.skillbox.skillbox.flow.classes
 
-import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
+import com.squareup.moshi.Json
 
 
 enum class MovieType {
+    @Json(name = "movie")
     MOVIE,
+    @Json(name = "series")
     SERIES,
+    @Json(name = "episode")
     EPISODE
 }
