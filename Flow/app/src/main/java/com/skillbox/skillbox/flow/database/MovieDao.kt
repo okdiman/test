@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.skillbox.skillbox.flow.classes.MovieType
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
@@ -16,4 +17,7 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNewFilms(movies: List<MovieEntity>)
+
+    @Query("DELETE FROM ${MovieContract.TABLE_NAME}")
+    suspend fun deleteAll()
 }

@@ -1,7 +1,7 @@
 package com.skillbox.skillbox.flow.networking
 
 import com.skillbox.skillbox.flow.classes.MovieType
-import com.skillbox.skillbox.flow.classes.MyMovies
+import com.skillbox.skillbox.flow.database.MovieEntity
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,5 +13,5 @@ interface OmbdApi {
         @Url url: String,
         @Query("s") title: String,
         @Query("type") type: MovieType?
-    ): List<MyMovies>
+    ): Call <List<MovieEntity>>
 }
