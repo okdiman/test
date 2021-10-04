@@ -11,7 +11,7 @@ object Network {
         .build()
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://www.omdbapi.com/")
-
+        .addConverterFactory(MoshiConverterFactory.create())
         .client(client)
         .build()
     val api: OmbdApi

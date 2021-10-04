@@ -60,15 +60,4 @@
 
     </RadioGroup>
 
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeOfFilmRadioGroup" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

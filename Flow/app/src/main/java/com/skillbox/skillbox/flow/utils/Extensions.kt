@@ -5,11 +5,13 @@ import android.net.ConnectivityManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -48,7 +50,13 @@ fun EditText.textChangesFlow(): kotlinx.coroutines.flow.Flow<String> {
 fun RadioGroup.elementChangeFlow(): Flow<Int> {
     return callbackFlow {
         val checkedChangeListener = RadioGroup.OnCheckedChangeListener { _, checkedId ->
-            trySendBlocking(checkedId)
+            findViewById<RadioButton>(checkedId).apply {
+                when(this.text.toString()){
+                    "Movie" -> trySendBlocking(0)
+                    "Series" -> trySendBlocking(1)
+                    "Episode" -> trySendBlocking(2)
+                }
+            }
         }
         setOnCheckedChangeListener(checkedChangeListener)
         awaitClose {
