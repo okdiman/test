@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.Flow
 interface MovieDao {
     @Query(
         "SELECT * FROM ${MovieContract.TABLE_NAME} WHERE ${MovieContract.Columns.TITLE} = :title " +
-                "AND ${MovieContract.Columns.TYPE} = :type ORDER BY ${MovieContract.Columns.TITLE}"
+                "AND ${MovieContract.Columns.TYPE} = :type ORDER BY ${MovieContract.Columns.YEAR} DESC"
     )
-    suspend fun observeMovies(title: String, type: MovieType?): List<MovieEntity>
+    suspend fun getMovies(title: String, type: MovieType): List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNewFilms(movies: List<MovieEntity>)

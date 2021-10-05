@@ -8,13 +8,26 @@ import com.skillbox.skillbox.flow.networking.Network
 
 class MainFragmentRepository {
     private val moviesDao = Database.instance.movieDao()
-    suspend fun searchMovie(query: Pair<String, MovieType>) {
+    suspend fun searchMovie(query: Pair<String, MovieType>): List<MovieEntity> {
         Log.i("query", "$query")
-        val req = "http://www.omdbapi.com/"
-        Log.i("req", "${Network.api.searchMovies(query.first, query.second)}")
+        val listOfMovies = mutableListOf<MovieEntity>()
+        try {
+            Network.api.searchMovies(query.first, query.second).apply {
+                this?.search?.forEach { movie ->
+                    listOfMovies.add(movie)
+                }
+                moviesDao.addNewFilms(listOfMovies)
+            }
+            return listOfMovies
+        } catch (t: Throwable) {
+            return searchMoviesFromDatabase(query)
+        }
+
     }
 
-    suspend fun searchMoviesFromDatabase(query: Pair<String, MovieType>): List<MovieEntity> {
-        return moviesDao.observeMovies(query.first, query.second)
+    private suspend fun searchMoviesFromDatabase(query: Pair<String, MovieType>): List<MovieEntity> {
+        Log.i("observe", "$query")
+        Log.i("observe", "${moviesDao.getMovies(query.first, query.second)}")
+        return moviesDao.getMovies(query.first, query.second)
     }
 }

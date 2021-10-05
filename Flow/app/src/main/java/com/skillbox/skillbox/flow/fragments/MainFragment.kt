@@ -30,6 +30,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
         flowSearching()
         initList()
+        bindViewModel()
     }
 
     override fun onDestroyView() {
@@ -56,6 +57,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 }
             val movieTitle = binding.filmTitleEditText.textChangesFlow().onStart { emit("") }
             viewModel.bind(movieTitle, movieType)
+        }
+    }
+
+    private fun bindViewModel() {
+        viewModel.searching.observe(viewLifecycleOwner) { movies ->
+            moviesAdapter?.items = movies
         }
     }
 }

@@ -7,10 +7,10 @@
 
     <ImageView
         android:id="@+id/posterImageView"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="100dp"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
@@ -22,23 +22,13 @@
         android:layout_margin="8dp"
         android:textColor="@color/black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/yearOfMovieTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/posterImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
 
-    <TextView
-        android:id="@+id/genreOfMovieTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/yearOfMovieTextView"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@id/posterImageView"
-        app:layout_constraintTop_toBottomOf="@id/titleOfMovieTextView"
-        tools:text="@tools:sample/last_names" />
 
     <TextView
         android:id="@+id/yearOfMovieTextView"
@@ -47,9 +37,11 @@
         android:layout_margin="8dp"
         android:textColor="@color/black"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/typeOfMovieTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/genreOfMovieTextView"
-        app:layout_constraintTop_toBottomOf="@id/titleOfMovieTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/posterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/titleOfMovieTextView"
         tools:text="@tools:sample/us_zipcodes" />
 
     <TextView
@@ -59,24 +51,12 @@
         android:layout_margin="8dp"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/posterImageView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/runtimeOfMovieTextView"
-        app:layout_constraintTop_toBottomOf="@id/genreOfMovieTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/posterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/yearOfMovieTextView"
         tools:text="@tools:sample/cities" />
 
-    <TextView
-        android:id="@+id/runtimeOfMovieTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/typeOfMovieTextView"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@id/posterImageView"
-        app:layout_constraintTop_toBottomOf="@id/genreOfMovieTextView"
-        tools:text="@tools:sample/us_zipcodes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

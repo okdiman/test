@@ -6,6 +6,10 @@ import com.skillbox.skillbox.flow.database.MovieEntity
 
 class MovieAdapter : AsyncListDifferDelegationAdapter<MovieEntity>(MovieDiffUtil()) {
 
+    init {
+        delegatesManager.addDelegate(MovieAdapterDelegate())
+    }
+
     //    создаем DiffUtil для нашего адаптера
     class MovieDiffUtil : DiffUtil.ItemCallback<MovieEntity>() {
         override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
