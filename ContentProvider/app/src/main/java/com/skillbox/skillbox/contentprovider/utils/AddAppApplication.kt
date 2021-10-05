@@ -6,6 +6,6 @@ import android.util.Log
 class AddAppApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        Log.i("provider", "started")
+        Log.i("provider", "started app")
     }
 }

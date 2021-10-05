@@ -11,23 +11,22 @@ class MainFragmentRepository {
     suspend fun searchMovie(query: Pair<String, MovieType>): List<MovieEntity> {
         Log.i("query", "$query")
         val listOfMovies = mutableListOf<MovieEntity>()
-        try {
+        return try {
             Network.api.searchMovies(query.first, query.second).apply {
                 this?.search?.forEach { movie ->
                     listOfMovies.add(movie)
                 }
                 moviesDao.addNewFilms(listOfMovies)
             }
-            return listOfMovies
+            listOfMovies
         } catch (t: Throwable) {
-            return searchMoviesFromDatabase(query)
+            Log.i("errorInfo", "$t")
+            searchMoviesFromDatabase(query)
         }
-
     }
 
     private suspend fun searchMoviesFromDatabase(query: Pair<String, MovieType>): List<MovieEntity> {
         Log.i("observe", "$query")
-        Log.i("observe", "${moviesDao.getMovies(query.first, query.second)}")
         return moviesDao.getMovies(query.first, query.second)
     }
 }

@@ -20,6 +20,11 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val searching: LiveData<List<MovieEntity>>
         get() = searchLiveData
 
+    //    лайв дата статуса загрузки
+    private val isLoadingLiveData = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = isLoadingLiveData
+
     @ExperimentalCoroutinesApi
     @FlowPreview
     fun bind(
@@ -29,7 +34,9 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         currentJob?.cancel()
         combine(queryFlow, movieTypeFlow) { query, type -> query to type }
             .debounce(500)
+            .onEach { isLoadingLiveData.postValue(true) }
             .mapLatest { searchLiveData.postValue(repo.searchMovie(it)) }
+            .onEach { isLoadingLiveData.postValue(false) }
             .launchIn(viewModelScope).also { currentJob = it }
     }
 
