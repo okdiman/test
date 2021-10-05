@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MovieDao {
     @Query(
-        "SELECT * FROM ${MovieContract.TABLE_NAME} WHERE ${MovieContract.Columns.TITLE} = :title " +
-                "AND ${MovieContract.Columns.TYPE} = :type ORDER BY ${MovieContract.Columns.YEAR} DESC"
+        "SELECT * FROM ${MovieContract.TABLE_NAME} WHERE ${MovieContract.Columns.TITLE} " +
+                "LIKE '%' || :title || '%' AND ${MovieContract.Columns.TYPE} = :type " +
+                "ORDER BY ${MovieContract.Columns.YEAR} DESC"
     )
     suspend fun getMovies(title: String, type: MovieType): List<MovieEntity>
 
