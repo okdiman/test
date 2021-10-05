@@ -30,13 +30,7 @@ class MainFragmentRepository {
         } catch (t: Throwable) {
 //            при получении ошибки, возвращаем список фильмов из БД
             Log.i("errorInfo", "$t")
-            searchMoviesFromDatabase(query)
+            moviesDao.getMovies(query.first, query.second)
         }
-    }
-
-    //    получение фильмов из БД
-    private suspend fun searchMoviesFromDatabase(query: Pair<String, MovieType>): List<MovieEntity> {
-        Log.i("observe", "$query")
-        return moviesDao.getMovies(query.first, query.second)
     }
 }
