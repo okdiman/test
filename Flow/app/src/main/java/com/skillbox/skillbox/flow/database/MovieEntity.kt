@@ -5,16 +5,17 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.google.gson.annotations.SerializedName
 import com.skillbox.skillbox.flow.classes.MovieType
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
-import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = MovieContract.TABLE_NAME)
 @TypeConverters(MovieTypesConverter::class)
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class MovieEntity(
+        //    аннотации SerializedName для преобразования ответа сервера из Gson формата
         @PrimaryKey
         @SerializedName("imdbID")
         @ColumnInfo(name = MovieContract.Columns.ID)
@@ -27,7 +28,7 @@ data class MovieEntity(
         val year: String,
         @ColumnInfo(name = MovieContract.Columns.POSTER)
         @SerializedName("Poster")
-        val poster: String?,
+        val poster: String,
         @ColumnInfo(name = MovieContract.Columns.TYPE)
         @SerializedName("Type")
         val type: MovieType?

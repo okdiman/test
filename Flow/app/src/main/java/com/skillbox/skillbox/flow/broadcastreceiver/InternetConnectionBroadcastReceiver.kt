@@ -8,7 +8,8 @@ import com.skillbox.skillbox.flow.R
 import com.skillbox.skillbox.flow.utils.isConnected
 
 class InternetConnectionBroadcastReceiver : BroadcastReceiver() {
-    var wasConnected = true
+    //    переменная для понимания был ли до этого отключен интернет или нет
+    private var wasConnected = true
     override fun onReceive(context: Context, intent: Intent?) {
         if (!context.isConnected) {
             wasConnected = false

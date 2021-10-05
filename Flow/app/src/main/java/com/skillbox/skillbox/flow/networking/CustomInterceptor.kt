@@ -7,7 +7,7 @@ class CustomInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
 //получаем оригинальный запрос
         val originalRequest = chain.request()
-//создаем новый URL на основе оригинального, добавляя туда queryParameter
+//создаем новый URL на основе оригинального, добавляя туда queryParameter ключа
         val url = originalRequest.url().newBuilder()
             .addQueryParameter("apikey", MOVIE_API_KEY)
             .build()

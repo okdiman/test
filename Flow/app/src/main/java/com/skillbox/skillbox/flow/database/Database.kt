@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 
 object Database {
+    //    lateinit инстанс ДБ для последующей с ним работы из др классов
     lateinit var instance: AppDatabase
         private set
 

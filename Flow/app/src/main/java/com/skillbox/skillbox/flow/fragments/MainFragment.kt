@@ -17,6 +17,7 @@ import com.skillbox.skillbox.flow.classes.MovieType
 import com.skillbox.skillbox.flow.databinding.MainFragmentBinding
 import com.skillbox.skillbox.flow.utils.elementChangeFlow
 import com.skillbox.skillbox.flow.utils.textChangesFlow
+import com.skillbox.skillbox.flow.utils.toast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.map
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(R.layout.main_fragment) {
+    //    создаем объекты баиндинга, вью модель, адаптера и бродкаст ресивера
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
     private val viewModel: MainFragmentViewModel by viewModels()
     private var moviesAdapter: MovieAdapter? = null
@@ -40,6 +42,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onResume() {
         super.onResume()
+//        регистрируем бродкаст ресивер
         requireContext().registerReceiver(
             internetReceiver,
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -48,14 +51,17 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onPause() {
         super.onPause()
+//        дерегистрируем бродкаст ресивер
         requireContext().unregisterReceiver(internetReceiver)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+//        зануляем адаптер во избежании утечек памяти
         moviesAdapter = null
     }
 
+    //    инициализация адаптера
     private fun initList() {
         moviesAdapter = MovieAdapter()
         with(binding.listOfMoviesRecyclerView) {
@@ -65,19 +71,25 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
+    //    flow поиск по введенным данным
     @FlowPreview
     @ExperimentalCoroutinesApi
     private fun flowSearching() {
+//    работа с flow только в корутине
         viewLifecycleOwner.lifecycleScope.launch {
-            val movieType = binding.typeOfFilmRadioGroup.elementChangeFlow().onStart { emit(0) }
+            val movieType = binding.typeOfFilmRadioGroup.elementChangeFlow()
+//                    устанавливаем по дефолту 0 индекс
+                .onStart { emit(0) }
+//                    преобразуем индекс в MovieType
                 .map {
                     MovieType.values()[it]
                 }
-            val movieTitle = binding.filmTitleEditText.textChangesFlow().onStart { emit("") }
+            val movieTitle = binding.filmTitleEditText.textChangesFlow()
             viewModel.bind(movieTitle, movieType)
         }
     }
 
+    //    подписка на обновления лайв дата
     private fun bindViewModel() {
         viewModel.searching.observe(viewLifecycleOwner) { movies ->
             moviesAdapter?.items = movies
@@ -85,8 +97,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             isLoading(loading)
         }
+        viewModel.isError.observe(viewLifecycleOwner) { error ->
+            toast(error)
+        }
     }
 
+    //    статусы вьюшек в зависимости от того идет загрузка или нет
     private fun isLoading(loading: Boolean) {
         if (loading) {
             binding.run {

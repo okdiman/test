@@ -17,7 +17,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.skillbox.skillbox.flow.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -38,6 +37,10 @@ fun <T : Fragment> T.toast(@StringRes message: Int) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
+fun <T : Fragment> T.toast(message: String) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
 // расширение для проверки доступа к сети
 val Context.isConnected: Boolean
     get() {
@@ -45,38 +48,49 @@ val Context.isConnected: Boolean
             .activeNetworkInfo?.isConnected == true
     }
 
+//расширение для создания flow из editText поля
 @ExperimentalCoroutinesApi
-fun EditText.textChangesFlow(): kotlinx.coroutines.flow.Flow<String> {
-    return callbackFlow<String> {
+fun EditText.textChangesFlow(): Flow<String> {
+    return callbackFlow {
+//        создаем textChangeListener
         val textChangeListener = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                при изменении текста отправляем текст
                 trySendBlocking(s?.toString().orEmpty())
             }
 
             override fun afterTextChanged(s: Editable?) {}
         }
+//        добавляем лисенер
         this@textChangesFlow.addTextChangedListener(textChangeListener)
+//        при закрытии поля удаляем лисенер
         awaitClose {
             this@textChangesFlow.removeTextChangedListener(textChangeListener)
         }
     }
 }
 
+//расширение для создания flow из RadioGroup
 @ExperimentalCoroutinesApi
 fun RadioGroup.elementChangeFlow(): Flow<Int> {
     return callbackFlow {
+//        создаем checkedChangeListener
         val checkedChangeListener = RadioGroup.OnCheckedChangeListener { _, checkedId ->
+//            находим нужный RadioButton по id
             findViewById<RadioButton>(checkedId).apply {
-                when(this.text.toString()){
+//                в зависимости от RadioButton отсылаем нужный результат
+                when (this.text.toString()) {
                     "Movie" -> trySendBlocking(0)
                     "Series" -> trySendBlocking(1)
                     "Episode" -> trySendBlocking(2)
                 }
             }
         }
+//        добавляем лисенер
         setOnCheckedChangeListener(checkedChangeListener)
+//        при закрытии поля удаляем лисенер
         awaitClose {
             setOnCheckedChangeListener(null)
         }
