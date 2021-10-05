@@ -21,8 +21,6 @@ class MovieAdapterDelegate :
             binding.titleOfMovieTextView.text = movie.title
             binding.yearOfMovieTextView.text = movie.year
             binding.typeOfMovieTextView.text = movie.type.toString()
-            binding.runtimeOfMovieTextView.text = movie.runtime
-            binding.genreOfMovieTextView.text = movie.genre
             if (movie.poster != null) {
                 binding.posterImageView.glideLoadImage(movie.poster.toUri())
             } else {
@@ -47,5 +45,4 @@ class MovieAdapterDelegate :
     override fun onBindViewHolder(item: MovieEntity, holder: Holder, payloads: MutableList<Any>) {
         return holder.bind(item)
     }
-
 }

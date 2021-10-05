@@ -1,13 +1,14 @@
 package com.skillbox.skillbox.flow.classes
 
+import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 
 
 enum class MovieType {
-    @Json(name = "movie")
+    @SerializedName("movie")
     MOVIE,
-    @Json(name = "series")
+    @SerializedName("series")
     SERIES,
-    @Json(name = "episode")
+    @SerializedName("episode")
     EPISODE
 }

@@ -2,16 +2,16 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0162a2a573a8e41326f523940dd17880",
+    "identityHash": "f571143db7aca0a5af7b2e2669afc072",
     "entities": [
       {
         "tableName": "movies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `year` TEXT NOT NULL, `runtime` TEXT NOT NULL, `genre` TEXT NOT NULL, `poster` TEXT, `type` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `year` TEXT NOT NULL, `poster` TEXT, `type` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -27,18 +27,6 @@
             "notNull": true
           },
           {
-            "fieldPath": "runtime",
-            "columnName": "runtime",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "genre",
-            "columnName": "genre",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
             "fieldPath": "poster",
             "columnName": "poster",
             "affinity": "TEXT",
@@ -48,14 +36,14 @@
             "fieldPath": "type",
             "columnName": "type",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
           "columnNames": [
             "id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -64,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0162a2a573a8e41326f523940dd17880')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f571143db7aca0a5af7b2e2669afc072')"
     ]
   }
 }

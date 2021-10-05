@@ -6,34 +6,29 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.skillbox.skillbox.flow.classes.MovieType
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = MovieContract.TABLE_NAME)
 @TypeConverters(MovieTypesConverter::class)
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class MovieEntity(
-        @PrimaryKey(autoGenerate = true)
+        @PrimaryKey
+        @SerializedName("imdbID")
         @ColumnInfo(name = MovieContract.Columns.ID)
-        val id: Int = 0,
+        val id: String,
         @ColumnInfo(name = MovieContract.Columns.TITLE)
-        @Json(name = "Title")
+        @SerializedName("Title")
         val title: String,
         @ColumnInfo(name = MovieContract.Columns.YEAR)
-        @Json(name = "Year")
+        @SerializedName("Year")
         val year: String,
-        @ColumnInfo(name = MovieContract.Columns.RUNTIME)
-        @Json(name = "Runtime")
-        val runtime: String,
-        @ColumnInfo(name = MovieContract.Columns.GENRE)
-        @Json(name = "Genre")
-        val genre: String,
         @ColumnInfo(name = MovieContract.Columns.POSTER)
-        @Json(name = "Poster")
+        @SerializedName("Poster")
         val poster: String?,
         @ColumnInfo(name = MovieContract.Columns.TYPE)
-        @Json(name = "Type")
-        val type: MovieType
+        @SerializedName("Type")
+        val type: MovieType?
 ) : Parcelable

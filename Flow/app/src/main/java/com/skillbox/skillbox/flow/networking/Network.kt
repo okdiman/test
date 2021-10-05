@@ -2,6 +2,7 @@ package com.skillbox.skillbox.flow.networking
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
@@ -11,7 +12,7 @@ object Network {
         .build()
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://www.omdbapi.com/")
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
     val api: OmbdApi
