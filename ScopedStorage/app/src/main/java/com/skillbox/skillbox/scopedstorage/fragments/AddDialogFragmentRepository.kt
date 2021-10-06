@@ -50,9 +50,10 @@ class AddDialogFragmentRepository(private val context: Context) {
         }
     }
 
-    //    сохраняем необходимый параметры видео
+    //    сохраняем необходимые параметры видео
     private fun saveVideoDetails(title: String): Uri {
-//    елси у пользователя android 10 и выше, то явно указываем хранилище для сохранения, если нет, то просто внешнее хранилище
+//    елси у пользователя android 10 и выше, то явно указываем хранилище для сохранения,
+//    если нет, то просто внешнее хранилище
         val volume = if (haveQ()) {
             MediaStore.VOLUME_EXTERNAL_PRIMARY
         } else {

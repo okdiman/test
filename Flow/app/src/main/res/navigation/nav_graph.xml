@@ -9,5 +9,14 @@
         android:id="@+id/mainFragment"
         android:name="com.skillbox.skillbox.flow.fragments.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_databaseFragment"
+            app:destination="@id/databaseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/databaseFragment"
+        android:name="com.skillbox.skillbox.flow.fragments.DatabaseFragment"
+        android:label="DatabaseFragment"
+        tools:layout="@layout/database_fragment" />
 </navigation>

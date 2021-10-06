@@ -2,6 +2,9 @@ package com.skillbox.skillbox.flow.networking
 
 import com.skillbox.skillbox.flow.classes.MovieType
 import com.skillbox.skillbox.flow.classes.MoviesSearchResult
+import com.skillbox.skillbox.flow.database.MovieContract
+import com.skillbox.skillbox.flow.database.MovieEntity
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 

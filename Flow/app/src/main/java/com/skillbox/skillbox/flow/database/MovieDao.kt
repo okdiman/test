@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.skillbox.skillbox.flow.classes.MovieType
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
@@ -24,4 +25,8 @@ interface MovieDao {
     //    удаление всех фильмов из БД
     @Query("DELETE FROM ${MovieContract.TABLE_NAME}")
     suspend fun deleteAll()
+
+    //    автообновление списка фильмов из БД
+    @Query("SELECT * FROM ${MovieContract.TABLE_NAME} ORDER BY ${MovieContract.Columns.TITLE}")
+    fun observeMovies(): Flow<List<MovieEntity>>
 }

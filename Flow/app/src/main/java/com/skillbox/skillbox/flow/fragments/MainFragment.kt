@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.skillbox.skillbox.flow.R
@@ -38,6 +39,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         flowSearching()
         initList()
         bindViewModel()
+        binding.goToDatabaseButton.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDatabaseFragment())
+        }
     }
 
     override fun onResume() {

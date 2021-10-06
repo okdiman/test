@@ -5,6 +5,7 @@ import com.skillbox.skillbox.flow.classes.MovieType
 import com.skillbox.skillbox.flow.database.Database
 import com.skillbox.skillbox.flow.database.MovieEntity
 import com.skillbox.skillbox.flow.networking.Network
+import kotlinx.coroutines.flow.Flow
 
 class MainFragmentRepository {
     //    создаем инстанс movieDao
@@ -33,4 +34,8 @@ class MainFragmentRepository {
             moviesDao.getMovies(query.first, query.second)
         }
     }
+
+    //    автообноление списка фильмов из БД
+    fun observeMovies(): Flow<List<MovieEntity>> =
+        moviesDao.observeMovies()
 }
