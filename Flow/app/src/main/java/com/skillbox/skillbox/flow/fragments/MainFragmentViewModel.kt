@@ -1,14 +1,10 @@
 package com.skillbox.skillbox.flow.fragments
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.flow.classes.MovieType
 import com.skillbox.skillbox.flow.database.MovieEntity
-import com.skillbox.skillbox.flow.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -32,15 +28,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     private val _isErrorStateFlow = MutableStateFlow("")
     val isErrorStateFlow: StateFlow<String> = _isErrorStateFlow
 
-    //    лайв дата статуса загрузки
-    private val isLoadingLiveData = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean>
-        get() = isLoadingLiveData
-
-    //    лайв дата ошибок
-    private val isErrorLiveData = SingleLiveEvent<String>()
-    val isError: LiveData<String>
-        get() = isErrorLiveData
 
     //    flow поиск фильмов
     @ExperimentalCoroutinesApi
@@ -59,20 +46,18 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 //                не повторяем одинаковые запросы, идущие один за одним
             .distinctUntilChanged()
 //                устанавливаем статус загрузки
-            .onEach {
-//                _isLoadingStateFlow.value = true
-                isLoadingLiveData.postValue(true)
-            }
+            .onEach { _isLoadingStateFlow.value = true }
 //                получаем список фильмов
             .mapLatest { _searchStateFlow.value = repo.searchMovie(it) }
 //                убираем статус загрузки
-            .onEach {
-//                _isLoadingStateFlow.value = false
-                isLoadingLiveData.postValue(false)}
+            .onEach { _isLoadingStateFlow.value = false }
 //                все процессы выше проводим на IO диспетчере
             .flowOn(Dispatchers.IO)
 //                в случае ошибки передаем ее в лайв дату ошибок
-            .catch { _isErrorStateFlow.value = it.message.toString() }
+            .catch {
+                _isErrorStateFlow.value = it.message.toString()
+                _isLoadingStateFlow.value = false
+            }
 //                активируем флоу, так же устанавливаем действующую job'у для переменной
             .launchIn(viewModelScope).also { currentJob = it }
     }

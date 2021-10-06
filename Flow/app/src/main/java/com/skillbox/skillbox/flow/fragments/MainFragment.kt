@@ -97,23 +97,21 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     //    подписка на обновления stateFlow
     private fun bindViewModel() {
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenResumed {
             viewModel.searchStateFlow.collect { moviesList ->
                 moviesAdapter?.items = moviesList
             }
-//            viewModel.isLoadingStateFlow.collect { loading ->
-//                Log.i("loading", "$loading")
-//                isLoading(loading)
-//            }
-//            viewModel.isErrorStateFlow.collect { error ->
-//                toast(error)
-//            }
         }
-        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
-            isLoading(loading)
+        lifecycleScope.launchWhenResumed {
+            viewModel.isLoadingStateFlow.collect { loading ->
+                Log.i("loading", "$loading")
+                isLoading(loading)
+            }
         }
-        viewModel.isError.observe(viewLifecycleOwner) { error ->
-            toast(error)
+        lifecycleScope.launchWhenResumed {
+            viewModel.isErrorStateFlow.collect { error ->
+                toast(error)
+            }
         }
     }
 
