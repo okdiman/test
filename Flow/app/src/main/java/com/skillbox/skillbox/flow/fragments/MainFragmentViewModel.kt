@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.flow.fragments
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.*
 class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
-    private val repo = MainFragmentRepository()
+    private val repo = GeneralRepository()
 
     //    stateFlow списка фильмов
     private val _searchStateFlow = MutableStateFlow(emptyList<MovieEntity>())
@@ -58,11 +59,18 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 //                не повторяем одинаковые запросы, идущие один за одним
             .distinctUntilChanged()
 //                устанавливаем статус загрузки
-            .onEach { _isLoadingStateFlow.value = true }
+            .onEach {
+                Log.i("loading", "loading started")
+                _isLoadingStateFlow.value = true
+                isLoadingLiveData.postValue(true)
+            }
 //                получаем список фильмов
             .mapLatest { _searchStateFlow.value = repo.searchMovie(it) }
 //                убираем статус загрузки
-            .onEach { _isLoadingStateFlow.value = false }
+            .onEach {
+                Log.i("loading", "loading finished")
+                _isLoadingStateFlow.value = false
+                isLoadingLiveData.postValue(false)}
 //                все процессы выше проводим на IO диспетчере
             .flowOn(Dispatchers.IO)
 //                в случае ошибки передаем ее в лайв дату ошибок

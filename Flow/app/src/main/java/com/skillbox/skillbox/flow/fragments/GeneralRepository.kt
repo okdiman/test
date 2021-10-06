@@ -7,7 +7,7 @@ import com.skillbox.skillbox.flow.database.MovieEntity
 import com.skillbox.skillbox.flow.networking.Network
 import kotlinx.coroutines.flow.Flow
 
-class MainFragmentRepository {
+class GeneralRepository {
     //    создаем инстанс movieDao
     private val moviesDao = Database.instance.movieDao()
 

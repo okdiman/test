@@ -3,6 +3,7 @@ package com.skillbox.skillbox.flow.fragments
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -101,6 +102,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 moviesAdapter?.items = moviesList
             }
             viewModel.isLoadingStateFlow.collect { loading ->
+                Log.i("loading", "$loading")
                 isLoading(loading)
             }
             viewModel.isErrorStateFlow.collect { error ->

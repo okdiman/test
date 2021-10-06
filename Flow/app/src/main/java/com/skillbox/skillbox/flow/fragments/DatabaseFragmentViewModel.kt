@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 class DatabaseFragmentViewModel : ViewModel() {
-    private val repo = MainFragmentRepository()
+    private val repo = GeneralRepository()
 
     //    stateFlow для списка фильмов
     private val _moviesListStateFlow = MutableStateFlow(emptyList<MovieEntity>())
