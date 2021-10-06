@@ -19,10 +19,17 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     private var currentJob: Job? = null
     private val repo = MainFragmentRepository()
 
-    //    лайв дата результатов поиска
-    private val searchLiveData = MutableLiveData<List<MovieEntity>>()
-    val searching: LiveData<List<MovieEntity>>
-        get() = searchLiveData
+    //    stateFlow списка фильмов
+    private val _searchStateFlow = MutableStateFlow(emptyList<MovieEntity>())
+    val searchStateFlow: StateFlow<List<MovieEntity>> = _searchStateFlow
+
+    //    stateFlow статуса загрузки
+    private val _isLoadingStateFlow = MutableStateFlow(false)
+    val isLoadingStateFlow: StateFlow<Boolean> = _isLoadingStateFlow
+
+    //    stateFlow ошибок
+    private val _isErrorStateFlow = MutableStateFlow("")
+    val isErrorStateFlow: StateFlow<String> = _isErrorStateFlow
 
     //    лайв дата статуса загрузки
     private val isLoadingLiveData = MutableLiveData<Boolean>()
@@ -48,16 +55,18 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 //                устанавливаем таймаут 500млсек, чтобы не кидать запросы на каждый введенный символ,
 //                а только тогда, когда пользователь предположительно закончил вводить текст
             .debounce(500)
+//                не повторяем одинаковые запросы, идущие один за одним
+            .distinctUntilChanged()
 //                устанавливаем статус загрузки
-            .onEach { isLoadingLiveData.postValue(true) }
+            .onEach { _isLoadingStateFlow.value = true }
 //                получаем список фильмов
-            .mapLatest { searchLiveData.postValue(repo.searchMovie(it)) }
+            .mapLatest { _searchStateFlow.value = repo.searchMovie(it) }
 //                убираем статус загрузки
-            .onEach { isLoadingLiveData.postValue(false) }
+            .onEach { _isLoadingStateFlow.value = false }
 //                все процессы выше проводим на IO диспетчере
             .flowOn(Dispatchers.IO)
 //                в случае ошибки передаем ее в лайв дату ошибок
-            .catch { isErrorLiveData.postValue(it.message) }
+            .catch { _isErrorStateFlow.value = it.message.toString() }
 //                активируем флоу, так же устанавливаем действующую job'у для переменной
             .launchIn(viewModelScope).also { currentJob = it }
     }

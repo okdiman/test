@@ -21,6 +21,7 @@ import com.skillbox.skillbox.flow.utils.textChangesFlow
 import com.skillbox.skillbox.flow.utils.toast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -93,10 +94,18 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
-    //    подписка на обновления лайв дата
+    //    подписка на обновления stateFlow
     private fun bindViewModel() {
-        viewModel.searching.observe(viewLifecycleOwner) { movies ->
-            moviesAdapter?.items = movies
+        lifecycleScope.launch {
+            viewModel.searchStateFlow.collect { moviesList ->
+                moviesAdapter?.items = moviesList
+            }
+            viewModel.isLoadingStateFlow.collect { loading ->
+                isLoading(loading)
+            }
+            viewModel.isErrorStateFlow.collect { error ->
+                toast(error)
+            }
         }
         viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             isLoading(loading)

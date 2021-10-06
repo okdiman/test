@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.skillbox.skillbox.flow.R
 import com.skillbox.skillbox.flow.adapter.MovieAdapter
 import com.skillbox.skillbox.flow.databinding.DatabaseFragmentBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class DatabaseFragment : Fragment(R.layout.database_fragment) {
     private val binding: DatabaseFragmentBinding by viewBinding(DatabaseFragmentBinding::bind)
@@ -37,8 +40,10 @@ class DatabaseFragment : Fragment(R.layout.database_fragment) {
     }
 
     private fun bindingViewModel() {
-        viewModelDatabase.moviesList.observe(viewLifecycleOwner) { movieList ->
-            movieDatabaseAdapter?.items = movieList
+        lifecycleScope.launch {
+            viewModelDatabase.moviesListStateFlow.collect { moviesList ->
+                movieDatabaseAdapter?.items = moviesList
+            }
         }
     }
 }
