@@ -60,16 +60,14 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             .distinctUntilChanged()
 //                устанавливаем статус загрузки
             .onEach {
-                Log.i("loading", "loading started")
-                _isLoadingStateFlow.value = true
+//                _isLoadingStateFlow.value = true
                 isLoadingLiveData.postValue(true)
             }
 //                получаем список фильмов
             .mapLatest { _searchStateFlow.value = repo.searchMovie(it) }
 //                убираем статус загрузки
             .onEach {
-                Log.i("loading", "loading finished")
-                _isLoadingStateFlow.value = false
+//                _isLoadingStateFlow.value = false
                 isLoadingLiveData.postValue(false)}
 //                все процессы выше проводим на IO диспетчере
             .flowOn(Dispatchers.IO)

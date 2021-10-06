@@ -101,13 +101,13 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             viewModel.searchStateFlow.collect { moviesList ->
                 moviesAdapter?.items = moviesList
             }
-            viewModel.isLoadingStateFlow.collect { loading ->
-                Log.i("loading", "$loading")
-                isLoading(loading)
-            }
-            viewModel.isErrorStateFlow.collect { error ->
-                toast(error)
-            }
+//            viewModel.isLoadingStateFlow.collect { loading ->
+//                Log.i("loading", "$loading")
+//                isLoading(loading)
+//            }
+//            viewModel.isErrorStateFlow.collect { error ->
+//                toast(error)
+//            }
         }
         viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
             isLoading(loading)
