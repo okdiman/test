@@ -28,6 +28,7 @@ class DownloadWorker(private val context: Context, params: WorkerParameters) :
             }
             Result.success()
         } catch (t: Throwable) {
+            file.delete()
             Result.failure()
         }
     }

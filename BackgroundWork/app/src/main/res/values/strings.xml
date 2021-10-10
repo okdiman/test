@@ -8,4 +8,5 @@
     <string name="succeeded_downloading">File was downloaded</string>
     <string name="error">Error</string>
     <string name="download_error">Sorry, something went wrong, tap retry to try again</string>
+    <string name="cancel">Cancel</string>
 </resources>

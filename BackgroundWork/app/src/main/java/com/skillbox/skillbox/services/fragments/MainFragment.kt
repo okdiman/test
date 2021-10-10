@@ -45,9 +45,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private fun bindStateFlow() {
         lifecycleScope.launchWhenResumed {
-            viewModelMain.downloadStateFlow.collect { isLoading(it) }
-        }
-        lifecycleScope.launchWhenResumed {
             viewModelMain.isErrorStateFlow.collect { toast(it) }
         }
     }
@@ -73,18 +70,21 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     }
 
     private fun handleWorkInfo(workInfo: WorkInfo) {
-        when (workInfo.state) {
-            WorkInfo.State.ENQUEUED -> binding.waitingTextView.isVisible = true
-            WorkInfo.State.RUNNING -> binding.downloadProgressBar.isVisible = true
-            WorkInfo.State.SUCCEEDED -> toast(R.string.succeeded_downloading)
-            else -> {
-                AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.error)
-                    .setMessage(R.string.download_error)
-                    .setNegativeButton("Cancel") { _, _ -> }
-                    .setPositiveButton("Retry") { _, _ -> viewModelMain.downloadFile(url!!) }
-                    .show()
-            }
+        binding.waitingTextView.isVisible = workInfo.state == WorkInfo.State.ENQUEUED
+        binding.downloadProgressBar.isVisible = workInfo.state == WorkInfo.State.RUNNING
+        if (workInfo.state == WorkInfo.State.SUCCEEDED) {
+            toast(R.string.succeeded_downloading)
         }
+        if (workInfo.state == WorkInfo.State.FAILED || workInfo.state == WorkInfo.State.CANCELLED
+            || workInfo.state == WorkInfo.State.BLOCKED
+        ) {
+            AlertDialog.Builder(requireContext())
+                .setTitle(R.string.error)
+                .setMessage(R.string.download_error)
+                .setNegativeButton("Cancel") { _, _ -> }
+                .setPositiveButton("Retry") { _, _ -> viewModelMain.downloadFile(url!!) }
+                .show()
+        }
+        isLoading(!workInfo.state.isFinished)
     }
 }

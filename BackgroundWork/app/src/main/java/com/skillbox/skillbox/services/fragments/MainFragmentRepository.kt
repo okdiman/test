@@ -1,7 +1,6 @@
 package com.skillbox.skillbox.services.fragments
 
 import android.content.Context
-import android.util.Log
 import androidx.work.*
 import com.skillbox.skillbox.services.worker.DownloadWorker
 import java.util.concurrent.TimeUnit
