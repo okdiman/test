@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Services</string>
+    <string name="enter_url_of_file">Enter URL of file</string>
+    <string name="download">Download</string>
+    <string name="waiting_of_downloading">Waiting of downloading...</string>
+    <string name="u_did_not_enter_url">You did not enter url, please enter url and try again</string>
+    <string name="incorrect_url">You have entered incorrect url, please, enter correct url and try again</string>
+    <string name="succeeded_downloading">File was downloaded</string>
+    <string name="error">Error</string>
+    <string name="download_error">Sorry, something went wrong, tap retry to try again</string>
 </resources>
