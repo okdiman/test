@@ -8,6 +8,7 @@ import com.skillbox.skillbox.flow.networking.Network
 import kotlinx.coroutines.flow.Flow
 
 class GeneralRepository {
+
     //    создаем инстанс movieDao
     private val moviesDao = Database.instance.movieDao()
 
