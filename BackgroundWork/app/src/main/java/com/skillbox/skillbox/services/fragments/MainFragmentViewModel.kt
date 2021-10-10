@@ -13,7 +13,9 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     //    stateFlow ошибок
     private val _isErrorStateFlow = MutableStateFlow("")
     val isErrorStateFlow: StateFlow<String> = _isErrorStateFlow
+
     private val repo = MainFragmentRepository(application)
+
     fun downloadFile(url: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
