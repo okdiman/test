@@ -16,6 +16,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     private val repo = MainFragmentRepository(application)
 
+    //    загрузка файла
     fun downloadFile(url: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {

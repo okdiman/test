@@ -19,10 +19,12 @@ import com.skillbox.skillbox.services.worker.DownloadWorker
 import kotlinx.coroutines.flow.collect
 
 class MainFragment : Fragment(R.layout.main_fragment) {
-    //    создаем объекты баиндинга и вью модели
+    //    создаем переменные баиндинга и вью модели
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
     private val viewModelMain: MainFragmentViewModel by viewModels()
 
+    //    флаг первого запуска приложения(нужен, чтобы не показывать статус succeeded
+//    при подписке на на нашу задачу в workManger при запуске приложения)
     private var firstRun = true
 
     //    создаем нуллабельный url, чтобы его можно было использовать в нескольких местах
@@ -30,24 +32,33 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        подписка на обновления флоу
         bindStateFlow()
         binding.downloadButton.setOnClickListener {
             download()
         }
+//        подписка на обновления WorkManager.state
         bindWorkManagerState()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+//        зануляме url при закрытии экрана
         url = null
     }
 
     private fun download() {
+//        порверяем заполненность поля ввода
         if (binding.urlEditText.text.toString().isNotEmpty()) {
+//            проверяем соответствие введенного значения с URL
             if (Patterns.WEB_URL.matcher(binding.urlEditText.text.toString()).matches()) {
+//                присваиваем введенное значение переменной url для дальнейшего переиспользования
                 url = binding.urlEditText.text.toString()
+//                проверяем доступность внешнего хранилища
                 if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+//                    изменяем флаг первого запуска
                     firstRun = false
+//                    скачиваем файл
                     viewModelMain.downloadFile(url!!)
                 } else {
                     toast(R.string.storage_is_not_available)
@@ -61,14 +72,16 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     }
 
+    //    подписка на изменения статуса флоу ошибки
     private fun bindStateFlow() {
         lifecycleScope.launchWhenResumed {
-            if (!firstRun){
+            if (!firstRun) {
                 viewModelMain.isErrorStateFlow.collect { toast(it) }
             }
         }
     }
 
+    //    статус экрана при загрузке
     private fun isLoading(loading: Boolean) {
         if (loading) {
             binding.run {
@@ -83,18 +96,27 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
+    //    подписка на изменения статуса нашей задачи в workManager
     private fun bindWorkManagerState() {
         WorkManager.getInstance(requireContext())
+//                получаем workInfo нашей задачи по ID
             .getWorkInfosForUniqueWorkLiveData(DownloadWorker.UNIQUE_DOWNLOADING)
+//                подписываемся на изменения workInfo
             .observe(viewLifecycleOwner) { handleWorkInfo(it.first()) }
     }
 
+    //    действия при изменении workInfo нашей задачи
     private fun handleWorkInfo(workInfo: WorkInfo) {
+//        при добавлении задачи в очередь выдаем соотсветствующий текст
         binding.waitingTextView.isVisible = workInfo.state == WorkInfo.State.ENQUEUED
+//        при загрузке файла показываем прогресс бар
         binding.downloadProgressBar.isVisible = workInfo.state == WorkInfo.State.RUNNING
+//        если файл успешно скачан, то выдаем тост
         if (workInfo.state == WorkInfo.State.SUCCEEDED && !firstRun) {
             toast(R.string.succeeded_downloading)
         }
+//        если файл по какой-либо причине скачан не был, то показываем ошибку
+//        с возможностью перезапустить задачу
         if (workInfo.state == WorkInfo.State.FAILED || workInfo.state == WorkInfo.State.CANCELLED
             || workInfo.state == WorkInfo.State.BLOCKED
         ) {
@@ -105,6 +127,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 .setPositiveButton("Retry") { _, _ -> viewModelMain.downloadFile(url!!) }
                 .show()
         }
+//        передаем функции состояния экрана значение окончания загрузки
         isLoading(!workInfo.state.isFinished)
     }
 }
