@@ -2,7 +2,8 @@ package com.skillbox.skillbox.services.fragments
 
 import android.content.Context
 import androidx.work.*
-import com.skillbox.skillbox.services.worker.DownloadWorker
+import com.skillbox.skillbox.services.workers.DownloadWorker
+import com.skillbox.skillbox.services.workers.PeriodicWorker
 import java.util.concurrent.TimeUnit
 
 class MainFragmentRepository(private val context: Context) {
@@ -31,6 +32,21 @@ class MainFragmentRepository(private val context: Context) {
             .enqueueUniqueWork(
                 DownloadWorker.UNIQUE_DOWNLOADING,
                 ExistingWorkPolicy.KEEP,
+                workRequest
+            )
+    }
+
+    //    включаем передическую задачу
+    fun periodicWork() {
+//        создаем запрос переодической задачи
+        val workRequest = PeriodicWorkRequestBuilder<PeriodicWorker>(15, TimeUnit.MINUTES)
+            .setBackoffCriteria(BackoffPolicy.LINEAR, 20, TimeUnit.SECONDS)
+            .build()
+//        добавляем задачу в workManager
+        WorkManager.getInstance(context)
+            .enqueueUniquePeriodicWork(
+                PeriodicWorker.PERIODIC_UNIQUE_DOWNLOADING,
+                ExistingPeriodicWorkPolicy.KEEP,
                 workRequest
             )
     }

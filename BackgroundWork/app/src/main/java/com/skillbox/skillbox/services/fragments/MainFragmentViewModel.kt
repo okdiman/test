@@ -26,4 +26,9 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             }
         }
     }
+
+    //    периодическая задача
+    fun startPeriodicWork() {
+        repo.periodicWork()
+    }
 }

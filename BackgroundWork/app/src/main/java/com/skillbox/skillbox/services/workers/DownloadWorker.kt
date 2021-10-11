@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.services.worker
+package com.skillbox.skillbox.services.workers
 
 import android.content.Context
 import androidx.work.CoroutineWorker

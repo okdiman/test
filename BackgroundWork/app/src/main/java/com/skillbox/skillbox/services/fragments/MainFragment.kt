@@ -15,7 +15,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.skillbox.skillbox.services.R
 import com.skillbox.skillbox.services.databinding.MainFragmentBinding
 import com.skillbox.skillbox.services.utils.toast
-import com.skillbox.skillbox.services.worker.DownloadWorker
+import com.skillbox.skillbox.services.workers.DownloadWorker
 import kotlinx.coroutines.flow.collect
 
 class MainFragment : Fragment(R.layout.main_fragment) {
@@ -39,6 +39,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
 //        подписка на обновления WorkManager.state
         bindWorkManagerState()
+//        запускаем периодическую задачу
+        viewModelMain.startPeriodicWork()
     }
 
     override fun onDestroyView() {
