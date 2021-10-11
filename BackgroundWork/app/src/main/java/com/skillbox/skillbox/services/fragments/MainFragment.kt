@@ -23,9 +23,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
     private val viewModelMain: MainFragmentViewModel by viewModels()
 
-    //    флаг первого запуска приложения(нужен, чтобы не показывать статус succeeded
+    //    флаг нового запуска приложения(нужен, чтобы не показывать статус succeeded
 //    при подписке на на нашу задачу в workManger при запуске приложения)
-    private var firstRun = true
+    private var newRun = true
 
     //    создаем нуллабельный url, чтобы его можно было использовать в нескольких местах
     private var url: String? = null
@@ -59,7 +59,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 //                проверяем доступность внешнего хранилища
                 if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
 //                    изменяем флаг первого запуска
-                    firstRun = false
+                    newRun = false
 //                    скачиваем файл
                     viewModelMain.downloadFile(url!!)
                 } else {
@@ -77,7 +77,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     //    подписка на изменения статуса флоу ошибки
     private fun bindStateFlow() {
         lifecycleScope.launchWhenResumed {
-            if (!firstRun) {
+            if (!newRun) {
                 viewModelMain.isErrorStateFlow.collect { toast(it) }
             }
         }
@@ -87,11 +87,17 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun isLoading(loading: Boolean) {
         if (loading) {
             binding.run {
+                cancelDownloadButton.isVisible = true
+                cancelDownloadButton.setOnClickListener {
+                    WorkManager.getInstance(requireContext())
+                        .cancelUniqueWork(DownloadWorker.UNIQUE_DOWNLOADING)
+                }
                 urlEditText.isEnabled = false
                 downloadButton.isEnabled = false
             }
         } else {
             binding.run {
+                cancelDownloadButton.isVisible = false
                 urlEditText.isEnabled = true
                 downloadButton.isEnabled = true
             }
@@ -113,23 +119,26 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         binding.waitingTextView.isVisible = workInfo.state == WorkInfo.State.ENQUEUED
 //        при загрузке файла показываем прогресс бар
         binding.downloadProgressBar.isVisible = workInfo.state == WorkInfo.State.RUNNING
+//        проверяем флаг нового запуска приложения
+        if (!newRun) {
 //        если файл успешно скачан, то выдаем тост
-        if (workInfo.state == WorkInfo.State.SUCCEEDED && !firstRun) {
-            toast(R.string.succeeded_downloading)
-        }
+            if (workInfo.state == WorkInfo.State.SUCCEEDED) {
+                toast(R.string.succeeded_downloading)
+            }
 //        если файл по какой-либо причине скачан не был, то показываем ошибку
 //        с возможностью перезапустить задачу
-        if (workInfo.state == WorkInfo.State.FAILED || workInfo.state == WorkInfo.State.CANCELLED
-            || workInfo.state == WorkInfo.State.BLOCKED
-        ) {
-            AlertDialog.Builder(requireContext())
-                .setTitle(R.string.error)
-                .setMessage(R.string.download_error)
-                .setNegativeButton("Cancel") { _, _ -> }
-                .setPositiveButton("Retry") { _, _ -> viewModelMain.downloadFile(url!!) }
-                .show()
+            if (workInfo.state == WorkInfo.State.FAILED || workInfo.state == WorkInfo.State.CANCELLED
+                || workInfo.state == WorkInfo.State.BLOCKED
+            ) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.error)
+                    .setMessage(R.string.download_error)
+                    .setNegativeButton("Cancel") { _, _ -> }
+                    .setPositiveButton("Retry") { _, _ -> viewModelMain.downloadFile(url!!) }
+                    .show()
+            }
         }
-//        передаем функции состояния экрана значение окончания загрузки
+        //        передаем функции состояния экрана значение окончания загрузки
         isLoading(!workInfo.state.isFinished)
     }
 }
