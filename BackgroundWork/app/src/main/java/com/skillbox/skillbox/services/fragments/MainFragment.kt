@@ -19,7 +19,6 @@ import com.skillbox.skillbox.services.workers.DownloadWorker
 import kotlinx.coroutines.flow.collect
 
 class MainFragment : Fragment(R.layout.main_fragment) {
-
     //    создаем переменные баиндинга и вью модели
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
     private val viewModelMain: MainFragmentViewModel by viewModels()
