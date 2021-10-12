@@ -119,7 +119,7 @@
         tools:itemCount="10"
         android:id="@+id/bestSellersRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
