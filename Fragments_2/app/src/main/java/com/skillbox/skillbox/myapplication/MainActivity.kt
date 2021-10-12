@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity(), DialogData {
             ArticleData.getListOfArticleData().filter { articles.contains(it.typeOfArticle) }
         val adapterDots = ArticlesAdapter(articleData, this)
         viewPager.adapter = adapterDots
-        spring_dots_indicator.setViewPager2(viewPager)
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = resources.getString(articleData[position].titleOfArticle)

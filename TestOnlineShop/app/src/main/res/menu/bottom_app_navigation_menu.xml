@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/explorerItemBottomBar"
+        android:enabled="true"
+        android:title="@string/explorer"
+        />
+
+    <item
+        android:id="@+id/cartItemBottomBar"
+        android:enabled="true"
+        android:icon="@drawable/ic_shopping_bag"
+        android:title="@string/cart"
+        />
+
+    <item
+        android:id="@+id/selectedItemBottomBar"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/selected"
+        />
+
+    <item
+        android:id="@+id/profileItemBottomBar"
+        android:enabled="true"
+        android:icon="@drawable/ic_person"
+        android:title="@string/profile"
+        />
+
+
+</menu>

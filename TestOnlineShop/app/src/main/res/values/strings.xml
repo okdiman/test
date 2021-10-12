@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Test Online Shop</string>
+    <string name="explorer">Explorer</string>
+    <string name="profile">Profile</string>
+    <string name="selected">Selected</string>
+    <string name="cart">Cart</string>
+    <string name="see_more">see more</string>
+    <string name="best_seller">Best Seller</string>
+    <string name="hot_sales">Hot sales</string>
+    <string name="select_category">Select Category</string>
+    <string name="view_all">view all</string>
+    <string name="buy_now">Buy now!</string>
+</resources>

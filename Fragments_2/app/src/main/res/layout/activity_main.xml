@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
+
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,14 +28,6 @@
             android:backgroundTint="@color/black"
             android:text="@string/choose_theme"
             android:textSize="15sp" />
-
-        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-            android:id="@+id/spring_dots_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:dotsColor="@color/purple_200"
-            app:layout_constraintBottom_toBottomOf="parent" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
