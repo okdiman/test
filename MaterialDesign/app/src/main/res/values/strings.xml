@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="cars">Cars</string>
+    <string name="buses">Buses</string>
+    <string name="railways">Railways</string>
+    <string name="airplanes">Airplanes</string>
+    <string name="airplanes_fragment_number_4">Airplanes fragment(number 4)</string>
+    <string name="railway_fragment_number_3">Railway fragment(number 3)</string>
+    <string name="bus_fragment_number_2">Bus fragment (number 2)</string>
+</resources>
