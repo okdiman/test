@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
+import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.classes.Product
 import com.skillbox.skillbox.testonlineshop.databinding.BestSellerItemBinding
 import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
@@ -27,6 +28,11 @@ class BestSellersAdapterDelegate :
                 oldCostTextView.apply {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                     text = "${item.oldPrice}$"
+                }
+                if (item.is_favorites){
+                    isFavoriteBestSellerFloatingActionButton.apply {
+                        setImageResource(R.drawable.ic_baseline_favorite_24)
+                    }
                 }
             }
         }

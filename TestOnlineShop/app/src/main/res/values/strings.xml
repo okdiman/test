@@ -10,4 +10,6 @@
     <string name="select_category">Select Category</string>
     <string name="view_all">view all</string>
     <string name="buy_now">Buy now!</string>
+    <string name="qr_action">QR action</string>
+    <string name="filter_image_view">Filter image view</string>
 </resources>

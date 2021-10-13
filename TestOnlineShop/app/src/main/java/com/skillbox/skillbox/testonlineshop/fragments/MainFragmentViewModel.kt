@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.testonlineshop.fragments
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,6 +29,7 @@ class MainFragmentViewModel : ViewModel() {
             try {
                 _productsStateFlow.value = repo.getAllProducts()
             } catch (t: Throwable) {
+                Log.i("responceError", t.message.toString())
                 _isErrorLiveData.postValue(t.message)
             } finally {
                 _isLoadingStateFlow.value = false
