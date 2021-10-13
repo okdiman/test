@@ -1,11 +1,10 @@
 package com.skillbox.skillbox.testonlineshop.network
 
 import com.skillbox.skillbox.testonlineshop.classes.MainScreenRequest
-import com.skillbox.skillbox.testonlineshop.classes.Product
-import com.skillbox.skillbox.testonlineshop.classes.ProductRequestResults
 import retrofit2.http.GET
 
 interface MyApi {
+    //    запрос на получение данных для главной страницы
     @GET("main")
-    suspend fun getProducts():ArrayList<MainScreenRequest>
+    suspend fun getMainData(): ArrayList<MainScreenRequest>
 }

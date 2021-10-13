@@ -5,18 +5,21 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
-import com.skillbox.skillbox.testonlineshop.classes.HotSales
+import com.skillbox.skillbox.testonlineshop.classes.Product
 import com.skillbox.skillbox.testonlineshop.databinding.HotSalesItemBinding
 import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
 import com.skillbox.skillbox.testonlineshop.utils.inflate
 
 class HotSalesAdapterDelegate :
-    AbsListItemAdapterDelegate<HotSales, HotSales, HotSalesAdapterDelegate.Holder>() {
+    AbsListItemAdapterDelegate<Product, Product, HotSalesAdapterDelegate.Holder>() {
+
+    //    создаем холдер для recycler view
     class Holder(private val binding: HotSalesItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: HotSales) {
+        fun bind(item: Product) {
+            //        баиндим все необхоимые данные продукта во вьюшку
             binding.run {
-                hotSalesImageView.glideLoadImage(item.picture.toUri())
+                hotSalesImageView.glideLoadImage(item.picture!!.toUri())
                 modelTitleOfHotSalesTextView.text = item.title
                 descriptionHotSalesTextView.text = item.subtitle
                 buyNowButton.isEnabled = item.isBuy
@@ -26,8 +29,8 @@ class HotSalesAdapterDelegate :
     }
 
     override fun isForViewType(
-        item: HotSales,
-        items: MutableList<HotSales>,
+        item: Product,
+        items: MutableList<Product>,
         position: Int
     ): Boolean {
         return true
@@ -37,7 +40,7 @@ class HotSalesAdapterDelegate :
         return Holder(parent.inflate(HotSalesItemBinding::inflate))
     }
 
-    override fun onBindViewHolder(item: HotSales, holder: Holder, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(item: Product, holder: Holder, payloads: MutableList<Any>) {
         return holder.bind(item)
     }
 }

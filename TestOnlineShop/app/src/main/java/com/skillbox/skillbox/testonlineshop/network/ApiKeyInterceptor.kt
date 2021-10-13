@@ -8,7 +8,7 @@ class ApiKeyInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         //получаем оригинальный запрос
         val originalRequest = chain.request()
-        //модифицируем оригинальный запрос по нашим требованиям
+        //добавляем header нашего ключа
         val modifiedRequest = originalRequest.newBuilder()
             .addHeader("x-apikey", apiKey)
             .build()

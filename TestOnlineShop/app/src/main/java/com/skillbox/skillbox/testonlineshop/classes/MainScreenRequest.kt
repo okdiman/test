@@ -6,7 +6,7 @@ data class MainScreenRequest(
         @SerializedName("_id")
         val id: String,
         @SerializedName("home_store")
-        val homeStore: List<HotSales>,
+        val homeStore: List<Product>,
         @SerializedName("best_seller")
-        val bestSellers: List<BestSellers>
+        val bestSellers: List<Product>
 )

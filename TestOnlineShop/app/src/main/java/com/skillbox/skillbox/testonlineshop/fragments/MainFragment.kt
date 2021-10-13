@@ -3,18 +3,19 @@ package com.skillbox.skillbox.testonlineshop.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.adapters.BestSellersAdapter
 import com.skillbox.skillbox.testonlineshop.adapters.HotSalesAdapter
 import com.skillbox.skillbox.testonlineshop.databinding.MainFragmentBinding
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
+import com.skillbox.skillbox.testonlineshop.utils.toast
 import kotlinx.coroutines.flow.collect
 
 class MainFragment : Fragment(R.layout.main_fragment) {
@@ -22,15 +23,15 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private val mainViewModel: MainFragmentViewModel by viewModels()
     private var hotSalesAdapter: HotSalesAdapter by autoCleared()
     private var bestSellersAdapter: BestSellersAdapter by autoCleared()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i("listOfProducts", "start main fragment")
-        init()
-        mainViewModel.getAllProducts()
+        initStartScreen()
         bindStateFlow()
     }
 
-    private fun init() {
+    private fun initStartScreen() {
         hotSalesAdapter = HotSalesAdapter()
         with(binding.hotSalesRecyclerView) {
             adapter = hotSalesAdapter
@@ -45,7 +46,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             layoutManager = GridLayoutManager(requireContext(), 2)
             setHasFixedSize(true)
         }
-
+        mainViewModel.getAllProducts()
     }
 
     private fun bindStateFlow() {
@@ -55,6 +56,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 bestSellersAdapter.items = result?.bestSellers
             }
         }
-
+        lifecycleScope.launchWhenResumed {
+            mainViewModel.isLoadingStateFlow.collect { binding.progressBar.isVisible = it }
+        }
+        mainViewModel.isErrorLiveData.observe(viewLifecycleOwner) { toast(it) }
     }
 }
