@@ -12,4 +12,32 @@
     <string name="buy_now">Buy now!</string>
     <string name="qr_action">QR action</string>
     <string name="filter_image_view">Filter image view</string>
+    <string name="brand">Brand</string>
+    <string name="price">Price</string>
+    <string name="size">Size</string>
+    <string name="done">Done</string>
+    <string name="back_button">back button</string>
+    <string name="is_favorite_or_not">is favorite or not</string>
+    <string-array name="phones_models_string_array">
+        <item>Samsung</item>
+        <item>Xiaomi</item>
+        <item>Motorola</item>
+        <item>Apple</item>
+        <item>Not chosen</item>
+    </string-array>
+    <string-array name="phones_sizes_string_array">
+        <item>5 to 5.3 inches</item>
+        <item>5.3 to 5.6 inches</item>
+        <item>5.6 to 5.9 inches</item>
+        <item>5.9 to 6.3 inches</item>
+        <item>Not chosen</item>
+    </string-array>
+    <string-array name="phones_prices_string_array">
+        <item>$0 - $300</item>
+        <item>$300 - $500</item>
+        <item>$500 - $1000</item>
+        <item>$1000 - $3000</item>
+        <item>$3000 - $5000</item>
+        <item>Not chosen</item>
+    </string-array>
 </resources>

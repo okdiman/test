@@ -10,10 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
+        app:tint="@color/red"
         android:src="@drawable/ic_favorite"
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="@id/bestSellerItemImageView"
-        app:layout_constraintTop_toTopOf="@id/bestSellerItemImageView" />
+        app:layout_constraintTop_toTopOf="@id/bestSellerItemImageView"
+        android:contentDescription="@string/is_favorite_or_not" />
 
     <ImageView
         android:id="@+id/bestSellerItemImageView"

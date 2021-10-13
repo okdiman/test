@@ -17,26 +17,29 @@ import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.toast
 import kotlinx.coroutines.flow.collect
 
-class PhonesFragment: Fragment(R.layout.phones_fragment) {
+class PhonesFragment : Fragment(R.layout.phones_fragment) {
     private val binding: PhonesFragmentBinding by viewBinding(PhonesFragmentBinding::bind)
     private val mainViewModel: MainFragmentViewModel by viewModels()
     private var hotSalesAdapter: HotSalesAdapter by autoCleared()
     private var bestSellersAdapter: BestSellersAdapter by autoCleared()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel.getAllProducts()
+        mainViewModel.getMainScreenData()
         initStartScreen()
-        bindStateFlowAndLiveData()
+        bindViewModel()
     }
 
+    //    инициализация стартового экрана
     private fun initStartScreen() {
+//    создаем адаптеры для recycler view и настраеваем recyclerView
         hotSalesAdapter = HotSalesAdapter()
         with(binding.hotSalesRecyclerView) {
             adapter = hotSalesAdapter
             layoutManager =
                 LinearLayoutManager(requireContext()).apply {
-                orientation = LinearLayoutManager.HORIZONTAL
-            }
+                    orientation = LinearLayoutManager.HORIZONTAL
+                }
             setHasFixedSize(true)
         }
         bestSellersAdapter = BestSellersAdapter()
@@ -47,9 +50,11 @@ class PhonesFragment: Fragment(R.layout.phones_fragment) {
         }
     }
 
-    private fun bindStateFlowAndLiveData() {
+//    подписываемся на обновления вьюмодели
+    private fun bindViewModel() {
         lifecycleScope.launchWhenResumed {
             mainViewModel.productsStateFlow.collect { result ->
+//                передаем адаптерам полученные списки айтемов
                 hotSalesAdapter.items = result?.homeStore
                 bestSellersAdapter.items = result?.bestSellers
             }

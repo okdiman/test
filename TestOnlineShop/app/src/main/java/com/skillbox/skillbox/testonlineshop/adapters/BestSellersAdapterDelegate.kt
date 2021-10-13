@@ -26,12 +26,24 @@ class BestSellersAdapterDelegate :
                 modelPhoneTextView.text = item.title
                 newCostTextView.text = "${item.newPrice}$"
                 oldCostTextView.apply {
+//                    перечеркиваем текст старой цены
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                     text = "${item.oldPrice}$"
                 }
-                if (item.is_favorites){
+//                в зависимости от метки is_favorites отображаем ту или иную картинку в кнопке
+                if (item.is_favorites) {
                     isFavoriteBestSellerFloatingActionButton.apply {
                         setImageResource(R.drawable.ic_baseline_favorite_24)
+                    }
+                }
+//                обрабатываем клик на isFavorites, меняем картинку и флаг у айтема
+                isFavoriteBestSellerFloatingActionButton.setOnClickListener {
+                    if (item.is_favorites) {
+                        item.is_favorites = false
+                        isFavoriteBestSellerFloatingActionButton.setImageResource(R.drawable.ic_favorite)
+                    } else {
+                        item.is_favorites = true
+                        isFavoriteBestSellerFloatingActionButton.setImageResource(R.drawable.ic_baseline_favorite_24)
                     }
                 }
             }

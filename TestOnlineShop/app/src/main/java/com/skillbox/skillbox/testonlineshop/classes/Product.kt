@@ -11,7 +11,7 @@ data class Product(
     @SerializedName("images")
     val images: String?,
     @SerializedName("is_favorites")
-    val is_favorites: Boolean = false,
+    var is_favorites: Boolean = false,
     @SerializedName("title")
     val title: String,
     @SerializedName("rating")
@@ -30,9 +30,9 @@ data class Product(
     val capacity: String?,
     @SerializedName("price")
     val price: Int?,
-    @SerializedName("price_without_discount")
-    val oldPrice: Int?,
     @SerializedName("discount_price")
+    val oldPrice: Int?,
+    @SerializedName("price_without_discount")
     val newPrice: Int?,
     @SerializedName("is_new")
     val isNew: Boolean = false,
