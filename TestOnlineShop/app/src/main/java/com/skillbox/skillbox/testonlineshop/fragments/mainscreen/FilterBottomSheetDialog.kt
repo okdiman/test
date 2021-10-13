@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.testonlineshop.fragments
+package com.skillbox.skillbox.testonlineshop.fragments.mainscreen
 
 
 import android.os.Bundle
@@ -56,9 +56,5 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment() {
                 dismiss()
             }
         }
-    }
-
-    companion object {
-        const val BOTTOM_FILTER_DIALOG_TAG = "bottom_dialog_tag"
     }
 }

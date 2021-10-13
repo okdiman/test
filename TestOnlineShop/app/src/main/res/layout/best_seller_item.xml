@@ -55,6 +55,7 @@
         android:id="@+id/modelPhoneTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/bestSellerItemImageView"

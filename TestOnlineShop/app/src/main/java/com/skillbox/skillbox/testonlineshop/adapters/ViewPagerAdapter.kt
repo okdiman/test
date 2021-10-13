@@ -3,8 +3,8 @@ package com.skillbox.skillbox.testonlineshop.adapters
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.skillbox.skillbox.testonlineshop.classes.TypesOfProducts
-import com.skillbox.skillbox.testonlineshop.fragments.MainFragment
-import com.skillbox.skillbox.testonlineshop.fragments.PhonesFragment
+import com.skillbox.skillbox.testonlineshop.fragments.mainscreen.MainFragment
+import com.skillbox.skillbox.testonlineshop.fragments.mainscreen.PhonesFragment
 
 class ViewPagerAdapter(private val types: List<TypesOfProducts>, fragment: MainFragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {

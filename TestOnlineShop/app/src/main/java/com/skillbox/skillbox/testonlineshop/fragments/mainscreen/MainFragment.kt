@@ -1,8 +1,9 @@
-package com.skillbox.skillbox.testonlineshop.fragments
+package com.skillbox.skillbox.testonlineshop.fragments.mainscreen
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
@@ -19,6 +20,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         init()
         binding.filterImageView.setOnClickListener {
             createBottomSheetDialogFragment()
+        }
+        binding.selectCategoryTextView.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment())
         }
     }
 
@@ -41,10 +45,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     //    создание BottomSheetDialogFragment дял фильтрации
     private fun createBottomSheetDialogFragment() {
-        val filterDialog = FilterBottomSheetDialog()
-        filterDialog.show(
-            childFragmentManager,
-            FilterBottomSheetDialog.BOTTOM_FILTER_DIALOG_TAG
-        )
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToFilterBottomSheetDialog())
     }
 }

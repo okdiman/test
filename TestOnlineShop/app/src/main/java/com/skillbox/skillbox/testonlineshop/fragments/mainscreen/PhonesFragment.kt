@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.testonlineshop.fragments
+package com.skillbox.skillbox.testonlineshop.fragments.mainscreen
 
 import android.os.Bundle
 import android.view.View
@@ -13,6 +13,7 @@ import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.adapters.BestSellersAdapter
 import com.skillbox.skillbox.testonlineshop.adapters.HotSalesAdapter
 import com.skillbox.skillbox.testonlineshop.databinding.PhonesFragmentBinding
+import com.skillbox.skillbox.testonlineshop.fragments.MainFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.toast
 import kotlinx.coroutines.flow.collect

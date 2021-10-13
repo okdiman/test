@@ -9,13 +9,13 @@ data class Product(
     @SerializedName("_id")
     val id: String,
     @SerializedName("images")
-    val images: String?,
+    val images: ArrayList<String>?,
     @SerializedName("is_favorites")
     var is_favorites: Boolean = false,
     @SerializedName("title")
     val title: String,
     @SerializedName("rating")
-    val rating: Int?,
+    val rating: Double?,
     @SerializedName("CPU")
     val cpu: String?,
     @SerializedName("camera")
@@ -25,9 +25,9 @@ data class Product(
     @SerializedName("sd")
     val sd: String?,
     @SerializedName("color")
-    val color: String?,
+    val color: ArrayList<String>?,
     @SerializedName("capacity")
-    val capacity: String?,
+    val capacity: ArrayList<String>?,
     @SerializedName("price")
     val price: Int?,
     @SerializedName("discount_price")

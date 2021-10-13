@@ -18,6 +18,8 @@
     <string name="done">Done</string>
     <string name="back_button">back button</string>
     <string name="is_favorite_or_not">is favorite or not</string>
+    <string name="product_details">Product details</string>
+    <string name="add_to_cart_price">Add to Cart $price</string>
     <string-array name="phones_models_string_array">
         <item>Samsung</item>
         <item>Xiaomi</item>

@@ -8,6 +8,23 @@
     <fragment
         android:id="@+id/mainFragment"
         tools:layout="@layout/main_fragment"
-        android:name="com.skillbox.skillbox.testonlineshop.fragments.MainFragment"
-        android:label="MainFragment" />
+        android:name="com.skillbox.skillbox.testonlineshop.fragments.mainscreen.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_filterBottomSheetDialog"
+            app:destination="@id/filterBottomSheetDialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        tools:layout="@layout/details_fragment"
+        android:name="com.skillbox.skillbox.testonlineshop.fragments.detailsscreen.DetailsFragment"
+        android:label="DetailsFragment" />
+    <dialog
+        android:id="@+id/filterBottomSheetDialog"
+        tools:layout="@layout/bottom_sheet_dialog"
+        android:name="com.skillbox.skillbox.testonlineshop.fragments.mainscreen.FilterBottomSheetDialog"
+        android:label="FilterBottomSheetDialog" />
 </navigation>
