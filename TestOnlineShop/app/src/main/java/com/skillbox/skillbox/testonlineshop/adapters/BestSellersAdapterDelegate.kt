@@ -1,6 +1,7 @@
 package com.skillbox.skillbox.testonlineshop.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,10 @@ class BestSellersAdapterDelegate :
                 bestSellerItemImageView.glideLoadImage(item.picture!!.toUri())
                 modelPhoneTextView.text = item.title
                 newCostTextView.text = "${item.newPrice}$"
-                oldCostTextView.text = "${item.oldPrice}$"
+                oldCostTextView.apply {
+                    paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    text = "${item.oldPrice}$"
+                }
             }
         }
     }

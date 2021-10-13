@@ -64,6 +64,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:text="@string/buy_now"
+        android:clickable="true"
         android:textAllCaps="false"
         android:textColor="@color/black" />
 

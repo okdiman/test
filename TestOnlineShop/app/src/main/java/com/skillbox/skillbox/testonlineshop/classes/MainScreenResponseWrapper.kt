@@ -2,7 +2,7 @@ package com.skillbox.skillbox.testonlineshop.classes
 
 import com.google.gson.annotations.SerializedName
 
-data class MainScreenRequest(
+data class MainScreenResponseWrapper(
         @SerializedName("_id")
         val id: String,
         @SerializedName("home_store")

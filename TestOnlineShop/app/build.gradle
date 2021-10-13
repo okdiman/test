@@ -85,4 +85,5 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
 }

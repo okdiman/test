@@ -26,9 +26,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("listOfProducts", "start main fragment")
         initStartScreen()
-        bindStateFlow()
+        bindStateFlowAndLiveData()
     }
 
     private fun initStartScreen() {
@@ -49,7 +48,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         mainViewModel.getAllProducts()
     }
 
-    private fun bindStateFlow() {
+    private fun bindStateFlowAndLiveData() {
         lifecycleScope.launchWhenResumed {
             mainViewModel.productsStateFlow.collect { result ->
                 hotSalesAdapter.items = result?.homeStore
