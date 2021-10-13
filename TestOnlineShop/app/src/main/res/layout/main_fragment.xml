@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/viewAllCategoryTextView"
@@ -59,6 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:showAsAction="always|collapseActionView" />
 
+
     <TextView
         android:id="@+id/seeMoreHotSalesTextView"
         android:layout_width="wrap_content"
@@ -82,7 +83,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/hot_sales_item"
         android:id="@+id/hotSalesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="160dp"
@@ -90,7 +90,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/bestSellerTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/hot_sales_item" />
 
     <TextView
         android:id="@+id/seeMoreBestSellersTextView"
@@ -115,15 +116,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/best_seller_item"
-        tools:itemCount="10"
         android:id="@+id/bestSellersRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:itemCount="10"
+        tools:listitem="@layout/best_seller_item" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomAppBar"

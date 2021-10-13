@@ -10,7 +10,7 @@ class ApiKeyInterceptor : Interceptor {
         val originalRequest = chain.request()
         //модифицируем оригинальный запрос по нашим требованиям
         val modifiedRequest = originalRequest.newBuilder()
-            .addHeader("apikey:", apiKey)
+            .addHeader("x-apikey", apiKey)
             .build()
         Log.i("token", apiKey)
         //передаем дальше модифицированный запрос

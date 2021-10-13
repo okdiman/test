@@ -35,10 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/newIconHotSalesImageView"
+        app:layout_constraintBottom_toTopOf="@id/descriptionHotSalesTextView"
         tools:text="@tools:sample/cities" />
 
     <TextView
@@ -46,18 +47,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/modelTitleOfHotSalesTextView"
+        app:layout_constraintBottom_toTopOf="@id/buyNowButton"
         tools:text="@tools:sample/cities" />
 
     <Button
         android:id="@+id/buyNowButton"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionHotSalesTextView"
+        app:layout_constraintBottom_toBottomOf="@id/hotSalesImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"

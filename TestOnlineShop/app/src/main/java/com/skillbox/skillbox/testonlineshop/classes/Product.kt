@@ -9,25 +9,37 @@ data class Product(
     @SerializedName("_id")
     val id: String,
     @SerializedName("images")
-    val images: String,
+    val images: String?,
     @SerializedName("is_favorites")
-    val is_favorites: Boolean,
+    val is_favorites: Boolean = false,
     @SerializedName("title")
     val title: String,
     @SerializedName("rating")
-    val rating: Int,
+    val rating: Int?,
     @SerializedName("CPU")
-    val cpu: String,
+    val cpu: String?,
     @SerializedName("camera")
-    val camera: String,
+    val camera: String?,
     @SerializedName("ssd")
-    val ssd: String,
+    val ssd: String?,
     @SerializedName("sd")
-    val sd: String,
+    val sd: String?,
     @SerializedName("color")
-    val color: String,
+    val color: String?,
     @SerializedName("capacity")
-    val capacity: String,
+    val capacity: String?,
     @SerializedName("price")
-    val price: Int
+    val price: Int?,
+    @SerializedName("price_without_discount")
+    val oldPrice: Int?,
+    @SerializedName("discount_price")
+    val newPrice: Int?,
+    @SerializedName("is_new")
+    val isNew: Boolean = false,
+    @SerializedName("subtitle")
+    val subtitle: String?,
+    @SerializedName("picture")
+    val picture: String?,
+    @SerializedName("is_buy")
+    val isBuy: Boolean = false
 ) : Parcelable

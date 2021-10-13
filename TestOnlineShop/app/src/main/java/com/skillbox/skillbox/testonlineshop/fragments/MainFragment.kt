@@ -6,20 +6,55 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
-import com.skillbox.skillbox.testonlineshop.classes.Product
+import com.skillbox.skillbox.testonlineshop.adapters.BestSellersAdapter
+import com.skillbox.skillbox.testonlineshop.adapters.HotSalesAdapter
 import com.skillbox.skillbox.testonlineshop.databinding.MainFragmentBinding
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import com.skillbox.skillbox.testonlineshop.utils.autoCleared
+import kotlinx.coroutines.flow.collect
 
 class MainFragment : Fragment(R.layout.main_fragment) {
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
     private val mainViewModel: MainFragmentViewModel by viewModels()
+    private var hotSalesAdapter: HotSalesAdapter by autoCleared()
+    private var bestSellersAdapter: BestSellersAdapter by autoCleared()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i("listOfProducts", "start main fragment")
+        init()
         mainViewModel.getAllProducts()
+        bindStateFlow()
+    }
+
+    private fun init() {
+        hotSalesAdapter = HotSalesAdapter()
+        with(binding.hotSalesRecyclerView) {
+            adapter = hotSalesAdapter
+            layoutManager = LinearLayoutManager(requireContext()).apply {
+                orientation = LinearLayoutManager.HORIZONTAL
+            }
+            setHasFixedSize(true)
+        }
+        bestSellersAdapter = BestSellersAdapter()
+        with(binding.bestSellersRecyclerView) {
+            adapter = bestSellersAdapter
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            setHasFixedSize(true)
+        }
+
+    }
+
+    private fun bindStateFlow() {
+        lifecycleScope.launchWhenResumed {
+            mainViewModel.productsStateFlow.collect { result ->
+                hotSalesAdapter.items = result?.homeStore
+                bestSellersAdapter.items = result?.bestSellers
+            }
+        }
+
     }
 }
