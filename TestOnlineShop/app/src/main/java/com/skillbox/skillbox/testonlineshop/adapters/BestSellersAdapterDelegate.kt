@@ -33,7 +33,7 @@ class BestSellersAdapterDelegate :
 //                в зависимости от метки is_favorites отображаем ту или иную картинку в кнопке
                 if (item.is_favorites) {
                     isFavoriteBestSellerFloatingActionButton.apply {
-                        setImageResource(R.drawable.ic_baseline_favorite_24)
+                        setImageResource(R.drawable.ic_favorite_full)
                     }
                 }
 //                обрабатываем клик на isFavorites, меняем картинку и флаг у айтема
@@ -43,7 +43,7 @@ class BestSellersAdapterDelegate :
                         isFavoriteBestSellerFloatingActionButton.setImageResource(R.drawable.ic_favorite)
                     } else {
                         item.is_favorites = true
-                        isFavoriteBestSellerFloatingActionButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+                        isFavoriteBestSellerFloatingActionButton.setImageResource(R.drawable.ic_favorite_full)
                     }
                 }
             }

@@ -27,9 +27,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 //    список иконок для tabLayout
         val icons = listOf(
             R.drawable.ic_smartphone,
-            R.drawable.ic_baseline_computer_24,
-            R.drawable.ic_baseline_videogame_asset_24,
-            R.drawable.ic_baseline_menu_book_24,
+            R.drawable.ic_computer,
+            R.drawable.ic_games,
+            R.drawable.ic_book,
             R.drawable.ic_gifts
         )
         binding.mainViewPager.adapter = ViewPagerAdapter(TypesOfProducts.values().toList(), this)
