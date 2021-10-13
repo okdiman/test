@@ -19,5 +19,4 @@ class Repository {
         Log.i("productDetails", "$product")
         return product[0]
     }
-
 }
