@@ -10,12 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        app:tint="@color/red"
+        android:contentDescription="@string/is_favorite_or_not"
         android:src="@drawable/ic_favorite"
+        app:fabCustomSize="20dp"
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="@id/bestSellerItemImageView"
         app:layout_constraintTop_toTopOf="@id/bestSellerItemImageView"
-        android:contentDescription="@string/is_favorite_or_not" />
+        app:maxImageSize="10dp"
+        app:tint="@color/red" />
 
     <ImageView
         android:id="@+id/bestSellerItemImageView"
@@ -55,9 +57,9 @@
         android:id="@+id/modelPhoneTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/bestSellerItemImageView"
         app:layout_constraintStart_toStartOf="@+id/bestSellerItemImageView"
         app:layout_constraintTop_toBottomOf="@id/newCostTextView"

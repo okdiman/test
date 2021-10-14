@@ -58,6 +58,7 @@
         android:id="@+id/buyNowButton"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
+        app:rippleColor="?attr/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/hotSalesImageView"
         android:layout_width="wrap_content"

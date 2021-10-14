@@ -23,7 +23,8 @@
             android:text="@string/done"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="@color/white" />
 
         <TextView
             android:id="@+id/filterOptionsTextView"
@@ -50,7 +51,8 @@
             app:fabSize="mini"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:maxImageSize="48dp" />
+            app:maxImageSize="48dp"
+            app:rippleColor="@color/white" />
 
         <TextView
             android:id="@+id/brandBottomDialogTextView"
