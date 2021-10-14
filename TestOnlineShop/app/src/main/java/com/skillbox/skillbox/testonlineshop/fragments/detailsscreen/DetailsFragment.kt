@@ -52,6 +52,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         binding.backDetailsFragmentButton.setOnClickListener {
             findNavController().popBackStack()
         }
+
     }
 
 
@@ -75,6 +76,15 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                             "https://milanooshop.com/wp-content/uploads/2021/04/SQ_vpavic_200807_4133_0107.jpeg"
                         )
                         detailsInfoAdapter.items = product.images?.plus(imagesList)
+                        favoritesDetailsFragmentActionButton.setOnClickListener {
+                            if (product.is_favorites){
+                                product.is_favorites = false
+                                favoritesDetailsFragmentActionButton.setImageResource(R.drawable.ic_favorite)
+                            } else{
+                                product.is_favorites = true
+                                favoritesDetailsFragmentActionButton.setImageResource(R.drawable.ic_favorite_full)
+                            }
+                        }
                     }
                 }
             }

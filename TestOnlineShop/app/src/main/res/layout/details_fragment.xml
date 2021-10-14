@@ -84,6 +84,7 @@
         app:tint="@color/white" />
 
     <androidx.appcompat.widget.AppCompatRatingBar
+        android:progressTint="@color/golden"
         android:id="@+id/ratingBar"
         style="@style/Widget.AppCompat.RatingBar.Indicator"
         android:layout_width="wrap_content"
@@ -109,45 +110,54 @@
     <ImageView
         android:id="@+id/processorImageView"
         android:layout_width="80dp"
-        android:layout_height="48dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/ic_processor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView" />
+        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView"
+        app:tint="@color/grey" />
 
     <ImageView
         android:id="@+id/cameraImageView"
         android:layout_width="80dp"
-        android:layout_height="48dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/ic_camera"
         app:layout_constraintStart_toEndOf="@id/processorImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView" />
+        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView"
+        app:tint="@color/grey" />
 
     <ImageView
         android:id="@+id/memoryImageView"
         android:layout_width="80dp"
-        android:layout_height="48dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/ic_baseline_closed_caption_off_24"
         app:layout_constraintStart_toEndOf="@id/cameraImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView" />
+        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView"
+        app:tint="@color/grey" />
 
     <ImageView
         android:id="@+id/capacityImageView"
         android:layout_width="80dp"
-        android:layout_height="48dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/ic_capacity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/memoryImageView"
-        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView" />
+        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView"
+        app:tint="@color/grey" />
 
     <TextView
         android:id="@+id/processorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/processor"
+        android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="@id/processorImageView"
         app:layout_constraintStart_toStartOf="@id/processorImageView"
         app:layout_constraintTop_toBottomOf="@id/processorImageView" />
@@ -157,6 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/camera"
+        android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="@id/cameraImageView"
         app:layout_constraintStart_toStartOf="@id/cameraImageView"
         app:layout_constraintTop_toBottomOf="@id/cameraImageView" />
@@ -166,6 +177,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/memory"
+        android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="@id/memoryImageView"
         app:layout_constraintStart_toStartOf="@id/memoryImageView"
         app:layout_constraintTop_toBottomOf="@id/memoryImageView" />
@@ -175,6 +187,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/capacity"
+        android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="@id/capacityImageView"
         app:layout_constraintStart_toStartOf="@id/capacityImageView"
         app:layout_constraintTop_toBottomOf="@id/capacityImageView" />
