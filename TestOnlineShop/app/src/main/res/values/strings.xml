@@ -33,6 +33,7 @@
     <string name="inet_is_not_available">"Sorry, internet is not available now, please, check your internet connection and try again"</string>
     <string name="internet_error">Internet error</string>
     <string name="filter_options">Filter options</string>
+    <string name="pictures_of_products">pictures of products</string>
     <string-array name="phones_models_string_array">
         <item>Samsung</item>
         <item>Xiaomi</item>

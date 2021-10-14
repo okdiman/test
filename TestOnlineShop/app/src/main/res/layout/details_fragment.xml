@@ -16,7 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="16sp"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        tools:ignore="ContentDescription" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,7 +32,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="20sp"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/productDetailsTextView"
@@ -81,7 +83,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/titleOfModelTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/titleOfModelTextView"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        tools:ignore="ContentDescription" />
 
     <androidx.appcompat.widget.AppCompatRatingBar
         android:id="@+id/ratingBar"

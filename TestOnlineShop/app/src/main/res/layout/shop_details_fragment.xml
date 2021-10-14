@@ -14,7 +14,8 @@
         android:src="@drawable/ic_processor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/grey" />
+        app:tint="@color/grey"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/cameraImageView"
@@ -25,7 +26,8 @@
         android:src="@drawable/ic_camera"
         app:layout_constraintStart_toEndOf="@id/processorImageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/grey" />
+        app:tint="@color/grey"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/memoryImageView"
@@ -36,7 +38,8 @@
         android:src="@drawable/ic_baseline_closed_caption_off_24"
         app:layout_constraintStart_toEndOf="@id/cameraImageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/grey" />
+        app:tint="@color/grey"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/capacityImageView"
@@ -48,7 +51,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/memoryImageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/grey" />
+        app:tint="@color/grey"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/processorTextView"
