@@ -16,7 +16,6 @@ class Repository {
     //    запрос на получение детальной информации о продукте
     suspend fun getDetailsInfo(): Product {
         val product = Network.api.getDetailsInfo()
-        Log.i("productDetails", "$product")
         return product[0]
     }
 }

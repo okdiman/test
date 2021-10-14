@@ -26,7 +26,6 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel.getMainScreenData()
         initStartScreen()
         bindViewModel()
     }
@@ -49,6 +48,7 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
             layoutManager = GridLayoutManager(requireContext(), 2)
             setHasFixedSize(true)
         }
+        mainViewModel.getMainScreenData()
     }
 
 //    подписываемся на обновления вьюмодели

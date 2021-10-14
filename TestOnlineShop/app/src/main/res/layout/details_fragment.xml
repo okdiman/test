@@ -12,9 +12,10 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_back"
-        app:fabSize="mini"
+        app:fabCustomSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="16sp"
         app:tint="@color/white" />
 
 
@@ -26,19 +27,21 @@
         android:layout_marginEnd="24dp"
         android:backgroundTint="?attr/colorPrimary"
         android:src="@drawable/ic_shopping_bag"
-        app:fabSize="mini"
+        app:fabCustomSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="20sp"
         app:tint="@color/white" />
 
     <TextView
         android:id="@+id/productDetailsTextView"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/product_details"
         android:textColor="@color/black"
-        android:textSize="28sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/backDetailsFragmentButton"
         app:layout_constraintEnd_toStartOf="@id/cartDetailsFragmentButton"
         app:layout_constraintStart_toEndOf="@id/backDetailsFragmentButton"
@@ -47,8 +50,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detailsInfoRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_margin="16dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backDetailsFragmentButton"
@@ -56,6 +60,7 @@
 
     <TextView
         android:id="@+id/titleOfModelTextView"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -79,6 +84,7 @@
         app:tint="@color/white" />
 
     <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
         style="@style/Widget.AppCompat.RatingBar.Indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,14 +93,171 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleOfModelTextView" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/detailsNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        app:elevation="0dp"
+        app:itemTextAppearanceActive="?attr/textAppearanceHeadline5"
+        app:itemTextAppearanceInactive="?attr/textAppearanceHeadline5"
+        app:layout_constraintTop_toBottomOf="@id/ratingBar"
+        app:menu="@menu/details_navigation_menu" />
+
+    <ImageView
+        android:id="@+id/processorImageView"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_processor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView" />
+
+    <ImageView
+        android:id="@+id/cameraImageView"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_camera"
+        app:layout_constraintStart_toEndOf="@id/processorImageView"
+        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView" />
+
+    <ImageView
+        android:id="@+id/memoryImageView"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_baseline_closed_caption_off_24"
+        app:layout_constraintStart_toEndOf="@id/cameraImageView"
+        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView" />
+
+    <ImageView
+        android:id="@+id/capacityImageView"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_capacity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/memoryImageView"
+        app:layout_constraintTop_toBottomOf="@id/detailsNavigationView" />
+
+    <TextView
+        android:id="@+id/processorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/processor"
+        app:layout_constraintEnd_toEndOf="@id/processorImageView"
+        app:layout_constraintStart_toStartOf="@id/processorImageView"
+        app:layout_constraintTop_toBottomOf="@id/processorImageView" />
+
+    <TextView
+        android:id="@+id/cameraTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/camera"
+        app:layout_constraintEnd_toEndOf="@id/cameraImageView"
+        app:layout_constraintStart_toStartOf="@id/cameraImageView"
+        app:layout_constraintTop_toBottomOf="@id/cameraImageView" />
+
+    <TextView
+        android:id="@+id/memoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/memory"
+        app:layout_constraintEnd_toEndOf="@id/memoryImageView"
+        app:layout_constraintStart_toStartOf="@id/memoryImageView"
+        app:layout_constraintTop_toBottomOf="@id/memoryImageView" />
+
+    <TextView
+        android:id="@+id/capacityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/capacity"
+        app:layout_constraintEnd_toEndOf="@id/capacityImageView"
+        app:layout_constraintStart_toStartOf="@id/capacityImageView"
+        app:layout_constraintTop_toBottomOf="@id/capacityImageView" />
+
+    <TextView
+        android:id="@+id/selectColorAndCapacityTextView"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/select_color_and_capacity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/processorTextView" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/colorOneActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_check"
+        app:fabCustomSize="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/colorTwoActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:fabCustomSize="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
+        app:layout_constraintStart_toEndOf="@id/colorOneActionButton"
+        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView"
+        app:tint="@color/white" />
+
+    <Button
+        android:id="@+id/capacityFirstButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/_128_gb"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
+        app:layout_constraintEnd_toStartOf="@id/capacitySecondButton"
+        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView" />
+
+    <Button
+        android:id="@+id/capacitySecondButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/_256_gb"
+        android:textAllCaps="false"
+        android:textColor="@color/grey"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView" />
+
     <Button
         android:id="@+id/addToCartButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="@string/add_to_cart_price"
         android:textAllCaps="false"
-        android:layout_margin="16dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

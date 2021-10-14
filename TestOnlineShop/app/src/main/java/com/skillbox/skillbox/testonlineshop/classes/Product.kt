@@ -15,7 +15,7 @@ data class Product(
     @SerializedName("title")
     val title: String,
     @SerializedName("rating")
-    val rating: Double?,
+    val rating: Float?,
     @SerializedName("CPU")
     val cpu: String?,
     @SerializedName("camera")

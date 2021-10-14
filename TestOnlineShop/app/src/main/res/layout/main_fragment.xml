@@ -11,13 +11,12 @@
         android:layout_margin="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
+        android:contentDescription="@string/filter_image_view"
         android:src="@drawable/ic_filter"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/filter_image_view" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textAllCaps="false"
         android:id="@+id/viewAllCategoryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,13 +24,15 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:text="@string/view_all"
+        android:textAllCaps="false"
         android:textColor="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/categoryTabLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filterImageView" />
 
     <TextView
         android:id="@+id/selectCategoryTextView"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -59,11 +60,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:backgroundTint="?attr/colorPrimary"
+        android:contentDescription="@string/qr_action"
         android:src="@drawable/ic_qr_code"
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryTabLayout"
-        android:contentDescription="@string/qr_action" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryTabLayout" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"

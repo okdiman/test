@@ -20,6 +20,7 @@
 
     <TextView
         android:id="@+id/hotSalesTextView"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -57,6 +58,7 @@
 
     <TextView
         android:id="@+id/bestSellerTextView"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

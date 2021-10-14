@@ -28,6 +28,7 @@
 
         <TextView
             android:id="@+id/filterOptionsTextView"
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -48,10 +49,10 @@
             android:backgroundTint="@color/white"
             android:contentDescription="@string/back_button"
             android:src="@drawable/ic_cancel"
-            app:fabSize="mini"
+            app:fabCustomSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:maxImageSize="48dp"
+            app:maxImageSize="32sp"
             app:rippleColor="@color/white" />
 
         <TextView
