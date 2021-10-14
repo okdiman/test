@@ -21,9 +21,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         binding.filterImageView.setOnClickListener {
             createBottomSheetDialogFragment()
         }
-        binding.selectCategoryTextView.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment())
-        }
     }
 
     //    инициализация tabLayout и viewPager

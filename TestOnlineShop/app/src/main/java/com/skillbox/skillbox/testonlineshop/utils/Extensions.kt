@@ -5,10 +5,12 @@ import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -16,6 +18,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.skillbox.skillbox.testonlineshop.R
 
+//    создаем исключение для инфлейта вьюшек
+fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
+}
 //    инфлейт баиндинга
 fun <T : ViewBinding> ViewGroup.inflate(
     inflateBinding: (

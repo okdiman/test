@@ -30,9 +30,9 @@ data class Product(
     val capacity: ArrayList<String>?,
     @SerializedName("price")
     val price: Int?,
-    @SerializedName("discount_price")
-    val oldPrice: Int?,
     @SerializedName("price_without_discount")
+    val oldPrice: Int?,
+    @SerializedName("discount_price")
     val newPrice: Int?,
     @SerializedName("is_new")
     val isNew: Boolean = false,

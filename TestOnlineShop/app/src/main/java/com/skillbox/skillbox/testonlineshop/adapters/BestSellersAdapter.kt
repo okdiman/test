@@ -4,10 +4,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.skillbox.skillbox.testonlineshop.classes.Product
 
-class BestSellersAdapter : AsyncListDifferDelegationAdapter<Product>(BestSellersDiffUtil()) {
+class BestSellersAdapter(onItemClick: (item: Product) -> Unit) :
+    AsyncListDifferDelegationAdapter<Product>(BestSellersDiffUtil()) {
 
     init {
-        delegatesManager.addDelegate(BestSellersAdapterDelegate())
+        delegatesManager.addDelegate(BestSellersAdapterDelegate(onItemClick))
     }
 
     //    создаем DiffUtil для нашего адаптера

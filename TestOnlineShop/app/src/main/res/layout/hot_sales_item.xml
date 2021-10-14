@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/isFavoriteHotSellerFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/is_favorite_or_not"
+        android:src="@drawable/ic_favorite"
+        app:fabCustomSize="20dp"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="10dp"
+        app:tint="@color/red" />
+
     <ImageView
         android:id="@+id/hotSalesImageView"
         android:layout_width="match_parent"
