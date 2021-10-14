@@ -29,7 +29,7 @@ data class Product(
     @SerializedName("capacity")
     val capacity: ArrayList<String>?,
     @SerializedName("price")
-    val price: Int?,
+    val price: Int = 0,
     @SerializedName("price_without_discount")
     val oldPrice: Int?,
     @SerializedName("discount_price")

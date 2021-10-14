@@ -22,6 +22,7 @@
             android:clickable="true"
             android:text="@string/done"
             android:textColor="@color/white"
+            app:cornerRadius="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:rippleColor="@color/white" />

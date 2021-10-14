@@ -52,8 +52,8 @@
         android:layout_marginBottom="8dp"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/descriptionHotSalesTextView"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@tools:sample/cities" />
 
     <TextView
@@ -64,24 +64,25 @@
         android:layout_marginBottom="8dp"
         android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buyNowButton"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@tools:sample/cities" />
 
     <Button
         android:id="@+id/buyNowButton"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        app:rippleColor="?attr/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/hotSalesImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/white"
-        android:text="@string/buy_now"
         android:clickable="true"
+        android:text="@string/buy_now"
         android:textAllCaps="false"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        app:cornerRadius="8sp"
+        app:layout_constraintBottom_toBottomOf="@id/hotSalesImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="?attr/colorPrimary" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,9 +23,10 @@ class BestSellersAdapterDelegate(private val onItemClick: (item: Product) -> Uni
         onItemClick: (item: Product) -> Unit
     ) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
-
+        //        создаем переменную currentProduct, чтобы передавать ее в лисенер
         private var currentProduct: Product? = null
 
+        //        инициализируем лисенер
         init {
             containerView.setOnClickListener {
                 currentProduct?.let(onItemClick)
@@ -35,6 +36,7 @@ class BestSellersAdapterDelegate(private val onItemClick: (item: Product) -> Uni
         //        баиндим все необхоимые данные продукта во вьюшку
         @SuppressLint("SetTextI18n")
         fun bind(item: Product) {
+//            присваиваем currentProduct действующий item
             currentProduct = item
             bestSellerItemImageView.glideLoadImage(item.picture!!.toUri())
             modelPhoneTextView.text = item.title
@@ -54,10 +56,12 @@ class BestSellersAdapterDelegate(private val onItemClick: (item: Product) -> Uni
             isFavoriteBestSellerFloatingActionButton.setOnClickListener {
                 if (item.is_favorites) {
                     item.is_favorites = false
-                    isFavoriteBestSellerFloatingActionButton.setImageResource(R.drawable.ic_favorite)
+                    isFavoriteBestSellerFloatingActionButton
+                        .setImageResource(R.drawable.ic_favorite)
                 } else {
                     item.is_favorites = true
-                    isFavoriteBestSellerFloatingActionButton.setImageResource(R.drawable.ic_favorite_full)
+                    isFavoriteBestSellerFloatingActionButton
+                        .setImageResource(R.drawable.ic_favorite_full)
                 }
             }
         }

@@ -6,7 +6,8 @@ import com.skillbox.skillbox.testonlineshop.classes.TypesOfProducts
 import com.skillbox.skillbox.testonlineshop.fragments.mainscreen.MainFragment
 import com.skillbox.skillbox.testonlineshop.fragments.mainscreen.PhonesFragment
 
-class ViewPagerAdapter(private val types: List<TypesOfProducts>, fragment: MainFragment) : FragmentStateAdapter(fragment) {
+class MainFragmentViewPagerAdapter(private val types: List<TypesOfProducts>, fragment: MainFragment)
+    : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return types.size
     }

@@ -14,7 +14,10 @@ import kotlinx.coroutines.launch
 class DetailsFragmentViewModel : ViewModel() {
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
+
     private val repo = Repository()
+
+    //    stateFlow детальной инфы о продукте
     private val _detailsInfoStateFlow = MutableStateFlow<Product?>(null)
     val detailsInfoStateFlow: StateFlow<Product?>
         get() = _detailsInfoStateFlow
@@ -46,6 +49,7 @@ class DetailsFragmentViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
 //        отменяем и очищаем job'у при уничтожении вью модели
+//        (нужно если пользователь закроет вью в момент запроса)
         currentJob?.cancel()
         currentJob = null
     }

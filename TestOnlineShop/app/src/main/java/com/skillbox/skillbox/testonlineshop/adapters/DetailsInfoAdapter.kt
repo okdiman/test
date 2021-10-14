@@ -14,7 +14,6 @@ class DetailsInfoAdapter :
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return true
         }
-
         override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }

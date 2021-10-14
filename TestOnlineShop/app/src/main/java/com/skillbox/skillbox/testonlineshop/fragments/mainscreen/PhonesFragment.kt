@@ -2,7 +2,6 @@ package com.skillbox.skillbox.testonlineshop.fragments.mainscreen
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -36,7 +35,7 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
 
     //    инициализация стартового экрана
     private fun initStartScreen() {
-//    создаем адаптеры для recycler view и настраеваем recyclerView
+//    создаем адаптеры для recycler view и настраиваем его
         hotSalesAdapter = HotSalesAdapter()
         with(binding.hotSalesRecyclerView) {
             adapter = hotSalesAdapter
@@ -46,11 +45,11 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
                 }
             setHasFixedSize(true)
         }
-        bestSellersAdapter = BestSellersAdapter { _ ->
+        bestSellersAdapter = BestSellersAdapter {
 //            здесь мы бы могли передать продукт или id продукта по клику, для дальнейшего запроса
 //            в след экран, но в данном ТЗ это не имеет смысла,
 //            так как мы все равно получаем 1 и тот же элемент
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment2())
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment())
         }
         with(binding.bestSellersRecyclerView) {
             adapter = bestSellersAdapter
@@ -60,10 +59,13 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
         startRequest()
     }
 
+    //    стартовый запрос на получение инфы о продуктах
     private fun startRequest() {
+//        проверяем наличие интернет соединения
         if (requireContext().isConnected) {
             mainViewModel.getMainScreenData()
         } else {
+//            выбрасываем диалог в случае отсутсвия сети
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.internet_error)
                 .setMessage(R.string.inet_is_not_available)

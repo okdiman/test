@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
-import com.skillbox.skillbox.testonlineshop.adapters.ViewPagerAdapter
+import com.skillbox.skillbox.testonlineshop.adapters.MainFragmentViewPagerAdapter
 import com.skillbox.skillbox.testonlineshop.classes.TypesOfProducts
 import com.skillbox.skillbox.testonlineshop.databinding.MainFragmentBinding
 
@@ -33,7 +33,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             R.drawable.ic_book,
             R.drawable.ic_gifts
         )
-        binding.mainViewPager.adapter = ViewPagerAdapter(TypesOfProducts.values().toList(), this)
+        binding.mainViewPager.adapter = MainFragmentViewPagerAdapter(TypesOfProducts.values().toList(), this)
         TabLayoutMediator(binding.categoryTabLayout, binding.mainViewPager) { tab, position ->
             tab.text = TypesOfProducts.values().toList()[position].toString()
             tab.setIcon(icons[position])

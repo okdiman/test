@@ -1,7 +1,6 @@
 package com.skillbox.skillbox.testonlineshop.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -23,7 +22,9 @@ class HotSalesAdapterDelegate :
         fun bind(item: Product) {
             //        баиндим все необхоимые данные продукта во вьюшку
             binding.run {
-                if (item.title == "Samsung Galaxy A 71"){
+//                у модели самсунга устанавливаем цвет текста черным,
+//                так как приходит картинка с белым фоном (по id почему-то не ловит его)
+                if (item.title == "Samsung Galaxy A 71") {
                     modelTitleOfHotSalesTextView.setTextColor(R.color.black)
                     descriptionHotSalesTextView.setTextColor(R.color.black)
                 }
@@ -38,13 +39,16 @@ class HotSalesAdapterDelegate :
                         setImageResource(R.drawable.ic_favorite_full)
                     }
                 }
+//                обрабатываем клик на кнопку favorites
                 isFavoriteHotSellerFloatingActionButton.setOnClickListener {
                     if (item.is_favorites) {
                         item.is_favorites = false
-                        isFavoriteHotSellerFloatingActionButton.setImageResource(R.drawable.ic_favorite)
+                        isFavoriteHotSellerFloatingActionButton
+                            .setImageResource(R.drawable.ic_favorite)
                     } else {
                         item.is_favorites = true
-                        isFavoriteHotSellerFloatingActionButton.setImageResource(R.drawable.ic_favorite_full)
+                        isFavoriteHotSellerFloatingActionButton
+                            .setImageResource(R.drawable.ic_favorite_full)
                     }
                 }
             }

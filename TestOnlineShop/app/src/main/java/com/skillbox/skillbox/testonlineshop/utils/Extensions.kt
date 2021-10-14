@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,3 +79,11 @@ val Context.isConnected: Boolean
         return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
             .activeNetworkInfo?.isConnected == true
     }
+
+// расширение для более удобного добавления аргументов во фрагмент
+fun <T : Fragment> T.withArguments(action: Bundle.() -> Unit): T {
+    return apply {
+        val args = Bundle().apply(action)
+        arguments = args
+    }
+}
