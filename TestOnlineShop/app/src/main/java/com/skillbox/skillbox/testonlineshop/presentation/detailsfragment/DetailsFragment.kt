@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
-import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsFragmentViewPagerAdapter
-import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsInfoAdapter
 import com.skillbox.skillbox.testonlineshop.data.models.Product
 import com.skillbox.skillbox.testonlineshop.databinding.DetailsFragmentBinding
+import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsFragmentViewPagerAdapter
+import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsInfoAdapter
 import com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.viewmodel.DetailsFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.toast
@@ -53,6 +53,12 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         }
         binding.backDetailsFragmentButton.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.cartDetailsFragmentButton.setOnClickListener {
+            findNavController().navigate(
+                DetailsFragmentDirections
+                    .actionDetailsFragmentToCartFragment()
+            )
         }
     }
 

@@ -1,9 +1,6 @@
 package com.skillbox.skillbox.testonlineshop.presentation.mainfragment
 
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.telephony.*
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -24,6 +21,13 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         init()
         binding.filterImageView.setOnClickListener {
             createBottomSheetDialogFragment()
+        }
+        binding.bottomAppBar.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.cartItemBottomBar -> findNavController()
+                    .navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
+            }
+            true
         }
     }
 
@@ -47,6 +51,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     //    создание BottomSheetDialogFragment дял фильтрации
     private fun createBottomSheetDialogFragment() {
-        findNavController().navigate(MainFragmentDirections.actionMainFragmentToFilterBottomSheetDialog())
+        findNavController().navigate(
+            MainFragmentDirections
+                .actionMainFragmentToFilterBottomSheetDialog()
+        )
     }
 }

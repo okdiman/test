@@ -34,6 +34,11 @@
     <string name="internet_error">Internet error</string>
     <string name="filter_options">Filter options</string>
     <string name="pictures_of_products">pictures of products</string>
+    <string name="add_address">Add address</string>
+    <string name="my_cart">My cart</string>
+    <string name="checkout">Checkout</string>
+    <string name="delivery">Delivery</string>
+    <string name="total">Total</string>
     <string-array name="phones_models_string_array">
         <item>Samsung</item>
         <item>Xiaomi</item>

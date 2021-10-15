@@ -76,16 +76,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-
-    //Moshi
-    def moshiVersion = '1.9.3'
-
-    implementation "com.squareup.moshi:moshi:$moshiVersion"
-    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
-
+    //ViewPager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-
+    //библиотека кастомного адаптера для recyclerview
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+    //круглые imageView
+    implementation 'com.mikhaellopez:circularimageview:3.0.2'
 
 }

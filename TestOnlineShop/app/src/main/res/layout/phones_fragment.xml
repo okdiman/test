@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <Button
         android:id="@+id/seeMoreHotSalesTextView"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
         android:text="@string/see_more"
-        android:textColor="?attr/colorPrimary"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/hotSalesRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,15 +41,14 @@
         app:layout_constraintTop_toBottomOf="@+id/hotSalesTextView"
         tools:listitem="@layout/hot_sales_item" />
 
-    <TextView
+    <Button
         android:id="@+id/seeMoreBestSellersTextView"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
+        android:layout_marginEnd="16dp"
         android:text="@string/see_more"
-        android:textColor="?attr/colorPrimary"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/bestSellersRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hotSalesRecyclerView" />
@@ -59,10 +58,11 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
         android:text="@string/best_seller"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bestSellersRecyclerView"
         app:layout_constraintEnd_toStartOf="@+id/seeMoreBestSellersTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hotSalesRecyclerView" />

@@ -16,12 +16,19 @@
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         tools:layout="@layout/details_fragment"
         android:name="com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.DetailsFragment"
-        android:label="DetailsFragment" />
+        android:label="DetailsFragment" >
+        <action
+            android:id="@+id/action_detailsFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
     <dialog
         android:id="@+id/filterBottomSheetDialog"
         tools:layout="@layout/bottom_sheet_dialog"
@@ -32,4 +39,9 @@
         android:id="@+id/phonesFragment"
         android:name="com.skillbox.skillbox.testonlineshop.presentation.mainfragment.PhonesFragment"
         android:label="PhonesFragment" />
+    <fragment
+        tools:layout="@layout/cart_fragment"
+        android:id="@+id/cartFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.presentation.cartfragment.CartFragment"
+        android:label="CartFragment" />
 </navigation>
