@@ -1,15 +1,18 @@
 package com.skillbox.skillbox.testonlineshop.presentation.mainfragment
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.telephony.*
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
-import com.skillbox.skillbox.testonlineshop.presentation.adapters.mainfragment.MainFragmentViewPagerAdapter
 import com.skillbox.skillbox.testonlineshop.data.models.TypesOfProducts
 import com.skillbox.skillbox.testonlineshop.databinding.MainFragmentBinding
+import com.skillbox.skillbox.testonlineshop.presentation.adapters.mainfragment.MainFragmentViewPagerAdapter
 
 
 class MainFragment : Fragment(R.layout.main_fragment) {
@@ -34,7 +37,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             R.drawable.ic_book,
             R.drawable.ic_gifts
         )
-        binding.mainViewPager.adapter = MainFragmentViewPagerAdapter(TypesOfProducts.values().toList(), this)
+        binding.mainViewPager.adapter =
+            MainFragmentViewPagerAdapter(TypesOfProducts.values().toList(), this)
         TabLayoutMediator(binding.categoryTabLayout, binding.mainViewPager) { tab, position ->
             tab.text = TypesOfProducts.values().toList()[position].toString()
             tab.setIcon(icons[position])

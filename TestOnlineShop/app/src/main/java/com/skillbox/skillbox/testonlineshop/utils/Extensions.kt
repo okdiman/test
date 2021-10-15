@@ -68,11 +68,6 @@ fun ImageView.glideLoadImage(
         .into(this)
 }
 
-//   расширение для проверки версии android у пользователя
-fun haveQ(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-}
-
 // расширение для проверки доступа к сети
 val Context.isConnected: Boolean
     get() {

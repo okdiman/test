@@ -17,4 +17,6 @@ class RepositoryImpl : Repository {
         val product = Network.api.getDetailsInfo()
         return product[0]
     }
+
+
 }
