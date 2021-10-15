@@ -28,7 +28,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     //    создаем искусственно лист ссылок на изображения телефона, чтобы лучше показать карусель,
 //    ибо в запросе приходит только 1 изображение
     private val imagesList = mutableListOf(
-        "https://bornarayaneh.ir/wp-content/uploads/note-20-ultra-black.jpg",
+        "https://www.reliancedigital.in/medias/Samsung-Note20-Ultra-MobilePhones-491900824-i-5-1200Wx1200H?context=bWFzdGVyfGltYWdlc3wzNjY0NTB8aW1hZ2UvanBlZ3xpbWFnZXMvaGRkL2g5My85MzU0MDY2Mjk2ODYyLmpwZ3xiMzAzZGRiM2Q1ZDA3ZTI3YzE2ZGQ5NTAxNjc3YzZmY2EwYjAyNmVmNmM5MjFkMTc4ZTc3MTE0N2IxMTQ3MTgw",
         "https://milanooshop.com/wp-content/uploads/2021/04/SQ_vpavic_200807_4133_0107.jpeg"
     )
 

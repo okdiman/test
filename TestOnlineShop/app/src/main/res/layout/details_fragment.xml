@@ -52,9 +52,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detailsInfoRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/titleOfModelTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backDetailsFragmentButton"
@@ -65,12 +66,12 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
         android:textColor="@color/black"
         android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
         app:layout_constraintEnd_toStartOf="@+id/favoritesDetailsFragmentActionButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsInfoRecyclerView"
         tools:text="@tools:sample/full_names" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -92,32 +93,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:progressTint="@color/golden"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleOfModelTextView" />
+        app:layout_constraintBottom_toTopOf="@+id/detailsTabLayout"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/detailsTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/detailInfoViewPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ratingBar"
         app:tabMode="fixed" />
 
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/detailInfoViewPager"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="220dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsTabLayout" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
