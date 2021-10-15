@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         tools:layout="@layout/main_fragment"
-        android:name="com.skillbox.skillbox.testonlineshop.fragments.mainscreen.MainFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.presentation.mainfragment.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_filterBottomSheetDialog"
@@ -20,16 +20,16 @@
     <fragment
         android:id="@+id/detailsFragment"
         tools:layout="@layout/details_fragment"
-        android:name="com.skillbox.skillbox.testonlineshop.fragments.detailsscreen.DetailsFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.DetailsFragment"
         android:label="DetailsFragment" />
     <dialog
         android:id="@+id/filterBottomSheetDialog"
         tools:layout="@layout/bottom_sheet_dialog"
-        android:name="com.skillbox.skillbox.testonlineshop.fragments.mainscreen.FilterBottomSheetDialog"
+        android:name="com.skillbox.skillbox.testonlineshop.presentation.mainfragment.FilterBottomSheetDialog"
         android:label="FilterBottomSheetDialog" />
     <fragment
         tools:layout="@layout/phones_fragment"
         android:id="@+id/phonesFragment"
-        android:name="com.skillbox.skillbox.testonlineshop.fragments.mainscreen.PhonesFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.presentation.mainfragment.PhonesFragment"
         android:label="PhonesFragment" />
 </navigation>
