@@ -72,21 +72,25 @@
         tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartDetailsRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@id/totalPriceTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView" />
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
+        tools:listitem="@layout/cart_details_item" />
 
     <TextView
         android:id="@+id/totalDeliveryPriceTextView"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginBottom="48dp"
         android:textColor="@color/white"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/checkoutButton"
         app:layout_constraintStart_toStartOf="@id/addAddressTextView"
@@ -94,12 +98,14 @@
 
     <TextView
         android:id="@+id/totalPriceTextView"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginBottom="16dp"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/totalDeliveryPriceTextView"
         app:layout_constraintStart_toStartOf="@id/addAddressTextView"
         tools:text="@tools:sample/us_zipcodes" />
@@ -136,6 +142,16 @@
         android:textAllCaps="false"
         app:cornerRadius="8sp"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

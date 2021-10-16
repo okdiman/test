@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.testonlineshop.data.models.MainScreenResponseWrapper
 import com.skillbox.skillbox.testonlineshop.data.RepositoryImpl
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,7 +34,7 @@ class MainScreenViewModel : ViewModel() {
     //    получение данных для стратового экрана
     fun getMainScreenData() {
         currentJob?.cancel()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _isLoadingStateFlow.value = true
             try {
                 _productsStateFlow.value = repo.getMainScreenData()

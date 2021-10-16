@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.testonlineshop.data.network
 
+import com.skillbox.skillbox.testonlineshop.data.models.CartDetailsWrapper
 import com.skillbox.skillbox.testonlineshop.data.models.MainScreenResponseWrapper
 import com.skillbox.skillbox.testonlineshop.data.models.Product
 import retrofit2.http.GET
@@ -12,4 +13,8 @@ interface MyApi {
     //    запрос на получение детальной информации о продукте
     @GET("productdetails")
     suspend fun getDetailsInfo(): ArrayList<Product>
+
+    //    запрос на получение информации о корзине пользователя
+    @GET("mycart")
+    suspend fun getCartInfo(): ArrayList<CartDetailsWrapper>
 }

@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.testonlineshop.data
 
+import com.skillbox.skillbox.testonlineshop.data.models.CartDetailsWrapper
 import com.skillbox.skillbox.testonlineshop.data.models.MainScreenResponseWrapper
 import com.skillbox.skillbox.testonlineshop.data.models.Product
 import com.skillbox.skillbox.testonlineshop.data.network.Network
@@ -17,6 +18,10 @@ class RepositoryImpl : Repository {
         val product = Network.api.getDetailsInfo()
         return product[0]
     }
-
+    //    запрос на получение информации о корзине пользователя
+    override suspend fun getCartInfo(): CartDetailsWrapper {
+        val list = Network.api.getCartInfo()
+        return list[0]
+    }
 
 }
