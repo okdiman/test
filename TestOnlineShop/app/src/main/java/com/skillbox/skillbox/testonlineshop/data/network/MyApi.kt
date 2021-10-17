@@ -1,8 +1,8 @@
 package com.skillbox.skillbox.testonlineshop.data.network
 
-import com.skillbox.skillbox.testonlineshop.data.models.CartDetailsWrapper
-import com.skillbox.skillbox.testonlineshop.data.models.MainScreenResponseWrapper
-import com.skillbox.skillbox.testonlineshop.data.models.Product
+import com.skillbox.skillbox.testonlineshop.domain.models.CartDetailsWrapper
+import com.skillbox.skillbox.testonlineshop.domain.models.MainScreenResponseWrapper
+import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import retrofit2.http.GET
 
 interface MyApi {

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.testonlineshop.data.RepositoryImpl
-import com.skillbox.skillbox.testonlineshop.data.models.CartDetailsWrapper
+import com.skillbox.skillbox.testonlineshop.domain.models.CartDetailsWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class CartFragmentViewModel : ViewModel() {
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
-    val repo = RepositoryImpl()
+    private val repo = RepositoryImpl()
     private val _cartStateFlow = MutableStateFlow<CartDetailsWrapper?>(null)
     val cartStateFlow: StateFlow<CartDetailsWrapper?>
         get() = _cartStateFlow

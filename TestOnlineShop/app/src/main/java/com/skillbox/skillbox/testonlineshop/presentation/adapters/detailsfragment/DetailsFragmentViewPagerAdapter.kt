@@ -2,7 +2,7 @@ package com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragme
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.skillbox.skillbox.testonlineshop.data.models.Product
+import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.DetailsFragment
 import com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.ShopDetailsFragment
 

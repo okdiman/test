@@ -2,6 +2,7 @@ package com.skillbox.skillbox.testonlineshop.presentation.mainfragment
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import com.skillbox.skillbox.testonlineshop.presentation.mainfragment.viewmodel.
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.isConnected
 import com.skillbox.skillbox.testonlineshop.utils.toast
+import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.coroutines.flow.collect
 
 class PhonesFragment : Fragment(R.layout.phones_fragment) {

@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.testonlineshop.data.models
+package com.skillbox.skillbox.testonlineshop.domain.models
 
 import com.google.gson.annotations.SerializedName
 

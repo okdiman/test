@@ -1,10 +1,11 @@
 package com.skillbox.skillbox.testonlineshop.presentation.adapters.cartfragment
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
-import com.skillbox.skillbox.testonlineshop.data.models.Basket
+import com.skillbox.skillbox.testonlineshop.domain.models.Basket
 import com.skillbox.skillbox.testonlineshop.databinding.CartDetailsItemBinding
 import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
 import com.skillbox.skillbox.testonlineshop.utils.inflate
@@ -13,6 +14,7 @@ class CartInfoAdapterDelegate :
     AbsListItemAdapterDelegate<Basket, Basket, CartInfoAdapterDelegate.Holder>() {
     class Holder(private val binding: CartDetailsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(item: Basket) {
             binding.run {
                 productImageView.glideLoadImage(item.image.toUri())

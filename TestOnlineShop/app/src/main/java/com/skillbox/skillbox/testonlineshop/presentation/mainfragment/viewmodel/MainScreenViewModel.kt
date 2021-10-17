@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.skillbox.skillbox.testonlineshop.data.models.MainScreenResponseWrapper
+import com.skillbox.skillbox.testonlineshop.domain.models.MainScreenResponseWrapper
 import com.skillbox.skillbox.testonlineshop.data.RepositoryImpl
+import com.skillbox.skillbox.testonlineshop.domain.models.CartDetailsWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +24,11 @@ class MainScreenViewModel : ViewModel() {
     val productsStateFlow: StateFlow<MainScreenResponseWrapper?>
         get() = _productsStateFlow
 
+    private val _cartLiveData = MutableLiveData<CartDetailsWrapper>()
+    val cartLiveData: LiveData<CartDetailsWrapper>
+        get() = _cartLiveData
+
+
     //    stateFlow статуса загрузки
     private val _isLoadingStateFlow = MutableStateFlow(false)
     val isLoadingStateFlow: StateFlow<Boolean> = _isLoadingStateFlow
@@ -38,6 +44,22 @@ class MainScreenViewModel : ViewModel() {
             _isLoadingStateFlow.value = true
             try {
                 _productsStateFlow.value = repo.getMainScreenData()
+                _cartLiveData.postValue(repo.getCartInfo())
+            } catch (t: Throwable) {
+                _isErrorLiveData.postValue(t.message)
+            } finally {
+                _isLoadingStateFlow.value = false
+            }
+        }
+            .also { currentJob = it }
+    }
+
+    fun getCartData(){
+        currentJob?.cancel()
+        viewModelScope.launch(Dispatchers.IO) {
+            _isLoadingStateFlow.value = true
+            try {
+                _cartLiveData.postValue(repo.getCartInfo())
             } catch (t: Throwable) {
                 _isErrorLiveData.postValue(t.message)
             } finally {

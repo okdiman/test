@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
-import com.skillbox.skillbox.testonlineshop.data.models.Product
+import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.databinding.DetailsFragmentBinding
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsFragmentViewPagerAdapter
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsInfoAdapter

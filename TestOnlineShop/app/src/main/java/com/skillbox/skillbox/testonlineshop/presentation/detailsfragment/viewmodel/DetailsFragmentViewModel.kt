@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.skillbox.skillbox.testonlineshop.data.models.Product
+import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.data.RepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

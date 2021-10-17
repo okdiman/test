@@ -2,7 +2,7 @@ package com.skillbox.skillbox.testonlineshop.presentation.adapters.cartfragment
 
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
-import com.skillbox.skillbox.testonlineshop.data.models.Basket
+import com.skillbox.skillbox.testonlineshop.domain.models.Basket
 
 class CartInfoAdapter : AsyncListDifferDelegationAdapter<Basket>(CartInfoDiffUtil()) {
 

@@ -8,7 +8,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.testonlineshop.R
-import com.skillbox.skillbox.testonlineshop.data.models.Product
+import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
 import com.skillbox.skillbox.testonlineshop.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
