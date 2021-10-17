@@ -7,17 +7,30 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.testonlineshop.R
-import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.databinding.HotSalesItemBinding
+import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
 import com.skillbox.skillbox.testonlineshop.utils.inflate
 
-class HotSalesAdapterDelegate :
+class HotSalesAdapterDelegate(private val onBuyButtonClick: () -> Unit) :
     AbsListItemAdapterDelegate<Product, Product, HotSalesAdapterDelegate.Holder>() {
 
     //    создаем холдер для recycler view
-    class Holder(private val binding: HotSalesItemBinding) :
+    class Holder(
+        private val binding: HotSalesItemBinding,
+        onBuyButtonClick: () -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
+
+        //        инициализируем клик лисенер для кнопки BuyNow
+        init {
+            binding.buyNowButton.setOnClickListener {
+//                могли бы передать в лямбду все, что нам было бы нужно,
+//                но по заданию этого не требуется
+                onBuyButtonClick()
+            }
+        }
+
         @SuppressLint("ResourceAsColor")
         fun bind(item: Product) {
             //        баиндим все необхоимые данные продукта во вьюшку
@@ -46,7 +59,7 @@ class HotSalesAdapterDelegate :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
-        return Holder(parent.inflate(HotSalesItemBinding::inflate))
+        return Holder(parent.inflate(HotSalesItemBinding::inflate), onBuyButtonClick)
     }
 
     override fun onBindViewHolder(item: Product, holder: Holder, payloads: MutableList<Any>) {

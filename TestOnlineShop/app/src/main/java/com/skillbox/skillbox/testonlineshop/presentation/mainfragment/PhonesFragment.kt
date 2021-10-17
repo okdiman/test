@@ -2,7 +2,6 @@ package com.skillbox.skillbox.testonlineshop.presentation.mainfragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,14 +12,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.skillbox.skillbox.testonlineshop.R
+import com.skillbox.skillbox.testonlineshop.databinding.PhonesFragmentBinding
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.mainfragment.BestSellersAdapter
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.mainfragment.HotSalesAdapter
-import com.skillbox.skillbox.testonlineshop.databinding.PhonesFragmentBinding
 import com.skillbox.skillbox.testonlineshop.presentation.mainfragment.viewmodel.MainScreenViewModel
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.isConnected
 import com.skillbox.skillbox.testonlineshop.utils.toast
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.hot_sales_item.*
 import kotlinx.coroutines.flow.collect
 
 class PhonesFragment : Fragment(R.layout.phones_fragment) {
@@ -38,7 +37,11 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
     //    инициализация стартового экрана
     private fun initStartScreen() {
 //    создаем адаптеры для recycler view и настраиваем его
-        hotSalesAdapter = HotSalesAdapter()
+        hotSalesAdapter = HotSalesAdapter {
+//            могли бы передать тут во фрагмент корзины выбранный нами элемент списка,
+//            но такой пункт в задании отсутсвует
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
+        }
         with(binding.hotSalesRecyclerView) {
             adapter = hotSalesAdapter
             layoutManager =

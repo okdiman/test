@@ -55,7 +55,6 @@ class MainScreenViewModel : ViewModel() {
     }
 
     fun getCartData(){
-        currentJob?.cancel()
         viewModelScope.launch(Dispatchers.IO) {
             _isLoadingStateFlow.value = true
             try {
@@ -66,7 +65,6 @@ class MainScreenViewModel : ViewModel() {
                 _isLoadingStateFlow.value = false
             }
         }
-            .also { currentJob = it }
     }
 
     override fun onCleared() {
