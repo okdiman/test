@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class CartFragment : Fragment(R.layout.cart_fragment) {
     private val binding: CartFragmentBinding by viewBinding(CartFragmentBinding::bind)
-    private val cartViewModel: CartFragmentViewModel by viewModels()
+    private val cartViewModel by viewModels<CartFragmentViewModel>()
     private var cartDetailsAdapter: CartInfoAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

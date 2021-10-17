@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainFragment : Fragment(R.layout.main_fragment) {
 
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
-    private val mainViewModel: MainScreenViewModel by viewModels()
+    private val mainViewModel by viewModels<MainScreenViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

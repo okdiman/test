@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class PhonesFragment : Fragment(R.layout.phones_fragment) {
     private val binding: PhonesFragmentBinding by viewBinding(PhonesFragmentBinding::bind)
-    private val mainViewModel: MainScreenViewModel by viewModels()
+    private val mainViewModel by viewModels<MainScreenViewModel>()
     private var hotSalesAdapter: HotSalesAdapter by autoCleared()
     private var bestSellersAdapter: BestSellersAdapter by autoCleared()
 

@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
-import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.databinding.DetailsFragmentBinding
+import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsFragmentViewPagerAdapter
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsInfoAdapter
 import com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.viewmodel.DetailsFragmentViewModel
@@ -24,7 +24,7 @@ import recycler.coverflow.CoverFlowLayoutManger
 @AndroidEntryPoint
 class DetailsFragment : Fragment(R.layout.details_fragment) {
     private val binding: DetailsFragmentBinding by viewBinding(DetailsFragmentBinding::bind)
-    private val detailsViewModel: DetailsFragmentViewModel by viewModels()
+    private val detailsViewModel by viewModels<DetailsFragmentViewModel>()
     private var detailsInfoAdapter: DetailsInfoAdapter by autoCleared()
 
     //    создаем искусственно лист ссылок на изображения телефона, чтобы лучше показать карусель,
