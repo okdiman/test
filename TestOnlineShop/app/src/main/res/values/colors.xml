@@ -10,5 +10,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF101A</color>
     <color name="grey">#B5ADB7</color>
+    <color name="background_color">#F7F7F7</color>
     <color name="golden">#ffd700</color>
 </resources>
