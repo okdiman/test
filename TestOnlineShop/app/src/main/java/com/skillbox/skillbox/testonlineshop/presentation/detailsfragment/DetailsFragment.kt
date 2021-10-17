@@ -17,9 +17,11 @@ import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragmen
 import com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.viewmodel.DetailsFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.toast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import recycler.coverflow.CoverFlowLayoutManger
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment(R.layout.details_fragment) {
     private val binding: DetailsFragmentBinding by viewBinding(DetailsFragmentBinding::bind)
     private val detailsViewModel: DetailsFragmentViewModel by viewModels()

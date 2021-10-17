@@ -5,17 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.testonlineshop.data.RepositoryImpl
+import com.skillbox.skillbox.testonlineshop.domain.Repository
 import com.skillbox.skillbox.testonlineshop.domain.models.CartDetailsWrapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CartFragmentViewModel : ViewModel() {
+@HiltViewModel
+class CartFragmentViewModel @Inject constructor(private val repo: Repository) : ViewModel() {
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
-    private val repo = RepositoryImpl()
+
+    //    stateFlow для получения корзины пользователя
     private val _cartStateFlow = MutableStateFlow<CartDetailsWrapper?>(null)
     val cartStateFlow: StateFlow<CartDetailsWrapper?>
         get() = _cartStateFlow
@@ -28,6 +33,7 @@ class CartFragmentViewModel : ViewModel() {
     private val _isErrorLiveData = MutableLiveData<String>()
     val isErrorLiveData: LiveData<String> = _isErrorLiveData
 
+    //    получение данных корзины пользователя
     fun getCartInfo() {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoadingStateFlow.value = true

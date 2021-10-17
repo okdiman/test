@@ -19,9 +19,10 @@ import com.skillbox.skillbox.testonlineshop.presentation.mainfragment.viewmodel.
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.isConnected
 import com.skillbox.skillbox.testonlineshop.utils.toast
-import kotlinx.android.synthetic.main.hot_sales_item.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class PhonesFragment : Fragment(R.layout.phones_fragment) {
     private val binding: PhonesFragmentBinding by viewBinding(PhonesFragmentBinding::bind)
     private val mainViewModel: MainScreenViewModel by viewModels()

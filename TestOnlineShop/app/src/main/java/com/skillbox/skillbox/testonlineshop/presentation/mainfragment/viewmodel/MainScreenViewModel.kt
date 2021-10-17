@@ -4,17 +4,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.skillbox.skillbox.testonlineshop.domain.models.MainScreenResponseWrapper
 import com.skillbox.skillbox.testonlineshop.data.RepositoryImpl
+import com.skillbox.skillbox.testonlineshop.domain.Repository
 import com.skillbox.skillbox.testonlineshop.domain.models.CartDetailsWrapper
+import com.skillbox.skillbox.testonlineshop.domain.models.MainScreenResponseWrapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainScreenViewModel : ViewModel() {
-    private val repo = RepositoryImpl()
+@HiltViewModel
+class MainScreenViewModel @Inject constructor(private val repo: Repository) : ViewModel() {
+
 
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
@@ -24,6 +28,7 @@ class MainScreenViewModel : ViewModel() {
     val productsStateFlow: StateFlow<MainScreenResponseWrapper?>
         get() = _productsStateFlow
 
+    //    LiveData для получения корзины полльзователя
     private val _cartLiveData = MutableLiveData<CartDetailsWrapper>()
     val cartLiveData: LiveData<CartDetailsWrapper>
         get() = _cartLiveData
@@ -54,7 +59,8 @@ class MainScreenViewModel : ViewModel() {
             .also { currentJob = it }
     }
 
-    fun getCartData(){
+    //    получение корзины пользователя
+    fun getCartData() {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoadingStateFlow.value = true
             try {

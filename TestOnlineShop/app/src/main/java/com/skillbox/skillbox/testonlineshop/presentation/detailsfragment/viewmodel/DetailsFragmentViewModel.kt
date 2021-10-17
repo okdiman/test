@@ -6,17 +6,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.testonlineshop.domain.models.Product
 import com.skillbox.skillbox.testonlineshop.data.RepositoryImpl
+import com.skillbox.skillbox.testonlineshop.domain.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailsFragmentViewModel : ViewModel() {
+@HiltViewModel
+class DetailsFragmentViewModel @Inject constructor(private val repo: Repository) : ViewModel() {
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
-
-    private val repo = RepositoryImpl()
 
     //    stateFlow детальной инфы о продукте
     private val _detailsInfoStateFlow = MutableStateFlow<Product?>(null)

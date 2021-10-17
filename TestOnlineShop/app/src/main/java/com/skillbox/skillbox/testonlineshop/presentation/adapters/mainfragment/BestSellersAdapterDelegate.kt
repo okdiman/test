@@ -26,7 +26,7 @@ class BestSellersAdapterDelegate(private val onItemClick: (item: Product) -> Uni
         //        создаем переменную currentProduct, чтобы передавать ее в лисенер
         private var currentProduct: Product? = null
 
-        //        инициализируем лисенер
+        //        инициализируем клик лисенер на элемент списка
         init {
             containerView.setOnClickListener {
                 currentProduct?.let(onItemClick)

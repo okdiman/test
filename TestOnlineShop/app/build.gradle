@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-android-extensions'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -80,9 +81,7 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     //библиотека кастомного адаптера для recyclerview
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
-
     //Dagger
     implementation "com.google.dagger:hilt-android:2.35.1"
     kapt "com.google.dagger:hilt-android-compiler:2.35.1"
-
 }

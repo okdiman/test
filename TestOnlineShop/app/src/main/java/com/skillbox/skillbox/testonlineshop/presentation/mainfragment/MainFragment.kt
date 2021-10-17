@@ -12,8 +12,9 @@ import com.skillbox.skillbox.testonlineshop.databinding.MainFragmentBinding
 import com.skillbox.skillbox.testonlineshop.domain.models.TypesOfProducts
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.mainfragment.MainFragmentViewPagerAdapter
 import com.skillbox.skillbox.testonlineshop.presentation.mainfragment.viewmodel.MainScreenViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.main_fragment) {
 
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
@@ -62,6 +63,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         )
     }
 
+    //    подписка на изменения вью модели
     private fun bindingViewModel() {
         mainViewModel.cartLiveData.observe(viewLifecycleOwner) { result ->
             binding.bottomAppBar.getOrCreateBadge(R.id.cartItemBottomBar).run {

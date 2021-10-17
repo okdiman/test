@@ -15,12 +15,15 @@ import com.skillbox.skillbox.testonlineshop.databinding.CartFragmentBinding
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.cartfragment.CartInfoAdapter
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.toast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class CartFragment : Fragment(R.layout.cart_fragment) {
     private val binding: CartFragmentBinding by viewBinding(CartFragmentBinding::bind)
     private val cartViewModel: CartFragmentViewModel by viewModels()
     private var cartDetailsAdapter: CartInfoAdapter by autoCleared()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.backCartFragmentButton.setOnClickListener {
@@ -30,6 +33,7 @@ class CartFragment : Fragment(R.layout.cart_fragment) {
         init()
     }
 
+    //    инициализация стартового экрана
     private fun init() {
         cartDetailsAdapter = CartInfoAdapter()
         with(binding.cartDetailsRV) {

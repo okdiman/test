@@ -10,7 +10,7 @@ class CartInfoAdapter : AsyncListDifferDelegationAdapter<Basket>(CartInfoDiffUti
         delegatesManager.addDelegate(CartInfoAdapterDelegate())
     }
 
-    class CartInfoDiffUtil() : DiffUtil.ItemCallback<Basket>() {
+    class CartInfoDiffUtil : DiffUtil.ItemCallback<Basket>() {
         override fun areItemsTheSame(oldItem: Basket, newItem: Basket): Boolean {
             return true
         }
