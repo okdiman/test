@@ -39,6 +39,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.bottomAppBar.selectedItemId = R.id.explorerItemBottomBar
+    }
+
     //    инициализация tabLayout и viewPager
     private fun init() {
 //    список иконок для tabLayout
