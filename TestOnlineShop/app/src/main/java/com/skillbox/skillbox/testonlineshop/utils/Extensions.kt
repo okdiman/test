@@ -40,8 +40,8 @@ fun <T : Fragment> T.toast(@StringRes message: Int) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
-fun <T : Fragment> T.toast(message: String) {
-    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+fun <T : Fragment> T.toastLong(@StringRes message: Int) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
 }
 
 //    расширение для работы с Glide

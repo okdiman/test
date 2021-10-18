@@ -1,5 +1,6 @@
 package com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,19 +30,23 @@ class DetailsFragmentViewModel @Inject constructor(private val repo: Repository)
     private val _isLoadingStateFlow = MutableStateFlow(false)
     val isLoadingStateFlow: StateFlow<Boolean> = _isLoadingStateFlow
 
-    //    лайв дата ошибок
-    private val _isErrorLiveData = MutableLiveData<String>()
-    val isErrorLiveData: LiveData<String> = _isErrorLiveData
+    //    stateFlow ошибок
+    private val _isErrorLiveData = MutableStateFlow(false)
+    val isErrorLiveData: StateFlow<Boolean> = _isErrorLiveData
 
     //    получение данных для стратового экрана
     fun getDetailsProductInfo() {
+        _isErrorLiveData.value = false
         currentJob?.cancel()
         viewModelScope.launch(Dispatchers.IO) {
             _isLoadingStateFlow.value = true
             try {
                 _detailsInfoStateFlow.value = repo.getDetailsInfo()
             } catch (t: Throwable) {
-                _isErrorLiveData.postValue(t.message)
+                Log.i("cartError", "$t")
+                if (t !is kotlinx.coroutines.CancellationException) {
+                    _isErrorLiveData.value = true
+                }
             } finally {
                 _isLoadingStateFlow.value = false
             }

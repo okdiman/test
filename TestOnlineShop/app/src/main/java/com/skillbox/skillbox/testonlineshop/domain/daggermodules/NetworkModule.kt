@@ -18,9 +18,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
+    //    провайдим кастомный интерцептор для добавления api key в запрос
     @Provides
     fun providesApiKeyInterceptor(): Interceptor {
-        return Interceptor { chain -> //получаем оригинальный запрос
+        return Interceptor { chain ->
+            //получаем оригинальный запрос
             val originalRequest = chain.request()
             //добавляем header нашего ключа
             val modifiedRequest = originalRequest.newBuilder()
@@ -32,6 +34,7 @@ class NetworkModule {
         }
     }
 
+    //    провайдим синглтон okHttpClient
     @Provides
     @Singleton
     fun providesClient(apiKeyInterceptor: Interceptor): OkHttpClient {
@@ -41,6 +44,7 @@ class NetworkModule {
             .build()
     }
 
+    //    провайдим синглтон Retrofit
     @Provides
     @Singleton
     fun providesRetrofit(client: OkHttpClient): Retrofit {
@@ -52,6 +56,7 @@ class NetworkModule {
             .build()
     }
 
+    //    провайдим наш Api
     @Provides
     fun providesApi(retrofit: Retrofit): MyApi {
         //    связываем наш Api интерфейс и ретрофит

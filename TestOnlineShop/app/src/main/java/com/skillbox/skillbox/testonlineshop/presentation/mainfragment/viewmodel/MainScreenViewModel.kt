@@ -1,10 +1,10 @@
 package com.skillbox.skillbox.testonlineshop.presentation.mainfragment.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.skillbox.skillbox.testonlineshop.data.RepositoryImpl
 import com.skillbox.skillbox.testonlineshop.domain.Repository
 import com.skillbox.skillbox.testonlineshop.domain.models.CartDetailsWrapper
 import com.skillbox.skillbox.testonlineshop.domain.models.MainScreenResponseWrapper
@@ -38,12 +38,13 @@ class MainScreenViewModel @Inject constructor(private val repo: Repository) : Vi
     private val _isLoadingStateFlow = MutableStateFlow(false)
     val isLoadingStateFlow: StateFlow<Boolean> = _isLoadingStateFlow
 
-    //    лайв дата ошибок
-    private val _isErrorLiveData = MutableLiveData<String>()
-    val isErrorLiveData: LiveData<String> = _isErrorLiveData
+    //    stateFlow ошибок
+    private val _isErrorLiveData = MutableStateFlow(false)
+    val isErrorLiveData: StateFlow<Boolean> = _isErrorLiveData
 
     //    получение данных для стратового экрана
     fun getMainScreenData() {
+        _isErrorLiveData.value = false
         currentJob?.cancel()
         viewModelScope.launch(Dispatchers.IO) {
             _isLoadingStateFlow.value = true
@@ -51,7 +52,10 @@ class MainScreenViewModel @Inject constructor(private val repo: Repository) : Vi
                 _productsStateFlow.value = repo.getMainScreenData()
                 _cartLiveData.postValue(repo.getCartInfo())
             } catch (t: Throwable) {
-                _isErrorLiveData.postValue(t.message)
+                Log.i("cartError", "$t")
+                if (t !is kotlinx.coroutines.CancellationException) {
+                    _isErrorLiveData.value = true
+                }
             } finally {
                 _isLoadingStateFlow.value = false
             }
@@ -66,8 +70,12 @@ class MainScreenViewModel @Inject constructor(private val repo: Repository) : Vi
             try {
                 _cartLiveData.postValue(repo.getCartInfo())
             } catch (t: Throwable) {
-                _isErrorLiveData.postValue(t.message)
+                Log.i("cartError", "$t")
+                if (t !is kotlinx.coroutines.CancellationException) {
+                    _isErrorLiveData.value = true
+                }
             } finally {
+                _isErrorLiveData.value = false
                 _isLoadingStateFlow.value = false
             }
         }

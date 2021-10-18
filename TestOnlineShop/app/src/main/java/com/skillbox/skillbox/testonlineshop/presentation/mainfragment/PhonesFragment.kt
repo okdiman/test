@@ -18,7 +18,7 @@ import com.skillbox.skillbox.testonlineshop.presentation.adapters.mainfragment.H
 import com.skillbox.skillbox.testonlineshop.presentation.mainfragment.viewmodel.MainScreenViewModel
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.utils.isConnected
-import com.skillbox.skillbox.testonlineshop.utils.toast
+import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -33,6 +33,11 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
         super.onViewCreated(view, savedInstanceState)
         initStartScreen()
         bindViewModel()
+//        лисенер на обновление экрана свайпом вверх
+        binding.phonesSwipeRefreshLayout.setOnRefreshListener {
+            mainViewModel.getMainScreenData()
+            binding.phonesSwipeRefreshLayout.isRefreshing = false
+        }
     }
 
     //    инициализация стартового экрана
@@ -90,8 +95,16 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
             }
         }
         lifecycleScope.launchWhenResumed {
-            mainViewModel.isLoadingStateFlow.collect { binding.progressBar.isVisible = it }
+            mainViewModel.isLoadingStateFlow.collect {
+                binding.progressBar.isVisible = it
+            }
         }
-        mainViewModel.isErrorLiveData.observe(viewLifecycleOwner) { toast(it) }
+        lifecycleScope.launchWhenResumed {
+            mainViewModel.isErrorLiveData.collect { error ->
+                if (error) {
+                    toastLong(R.string.server_error)
+                }
+            }
+        }
     }
 }

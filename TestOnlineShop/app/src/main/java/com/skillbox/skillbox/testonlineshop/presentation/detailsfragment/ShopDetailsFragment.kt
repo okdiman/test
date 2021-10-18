@@ -111,6 +111,7 @@ class ShopDetailsFragment : Fragment(R.layout.shop_details_fragment) {
         private const val KEY_CAPACITY = "capacity"
         private const val KEY_PRICE = "price"
 
+        //        инстанс фрагмента для его открытия из tabLayout
         fun newInstance(
             cpu: String?,
             camera: String?,

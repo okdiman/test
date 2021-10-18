@@ -16,10 +16,10 @@
         />
 
     <item
-        android:id="@+id/selectedItemBottomBar"
+        android:id="@+id/favoriteItemBottomBar"
         android:enabled="true"
         android:icon="@drawable/ic_favorite"
-        android:title="@string/selected"
+        android:title="@string/favorite"
         />
 
     <item

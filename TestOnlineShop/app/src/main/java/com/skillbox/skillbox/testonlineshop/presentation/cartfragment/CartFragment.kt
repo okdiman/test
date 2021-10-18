@@ -14,7 +14,7 @@ import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.databinding.CartFragmentBinding
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.cartfragment.CartInfoAdapter
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
-import com.skillbox.skillbox.testonlineshop.utils.toast
+import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -26,8 +26,15 @@ class CartFragment : Fragment(R.layout.cart_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.backCartFragmentButton.setOnClickListener {
-            findNavController().popBackStack()
+        binding.run {
+            backCartFragmentButton.setOnClickListener {
+                findNavController().popBackStack()
+            }
+//            лисенер для обновления свайпом вверх
+            cartSwipeRefreshLayout.setOnRefreshListener {
+                cartViewModel.getCartInfo()
+                binding.cartSwipeRefreshLayout.isRefreshing = false
+            }
         }
         bindViewModel()
         init()
@@ -59,8 +66,16 @@ class CartFragment : Fragment(R.layout.cart_fragment) {
             }
         }
         lifecycleScope.launchWhenResumed {
-            cartViewModel.isLoadingStateFlow.collect { binding.progressBar.isVisible = it }
+            cartViewModel.isLoadingStateFlow.collect {
+                binding.progressBar.isVisible = it
+            }
         }
-        cartViewModel.isErrorLiveData.observe(viewLifecycleOwner) { toast(it) }
+        lifecycleScope.launchWhenResumed {
+            cartViewModel.isErrorLiveData.collect { error ->
+                if (error) {
+                    toastLong(R.string.server_error)
+                }
+            }
+        }
     }
 }

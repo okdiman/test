@@ -2,7 +2,6 @@ package com.skillbox.skillbox.testonlineshop.presentation.mainfragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -41,6 +40,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     override fun onResume() {
         super.onResume()
+//        устанавливаем выбранной иконку главного экрана при влзвращении на него
         binding.bottomAppBar.selectedItemId = R.id.explorerItemBottomBar
     }
 

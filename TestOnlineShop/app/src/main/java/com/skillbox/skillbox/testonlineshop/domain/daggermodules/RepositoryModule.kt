@@ -11,6 +11,7 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 abstract class RepositoryModule {
 
+    //    баиндим интерфейс репозитория
     @Binds
     abstract fun provideRepo(impl: RepositoryImpl): Repository
 }

@@ -16,7 +16,7 @@ import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragmen
 import com.skillbox.skillbox.testonlineshop.presentation.adapters.detailsfragment.DetailsInfoAdapter
 import com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.viewmodel.DetailsFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.autoCleared
-import com.skillbox.skillbox.testonlineshop.utils.toast
+import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import recycler.coverflow.CoverFlowLayoutManger
@@ -118,6 +118,12 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         lifecycleScope.launchWhenResumed {
             detailsViewModel.isLoadingStateFlow.collect { binding.progressBar.isVisible = it }
         }
-        detailsViewModel.isErrorLiveData.observe(viewLifecycleOwner) { toast(it) }
+        lifecycleScope.launchWhenResumed {
+            detailsViewModel.isErrorLiveData.collect { error ->
+                if (error){
+                    toastLong(R.string.server_error)
+                }
+            }
+        }
     }
 }

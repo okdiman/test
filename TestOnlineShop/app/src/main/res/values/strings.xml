@@ -2,7 +2,7 @@
     <string name="app_name">Test Online Shop</string>
     <string name="explorer">Explorer</string>
     <string name="profile">Profile</string>
-    <string name="selected">Selected</string>
+    <string name="favorite">Favorite</string>
     <string name="cart">Cart</string>
     <string name="see_more">see more</string>
     <string name="best_seller">Best Seller</string>
@@ -40,6 +40,7 @@
     <string name="delivery">Delivery</string>
     <string name="total">Total</string>
     <string name="moscow_russia">Moscow, Russia</string>
+    <string name="server_error">Sorry, something went wrong, please, check your internet connection and try again</string>
     <string-array name="phones_models_string_array">
         <item>Samsung</item>
         <item>Xiaomi</item>
