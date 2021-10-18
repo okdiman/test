@@ -38,10 +38,10 @@ class BestSellersAdapterDelegate(private val onItemClick: (item: Product) -> Uni
         fun bind(item: Product) {
 //            присваиваем currentProduct действующий item
             currentProduct = item
-            bestSellerItemImageView.run{
+            bestSellerItemImageView.run {
                 glideLoadImage(item.picture!!.toUri())
-                clipToOutline = true
             }
+            backgroundImageView.clipToOutline = true
             modelPhoneTextView.text = item.title
             newCostTextView.text = "${item.newPrice}$"
             oldCostTextView.apply {
