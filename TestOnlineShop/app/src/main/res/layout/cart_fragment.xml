@@ -84,6 +84,17 @@
         app:layout_constraintTop_toTopOf="@id/backgroundImageView"
         tools:listitem="@layout/cart_details_item" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/border"
+        app:layout_constraintBottom_toTopOf="@id/totalTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cartDetailsRV"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/totalDeliveryPriceTextView"
         style="@style/TextAppearance.AppCompat.Title"
@@ -133,6 +144,17 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/checkoutButton"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/border"
+        app:layout_constraintBottom_toTopOf="@id/checkoutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deliveryTextView"
+        tools:ignore="ContentDescription" />
 
 
     <Button

@@ -16,7 +16,7 @@ class MainFragmentViewPagerAdapter(private val types: List<TypesOfProducts>, fra
 //        так как сейчас требуется реализовать только 1 фрагмент,
 //        при выборе другого поля в tabLayout возвращаем пустой фрагмент
         return when(types[position]){
-            TypesOfProducts.PHONES -> PhonesFragment()
+            TypesOfProducts.Phones -> PhonesFragment()
             else -> Fragment()
         }
     }

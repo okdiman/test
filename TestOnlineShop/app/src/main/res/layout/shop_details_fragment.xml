@@ -47,6 +47,7 @@
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_capacity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/memoryImageView"
@@ -58,41 +59,45 @@
         android:id="@+id/processorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/processor"
         android:textColor="@color/grey"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/processorImageView"
         app:layout_constraintStart_toStartOf="@id/processorImageView"
-        app:layout_constraintTop_toBottomOf="@id/processorImageView" />
+        app:layout_constraintTop_toBottomOf="@id/processorImageView"
+        tools:text="@tools:sample/last_names" />
 
     <TextView
         android:id="@+id/cameraTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/camera"
         android:textColor="@color/grey"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/cameraImageView"
         app:layout_constraintStart_toStartOf="@id/cameraImageView"
-        app:layout_constraintTop_toBottomOf="@id/cameraImageView" />
+        app:layout_constraintTop_toBottomOf="@id/cameraImageView"
+        tools:text="@tools:sample/last_names" />
 
     <TextView
         android:id="@+id/memoryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/memory"
         android:textColor="@color/grey"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/memoryImageView"
         app:layout_constraintStart_toStartOf="@id/memoryImageView"
-        app:layout_constraintTop_toBottomOf="@id/memoryImageView" />
+        app:layout_constraintTop_toBottomOf="@id/memoryImageView"
+        tools:text="@tools:sample/last_names" />
 
     <TextView
         android:id="@+id/capacityTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/capacity"
         android:textColor="@color/grey"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/capacityImageView"
         app:layout_constraintStart_toStartOf="@id/capacityImageView"
-        app:layout_constraintTop_toBottomOf="@id/capacityImageView" />
+        app:layout_constraintTop_toBottomOf="@id/capacityImageView"
+        tools:text="@tools:sample/last_names" />
 
     <TextView
         android:id="@+id/selectColorAndCapacityTextView"
@@ -100,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/select_color_and_capacity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/processorTextView" />
@@ -115,9 +120,9 @@
         android:src="@drawable/ic_check"
         app:cornerRadius="24dp"
         app:icon="@drawable/ic_check"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView"
-        />
+        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView" />
 
     <Button
         android:id="@+id/colorTwoActionButton"
@@ -128,6 +133,7 @@
         android:layout_marginTop="4dp"
         app:cornerRadius="24dp"
         app:fabCustomSize="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
         app:layout_constraintStart_toEndOf="@id/colorOneActionButton"
         app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView" />
 
@@ -135,11 +141,12 @@
         android:id="@+id/capacityFirstButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
         android:text="@string/_128_gb"
         app:cornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
         app:layout_constraintEnd_toStartOf="@id/capacitySecondButton"
         app:layout_constraintStart_toEndOf="@+id/colorTwoActionButton"
         app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView" />
@@ -155,6 +162,7 @@
         android:textColor="@color/grey"
         app:backgroundTint="@color/white"
         app:cornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView" />
 
@@ -168,7 +176,7 @@
         android:textSize="20sp"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/capacityFirstButton"
+
         tools:layout_editor_absoluteX="16dp" />
 
 

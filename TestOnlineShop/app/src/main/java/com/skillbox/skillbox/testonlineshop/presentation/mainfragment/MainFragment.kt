@@ -2,6 +2,7 @@ package com.skillbox.skillbox.testonlineshop.presentation.mainfragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -51,8 +52,11 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         binding.mainViewPager.adapter =
             MainFragmentViewPagerAdapter(TypesOfProducts.values().toList(), this)
         TabLayoutMediator(binding.categoryTabLayout, binding.mainViewPager) { tab, position ->
-            tab.text = TypesOfProducts.values().toList()[position].toString()
-            tab.setIcon(icons[position])
+            tab.run {
+                text = TypesOfProducts.values().toList()[position].toString()
+                setIcon(icons[position])
+
+            }
         }.attach()
         mainViewModel.getCartData()
     }
