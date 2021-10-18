@@ -39,6 +39,7 @@
     <string name="checkout">Checkout</string>
     <string name="delivery">Delivery</string>
     <string name="total">Total</string>
+    <string name="moscow_russia">Moscow, Russia</string>
     <string-array name="phones_models_string_array">
         <item>Samsung</item>
         <item>Xiaomi</item>

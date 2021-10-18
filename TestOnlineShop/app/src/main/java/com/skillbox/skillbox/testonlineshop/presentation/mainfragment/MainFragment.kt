@@ -35,7 +35,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 }
                 true
             }
-            searchView.isIconified = false
         }
     }
 
