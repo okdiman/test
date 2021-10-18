@@ -17,9 +17,13 @@ class CartInfoAdapterDelegate :
         @SuppressLint("SetTextI18n")
         fun bind(item: Basket) {
             binding.run {
-                productImageView.glideLoadImage(item.image.toUri())
+                productImageView.run {
+                    glideLoadImage(item.image.toUri())
+                    clipToOutline = true
+                }
                 productTitle.text = item.title
                 productPrice.text = "$${item.price.toDouble()}"
+                itemsCountTextView.text = "2"
             }
         }
     }

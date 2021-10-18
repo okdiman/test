@@ -42,6 +42,7 @@ class CartFragment : Fragment(R.layout.cart_fragment) {
             setHasFixedSize(true)
         }
         cartViewModel.getCartInfo()
+        binding.backgroundImageView.clipToOutline = true
     }
 
 

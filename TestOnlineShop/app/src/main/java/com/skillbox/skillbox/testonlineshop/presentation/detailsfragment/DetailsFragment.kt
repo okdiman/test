@@ -53,15 +53,19 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             )
             setHasFixedSize(true)
         }
-        binding.backDetailsFragmentButton.setOnClickListener {
-            findNavController().popBackStack()
+        binding.run {
+            backDetailsFragmentButton.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            cartDetailsFragmentButton.setOnClickListener {
+                findNavController().navigate(
+                    DetailsFragmentDirections
+                        .actionDetailsFragmentToCartFragment()
+                )
+            }
+            detailsFragmentBackgroundImageView.clipToOutline = true
         }
-        binding.cartDetailsFragmentButton.setOnClickListener {
-            findNavController().navigate(
-                DetailsFragmentDirections
-                    .actionDetailsFragmentToCartFragment()
-            )
-        }
+
     }
 
     //    инициализируем tabLayout и viewPager

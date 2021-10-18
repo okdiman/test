@@ -41,11 +41,17 @@ class HotSalesAdapterDelegate(private val onBuyButtonClick: () -> Unit) :
                     modelTitleOfHotSalesTextView.setTextColor(R.color.black)
                     descriptionHotSalesTextView.setTextColor(R.color.black)
                 }
-                hotSalesImageView.glideLoadImage(item.picture!!.toUri())
+                hotSalesImageView.run {
+                    glideLoadImage(item.picture!!.toUri())
+                    clipToOutline = true
+                }
                 modelTitleOfHotSalesTextView.text = item.title
                 descriptionHotSalesTextView.text = item.subtitle
                 buyNowButton.isEnabled = item.isBuy
-                newIconHotSalesImageView.isVisible = item.isNew
+                newIconHotSalesImageView.run {
+                    isVisible = item.isNew
+                    clipToOutline = true
+                }
             }
         }
     }

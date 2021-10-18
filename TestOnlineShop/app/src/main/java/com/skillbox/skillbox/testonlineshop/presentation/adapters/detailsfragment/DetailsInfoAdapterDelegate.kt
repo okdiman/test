@@ -14,9 +14,11 @@ class DetailsInfoAdapterDelegate :
     class Holder(private val binding: ItemDetailsInfoRecyclerViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: String) {
-            binding.run {
-                itemDetailsInfoImageView.glideLoadImage(item.toUri())
+            binding.itemDetailsInfoImageView.run {
+                glideLoadImage(item.toUri())
+                clipToOutline = true
             }
+
         }
     }
 

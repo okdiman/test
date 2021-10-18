@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:background="@drawable/big_round_outline"
         android:id="@+id/hotSalesImageView"
         android:layout_width="match_parent"
         android:layout_height="160dp"
@@ -14,9 +15,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:ignore="ContentDescription" />
 
     <ImageView
+        android:background="@drawable/big_round_outline"
         android:id="@+id/newIconHotSalesImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -27,7 +30,8 @@
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorPrimary" />
+        app:tint="?attr/colorPrimary"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/modelTitleOfHotSalesTextView"

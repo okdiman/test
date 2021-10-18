@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:background="@drawable/big_round_outline"
         android:id="@+id/itemDetailsInfoImageView"
         android:layout_width="250dp"
         android:layout_height="match_parent"

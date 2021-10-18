@@ -24,15 +24,18 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
         bindingViewModel()
         init()
-        binding.filterImageView.setOnClickListener {
-            createBottomSheetDialogFragment()
-        }
-        binding.bottomAppBar.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.cartItemBottomBar -> findNavController()
-                    .navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
+        binding.run {
+            filterImageView.setOnClickListener {
+                createBottomSheetDialogFragment()
             }
-            true
+            bottomAppBar.setOnItemSelectedListener {
+                when (it.itemId) {
+                    R.id.cartItemBottomBar -> findNavController()
+                        .navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
+                }
+                true
+            }
+            searchView.isIconified = false
         }
     }
 

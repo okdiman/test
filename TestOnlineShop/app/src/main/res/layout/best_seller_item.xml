@@ -20,6 +20,7 @@
         app:tint="@color/red" />
 
     <ImageView
+        android:background="@drawable/big_round_outline"
         android:id="@+id/bestSellerItemImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"

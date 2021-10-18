@@ -64,13 +64,16 @@
         tools:listitem="@layout/item_details_info_recycler_view" />
 
     <ImageView
+        android:id="@+id/detailsFragmentBackgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
+        android:background="@drawable/big_round_outline"
+        android:src="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsInfoRecyclerView" />
+        app:layout_constraintTop_toBottomOf="@id/detailsInfoRecyclerView"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/titleOfModelTextView"
