@@ -1,13 +1,19 @@
 package com.skillbox.skillbox.testonlineshop.presentation.mainfragment
 
+import android.graphics.Color
 import android.graphics.Outline
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.databinding.MainFragmentBinding
@@ -72,18 +78,58 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             R.drawable.ic_computer,
             R.drawable.ic_games,
             R.drawable.ic_book,
-            R.drawable.ic_gifts
+            R.drawable.ic_gifts,
+            R.drawable.ic_sports
         )
+
         binding.mainViewPager.adapter =
             MainFragmentViewPagerAdapter(TypesOfProducts.values().toList(), this)
         TabLayoutMediator(binding.categoryTabLayout, binding.mainViewPager) { tab, position ->
+            val view = layoutInflater.inflate(
+                R.layout.tab_layout_custom_view,
+                binding.categoryTabLayout as ViewGroup,
+                false
+            )
+            view.findViewById<ImageView>(R.id.tabImageView).setImageResource(icons[position])
+            view.findViewById<TextView>(R.id.tabTextView).text =
+                TypesOfProducts.values().toList()[position].toString()
             tab.run {
-                text = TypesOfProducts.values().toList()[position].toString()
-                setIcon(icons[position])
-
+                customView = view
+                if (position == 0) {
+//                изменение фона CardView работает некорректно(меняет форму на квадрат)
+//                    customView?.findViewById<CardView>(R.id.tabCardView)
+//                        ?.setBackgroundColor(Color.parseColor("#FF6E4E"))
+                    customView?.findViewById<TextView>(R.id.tabTextView)
+                        ?.setTextColor(Color.parseColor("#FF6E4E"))
+                }
             }
         }.attach()
+//        создаем объект лисенера для tabLayout
+        val listener = object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                изменение фона CardView работает некорректно(меняет форму на квадрат)
+//                tab?.customView?.findViewById<CardView>(R.id.tabCardView)
+//                    ?.setBackgroundColor(Color.parseColor("#FF6E4E"))
+                tab?.customView?.findViewById<TextView>(R.id.tabTextView)
+                    ?.setTextColor(Color.parseColor("#FF6E4E"))
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//                tab?.customView?.findViewById<CardView>(R.id.tabCardView)
+//                    ?.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
+                tab?.customView?.findViewById<TextView>(R.id.tabTextView)
+                    ?.setTextColor(Color.parseColor("#B3B3C3"))
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        }
+        binding.categoryTabLayout.addOnTabSelectedListener(listener)
         mainViewModel.getCartData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.categoryTabLayout.clearOnTabSelectedListeners()
     }
 
     //    создание BottomSheetDialogFragment дял фильтрации

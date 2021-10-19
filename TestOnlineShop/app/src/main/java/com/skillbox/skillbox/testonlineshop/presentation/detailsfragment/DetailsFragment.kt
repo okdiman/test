@@ -42,7 +42,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         bindViewModel()
     }
 
-    //    инициализация стартового экрана
+    //    инициализация экрана
     private fun init() {
 //        делаем запрос на получение инфы по продукту
         detailsViewModel.getDetailsProductInfo()

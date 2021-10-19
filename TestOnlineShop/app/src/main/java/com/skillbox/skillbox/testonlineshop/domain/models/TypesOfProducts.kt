@@ -5,5 +5,6 @@ enum class TypesOfProducts {
     Computers,
     Games,
     Books,
-    Gifts
+    Gifts,
+    Sport
 }

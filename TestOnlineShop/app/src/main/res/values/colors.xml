@@ -13,4 +13,5 @@
     <color name="background_color">#F8F8F8</color>
     <color name="golden">#FFB800</color>
     <color name="button">#282843</color>
+    <color name="image_color">#B3B3C3</color>
 </resources>

@@ -11,7 +11,6 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="android:windowBackground">@drawable/splash</item>
         <!-- Customize your theme here. -->
     </style>
     <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -22,5 +21,8 @@
         <item name="android:paddingRight">12dp</item>
         <item name="android:minWidth">48dp</item>
         <item name="android:minHeight">48dp</item>
+    </style>
+    <style name="Theme.TestOnlineShop.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+                <item name="android:windowBackground">@drawable/splash</item>
     </style>
 </resources>
