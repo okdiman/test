@@ -1,7 +1,9 @@
 package com.skillbox.skillbox.testonlineshop.presentation.mainfragment
 
+import android.graphics.Outline
 import android.os.Bundle
 import android.view.View
+import android.view.ViewOutlineProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,12 +30,30 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             filterImageView.setOnClickListener {
                 createBottomSheetDialogFragment()
             }
-            bottomAppBar.setOnItemSelectedListener {
-                when (it.itemId) {
-                    R.id.cartItemBottomBar -> findNavController()
-                        .navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
+            bottomAppBar.run {
+                setOnItemSelectedListener {
+                    when (it.itemId) {
+                        R.id.cartItemBottomBar -> findNavController()
+                            .navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
+                    }
+                    true
                 }
-                true
+//                создаем объект провайдера контура вью
+//                и указываем только верхние радиусы для закругления
+                outlineProvider = object : ViewOutlineProvider() {
+                    override fun getOutline(view: View?, outline: Outline?) {
+                        val curveRadius = 48F
+                        outline?.setRoundRect(
+                            0,
+                            0,
+                            view!!.width,
+                            (view.height + curveRadius).toInt(),
+                            curveRadius
+                        )
+                    }
+                }
+//                применяем изменения контура
+                clipToOutline = true
             }
         }
     }

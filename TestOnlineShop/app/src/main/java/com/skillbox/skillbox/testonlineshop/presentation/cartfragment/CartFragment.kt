@@ -1,8 +1,10 @@
 package com.skillbox.skillbox.testonlineshop.presentation.cartfragment
 
 import android.annotation.SuppressLint
+import android.graphics.Outline
 import android.os.Bundle
 import android.view.View
+import android.view.ViewOutlineProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,7 +51,23 @@ class CartFragment : Fragment(R.layout.cart_fragment) {
             setHasFixedSize(true)
         }
         cartViewModel.getCartInfo()
-        binding.backgroundImageView.clipToOutline = true
+        binding.backgroundImageView.run {
+//                создаем объект провайдера контура вью и указываем только верхние радиусы для закругления
+            outlineProvider = object : ViewOutlineProvider() {
+                override fun getOutline(view: View?, outline: Outline?) {
+                    val curveRadius = 60F
+                    outline?.setRoundRect(
+                        0,
+                        0,
+                        view!!.width,
+                        (view.height + curveRadius).toInt(),
+                        curveRadius
+                    )
+                }
+            }
+//                применяем изменения контура
+            clipToOutline = true
+        }
     }
 
 

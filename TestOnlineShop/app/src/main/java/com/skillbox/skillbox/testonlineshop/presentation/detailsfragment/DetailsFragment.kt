@@ -1,7 +1,9 @@
 package com.skillbox.skillbox.testonlineshop.presentation.detailsfragment
 
+import android.graphics.Outline
 import android.os.Bundle
 import android.view.View
+import android.view.ViewOutlineProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -63,7 +65,24 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                         .actionDetailsFragmentToCartFragment()
                 )
             }
-            detailsFragmentBackgroundImageView.clipToOutline = true
+            detailsFragmentBackgroundImageView.run {
+//                создаем объект провайдера контура вью
+//                и указываем только верхние радиусы для закругления
+                outlineProvider = object : ViewOutlineProvider() {
+                    override fun getOutline(view: View?, outline: Outline?) {
+                        val curveRadius = 60F
+                        outline?.setRoundRect(
+                            0,
+                            0,
+                            view!!.width,
+                            (view.height + curveRadius).toInt(),
+                            curveRadius
+                        )
+                    }
+                }
+//                применяем изменения контура
+                clipToOutline = true
+            }
         }
 
     }
@@ -120,7 +139,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         }
         lifecycleScope.launchWhenResumed {
             detailsViewModel.isErrorLiveData.collect { error ->
-                if (error){
+                if (error) {
                     toastLong(R.string.server_error)
                 }
             }
