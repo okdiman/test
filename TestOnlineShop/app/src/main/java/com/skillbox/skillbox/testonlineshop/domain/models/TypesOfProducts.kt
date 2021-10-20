@@ -3,7 +3,7 @@ package com.skillbox.skillbox.testonlineshop.domain.models
 enum class TypesOfProducts {
     Phones,
     Computers,
-    Games,
+    Health,
     Books,
     Gifts,
     Sport

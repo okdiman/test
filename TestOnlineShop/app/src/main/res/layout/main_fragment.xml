@@ -48,13 +48,13 @@
 
         <ImageView
             android:id="@+id/filterImageView"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_margin="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@string/filter_image_view"
-            android:src="@drawable/ic_filter"
+            android:src="@drawable/filter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

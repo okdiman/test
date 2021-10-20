@@ -25,4 +25,5 @@
     <style name="Theme.TestOnlineShop.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
                 <item name="android:windowBackground">@drawable/splash</item>
     </style>
+
 </resources>

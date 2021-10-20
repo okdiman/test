@@ -11,21 +11,21 @@
     <item
         android:id="@+id/cartItemBottomBar"
         android:enabled="true"
-        android:icon="@drawable/ic_shopping_bag"
+        android:icon="@drawable/cart"
         android:title="@string/cart"
         />
 
     <item
         android:id="@+id/favoriteItemBottomBar"
         android:enabled="true"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/favorite"
         android:title="@string/favorite"
         />
 
     <item
         android:id="@+id/profileItemBottomBar"
         android:enabled="true"
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/profile"
         android:title="@string/profile"
         />
 

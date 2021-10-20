@@ -96,12 +96,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/secondary"
-        android:src="@drawable/ic_delete"
+        android:src="@drawable/garbage"
         app:fabCustomSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/productTitle"
         app:maxImageSize="16dp"
-        app:tint="@color/cart" />
+        app:tint="@color/cart"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

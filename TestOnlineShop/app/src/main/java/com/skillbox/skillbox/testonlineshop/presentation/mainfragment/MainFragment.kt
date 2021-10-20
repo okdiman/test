@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.size
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -74,10 +74,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun init() {
 //    список иконок для tabLayout
         val icons = listOf(
-            R.drawable.ic_smartphone,
-            R.drawable.ic_computer,
-            R.drawable.ic_games,
-            R.drawable.ic_book,
+            R.drawable.phones,
+            R.drawable.computers,
+            R.drawable.health,
+            R.drawable.books,
             R.drawable.ic_gifts,
             R.drawable.ic_sports
         )
