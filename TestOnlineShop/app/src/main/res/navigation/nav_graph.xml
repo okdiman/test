@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         tools:layout="@layout/main_fragment"
-        android:name="com.skillbox.skillbox.testonlineshop.presentation.mainfragment.MainFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.features.main.presentation.screens.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_filterBottomSheetDialog"
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         tools:layout="@layout/details_fragment"
-        android:name="com.skillbox.skillbox.testonlineshop.presentation.detailsfragment.DetailsFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.features.detail.presentation.screens.DetailsFragment"
         android:label="DetailsFragment" >
         <action
             android:id="@+id/action_detailsFragment_to_cartFragment"
@@ -32,16 +32,16 @@
     <dialog
         android:id="@+id/filterBottomSheetDialog"
         tools:layout="@layout/bottom_sheet_dialog"
-        android:name="com.skillbox.skillbox.testonlineshop.presentation.mainfragment.FilterBottomSheetDialog"
+        android:name="com.skillbox.skillbox.testonlineshop.features.main.presentation.screens.FilterBottomSheetDialog"
         android:label="FilterBottomSheetDialog" />
     <fragment
         tools:layout="@layout/phones_fragment"
         android:id="@+id/phonesFragment"
-        android:name="com.skillbox.skillbox.testonlineshop.presentation.mainfragment.PhonesFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.features.main.presentation.screens.PhonesFragment"
         android:label="PhonesFragment" />
     <fragment
         tools:layout="@layout/cart_fragment"
         android:id="@+id/cartFragment"
-        android:name="com.skillbox.skillbox.testonlineshop.presentation.cartfragment.CartFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.features.cart.presentation.screens.CartFragment"
         android:label="CartFragment" />
 </navigation>
