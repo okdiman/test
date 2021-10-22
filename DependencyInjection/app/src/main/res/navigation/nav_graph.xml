@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/imagesFragment"
-        android:name="ru.skillbox.dependency_injection.presentation.images.list.ImagesFragment"
+        android:name="ru.skillbox.dependency_injection.features.images.presentation.screens.main.ImagesFragment"
         android:label="ImagesFragment" >
         <action
             android:id="@+id/action_imagesFragment_to_addImageDialogFragment"
@@ -13,6 +13,6 @@
     </fragment>
     <dialog
         android:id="@+id/addImageDialogFragment"
-        android:name="ru.skillbox.dependency_injection.presentation.images.add.AddImageDialogFragment"
+        android:name="ru.skillbox.dependency_injection.features.images.presentation.screens.adddialog.AddImageDialogFragment"
         android:label="AddImageDialogFragment" />
 </navigation>
