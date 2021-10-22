@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.create
 import ru.skillbox.dependency_injection.BuildConfig
 import ru.skillbox.dependency_injection.features.images.data.network.Api
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module

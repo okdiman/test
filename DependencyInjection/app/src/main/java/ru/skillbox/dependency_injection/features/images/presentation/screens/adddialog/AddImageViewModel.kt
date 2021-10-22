@@ -1,18 +1,17 @@
 package ru.skillbox.dependency_injection.features.images.presentation.screens.adddialog
 
-import android.app.Application
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.skillbox.dependency_injection.R
-import ru.skillbox.dependency_injection.features.images.data.repository.ImagesRepositoryImpl
 import ru.skillbox.dependency_injection.core.utils.SingleLiveEvent
+import ru.skillbox.dependency_injection.features.images.domain.repository.Repository
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class AddImageViewModel @Inject constructor(
-    private val imagesRepository: ImagesRepositoryImpl
+    private val imagesRepository: Repository
 ) : ViewModel() {
 
     private val toastSingleLiveEvent = SingleLiveEvent<Int>()

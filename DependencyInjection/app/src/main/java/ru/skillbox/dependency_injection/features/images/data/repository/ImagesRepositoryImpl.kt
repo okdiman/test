@@ -3,7 +3,6 @@ package ru.skillbox.dependency_injection.features.images.data.repository
 import android.app.Application
 import android.content.ContentUris
 import android.content.ContentValues
-import android.content.Context
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
