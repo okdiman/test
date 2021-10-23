@@ -58,7 +58,6 @@ class NetworkModule {
 
     //    провайдим наш Api
     @Provides
-    @Singleton
     fun providesApi(retrofit: Retrofit): MyApi {
         //    связываем наш Api интерфейс и ретрофит
         return retrofit.create()

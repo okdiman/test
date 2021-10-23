@@ -126,9 +126,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         mainViewModel.getCartData()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
         binding.categoryTabLayout.clearOnTabSelectedListeners()
+        super.onStop()
     }
 
     //    создание BottomSheetDialogFragment дял фильтрации
