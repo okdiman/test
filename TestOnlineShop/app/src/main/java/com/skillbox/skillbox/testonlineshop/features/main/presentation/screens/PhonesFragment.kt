@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.core.utils.autoCleared
@@ -50,6 +51,9 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
         }
         with(binding.hotSalesRecyclerView) {
             adapter = hotSalesAdapter
+//            доводчик для карусели
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(this)
             layoutManager =
                 LinearLayoutManager(requireContext()).apply {
                     orientation = LinearLayoutManager.HORIZONTAL
