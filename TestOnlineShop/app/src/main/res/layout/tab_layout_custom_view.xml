@@ -9,8 +9,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/tabCardView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="71dp"
+        android:layout_height="71dp"
         android:layout_gravity="center"
         android:background="@drawable/big_round_outline"
         app:cardCornerRadius="48dp">
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@color/image_color"
-        android:textSize="10sp"
+        android:textSize="12sp"
         tools:ignore="SmallSp"
         tools:text="@tools:sample/cities" />
 

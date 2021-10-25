@@ -18,6 +18,7 @@
             android:layout_margin="16dp"
             android:text="@string/see_more"
             android:textAllCaps="false"
+            android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/hotSalesRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +31,7 @@
             android:layout_margin="16dp"
             android:text="@string/hot_sales"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="25sp"
             app:layout_constraintEnd_toStartOf="@+id/seeMoreHotSalesTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,6 +55,7 @@
             android:layout_marginEnd="16dp"
             android:text="@string/see_more"
             android:textAllCaps="false"
+            android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@+id/bestSellersRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hotSalesRecyclerView" />
@@ -66,7 +68,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/best_seller"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/bestSellersRecyclerView"
             app:layout_constraintEnd_toStartOf="@+id/seeMoreBestSellersTextView"
             app:layout_constraintStart_toStartOf="parent"

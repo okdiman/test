@@ -24,11 +24,11 @@
         android:backgroundTint="@color/white"
         android:contentDescription="@string/is_favorite_or_not"
         android:src="@drawable/ic_favorite"
-        app:fabCustomSize="20dp"
+        app:fabCustomSize="25dp"
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="@id/bestSellerItemImageView"
         app:layout_constraintTop_toTopOf="@id/bestSellerItemImageView"
-        app:maxImageSize="10dp"
+        app:maxImageSize="14dp"
         app:tint="@color/red" />
 
     <ImageView
@@ -47,7 +47,7 @@
         android:id="@+id/newCostTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,11 +59,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/newCostTextView"
         app:layout_constraintEnd_toEndOf="@+id/bestSellerItemImageView"
         app:layout_constraintStart_toEndOf="@+id/newCostTextView"
-        tools:text="@tools:sample/cities" />
+        tools:text="@tools:sample/cities"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/modelPhoneTextView"
@@ -71,12 +72,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@+id/bestSellerItemImageView"
         app:layout_constraintStart_toStartOf="@+id/bestSellerItemImageView"
         app:layout_constraintTop_toBottomOf="@id/newCostTextView"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         android:layout_marginBottom="8dp"
-        tools:text="@tools:sample/full_names" />
+        tools:text="@tools:sample/full_names"
+        tools:ignore="SmallSp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

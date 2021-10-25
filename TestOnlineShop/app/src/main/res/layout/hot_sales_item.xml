@@ -21,8 +21,8 @@
     <ImageView
         android:background="@drawable/big_round_outline"
         android:id="@+id/newIconHotSalesImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
@@ -41,7 +41,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/descriptionHotSalesTextView"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@tools:sample/cities" />
@@ -53,26 +53,29 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@id/buyNowButton"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="@tools:sample/cities" />
+        tools:text="@tools:sample/cities"
+        tools:ignore="SmallSp" />
 
     <Button
         android:id="@+id/buyNowButton"
-        android:layout_width="wrap_content"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
+        android:textSize="11sp"
         android:text="@string/buy_now"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:cornerRadius="8sp"
         app:layout_constraintBottom_toBottomOf="@id/hotSalesImageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="?attr/colorPrimary" />
+        app:rippleColor="?attr/colorPrimary"
+        tools:ignore="SmallSp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

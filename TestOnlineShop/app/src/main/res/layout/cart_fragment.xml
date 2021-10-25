@@ -54,7 +54,7 @@
                 android:layout_margin="16dp"
                 android:text="@string/add_address"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@id/backCartFragmentButton"
                 app:layout_constraintEnd_toStartOf="@id/addLocationButton"
                 app:layout_constraintTop_toTopOf="@id/backCartFragmentButton" />
@@ -68,7 +68,7 @@
                 android:layout_marginTop="48dp"
                 android:text="@string/my_cart"
                 android:textColor="@color/black"
-                android:textSize="40sp"
+                android:textSize="35sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/backCartFragmentButton" />
 
@@ -113,7 +113,7 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginBottom="48dp"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/checkoutButton"
                 app:layout_constraintStart_toStartOf="@id/addAddressTextView"
@@ -127,7 +127,7 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginBottom="16dp"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/totalDeliveryPriceTextView"
                 app:layout_constraintStart_toStartOf="@id/addAddressTextView"
@@ -142,6 +142,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/total"
                 android:textColor="@color/white"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@id/deliveryTextView"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -152,6 +153,7 @@
                 android:layout_margin="48dp"
                 android:text="@string/delivery"
                 android:textColor="@color/white"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@id/checkoutButton"
                 app:layout_constraintStart_toStartOf="parent" />
 

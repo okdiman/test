@@ -7,7 +7,16 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+
 android {
+    signingConfigs {
+        release {
+            storeFile file('D:\\Programs\\Apps\\fm\\android_keys\\release_keys.jks')
+            storePassword 'Dimka1995'
+            keyAlias 'DimitrioRelease'
+            keyPassword 'Dimka1995'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -23,6 +32,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
