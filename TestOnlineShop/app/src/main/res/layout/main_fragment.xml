@@ -34,26 +34,28 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="12dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_location"
-                    app:tint="@color/primary"
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:layout_gravity="center"
                     style="@style/TextAppearance.AppCompat.Title"
                     fontPath="fonts/MarkProMedium.ttf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_width="119dp"
+                    android:layout_height="19dp"
                     android:layout_marginEnd="4dp"
                     android:text="@string/moscow_russia"
                     android:textSize="15sp"
                     tools:ignore="MissingPrefix" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_down"
                     tools:ignore="ContentDescription" />
 
@@ -87,8 +89,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/filterImageView" />
 
             <TextView
-                style="@style/TextAppearance.AppCompat.Title"
                 android:id="@+id/selectCategoryTextView"
+                style="@style/TextAppearance.AppCompat.Title"
                 fontPath="fonts/MarkProBold.ttf"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

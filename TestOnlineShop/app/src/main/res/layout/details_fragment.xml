@@ -106,16 +106,20 @@
             app:layout_constraintBottom_toBottomOf="@+id/titleOfModelTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/titleOfModelTextView"
+            app:maxImageSize="20dp"
             app:tint="@color/white"
             tools:ignore="ContentDescription" />
 
         <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/ratingBar"
-            style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:progressTint="@color/golden"
+            android:scaleX=".6"
+            android:scaleY=".6"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
             app:layout_constraintBottom_toTopOf="@+id/detailsTabLayout"
             app:layout_constraintStart_toStartOf="parent" />
 
