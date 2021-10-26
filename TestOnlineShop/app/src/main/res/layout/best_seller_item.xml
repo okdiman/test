@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="16dp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp">
 
     <ImageView
         android:id="@+id/backgroundImageView"
@@ -45,6 +45,7 @@
 
     <TextView
         android:id="@+id/newCostTextView"
+        fontPath="fonts/MarkProBold.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -52,10 +53,12 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bestSellerItemImageView"
+        tools:ignore="MissingPrefix"
         tools:text="@tools:sample/cities" />
 
     <TextView
         android:id="@+id/oldCostTextView"
+        fontPath="fonts/MarkProMedium.ttf"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -63,22 +66,22 @@
         app:layout_constraintBottom_toBottomOf="@+id/newCostTextView"
         app:layout_constraintEnd_toEndOf="@+id/bestSellerItemImageView"
         app:layout_constraintStart_toEndOf="@+id/newCostTextView"
-        tools:text="@tools:sample/cities"
-        tools:ignore="SmallSp" />
+        tools:ignore="MissingPrefix,SmallSp"
+        tools:text="@tools:sample/cities" />
 
     <TextView
         android:id="@+id/modelPhoneTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:textColor="@color/black"
         android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@+id/bestSellerItemImageView"
         app:layout_constraintStart_toStartOf="@+id/bestSellerItemImageView"
         app:layout_constraintTop_toBottomOf="@id/newCostTextView"
-        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
-        android:layout_marginBottom="8dp"
-        tools:text="@tools:sample/full_names"
-        tools:ignore="SmallSp" />
+        tools:ignore="SmallSp"
+        tools:text="@tools:sample/full_names" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

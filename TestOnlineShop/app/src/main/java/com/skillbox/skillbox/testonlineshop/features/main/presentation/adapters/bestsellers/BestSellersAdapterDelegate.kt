@@ -43,11 +43,11 @@ class BestSellersAdapterDelegate(private val onItemClick: (item: BestSellers) ->
             }
             backgroundImageView.clipToOutline = true
             modelPhoneTextView.text = item.title
-            newCostTextView.text = "${item.newPrice}$"
+            newCostTextView.text = "$${item.newPrice}"
             oldCostTextView.apply {
 //                    перечеркиваем текст старой цены
                 paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                text = "${item.oldPrice}$"
+                text = "$${item.oldPrice}"
             }
 //                в зависимости от метки is_favorites отображаем ту или иную картинку в кнопке
             if (item.is_favorites) {

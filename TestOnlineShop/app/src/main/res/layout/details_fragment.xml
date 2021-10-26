@@ -44,6 +44,7 @@
         <TextView
             android:id="@+id/productDetailsTextView"
             style="@style/TextAppearance.AppCompat.Title"
+            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -53,7 +54,8 @@
             app:layout_constraintBottom_toBottomOf="@id/backDetailsFragmentButton"
             app:layout_constraintEnd_toStartOf="@id/cartDetailsFragmentButton"
             app:layout_constraintStart_toEndOf="@id/backDetailsFragmentButton"
-            app:layout_constraintTop_toTopOf="@id/backDetailsFragmentButton" />
+            app:layout_constraintTop_toTopOf="@id/backDetailsFragmentButton"
+            tools:ignore="MissingPrefix,SmallSp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/detailsInfoRecyclerView"
@@ -70,6 +72,7 @@
 
         <ImageView
             android:id="@+id/detailsFragmentBackgroundImageView"
+            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/big_round_outline"
@@ -78,7 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detailsInfoRecyclerView"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,MissingPrefix,SmallSp" />
 
         <TextView
             android:id="@+id/titleOfModelTextView"
@@ -128,7 +131,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/black"
-            app:tabTextAppearance="@style/TextAppearance.AppCompat.Title" />
+            app:tabTextAppearance="@style/TextAppearance.AppCompat.Title"
+            tools:ignore="MissingPrefix,SmallSp" />
 
 
         <androidx.viewpager2.widget.ViewPager2

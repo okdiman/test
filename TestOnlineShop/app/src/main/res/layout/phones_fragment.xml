@@ -26,6 +26,7 @@
         <TextView
             android:id="@+id/hotSalesTextView"
             style="@style/TextAppearance.AppCompat.Title"
+            fontPath="fonts/MarkProBold.ttf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -34,7 +35,8 @@
             android:textSize="25sp"
             app:layout_constraintEnd_toStartOf="@+id/seeMoreHotSalesTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingPrefix" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hotSalesRecyclerView"
@@ -63,6 +65,7 @@
         <TextView
             android:id="@+id/bestSellerTextView"
             style="@style/TextAppearance.AppCompat.Title"
+            fontPath="fonts/MarkProBold.ttf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -72,7 +75,8 @@
             app:layout_constraintBottom_toTopOf="@+id/bestSellersRecyclerView"
             app:layout_constraintEnd_toStartOf="@+id/seeMoreBestSellersTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hotSalesRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/hotSalesRecyclerView"
+            tools:ignore="MissingPrefix" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bestSellersRecyclerView"

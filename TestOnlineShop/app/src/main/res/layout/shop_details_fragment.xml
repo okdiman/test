@@ -41,8 +41,8 @@
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:src="@drawable/memory"
         android:padding="6dp"
+        android:src="@drawable/memory"
         app:layout_constraintEnd_toStartOf="@+id/capacityImageView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cameraImageView"
@@ -113,14 +113,16 @@
     <TextView
         android:id="@+id/selectColorAndCapacityTextView"
         style="@style/TextAppearance.AppCompat.Title"
+        fontPath="fonts/MarkProMedium.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="16sp"
         android:text="@string/select_color_and_capacity"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/processorTextView" />
+        app:layout_constraintTop_toBottomOf="@id/processorTextView"
+        tools:ignore="MissingPrefix,SmallSp" />
 
     <Button
         android:id="@+id/colorOneActionButton"
@@ -150,6 +152,7 @@
 
     <Button
         android:id="@+id/capacityFirstButton"
+        fontPath="fonts/MarkProBold.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -160,10 +163,12 @@
         app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
         app:layout_constraintEnd_toStartOf="@id/capacitySecondButton"
         app:layout_constraintStart_toEndOf="@+id/colorTwoActionButton"
-        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView" />
+        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView"
+        tools:ignore="MissingPrefix,SmallSp" />
 
     <Button
         android:id="@+id/capacitySecondButton"
+        fontPath="fonts/MarkProBold.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -175,10 +180,12 @@
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView" />
+        app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView"
+        tools:ignore="MissingPrefix,SmallSp" />
 
     <Button
         android:id="@+id/addToCartButton"
+        fontPath="fonts/MarkProBold.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -187,6 +194,7 @@
         android:textSize="20sp"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingPrefix,SmallSp"
 
         tools:layout_editor_absoluteX="16dp" />
 

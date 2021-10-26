@@ -6,35 +6,59 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:background="@drawable/big_round_outline"
         android:id="@+id/hotSalesImageView"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:adjustViewBounds="true"
+        android:background="@drawable/big_round_outline"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
-    <ImageView
-        android:background="@drawable/big_round_outline"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/newIconHotSalesImageView"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_new"
-        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorPrimary"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
+            fontPath="fonts/MarkProBold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingPrefix,SmallSp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/modelTitleOfHotSalesTextView"
+        fontPath="fonts/MarkProBold.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -44,6 +68,7 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/descriptionHotSalesTextView"
         app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingPrefix"
         tools:text="@tools:sample/cities" />
 
     <TextView
@@ -56,26 +81,27 @@
         android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@id/buyNowButton"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="@tools:sample/cities"
-        tools:ignore="SmallSp" />
+        tools:ignore="SmallSp"
+        tools:text="@tools:sample/cities" />
 
     <Button
         android:id="@+id/buyNowButton"
+        fontPath="fonts/MarkProBold.ttf"
         android:layout_width="98dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
-        android:textSize="11sp"
         android:text="@string/buy_now"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        android:textSize="11sp"
         app:cornerRadius="8sp"
         app:layout_constraintBottom_toBottomOf="@id/hotSalesImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:rippleColor="?attr/colorPrimary"
-        tools:ignore="SmallSp" />
+        tools:ignore="MissingPrefix,SmallSp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

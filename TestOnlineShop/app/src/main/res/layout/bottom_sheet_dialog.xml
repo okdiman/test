@@ -15,6 +15,7 @@
 
         <Button
             android:id="@+id/doneBottomDialogButton"
+            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="86dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -22,27 +23,29 @@
             android:clickable="true"
             android:text="@string/done"
             android:textAllCaps="false"
-            android:textSize="18sp"
             android:textColor="@color/white"
+            android:textSize="18sp"
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:rippleColor="@color/white" />
+            app:rippleColor="@color/white"
+            tools:ignore="MissingPrefix,SmallSp" />
 
         <TextView
             android:id="@+id/filterOptionsTextView"
             style="@style/TextAppearance.AppCompat.Title"
+            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Filter options"
+            android:text="@string/filter_options"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/brandBottomDialogTextView"
             app:layout_constraintEnd_toStartOf="@+id/doneBottomDialogButton"
             app:layout_constraintStart_toEndOf="@+id/backFloatingActionButton"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
+            tools:ignore="MissingPrefix,SmallSp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/backFloatingActionButton"
@@ -60,6 +63,7 @@
 
         <TextView
             android:id="@+id/brandBottomDialogTextView"
+            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -67,7 +71,8 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/doneBottomDialogButton" />
+            app:layout_constraintTop_toBottomOf="@id/doneBottomDialogButton"
+            tools:ignore="MissingPrefix,SmallSp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/brandDropdownMenu"
@@ -90,6 +95,7 @@
 
         <TextView
             android:id="@+id/priceBottomDialogTextView"
+            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -97,7 +103,8 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/brandDropdownMenu" />
+            app:layout_constraintTop_toBottomOf="@id/brandDropdownMenu"
+            tools:ignore="MissingPrefix,SmallSp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/priceDropdownMenu"
@@ -120,6 +127,7 @@
 
         <TextView
             android:id="@+id/sizeBottomDialogTextView"
+            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -127,7 +135,8 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/priceDropdownMenu" />
+            app:layout_constraintTop_toBottomOf="@id/priceDropdownMenu"
+            tools:ignore="MissingPrefix,SmallSp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sizeDropdownMenu"

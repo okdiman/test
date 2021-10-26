@@ -18,7 +18,7 @@
     <string name="done">Done</string>
     <string name="back_button">back button</string>
     <string name="is_favorite_or_not">is favorite or not</string>
-    <string name="product_details">Product details</string>
+    <string name="product_details">Product Details</string>
     <string name="add_to_cart_price">Add to Cart $price</string>
     <string name="features">Features</string>
     <string name="details">Details</string>
@@ -32,7 +32,6 @@
     <string name="_128_gb">128 gb</string>
     <string name="inet_is_not_available">"Sorry, internet is not available now, please, check your internet connection and try again"</string>
     <string name="internet_error">Internet error</string>
-    <string name="filter_options">Filter options</string>
     <string name="pictures_of_products">pictures of products</string>
     <string name="add_address">Add address</string>
     <string name="my_cart">My cart</string>
@@ -41,6 +40,8 @@
     <string name="total">Total</string>
     <string name="moscow_russia">Moscow, Russia</string>
     <string name="server_error">Sorry, something went wrong, please, check your internet connection and try again</string>
+    <string name="filter_options">Filter options</string>
+    <string name="new_">New</string>
     <string-array name="phones_models_string_array">
         <item>Samsung</item>
         <item>Xiaomi</item>
