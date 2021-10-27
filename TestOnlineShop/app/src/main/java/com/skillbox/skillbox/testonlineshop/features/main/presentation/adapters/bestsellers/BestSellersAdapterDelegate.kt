@@ -13,6 +13,7 @@ import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
 import com.skillbox.skillbox.testonlineshop.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.best_seller_item.*
+import java.text.DecimalFormat
 
 class BestSellersAdapterDelegate(private val onItemClick: (item: BestSellers) -> Unit) :
     AbsListItemAdapterDelegate<BestSellers, BestSellers, BestSellersAdapterDelegate.Holder>() {
@@ -43,7 +44,8 @@ class BestSellersAdapterDelegate(private val onItemClick: (item: BestSellers) ->
             }
             backgroundImageView.clipToOutline = true
             modelPhoneTextView.text = item.title
-            newCostTextView.text = "$${item.newPrice}"
+
+            newCostTextView.text = "$${DecimalFormat("#,##0").format(item.newPrice)}"
             oldCostTextView.apply {
 //                    перечеркиваем текст старой цены
                 paintFlags = Paint.STRIKE_THRU_TEXT_FLAG

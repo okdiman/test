@@ -9,6 +9,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.databinding.ShopDetailsFragmentBinding
 import com.skillbox.skillbox.testonlineshop.utils.withArguments
+import java.text.DecimalFormat
 
 class ShopDetailsFragment : Fragment(R.layout.shop_details_fragment) {
     private val binding: ShopDetailsFragmentBinding by viewBinding(ShopDetailsFragmentBinding::bind)
@@ -23,7 +24,13 @@ class ShopDetailsFragment : Fragment(R.layout.shop_details_fragment) {
     private fun init() {
         binding.run {
             addToCartButton.text =
-                "Add to cart     $${requireArguments().getInt(KEY_PRICE).toDouble()}"
+                "Add to cart     $${
+                    DecimalFormat("#,##0.00").format(
+                        requireArguments().getInt(
+                            KEY_PRICE
+                        )
+                    )
+                }"
             processorTextView.text = requireArguments().getString(KEY_CPU)
             cameraTextView.text = requireArguments().getString(KEY_CAMERA)
             capacityTextView.text = requireArguments().getString(KEY_SD)

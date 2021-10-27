@@ -122,6 +122,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         }
+        binding.mainViewPager.isUserInputEnabled = false
         binding.categoryTabLayout.addOnTabSelectedListener(listener)
         mainViewModel.getCartData()
     }

@@ -9,6 +9,7 @@ import com.skillbox.skillbox.testonlineshop.features.cart.domain.entities.Basket
 import com.skillbox.skillbox.testonlineshop.databinding.CartDetailsItemBinding
 import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
 import com.skillbox.skillbox.testonlineshop.utils.inflate
+import java.text.DecimalFormat
 
 class CartInfoAdapterDelegate :
     AbsListItemAdapterDelegate<Basket, Basket, CartInfoAdapterDelegate.Holder>() {
@@ -22,7 +23,7 @@ class CartInfoAdapterDelegate :
                     clipToOutline = true
                 }
                 productTitle.text = item.title
-                productPrice.text = "$${item.price.toDouble()}"
+                productPrice.text = "$${DecimalFormat("#0.00").format(item.price)}"
                 itemsCountTextView.text = "2"
             }
         }
