@@ -45,11 +45,12 @@ class ShopDetailsFragment : Fragment(R.layout.shop_details_fragment) {
                         )?.get(0)
                     )
                 )
+                val icon = context.getDrawable(R.drawable.ic_check)?.apply {
+                    setBounds(0, 0, 60, 60)
+                    setTint((resources.getColor(R.color.white, requireContext().theme)))
+                }
+                setCompoundDrawables(null, null, icon, null)
                 setOnClickListener {
-                    val icon = context.getDrawable(R.drawable.ic_check)?.apply {
-                        setBounds(0, 0, 60, 60)
-                        setTint((resources.getColor(R.color.white, requireContext().theme)))
-                    }
                     colorOneActionButton.setCompoundDrawables(null, null, icon, null)
                     colorTwoActionButton.setCompoundDrawables(null, null, null, null)
                 }

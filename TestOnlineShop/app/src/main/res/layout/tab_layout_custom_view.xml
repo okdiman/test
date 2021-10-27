@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
@@ -7,23 +7,28 @@
     android:background="@color/background_color"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/tabCardView"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/tabBacgroundView"
         android:layout_width="71dp"
+        android:src="@color/white"
         android:layout_height="71dp"
         android:layout_gravity="center"
-        android:background="@drawable/big_round_outline"
-        app:cardCornerRadius="48dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/tabImageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            app:tint="@color/image_color"
-            tools:ignore="ContentDescription" />
+    </de.hdodenhof.circleimageview.CircleImageView>
 
-    </androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/tabImageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tabBacgroundView"
+        app:layout_constraintEnd_toEndOf="@+id/tabBacgroundView"
+        app:layout_constraintStart_toStartOf="@+id/tabBacgroundView"
+        app:layout_constraintTop_toTopOf="@+id/tabBacgroundView"
+        app:tint="@color/image_color"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tabTextView"
@@ -31,10 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="4dp"
         android:textColor="@color/image_color"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabBacgroundView"
         tools:ignore="MissingPrefix,SmallSp"
         tools:text="@tools:sample/cities" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

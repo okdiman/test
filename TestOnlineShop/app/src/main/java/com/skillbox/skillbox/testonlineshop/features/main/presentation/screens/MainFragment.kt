@@ -2,12 +2,15 @@ package com.skillbox.skillbox.testonlineshop.features.main.presentation.screens
 
 import android.graphics.Color
 import android.graphics.Outline
+import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -94,30 +97,51 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 TypesOfProducts.values().toList()[position].toString()
             tab.run {
                 customView = view
+//                устанавливаем фоновый цвет, цвет текста и цвет иконки для первой позиции
                 if (position == 0) {
-//                изменение фона CardView работает некорректно(меняет форму на квадрат)
-//                    customView?.findViewById<CardView>(R.id.tabCardView)
-//                        ?.setBackgroundColor(Color.parseColor("#FF6E4E"))
-                    customView?.findViewById<TextView>(R.id.tabTextView)
-                        ?.setTextColor(Color.parseColor("#FF6E4E"))
+                    customView?.run {
+                        findViewById<ImageView>(R.id.tabBacgroundView)
+                            ?.setImageDrawable(ColorDrawable(Color.parseColor("#FF6E4E")))
+                        findViewById<TextView>(R.id.tabTextView)
+                            ?.setTextColor(Color.parseColor("#FF6E4E"))
+                        findViewById<ImageView>(R.id.tabImageView)
+                            ?.setColorFilter(
+                                ContextCompat.getColor(requireContext(), R.color.white),
+                                PorterDuff.Mode.MULTIPLY
+                            )
+                    }
                 }
             }
         }.attach()
 //        создаем объект лисенера для tabLayout
+//        устанавливаем фоновый цвет, цвет текста и цвет иконки в зависимости от того,
+//        выбран элемент или нет
         val listener = object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-//                изменение фона CardView работает некорректно(меняет форму на квадрат)
-//                tab?.customView?.findViewById<CardView>(R.id.tabCardView)
-//                    ?.setBackgroundColor(Color.parseColor("#FF6E4E"))
-                tab?.customView?.findViewById<TextView>(R.id.tabTextView)
-                    ?.setTextColor(Color.parseColor("#FF6E4E"))
+                tab?.customView?.run {
+                    findViewById<ImageView>(R.id.tabBacgroundView)
+                        ?.setImageDrawable(ColorDrawable(Color.parseColor("#FF6E4E")))
+                    findViewById<TextView>(R.id.tabTextView)
+                        ?.setTextColor(Color.parseColor("#FF6E4E"))
+                    findViewById<ImageView>(R.id.tabImageView)
+                        ?.setColorFilter(
+                            ContextCompat.getColor(requireContext(), R.color.white)
+                        )
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-//                tab?.customView?.findViewById<CardView>(R.id.tabCardView)
-//                    ?.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
-                tab?.customView?.findViewById<TextView>(R.id.tabTextView)
-                    ?.setTextColor(Color.parseColor("#B3B3C3"))
+                tab?.customView?.run {
+                    findViewById<ImageView>(R.id.tabBacgroundView)
+                        ?.setImageDrawable(ColorDrawable(Color.parseColor("#FFFFFFFF")))
+                    findViewById<TextView>(R.id.tabTextView)
+                        ?.setTextColor(Color.parseColor("#B3B3C3"))
+                    findViewById<ImageView>(R.id.tabImageView)
+                        ?.setColorFilter(
+                            ContextCompat.getColor(requireContext(), R.color.image_color),
+                            PorterDuff.Mode.MULTIPLY
+                        )
+                }
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {}
