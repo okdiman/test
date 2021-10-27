@@ -11,7 +11,7 @@ class MyApp : Application() {
         super.onCreate()
         CalligraphyConfig.initDefault(
             CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/MarkPro.ttf")
+                .setDefaultFontPath("font/markpro.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         )

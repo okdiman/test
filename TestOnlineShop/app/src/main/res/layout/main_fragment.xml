@@ -43,14 +43,12 @@
 
                 <TextView
                     android:layout_gravity="center"
-                    style="@style/TextAppearance.AppCompat.Title"
-                    fontPath="fonts/MarkProMedium.ttf"
+                    android:fontFamily="@font/mark_pro_medium"
                     android:layout_width="119dp"
                     android:layout_height="19dp"
                     android:layout_marginEnd="4dp"
                     android:text="@string/moscow_russia"
-                    android:textSize="15sp"
-                    tools:ignore="MissingPrefix" />
+                    android:textSize="15sp"/>
 
                 <ImageView
                     android:layout_width="19dp"
@@ -90,8 +88,7 @@
 
             <TextView
                 android:id="@+id/selectCategoryTextView"
-                style="@style/TextAppearance.AppCompat.Title"
-                fontPath="fonts/MarkProBold.ttf"
+                android:fontFamily="@font/mark_pro_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -100,8 +97,7 @@
                 android:textSize="25sp"
                 app:layout_constraintEnd_toStartOf="@+id/viewAllCategoryTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/filterImageView"
-                tools:ignore="MissingPrefix" />
+                app:layout_constraintTop_toBottomOf="@+id/filterImageView" />
 
 
             <com.google.android.material.tabs.TabLayout

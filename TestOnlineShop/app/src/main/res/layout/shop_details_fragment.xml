@@ -112,8 +112,7 @@
 
     <TextView
         android:id="@+id/selectColorAndCapacityTextView"
-        style="@style/TextAppearance.AppCompat.Title"
-        fontPath="fonts/MarkProMedium.ttf"
+        android:fontFamily="@font/mark_pro_medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -122,7 +121,7 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/processorTextView"
-        tools:ignore="MissingPrefix,SmallSp" />
+        tools:ignore="SmallSp" />
 
     <Button
         android:id="@+id/colorOneActionButton"
@@ -151,7 +150,7 @@
 
     <Button
         android:id="@+id/capacityFirstButton"
-        fontPath="fonts/MarkProBold.ttf"
+        android:fontFamily="@font/mark_pro_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -163,11 +162,11 @@
         app:layout_constraintEnd_toStartOf="@id/capacitySecondButton"
         app:layout_constraintStart_toEndOf="@+id/colorTwoActionButton"
         app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView"
-        tools:ignore="MissingPrefix,SmallSp" />
+        tools:ignore="SmallSp" />
 
     <Button
         android:id="@+id/capacitySecondButton"
-        fontPath="fonts/MarkProBold.ttf"
+        android:fontFamily="@font/mark_pro_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -180,11 +179,11 @@
         app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectColorAndCapacityTextView"
-        tools:ignore="MissingPrefix,SmallSp" />
+        tools:ignore="SmallSp" />
 
     <Button
         android:id="@+id/addToCartButton"
-        fontPath="fonts/MarkProBold.ttf"
+        android:fontFamily="@font/mark_pro_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

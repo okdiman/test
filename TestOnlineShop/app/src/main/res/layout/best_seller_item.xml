@@ -45,7 +45,7 @@
 
     <TextView
         android:id="@+id/newCostTextView"
-        fontPath="fonts/MarkProBold.ttf"
+        android:fontFamily="@font/mark_pro_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -53,12 +53,11 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bestSellerItemImageView"
-        tools:ignore="MissingPrefix"
         tools:text="@tools:sample/cities" />
 
     <TextView
         android:id="@+id/oldCostTextView"
-        fontPath="fonts/MarkProMedium.ttf"
+        android:fontFamily="@font/mark_pro_medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -66,7 +65,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/newCostTextView"
         app:layout_constraintEnd_toEndOf="@+id/bestSellerItemImageView"
         app:layout_constraintStart_toEndOf="@+id/newCostTextView"
-        tools:ignore="MissingPrefix,SmallSp"
+        tools:ignore="SmallSp"
         tools:text="@tools:sample/cities" />
 
     <TextView

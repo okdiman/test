@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/productTitle"
-        fontPath="fonts/MarkProMedium.ttf"
+        android:fontFamily="@font/mark_pro_medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,12 +29,12 @@
         app:layout_constraintEnd_toStartOf="@+id/cardView"
         app:layout_constraintStart_toEndOf="@id/productImageView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingPrefix,SmallSp"
+        tools:ignore="SmallSp"
         tools:text="@tools:sample/full_names" />
 
     <TextView
         android:id="@+id/productPrice"
-        fontPath="fonts/MarkProMedium.ttf"
+        android:fontFamily="@font/mark_pro_medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -44,7 +44,7 @@
         app:layout_constraintBottom_toBottomOf="@id/productImageView"
         app:layout_constraintEnd_toStartOf="@+id/cardView"
         app:layout_constraintStart_toEndOf="@id/productImageView"
-        tools:ignore="MissingPrefix,SmallSp"
+        tools:ignore="SmallSp"
         tools:text="@tools:sample/us_zipcodes" />
 
     <androidx.cardview.widget.CardView
@@ -74,14 +74,14 @@
 
             <TextView
                 android:id="@+id/itemsCountTextView"
-                fontPath="fonts/MarkProMedium.ttf"
+                android:fontFamily="@font/mark_pro_medium"
                 android:layout_width="16dp"
                 android:layout_height="24dp"
                 android:paddingStart="4dp"
                 android:paddingTop="2dp"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                tools:ignore="MissingPrefix,RtlSymmetry" />
+                tools:ignore="RtlSymmetry" />
 
             <ImageView
                 android:layout_width="16dp"

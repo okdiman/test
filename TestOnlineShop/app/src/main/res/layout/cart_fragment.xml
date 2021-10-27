@@ -48,8 +48,7 @@
 
             <TextView
                 android:id="@+id/addAddressTextView"
-                style="@style/TextAppearance.AppCompat.Title"
-                fontPath="fonts/MarkProMedium.ttf"
+                android:fontFamily="@font/mark_pro_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -59,12 +58,11 @@
                 app:layout_constraintBottom_toBottomOf="@id/backCartFragmentButton"
                 app:layout_constraintEnd_toStartOf="@id/addLocationButton"
                 app:layout_constraintTop_toTopOf="@id/backCartFragmentButton"
-                tools:ignore="MissingPrefix,SmallSp" />
+                tools:ignore="SmallSp" />
 
             <TextView
                 android:id="@+id/myCartTextView"
-                style="@style/TextAppearance.AppCompat.Title"
-                fontPath="fonts/MarkProBold.ttf"
+                android:fontFamily="@font/mark_pro_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -74,7 +72,7 @@
                 android:textSize="35sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/backCartFragmentButton"
-                tools:ignore="MissingPrefix,SmallSp" />
+                tools:ignore="SmallSp" />
 
             <ImageView
                 android:id="@+id/backgroundImageView"
@@ -111,7 +109,7 @@
 
             <TextView
                 android:id="@+id/totalDeliveryPriceTextView"
-                fontPath="fonts/MarkProBold.ttf"
+                android:fontFamily="@font/mark_pro_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
@@ -121,12 +119,12 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/checkoutButton"
                 app:layout_constraintStart_toStartOf="@id/addAddressTextView"
-                tools:ignore="MissingPrefix,SmallSp"
+                tools:ignore="SmallSp"
                 tools:text="@tools:sample/cities" />
 
             <TextView
                 android:id="@+id/totalPriceTextView"
-                fontPath="fonts/MarkProBold.ttf"
+                android:fontFamily="@font/mark_pro_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
@@ -136,7 +134,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/totalDeliveryPriceTextView"
                 app:layout_constraintStart_toStartOf="@id/addAddressTextView"
-                tools:ignore="MissingPrefix,SmallSp"
+                tools:ignore="SmallSp"
                 tools:text="@tools:sample/us_zipcodes" />
 
 
@@ -177,7 +175,7 @@
 
             <Button
                 android:id="@+id/checkoutButton"
-                fontPath="fonts/MarkProBold.ttf"
+                android:fontFamily="@font/mark_pro_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
@@ -185,7 +183,7 @@
                 android:textAllCaps="false"
                 app:cornerRadius="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:ignore="MissingPrefix,SmallSp" />
+                tools:ignore="SmallSp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

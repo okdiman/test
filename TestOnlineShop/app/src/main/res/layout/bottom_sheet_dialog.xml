@@ -15,12 +15,12 @@
 
         <Button
             android:id="@+id/doneBottomDialogButton"
-            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="86dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:backgroundTint="?attr/colorPrimary"
             android:clickable="true"
+            android:fontFamily="@font/mark_pro_medium"
             android:text="@string/done"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -29,15 +29,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:rippleColor="@color/white"
-            tools:ignore="MissingPrefix,SmallSp" />
+            tools:ignore="SmallSp" />
 
         <TextView
             android:id="@+id/filterOptionsTextView"
-            style="@style/TextAppearance.AppCompat.Title"
-            fontPath="fonts/MarkProMedium.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:fontFamily="@font/mark_pro_medium"
             android:text="@string/filter_options"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -45,7 +44,7 @@
             app:layout_constraintEnd_toStartOf="@+id/doneBottomDialogButton"
             app:layout_constraintStart_toEndOf="@+id/backFloatingActionButton"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingPrefix,SmallSp" />
+            tools:ignore="SmallSp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/backFloatingActionButton"
@@ -63,7 +62,7 @@
 
         <TextView
             android:id="@+id/brandBottomDialogTextView"
-            fontPath="fonts/MarkProMedium.ttf"
+            android:fontFamily="@font/mark_pro_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -72,7 +71,7 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/doneBottomDialogButton"
-            tools:ignore="MissingPrefix,SmallSp" />
+            tools:ignore="SmallSp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/brandDropdownMenu"
@@ -95,7 +94,7 @@
 
         <TextView
             android:id="@+id/priceBottomDialogTextView"
-            fontPath="fonts/MarkProMedium.ttf"
+            android:fontFamily="@font/mark_pro_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -104,7 +103,7 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/brandDropdownMenu"
-            tools:ignore="MissingPrefix,SmallSp" />
+            tools:ignore="SmallSp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/priceDropdownMenu"
@@ -127,7 +126,7 @@
 
         <TextView
             android:id="@+id/sizeBottomDialogTextView"
-            fontPath="fonts/MarkProMedium.ttf"
+            android:fontFamily="@font/mark_pro_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -136,7 +135,7 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/priceDropdownMenu"
-            tools:ignore="MissingPrefix,SmallSp" />
+            tools:ignore="SmallSp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sizeDropdownMenu"

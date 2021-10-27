@@ -43,8 +43,7 @@
 
         <TextView
             android:id="@+id/productDetailsTextView"
-            style="@style/TextAppearance.AppCompat.Title"
-            fontPath="fonts/MarkProMedium.ttf"
+            android:fontFamily="@font/mark_pro_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -55,7 +54,7 @@
             app:layout_constraintEnd_toStartOf="@id/cartDetailsFragmentButton"
             app:layout_constraintStart_toEndOf="@id/backDetailsFragmentButton"
             app:layout_constraintTop_toTopOf="@id/backDetailsFragmentButton"
-            tools:ignore="MissingPrefix,SmallSp" />
+            tools:ignore="SmallSp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/detailsInfoRecyclerView"
@@ -85,7 +84,7 @@
 
         <TextView
             android:id="@+id/titleOfModelTextView"
-            style="@style/TextAppearance.AppCompat.Title"
+            android:fontFamily="@font/mark_pro_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
