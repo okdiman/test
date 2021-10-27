@@ -37,7 +37,7 @@
             app:fabCustomSize="37dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:maxImageSize="18dp"
+            app:maxImageSize="14dp"
             app:tint="@color/white"
             tools:ignore="ContentDescription" />
 
