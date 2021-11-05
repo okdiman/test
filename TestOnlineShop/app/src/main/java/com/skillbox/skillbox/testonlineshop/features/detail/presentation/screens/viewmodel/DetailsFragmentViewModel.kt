@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.testonlineshop.features.detail.domain.entities.Product
 import com.skillbox.skillbox.testonlineshop.features.detail.domain.repository.DetailRepository
-import com.skillbox.skillbox.testonlineshop.features.general.domain.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

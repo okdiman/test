@@ -12,13 +12,20 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class MainScreenNetworkModule {
 
+    //    создаем квалификатор для пометки данных mainScreen
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class MainScreenRetrofitData
+
     //    провайдим кастомный интерцептор для добавления api key в запрос
+    @MainScreenRetrofitData
     @Provides
     fun providesApiKeyInterceptor(): Interceptor {
         return Interceptor { chain ->
@@ -35,9 +42,10 @@ class MainScreenNetworkModule {
     }
 
     //    провайдим синглтон okHttpClient
+    @MainScreenRetrofitData
     @Provides
     @Singleton
-    fun providesClient(apiKeyInterceptor: Interceptor): OkHttpClient {
+    fun providesClient(@MainScreenRetrofitData apiKeyInterceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
 //        добавляем наш интерцептор для добавления ключа
             .addInterceptor(apiKeyInterceptor)
@@ -45,9 +53,10 @@ class MainScreenNetworkModule {
     }
 
     //    провайдим синглтон Retrofit
+    @MainScreenRetrofitData
     @Provides
     @Singleton
-    fun providesRetrofit(client: OkHttpClient): Retrofit {
+    fun providesRetrofit(@MainScreenRetrofitData client: OkHttpClient): Retrofit {
         //    создаем объект ретрофита
         return Retrofit.Builder()
             .baseUrl("https://db2021ecom-edca.restdb.io/rest/")
@@ -58,7 +67,7 @@ class MainScreenNetworkModule {
 
     //    провайдим наш MainScreenApi
     @Provides
-    fun providesApi(retrofit: Retrofit): MainScreenApi {
+    fun providesApi(@MainScreenRetrofitData retrofit: Retrofit): MainScreenApi {
         //    связываем наш Api интерфейс и ретрофит
         return retrofit.create()
     }

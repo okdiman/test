@@ -12,13 +12,20 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class CartNetworkModule {
 
+    //    создаем квалификатор для пометки данных mainScreen
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class CartRetrofitData
+
     //    провайдим кастомный интерцептор для добавления api key в запрос
+    @CartRetrofitData
     @Provides
     fun providesApiKeyInterceptor(): Interceptor {
         return Interceptor { chain ->
@@ -35,9 +42,10 @@ class CartNetworkModule {
     }
 
     //    провайдим синглтон okHttpClient
+    @CartRetrofitData
     @Provides
     @Singleton
-    fun providesClient(apiKeyInterceptor: Interceptor): OkHttpClient {
+    fun providesClient(@CartRetrofitData apiKeyInterceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
 //        добавляем наш интерцептор для добавления ключа
             .addInterceptor(apiKeyInterceptor)
@@ -45,9 +53,10 @@ class CartNetworkModule {
     }
 
     //    провайдим синглтон Retrofit
+    @CartRetrofitData
     @Provides
     @Singleton
-    fun providesRetrofit(client: OkHttpClient): Retrofit {
+    fun providesRetrofit(@CartRetrofitData client: OkHttpClient): Retrofit {
         //    создаем объект ретрофита
         return Retrofit.Builder()
             .baseUrl("https://db2021ecom-edca.restdb.io/rest/")
@@ -58,7 +67,7 @@ class CartNetworkModule {
 
     //    провайдим наш CartApi
     @Provides
-    fun providesApi(retrofit: Retrofit): CartApi {
+    fun providesApi(@CartRetrofitData retrofit: Retrofit): CartApi {
         //    связываем наш Api интерфейс и ретрофит
         return retrofit.create()
     }

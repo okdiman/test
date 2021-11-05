@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.skillbox.skillbox.testonlineshop.features.general.domain.repository.Repository
 import com.skillbox.skillbox.testonlineshop.features.cart.data.models.CartDetailsWrapper
 import com.skillbox.skillbox.testonlineshop.features.main.data.models.MainScreenResponseWrapper
 import com.skillbox.skillbox.testonlineshop.features.main.domain.repository.MainScreenRepository
