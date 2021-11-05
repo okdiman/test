@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.testonlineshop.features.detail.domain.entities.Product
+import com.skillbox.skillbox.testonlineshop.features.detail.domain.repository.DetailRepository
 import com.skillbox.skillbox.testonlineshop.features.general.domain.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsFragmentViewModel @Inject constructor(private val repo: Repository) : ViewModel() {
+class DetailsFragmentViewModel @Inject constructor(private val repo: DetailRepository) : ViewModel() {
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
 

@@ -1,8 +1,8 @@
-package com.skillbox.skillbox.testonlineshop.features.general.domain.daggermodules
+package com.skillbox.skillbox.testonlineshop.features.main.domain.daggermodules
 
 import android.util.Log
-import com.skillbox.skillbox.testonlineshop.features.general.data.network.MyApi
-import com.skillbox.skillbox.testonlineshop.features.general.data.network.apiKey
+import com.skillbox.skillbox.testonlineshop.core.utils.apiKey
+import com.skillbox.skillbox.testonlineshop.features.main.data.network.MainScreenApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NetworkModule {
+class MainScreenNetworkModule {
 
     //    провайдим кастомный интерцептор для добавления api key в запрос
     @Provides
@@ -56,9 +56,9 @@ class NetworkModule {
             .build()
     }
 
-    //    провайдим наш Api
+    //    провайдим наш MainScreenApi
     @Provides
-    fun providesApi(retrofit: Retrofit): MyApi {
+    fun providesApi(retrofit: Retrofit): MainScreenApi {
         //    связываем наш Api интерфейс и ретрофит
         return retrofit.create()
     }
