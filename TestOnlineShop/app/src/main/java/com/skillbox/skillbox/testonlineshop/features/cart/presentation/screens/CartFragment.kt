@@ -5,21 +5,21 @@ import android.graphics.Outline
 import android.os.Bundle
 import android.view.View
 import android.view.ViewOutlineProvider
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.core.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.databinding.CartFragmentBinding
+import com.skillbox.skillbox.testonlineshop.features.cart.data.models.CartState
 import com.skillbox.skillbox.testonlineshop.features.cart.presentation.adapters.CartInfoAdapter
 import com.skillbox.skillbox.testonlineshop.features.cart.presentation.screens.viewmodel.CartFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class CartFragment : Fragment(R.layout.cart_fragment) {
@@ -53,46 +53,42 @@ class CartFragment : Fragment(R.layout.cart_fragment) {
         }
         cartViewModel.getCartInfo()
         binding.backgroundImageView.run {
-//                создаем объект провайдера контура вью и указываем только верхние радиусы для закругления
-            outlineProvider = object : ViewOutlineProvider() {
-                override fun getOutline(view: View?, outline: Outline?) {
-                    val curveRadius = 60F
-                    outline?.setRoundRect(
-                        0,
-                        0,
-                        view!!.width,
-                        (view.height + curveRadius).toInt(),
-                        curveRadius
-                    )
-                }
-            }
-//                применяем изменения контура
-            clipToOutline = true
+            initBackGroundImageView(this)
         }
+    }
+
+    private fun initBackGroundImageView(imageView: ImageView) {
+//                создаем объект провайдера контура вью и указываем только верхние радиусы для закругления
+        imageView.outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View?, outline: Outline?) {
+                val curveRadius = 60F
+                outline?.setRoundRect(
+                    0,
+                    0,
+                    view!!.width,
+                    (view.height + curveRadius).toInt(),
+                    curveRadius
+                )
+            }
+        }
+//                применяем изменения контура
+        imageView.clipToOutline = true
     }
 
 
     //    подписываемся на обновления вьюмодели
     @SuppressLint("SetTextI18n")
     private fun bindViewModel() {
-        lifecycleScope.launchWhenResumed {
-            cartViewModel.cartStateFlow.collect { result ->
-                cartDetailsAdapter.items = result?.basket
-                binding.run {
-                    totalPriceTextView.text = "$${result?.total} us"
-                    totalDeliveryPriceTextView.text = result?.delivery
-                }
-            }
-        }
-        lifecycleScope.launchWhenResumed {
-            cartViewModel.isLoadingStateFlow.collect {
-                binding.progressBar.isVisible = it
-            }
-        }
-        lifecycleScope.launchWhenResumed {
-            cartViewModel.isErrorLiveData.collect { error ->
-                if (error) {
+        cartViewModel.cartStateFlow.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is CartState.Loading -> binding.progressBar.isVisible = true
+                is CartState.Error -> {
+                    binding.progressBar.isVisible = false
                     toastLong(R.string.server_error)
+                }
+                is CartState.Success -> {
+                    binding.progressBar.isVisible = false
+                    cartDetailsAdapter.items = state.result.basket
                 }
             }
         }

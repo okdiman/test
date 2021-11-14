@@ -19,7 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(private val repo: MainScreenRepository) : ViewModel() {
 
-
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
 
@@ -32,7 +31,6 @@ class MainScreenViewModel @Inject constructor(private val repo: MainScreenReposi
     private val _cartLiveData = MutableLiveData<CartDetailsWrapper>()
     val cartLiveData: LiveData<CartDetailsWrapper>
         get() = _cartLiveData
-
 
     //    stateFlow статуса загрузки
     private val _isLoadingStateFlow = MutableStateFlow(false)
