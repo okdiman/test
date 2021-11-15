@@ -19,6 +19,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.databinding.MainFragmentBinding
+import com.skillbox.skillbox.testonlineshop.features.main.data.models.MainScreenState
+import com.skillbox.skillbox.testonlineshop.features.main.data.models.PhonesScreenState
 import com.skillbox.skillbox.testonlineshop.features.main.domain.entities.TypesOfProducts
 import com.skillbox.skillbox.testonlineshop.features.main.presentation.adapters.viewpager.MainFragmentViewPagerAdapter
 import com.skillbox.skillbox.testonlineshop.features.main.presentation.screens.viewmodel.MainScreenViewModel
@@ -165,10 +167,15 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     //    подписка на изменения вью модели
     private fun bindingViewModel() {
-        mainViewModel.cartLiveData.observe(viewLifecycleOwner) { result ->
-            binding.bottomAppBar.getOrCreateBadge(R.id.cartItemBottomBar).run {
-                isVisible = true
-                number = result.basket.size
+        mainViewModel.cartLiveData.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MainScreenState.Success -> {
+                    binding.bottomAppBar.getOrCreateBadge(R.id.cartItemBottomBar).run {
+                        isVisible = true
+                        number = state.result.basket.size
+                    }
+                }
+                else -> {}
             }
         }
     }

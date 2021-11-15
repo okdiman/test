@@ -5,57 +5,45 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.skillbox.skillbox.testonlineshop.features.cart.data.models.CartDetailsWrapper
-import com.skillbox.skillbox.testonlineshop.features.main.data.models.MainScreenResponseWrapper
+import com.skillbox.skillbox.testonlineshop.features.main.data.models.MainScreenState
+import com.skillbox.skillbox.testonlineshop.features.main.data.models.PhonesScreenState
 import com.skillbox.skillbox.testonlineshop.features.main.domain.repository.MainScreenRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainScreenViewModel @Inject constructor(private val repo: MainScreenRepository) : ViewModel() {
+class MainScreenViewModel @Inject constructor(private val repo: MainScreenRepository) :
+    ViewModel() {
 
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
 
     //    StateFlow для получения ответа от сервера
-    private val _productsStateFlow = MutableStateFlow<MainScreenResponseWrapper?>(null)
-    val productsStateFlow: StateFlow<MainScreenResponseWrapper?>
-        get() = _productsStateFlow
+    private val _productsLiveData = MutableLiveData<PhonesScreenState>()
+    val productsLiveData: LiveData<PhonesScreenState>
+        get() = _productsLiveData
 
     //    LiveData для получения корзины полльзователя
-    private val _cartLiveData = MutableLiveData<CartDetailsWrapper>()
-    val cartLiveData: LiveData<CartDetailsWrapper>
+    private val _cartLiveData = MutableLiveData<MainScreenState>()
+    val cartLiveData: LiveData<MainScreenState>
         get() = _cartLiveData
 
-    //    stateFlow статуса загрузки
-    private val _isLoadingStateFlow = MutableStateFlow(false)
-    val isLoadingStateFlow: StateFlow<Boolean> = _isLoadingStateFlow
-
-    //    stateFlow ошибок
-    private val _isErrorLiveData = MutableStateFlow(false)
-    val isErrorLiveData: StateFlow<Boolean> = _isErrorLiveData
 
     //    получение данных для стратового экрана
     fun getMainScreenData() {
-        _isErrorLiveData.value = false
+        _productsLiveData.postValue(PhonesScreenState.Loading)
         currentJob?.cancel()
         viewModelScope.launch(Dispatchers.IO) {
-            _isLoadingStateFlow.value = true
             try {
-                _productsStateFlow.value = repo.getMainScreenData()
-                _cartLiveData.postValue(repo.getCartInfo())
+                _productsLiveData.postValue(PhonesScreenState.Success(repo.getMainScreenData()))
             } catch (t: Throwable) {
                 Log.i("cartError", "$t")
                 if (t !is kotlinx.coroutines.CancellationException) {
-                    _isErrorLiveData.value = true
+                    _productsLiveData.postValue(PhonesScreenState.Error)
                 }
-            } finally {
-                _isLoadingStateFlow.value = false
             }
         }
             .also { currentJob = it }
@@ -64,17 +52,14 @@ class MainScreenViewModel @Inject constructor(private val repo: MainScreenReposi
     //    получение корзины пользователя
     fun getCartData() {
         viewModelScope.launch(Dispatchers.IO) {
-            _isLoadingStateFlow.value = true
+            _cartLiveData.postValue(MainScreenState.Loading)
             try {
-                _cartLiveData.postValue(repo.getCartInfo())
+                _cartLiveData.postValue(MainScreenState.Success(repo.getCartInfo()))
             } catch (t: Throwable) {
                 Log.i("cartError", "$t")
                 if (t !is kotlinx.coroutines.CancellationException) {
-                    _isErrorLiveData.value = true
+                    _cartLiveData.postValue(MainScreenState.Error)
                 }
-            } finally {
-                _isErrorLiveData.value = false
-                _isLoadingStateFlow.value = false
             }
         }
     }
