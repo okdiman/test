@@ -7,20 +7,19 @@ import android.view.ViewOutlineProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.skillbox.skillbox.testonlineshop.R
 import com.skillbox.skillbox.testonlineshop.core.utils.autoCleared
 import com.skillbox.skillbox.testonlineshop.databinding.DetailsFragmentBinding
+import com.skillbox.skillbox.testonlineshop.features.detail.data.models.DetailsState
 import com.skillbox.skillbox.testonlineshop.features.detail.domain.entities.Product
-import com.skillbox.skillbox.testonlineshop.features.detail.presentation.adapters.viewpager.DetailsFragmentViewPagerAdapter
 import com.skillbox.skillbox.testonlineshop.features.detail.presentation.adapters.detailsinfo.DetailsInfoAdapter
+import com.skillbox.skillbox.testonlineshop.features.detail.presentation.adapters.viewpager.DetailsFragmentViewPagerAdapter
 import com.skillbox.skillbox.testonlineshop.features.detail.presentation.screens.viewmodel.DetailsFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import recycler.coverflow.CoverFlowLayoutManger
 
 @AndroidEntryPoint
@@ -100,46 +99,41 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
     //    подписываемся на обновления вьюмодели
     private fun bindViewModel() {
-        lifecycleScope.launchWhenResumed {
-            detailsViewModel.detailsInfoStateFlow.collect { product ->
-                binding.run {
-//                    если результат не null, то устанавливаем необходимые значения во все вьюшки
-                    if (product != null) {
-                        initTabLayout(product)
-                        titleOfModelTextView.text = product.title
-                        ratingBar.rating = product.rating!!
-                        if (product.is_favorites) {
+        detailsViewModel.detailsInfoStateLiveData.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DetailsState.Loading -> binding.progressBar.isVisible = true
+                is DetailsState.Error -> {
+                    binding.progressBar.isVisible = false
+                    toastLong(R.string.server_error)
+                }
+                is DetailsState.Success -> {
+                    binding.progressBar.isVisible = false
+                    binding.run {
+                        initTabLayout(state.product)
+                        titleOfModelTextView.text = state.product.title
+                        ratingBar.rating = state.product.rating!!
+                        if (state.product.is_favorites) {
                             favoritesDetailsFragmentActionButton
                                 .setImageResource(R.drawable.ic_favorite_full)
                         }
-                        detailsInfoAdapter.items = product.images?.plus(imagesList)
+                        detailsInfoAdapter.items = state.product.images?.plus(imagesList)
 //                        лисенер на кнопку favorites здесь потому что мы не получаем объект
 //                        продукта во фрагмент из вне, поэтому не вижу смысла создавать
 //                        объект продукта отдельно только чтобы создать лисенер при
 //                        инициализации фрагмента, все равно обращение к серверу п
 //                        роисходит в момент инициализации
                         favoritesDetailsFragmentActionButton.setOnClickListener {
-                            if (product.is_favorites) {
-                                product.is_favorites = false
+                            if (state.product.is_favorites) {
+                                state.product.is_favorites = false
                                 favoritesDetailsFragmentActionButton
                                     .setImageResource(R.drawable.ic_favorite)
                             } else {
-                                product.is_favorites = true
+                                state.product.is_favorites = true
                                 favoritesDetailsFragmentActionButton
                                     .setImageResource(R.drawable.ic_favorite_full)
                             }
                         }
                     }
-                }
-            }
-        }
-        lifecycleScope.launchWhenResumed {
-            detailsViewModel.isLoadingStateFlow.collect { binding.progressBar.isVisible = it }
-        }
-        lifecycleScope.launchWhenResumed {
-            detailsViewModel.isErrorLiveData.collect { error ->
-                if (error) {
-                    toastLong(R.string.server_error)
                 }
             }
         }

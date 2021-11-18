@@ -79,7 +79,7 @@ class CartFragment : Fragment(R.layout.cart_fragment) {
     //    подписываемся на обновления вьюмодели
     @SuppressLint("SetTextI18n")
     private fun bindViewModel() {
-        cartViewModel.cartStateFlow.observe(viewLifecycleOwner) { state ->
+        cartViewModel.cartLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is CartState.Loading -> binding.progressBar.isVisible = true
                 is CartState.Error -> {

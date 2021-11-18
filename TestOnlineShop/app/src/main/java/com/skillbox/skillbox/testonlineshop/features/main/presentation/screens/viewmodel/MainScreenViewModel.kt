@@ -21,7 +21,7 @@ class MainScreenViewModel @Inject constructor(private val repo: MainScreenReposi
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
 
-    //    StateFlow для получения ответа от сервера
+    //    LiveData для получения ответа от сервера
     private val _productsLiveData = MutableLiveData<PhonesScreenState>()
     val productsLiveData: LiveData<PhonesScreenState>
         get() = _productsLiveData
@@ -30,7 +30,6 @@ class MainScreenViewModel @Inject constructor(private val repo: MainScreenReposi
     private val _cartLiveData = MutableLiveData<MainScreenState>()
     val cartLiveData: LiveData<MainScreenState>
         get() = _cartLiveData
-
 
     //    получение данных для стратового экрана
     fun getMainScreenData() {

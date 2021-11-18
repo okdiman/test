@@ -22,13 +22,7 @@ class DetailsFragmentViewPagerAdapter(
         return when (menuItems[position]) {
 //            при открытии вкладки shop создаем инстанс Shop фрагмента
             "Shop" -> ShopDetailsFragment.newInstance(
-                product.cpu,
-                product.camera,
-                product.sd,
-                product.ssd,
-                product.color,
-                product.capacity,
-                product.price
+                product
             )
             else -> Fragment()
         }

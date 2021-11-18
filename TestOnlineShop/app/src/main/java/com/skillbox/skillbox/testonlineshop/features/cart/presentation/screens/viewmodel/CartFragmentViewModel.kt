@@ -18,21 +18,21 @@ class CartFragmentViewModel @Inject constructor(private val repo: CartRepository
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
 
-    //    stateFlow для получения корзины пользователя
-    private val _cartStateFlow = MutableLiveData<CartState>()
-    val cartStateFlow: LiveData<CartState>
-        get() = _cartStateFlow
+    //    LiveData для получения корзины пользователя
+    private val _cartLiveData = MutableLiveData<CartState>()
+    val cartLiveData: LiveData<CartState>
+        get() = _cartLiveData
 
     //    получение данных корзины пользователя
     fun getCartInfo() {
-        _cartStateFlow.postValue(CartState.Loading)
+        _cartLiveData.postValue(CartState.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _cartStateFlow.postValue(CartState.Success(repo.getCartInfo()))
+                _cartLiveData.postValue(CartState.Success(repo.getCartInfo()))
             } catch (t: Throwable) {
                 Log.i("cartError", "$t")
                 if (t !is kotlinx.coroutines.CancellationException) {
-                    _cartStateFlow.postValue(CartState.Error)
+                    _cartLiveData.postValue(CartState.Error)
                 }
             }
         }
