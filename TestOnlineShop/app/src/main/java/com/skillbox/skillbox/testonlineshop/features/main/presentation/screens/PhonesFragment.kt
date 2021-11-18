@@ -81,6 +81,7 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
         } else {
 //            выбрасываем диалог в случае отсутсвия сети
             AlertDialog.Builder(requireContext())
+                .setCancelable(false)
                 .setTitle(R.string.internet_error)
                 .setMessage(R.string.inet_is_not_available)
                 .setPositiveButton("Try again") { _, _ -> startRequest() }

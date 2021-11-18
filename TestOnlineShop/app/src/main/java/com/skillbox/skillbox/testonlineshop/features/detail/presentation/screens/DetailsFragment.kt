@@ -32,7 +32,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 //    ибо в запросе приходит только 1 изображение
     private val imagesList = mutableListOf(
         "https://www.reliancedigital.in/medias/Samsung-Note20-Ultra-MobilePhones-491900824-i-5-1200Wx1200H?context=bWFzdGVyfGltYWdlc3wzNjY0NTB8aW1hZ2UvanBlZ3xpbWFnZXMvaGRkL2g5My85MzU0MDY2Mjk2ODYyLmpwZ3xiMzAzZGRiM2Q1ZDA3ZTI3YzE2ZGQ5NTAxNjc3YzZmY2EwYjAyNmVmNmM5MjFkMTc4ZTc3MTE0N2IxMTQ3MTgw",
-        "https://milanooshop.com/wp-content/uploads/2021/04/SQ_vpavic_200807_4133_0107.jpeg"
+        "https://www.giztop.com/media/catalog/product/cache/dc206057cdd42d7e34b9d36e347785ca/s/a/samsung_galaxy_note_20_ultra_case-_6.jpg"
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

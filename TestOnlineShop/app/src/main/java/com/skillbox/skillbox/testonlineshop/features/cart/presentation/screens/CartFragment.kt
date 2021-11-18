@@ -20,6 +20,7 @@ import com.skillbox.skillbox.testonlineshop.features.cart.presentation.adapters.
 import com.skillbox.skillbox.testonlineshop.features.cart.presentation.screens.viewmodel.CartFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class CartFragment : Fragment(R.layout.cart_fragment) {
@@ -87,7 +88,12 @@ class CartFragment : Fragment(R.layout.cart_fragment) {
                     toastLong(R.string.server_error)
                 }
                 is CartState.Success -> {
-                    binding.progressBar.isVisible = false
+                    binding.run {
+                        progressBar.isVisible = false
+                        totalPriceTextView.text =
+                            "$${DecimalFormat("#0.00").format(state.result.total)}"
+                        totalDeliveryPriceTextView.text = state.result.delivery
+                    }
                     cartDetailsAdapter.items = state.result.basket
                 }
             }
