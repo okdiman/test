@@ -1,0 +1,6 @@
+include ':feature-cartscreen'
+include ':feature-detailsscreen'
+include ':core'
+include ':feature-mainscreen'
+include ':app'
+rootProject.name = "Test Online Shop"

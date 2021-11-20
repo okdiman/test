@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/backDetailsFragmentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_back"
+            app:fabCustomSize="37dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="18dp"
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cartDetailsFragmentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="?attr/colorPrimary"
+            android:src="@drawable/cart"
+            app:fabCustomSize="37dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="14dp"
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/productDetailsTextView"
+            android:fontFamily="@font/mark_pro_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/product_details"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/backDetailsFragmentButton"
+            app:layout_constraintEnd_toStartOf="@id/cartDetailsFragmentButton"
+            app:layout_constraintStart_toEndOf="@id/backDetailsFragmentButton"
+            app:layout_constraintTop_toTopOf="@id/backDetailsFragmentButton"
+            tools:ignore="SmallSp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detailsInfoRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/titleOfModelTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/backDetailsFragmentButton"
+            tools:listitem="@layout/item_details_info_recycler_view" />
+
+        <ImageView
+            android:id="@+id/detailsFragmentBackgroundImageView"
+            fontPath="fonts/MarkProMedium.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/big_round_outline"
+            android:src="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailsInfoRecyclerView"
+            tools:ignore="ContentDescription,MissingPrefix,SmallSp" />
+
+        <TextView
+            android:id="@+id/titleOfModelTextView"
+            android:fontFamily="@font/mark_pro_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+            app:layout_constraintEnd_toStartOf="@+id/favoritesDetailsFragmentActionButton"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@tools:sample/full_names" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/favoritesDetailsFragmentActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_favorite"
+            app:fabCustomSize="36dp"
+            app:layout_constraintBottom_toBottomOf="@+id/titleOfModelTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/titleOfModelTextView"
+            app:maxImageSize="20dp"
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:progressTint="@color/golden"
+            android:scaleX=".6"
+            android:scaleY=".6"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/detailsTabLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/detailsTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="6dp"
+            app:layout_constraintBottom_toTopOf="@+id/detailInfoViewPager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/TextAppearance.AppCompat.Title"
+            tools:ignore="MissingPrefix,SmallSp" />
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/detailInfoViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

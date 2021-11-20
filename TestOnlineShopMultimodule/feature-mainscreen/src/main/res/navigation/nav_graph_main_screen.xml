@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main_screen"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.skillbox.skillbox.mainscreen.presentation.screens.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_filterBottomSheetDialog"
+            app:destination="@id/filterBottomSheetDialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/phonesFragment"
+        android:name="com.skillbox.skillbox.mainscreen.presentation.screens.PhonesFragment"
+        android:label="PhonesFragment"
+        tools:layout="@layout/phones_fragment" />
+    <dialog
+        android:id="@+id/filterBottomSheetDialog"
+        android:name="com.skillbox.skillbox.mainscreen.presentation.screens.FilterBottomSheetDialog"
+        android:label="FilterBottomSheetDialog"
+        tools:layout="@layout/bottom_sheet_dialog" />
+</navigation>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:fillViewport="true">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/background_color"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_color">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:elevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_location"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/mark_pro_medium"
+                    android:layout_width="119dp"
+                    android:layout_height="19dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/moscow_russia"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_down"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/filterImageView"
+                android:layout_width="13dp"
+                android:layout_height="11dp"
+                android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/filter_image_view"
+                android:src="@drawable/filter"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+            <Button
+                android:id="@+id/viewAllCategoryTextView"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/view_all"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/categoryTabLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filterImageView" />
+
+            <TextView
+                android:id="@+id/selectCategoryTextView"
+                android:fontFamily="@font/mark_pro_bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/select_category"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toStartOf="@+id/viewAllCategoryTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/filterImageView" />
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/categoryTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="92dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/background_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selectCategoryTextView"
+                app:tabIndicator="@null"
+                app:tabMode="scrollable"
+                app:tabRippleColor="@color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:contentDescription="@string/qr_action"
+                android:src="@drawable/ic_qr_code"
+                app:fabCustomSize="34dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryTabLayout"
+                app:maxImageSize="20dp"
+                app:tint="@color/white" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/searchViewCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/mainViewPager"
+                app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryTabLayout">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    app:iconifiedByDefault="false" />
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/mainViewPager"
+                android:layout_width="0dp"
+                android:layout_height="720dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/floatingActionButton" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSecondary"
+        android:nestedScrollingEnabled="false"
+        app:itemIconSize="18sp"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_app_navigation_menu" />
+</androidx.constraintlayout.widget.ConstraintLayout>
