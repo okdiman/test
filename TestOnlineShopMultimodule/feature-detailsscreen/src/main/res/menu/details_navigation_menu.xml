@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/shopItem"
+        android:enabled="true"
+        android:title="@string/shop"/>
+
+    <item
+        android:id="@+id/detailsItem"
+        android:enabled="true"
+        android:title="@string/details"/>
+
+    <item
+        android:id="@+id/featuresItem"
+        android:enabled="true"
+        android:title="@string/features"/>
+
+</menu>

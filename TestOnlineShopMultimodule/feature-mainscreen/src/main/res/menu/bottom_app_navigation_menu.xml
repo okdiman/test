@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/explorerItemBottomBar"
+        fontPath="fonts/MarkProBold.ttf"
+        android:enabled="true"
+        android:icon="@drawable/ic_brightness"
+        android:title="@string/explorer"
+        tools:ignore="MissingPrefix" />
+
+    <item
+        android:id="@+id/cartItemBottomBar"
+        fontPath="fonts/MarkProBold.ttf"
+        android:enabled="true"
+        android:icon="@drawable/cart"
+        android:title="@string/cart"
+        tools:ignore="MissingPrefix" />
+
+    <item
+        android:id="@+id/favoriteItemBottomBar"
+        fontPath="fonts/MarkProBold.ttf"
+        android:enabled="true"
+        android:icon="@drawable/favorite"
+        android:title="@string/favorite"
+        tools:ignore="MissingPrefix" />
+
+    <item
+        android:id="@+id/profileItemBottomBar"
+        fontPath="fonts/MarkProBold.ttf"
+        android:enabled="true"
+        android:icon="@drawable/profile"
+        android:title="@string/profile"
+        tools:ignore="MissingPrefix" />
+
+
+</menu>

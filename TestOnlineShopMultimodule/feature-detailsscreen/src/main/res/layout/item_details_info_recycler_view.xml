@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:background="@drawable/big_round_outline"
+        android:id="@+id/itemDetailsInfoImageView"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        tools:src="@tools:sample/backgrounds/scenic"
+        android:contentDescription="@string/pictures_of_products" />
+
+</FrameLayout>
