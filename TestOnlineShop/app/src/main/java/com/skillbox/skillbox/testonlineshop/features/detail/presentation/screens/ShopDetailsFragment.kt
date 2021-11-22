@@ -94,6 +94,7 @@ class ShopDetailsFragment : Fragment(R.layout.shop_details_fragment) {
         }
     }
 
+
     companion object {
         private const val KEY_PRODUCT = "key_product"
         //        инстанс фрагмента для его открытия из tabLayout
