@@ -6,7 +6,7 @@ import com.skillbox.skillbox.mainscreen.data.network.MainScreenApi
 import com.skillbox.skillbox.mainscreen.domain.repository.MainScreenRepository
 import javax.inject.Inject
 
-class MainScreenRepositoryImpl @Inject constructor(private val mainScreenApi: MainScreenApi) :
+class MainScreenRepositoryImpl (private val mainScreenApi: MainScreenApi) :
     MainScreenRepository {
     //    запрос на получение данных неохоимых для стартового экрана
     override suspend fun getMainScreenData(): MainScreenResponseWrapper {

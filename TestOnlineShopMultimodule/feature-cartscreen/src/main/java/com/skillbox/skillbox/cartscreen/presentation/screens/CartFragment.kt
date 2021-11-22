@@ -8,7 +8,6 @@ import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -19,13 +18,12 @@ import com.skillbox.skillbox.cartscreen.databinding.CartFragmentBinding
 import com.skillbox.skillbox.cartscreen.presentation.adapters.CartInfoAdapter
 import com.skillbox.skillbox.cartscreen.presentation.screens.viewmodel.CartFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.toastLong
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
-@AndroidEntryPoint
 class CartFragment : Fragment(R.layout.cart_fragment) {
     private val binding: CartFragmentBinding by viewBinding(CartFragmentBinding::bind)
-    private val cartViewModel by viewModels<CartFragmentViewModel>()
+    private val cartViewModel by viewModel<CartFragmentViewModel>()
     private var cartDetailsAdapter: CartInfoAdapter by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

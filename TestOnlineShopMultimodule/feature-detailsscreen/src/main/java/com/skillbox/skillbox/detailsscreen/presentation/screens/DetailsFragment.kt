@@ -20,12 +20,12 @@ import com.skillbox.skillbox.detailsscreen.presentation.adapters.viewpager.Detai
 import com.skillbox.skillbox.detailsscreen.presentation.screens.viewmodel.DetailsFragmentViewModel
 import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import recycler.coverflow.CoverFlowLayoutManger
 
-@AndroidEntryPoint
 class DetailsFragment : Fragment(R.layout.details_fragment) {
     private val binding: DetailsFragmentBinding by viewBinding(DetailsFragmentBinding::bind)
-    private val detailsViewModel by viewModels<DetailsFragmentViewModel>()
+    private val detailsViewModel by viewModel<DetailsFragmentViewModel>()
     private var detailsInfoAdapter: DetailsInfoAdapter by autoCleared()
 
     //    создаем искусственно лист ссылок на изображения телефона, чтобы лучше показать карусель,

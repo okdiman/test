@@ -21,11 +21,11 @@ import com.skillbox.skillbox.mainscreen.presentation.screens.viewmodel.MainScree
 import com.skillbox.skillbox.testonlineshop.utils.isConnected
 import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class PhonesFragment : Fragment(R.layout.phones_fragment) {
     private val binding: PhonesFragmentBinding by viewBinding(PhonesFragmentBinding::bind)
-    private val mainViewModel by viewModels<MainScreenViewModel>()
+    private val mainViewModel by viewModel<MainScreenViewModel>()
     private var hotSalesAdapter: HotSalesAdapter by autoCleared()
     private var bestSellersAdapter: BestSellersAdapter by autoCleared()
 

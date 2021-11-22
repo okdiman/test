@@ -13,8 +13,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class CartFragmentViewModel @Inject constructor(private val repo: CartRepository) : ViewModel() {
+
+class CartFragmentViewModel (private val repo: CartRepository) : ViewModel() {
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
 

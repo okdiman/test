@@ -14,8 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class MainScreenViewModel @Inject constructor(private val repo: MainScreenRepository) :
+class MainScreenViewModel (private val repo: MainScreenRepository) :
     ViewModel() {
 
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы

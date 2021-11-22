@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_details_screen"
+    app:startDestination="@id/detailsFragment">
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.skillbox.skillbox.detailsscreen.presentation.screens.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/details_fragment">
+        <action
+            android:id="@+id/action_detailsFragment_to_shopDetailsFragment"
+            app:destination="@id/shopDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopDetailsFragment"
+        android:name="com.skillbox.skillbox.testonlineshop.features.detail.presentation.screens.ShopDetailsFragment"
+        android:label="ShopDetailsFragment"
+        tools:layout="@layout/shop_details_fragment" />
+</navigation>

@@ -24,12 +24,12 @@ import com.skillbox.skillbox.mainscreen.domain.entities.TypesOfProducts
 import com.skillbox.skillbox.mainscreen.presentation.adapters.viewpager.MainFragmentViewPagerAdapter
 import com.skillbox.skillbox.mainscreen.presentation.screens.viewmodel.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.main_fragment) {
 
     private val binding: MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
-    private val mainViewModel by viewModels<MainScreenViewModel>()
+    private val mainViewModel by viewModel<MainScreenViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
