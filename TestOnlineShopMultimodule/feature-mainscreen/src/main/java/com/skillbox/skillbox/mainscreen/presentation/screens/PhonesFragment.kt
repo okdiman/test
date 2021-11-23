@@ -31,11 +31,6 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
         super.onViewCreated(view, savedInstanceState)
         initStartScreen()
         bindViewModel()
-//        лисенер на обновление экрана свайпом вверх
-        binding.phonesSwipeRefreshLayout.setOnRefreshListener {
-            mainViewModel.getMainScreenData()
-            binding.phonesSwipeRefreshLayout.isRefreshing = false
-        }
     }
 
     //    инициализация стартового экрана

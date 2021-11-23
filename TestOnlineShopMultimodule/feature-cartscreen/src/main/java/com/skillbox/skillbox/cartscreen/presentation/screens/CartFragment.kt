@@ -24,20 +24,14 @@ import java.text.DecimalFormat
 class CartFragment : Fragment(R.layout.cart_fragment) {
     private val binding: CartFragmentBinding by viewBinding(CartFragmentBinding::bind)
     private var cartDetailsAdapter: CartInfoAdapter by autoCleared()
-//    инжектим вью модель коином
+
+    //    инжектим вью модель коином
     private val cartViewModel by viewModel<CartFragmentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.run {
-            backCartFragmentButton.setOnClickListener {
-                findNavController().popBackStack()
-            }
-//            лисенер для обновления свайпом вверх
-            cartSwipeRefreshLayout.setOnRefreshListener {
-                cartViewModel.getCartInfo()
-                binding.cartSwipeRefreshLayout.isRefreshing = false
-            }
+        binding.backCartFragmentButton.setOnClickListener {
+            findNavController().popBackStack()
         }
         bindViewModel()
         init()
