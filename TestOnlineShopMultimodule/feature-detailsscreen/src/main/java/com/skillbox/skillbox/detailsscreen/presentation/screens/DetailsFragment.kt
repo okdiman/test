@@ -24,8 +24,9 @@ import recycler.coverflow.CoverFlowLayoutManger
 
 class DetailsFragment : Fragment(R.layout.details_fragment) {
     private val binding: DetailsFragmentBinding by viewBinding(DetailsFragmentBinding::bind)
-    private val detailsViewModel by viewModel<DetailsFragmentViewModel>()
     private var detailsInfoAdapter: DetailsInfoAdapter by autoCleared()
+    //    инжектим вью модель койном
+    private val detailsViewModel by viewModel<DetailsFragmentViewModel>()
 
     //    создаем искусственно лист ссылок на изображения телефона, чтобы лучше показать карусель,
 //    ибо в запросе приходит только 1 изображение
@@ -79,7 +80,6 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 clipToOutline = true
             }
         }
-
     }
 
     //    инициализируем tabLayout и viewPager

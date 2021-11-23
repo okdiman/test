@@ -13,6 +13,7 @@ import org.koin.core.logger.Level
 class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
+//        подключаем Koin
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(this@MyApp)

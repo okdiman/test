@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.detailsscreen.data.models.DetailsState
 import com.skillbox.skillbox.detailsscreen.domain.repository.DetailRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class DetailsFragmentViewModel (private val repo: DetailRepository) :
     ViewModel() {

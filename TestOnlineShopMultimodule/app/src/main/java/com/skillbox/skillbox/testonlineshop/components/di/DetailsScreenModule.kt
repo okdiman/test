@@ -11,6 +11,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.create
 
+//модуль экрана детальной информации
 val detailsScreenModule = module {
     single<DetailApi> {
         val retrofit = get<Retrofit>(named("retrofit"))

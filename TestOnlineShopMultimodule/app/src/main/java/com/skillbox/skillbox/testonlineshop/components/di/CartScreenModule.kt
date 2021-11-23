@@ -11,6 +11,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.create
 
+//модуль экрана корзины
 val cartScreenModule = module {
 
     single<CartApi> {

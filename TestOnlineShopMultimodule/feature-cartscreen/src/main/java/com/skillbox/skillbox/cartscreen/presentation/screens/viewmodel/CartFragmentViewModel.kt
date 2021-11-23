@@ -7,14 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.cartscreen.data.models.CartState
 import com.skillbox.skillbox.cartscreen.domain.repository.CartRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-
 
 class CartFragmentViewModel (private val repo: CartRepository) : ViewModel() {
+
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
     private var currentJob: Job? = null
 

@@ -9,6 +9,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+//общий модуль
 val generalModule = module {
     single(named("apiKey")) {
         Interceptor { chain ->
@@ -27,7 +28,7 @@ val generalModule = module {
     single(named("okHttpClient")) {
         OkHttpClient.Builder()
 //        добавляем наш интерцептор для добавления ключа
-            .addInterceptor(get<Interceptor>(named("apiKey")))
+            .addInterceptor(get(named("apiKey")))
             .build()
     }
 
@@ -35,7 +36,7 @@ val generalModule = module {
         Retrofit.Builder()
             .baseUrl("https://db2021ecom-edca.restdb.io/rest/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(get<OkHttpClient>(named("okHttpClient")))
+            .client(get(named("okHttpClient")))
             .build()
     }
 }

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:focusableInTouchMode="true">
 
 
     <androidx.core.widget.NestedScrollView
@@ -42,13 +43,13 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/mark_pro_medium"
                     android:layout_width="119dp"
                     android:layout_height="19dp"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/mark_pro_medium"
                     android:text="@string/moscow_russia"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:layout_width="19dp"
@@ -88,10 +89,10 @@
 
             <TextView
                 android:id="@+id/selectCategoryTextView"
-                android:fontFamily="@font/mark_pro_bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:fontFamily="@font/mark_pro_bold"
                 android:text="@string/select_category"
                 android:textColor="@color/black"
                 android:textSize="25sp"

@@ -8,11 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.mainscreen.data.models.MainScreenState
 import com.skillbox.skillbox.mainscreen.data.models.PhonesScreenState
 import com.skillbox.skillbox.mainscreen.domain.repository.MainScreenRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class MainScreenViewModel (private val repo: MainScreenRepository) :
     ViewModel() {

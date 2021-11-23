@@ -4,7 +4,6 @@ import com.skillbox.skillbox.mainscreen.data.models.CartDetailsWrapper
 import com.skillbox.skillbox.mainscreen.data.models.MainScreenResponseWrapper
 import com.skillbox.skillbox.mainscreen.data.network.MainScreenApi
 import com.skillbox.skillbox.mainscreen.domain.repository.MainScreenRepository
-import javax.inject.Inject
 
 class MainScreenRepositoryImpl (private val mainScreenApi: MainScreenApi) :
     MainScreenRepository {
