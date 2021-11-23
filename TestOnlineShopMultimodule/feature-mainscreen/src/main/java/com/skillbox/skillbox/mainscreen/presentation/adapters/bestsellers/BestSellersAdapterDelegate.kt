@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.mainscreen.R
 import com.skillbox.skillbox.mainscreen.domain.entities.BestSellers
-import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
-import com.skillbox.skillbox.testonlineshop.utils.inflate
+import com.skillbox.skillbox.core.utils.glideLoadImage
+import com.skillbox.skillbox.core.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.best_seller_item.*
 import java.text.DecimalFormat

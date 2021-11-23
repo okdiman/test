@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -18,10 +16,9 @@ import com.skillbox.skillbox.mainscreen.data.models.PhonesScreenState
 import com.skillbox.skillbox.mainscreen.presentation.adapters.bestsellers.BestSellersAdapter
 import com.skillbox.skillbox.mainscreen.presentation.adapters.hotsales.HotSalesAdapter
 import com.skillbox.skillbox.mainscreen.presentation.screens.viewmodel.MainScreenViewModel
-import com.skillbox.skillbox.testonlineshop.utils.isConnected
-import com.skillbox.skillbox.testonlineshop.utils.navigate
-import com.skillbox.skillbox.testonlineshop.utils.toastLong
-import dagger.hilt.android.AndroidEntryPoint
+import com.skillbox.skillbox.core.utils.isConnected
+import com.skillbox.skillbox.core.utils.navigate
+import com.skillbox.skillbox.core.utils.toastLong
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PhonesFragment : Fragment(R.layout.phones_fragment) {

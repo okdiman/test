@@ -12,8 +12,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,8 +21,7 @@ import com.skillbox.skillbox.mainscreen.data.models.MainScreenState
 import com.skillbox.skillbox.mainscreen.domain.entities.TypesOfProducts
 import com.skillbox.skillbox.mainscreen.presentation.adapters.viewpager.MainFragmentViewPagerAdapter
 import com.skillbox.skillbox.mainscreen.presentation.screens.viewmodel.MainScreenViewModel
-import com.skillbox.skillbox.testonlineshop.utils.navigate
-import dagger.hilt.android.AndroidEntryPoint
+import com.skillbox.skillbox.core.utils.navigate
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.main_fragment) {

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.cartscreen.databinding.CartDetailsItemBinding
 import com.skillbox.skillbox.cartscreen.domain.entities.Basket
-import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
-import com.skillbox.skillbox.testonlineshop.utils.inflate
+import com.skillbox.skillbox.core.utils.glideLoadImage
+import com.skillbox.skillbox.core.utils.inflate
 import java.text.DecimalFormat
 
 class CartInfoAdapterDelegate :

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewOutlineProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,9 +17,8 @@ import com.skillbox.skillbox.detailsscreen.domain.entities.Product
 import com.skillbox.skillbox.detailsscreen.presentation.adapters.detailsinfo.DetailsInfoAdapter
 import com.skillbox.skillbox.detailsscreen.presentation.adapters.viewpager.DetailsFragmentViewPagerAdapter
 import com.skillbox.skillbox.detailsscreen.presentation.screens.viewmodel.DetailsFragmentViewModel
-import com.skillbox.skillbox.testonlineshop.utils.navigate
-import com.skillbox.skillbox.testonlineshop.utils.toastLong
-import dagger.hilt.android.AndroidEntryPoint
+import com.skillbox.skillbox.core.utils.navigate
+import com.skillbox.skillbox.core.utils.toastLong
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import recycler.coverflow.CoverFlowLayoutManger
 

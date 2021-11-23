@@ -10,8 +10,14 @@
         android:label="MainFragment"
         tools:layout="@layout/main_fragment" >
         <action
-            android:id="@+id/action_mainFragment_to_filterBottomSheetDialog"
+            android:id="@id/action_mainFragment_to_filterBottomSheetDialog"
             app:destination="@id/filterBottomSheetDialog" />
+        <action
+            android:id="@id/action_phonesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@id/action_phonesFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -24,7 +30,7 @@
         android:label="DetailsFragment"
         tools:layout="@layout/details_fragment" >
         <action
-            android:id="@+id/action_detailsFragment_to_cartFragment"
+            android:id="@id/action_detailsFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
     <dialog
@@ -36,14 +42,7 @@
         android:id="@+id/phonesFragment"
         android:name="com.skillbox.skillbox.mainscreen.presentation.screens.PhonesFragment"
         android:label="PhonesFragment"
-        tools:layout="@layout/phones_fragment" >
-        <action
-            android:id="@+id/action_phonesFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
-        <action
-            android:id="@+id/action_phonesFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
+        tools:layout="@layout/phones_fragment" />
     <fragment
         android:id="@+id/shopDetailsFragment"
         android:name="com.skillbox.skillbox.testonlineshop.features.detail.presentation.screens.ShopDetailsFragment"

@@ -9,7 +9,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.skillbox.skillbox.detailsscreen.R
 import com.skillbox.skillbox.detailsscreen.databinding.ShopDetailsFragmentBinding
 import com.skillbox.skillbox.detailsscreen.domain.entities.Product
-import com.skillbox.skillbox.testonlineshop.utils.withArguments
+import com.skillbox.skillbox.core.utils.withArguments
 import java.text.DecimalFormat
 
 class ShopDetailsFragment : Fragment(R.layout.shop_details_fragment) {

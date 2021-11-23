@@ -9,8 +9,8 @@ import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.mainscreen.R
 import com.skillbox.skillbox.mainscreen.databinding.HotSalesItemBinding
 import com.skillbox.skillbox.mainscreen.domain.entities.HotSales
-import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
-import com.skillbox.skillbox.testonlineshop.utils.inflate
+import com.skillbox.skillbox.core.utils.glideLoadImage
+import com.skillbox.skillbox.core.utils.inflate
 
 class HotSalesAdapterDelegate(private val onBuyButtonClick: () -> Unit) :
     AbsListItemAdapterDelegate<HotSales, HotSales, HotSalesAdapterDelegate.Holder>() {

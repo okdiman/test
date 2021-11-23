@@ -1,4 +1,4 @@
-package com.skillbox.skillbox.testonlineshop.utils
+package com.skillbox.skillbox.core.utils
 
 import android.annotation.SuppressLint
 import android.content.Context

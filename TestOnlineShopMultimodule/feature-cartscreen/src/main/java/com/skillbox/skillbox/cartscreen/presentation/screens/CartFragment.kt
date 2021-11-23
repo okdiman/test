@@ -17,7 +17,7 @@ import com.skillbox.skillbox.cartscreen.data.models.CartState
 import com.skillbox.skillbox.cartscreen.databinding.CartFragmentBinding
 import com.skillbox.skillbox.cartscreen.presentation.adapters.CartInfoAdapter
 import com.skillbox.skillbox.cartscreen.presentation.screens.viewmodel.CartFragmentViewModel
-import com.skillbox.skillbox.testonlineshop.utils.toastLong
+import com.skillbox.skillbox.core.utils.toastLong
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 

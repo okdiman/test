@@ -5,8 +5,8 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.skillbox.skillbox.detailsscreen.databinding.ItemDetailsInfoRecyclerViewBinding
-import com.skillbox.skillbox.testonlineshop.utils.glideLoadImage
-import com.skillbox.skillbox.testonlineshop.utils.inflate
+import com.skillbox.skillbox.core.utils.glideLoadImage
+import com.skillbox.skillbox.core.utils.inflate
 
 class DetailsInfoAdapterDelegate :
     AbsListItemAdapterDelegate<String, String, DetailsInfoAdapterDelegate.Holder>() {
