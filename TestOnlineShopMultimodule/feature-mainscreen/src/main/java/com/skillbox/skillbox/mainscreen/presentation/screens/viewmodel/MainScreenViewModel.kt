@@ -8,14 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.mainscreen.data.models.MainScreenState
 import com.skillbox.skillbox.mainscreen.data.models.PhonesScreenState
 import com.skillbox.skillbox.mainscreen.domain.repository.MainScreenRepository
-import com.skillbox.skillbox.mainscreen.domain.usecases.GetMainDataUseCase
+import com.skillbox.skillbox.mainscreen.domain.usecases.GetMainScreenDataUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class MainScreenViewModel(
     private val repo: MainScreenRepository,
-    private val mainUseCase: GetMainDataUseCase
+    private val mainUseCase: GetMainScreenDataUseCase
 ) :
     ViewModel() {
 
