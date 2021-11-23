@@ -3,6 +3,8 @@ package com.skillbox.skillbox.testonlineshop.components.di
 import com.skillbox.skillbox.mainscreen.data.network.MainScreenApi
 import com.skillbox.skillbox.mainscreen.data.repository.MainScreenRepositoryImpl
 import com.skillbox.skillbox.mainscreen.domain.repository.MainScreenRepository
+import com.skillbox.skillbox.mainscreen.domain.usecases.GetMainDataUseCase
+import com.skillbox.skillbox.mainscreen.domain.usecases.GetMainScreenDataUseCaseImpl
 import com.skillbox.skillbox.mainscreen.presentation.screens.viewmodel.MainScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -21,7 +23,11 @@ val mainScreenModule = module {
         MainScreenRepositoryImpl(get())
     }
 
+    single <GetMainDataUseCase>{
+        GetMainScreenDataUseCaseImpl(get())
+    }
+
     viewModel {
-        MainScreenViewModel(get())
+        MainScreenViewModel(get(), get())
     }
 }

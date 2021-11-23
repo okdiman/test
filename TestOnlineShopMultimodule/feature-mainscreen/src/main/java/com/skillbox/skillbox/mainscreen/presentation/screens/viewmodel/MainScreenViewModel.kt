@@ -8,11 +8,15 @@ import androidx.lifecycle.viewModelScope
 import com.skillbox.skillbox.mainscreen.data.models.MainScreenState
 import com.skillbox.skillbox.mainscreen.data.models.PhonesScreenState
 import com.skillbox.skillbox.mainscreen.domain.repository.MainScreenRepository
+import com.skillbox.skillbox.mainscreen.domain.usecases.GetMainDataUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MainScreenViewModel (private val repo: MainScreenRepository) :
+class MainScreenViewModel(
+    private val repo: MainScreenRepository,
+    private val mainUseCase: GetMainDataUseCase
+) :
     ViewModel() {
 
     //    создаем нуллабельную Job'у, чтобы мы могли завершить ее, в случае прерывания ее работы
@@ -30,19 +34,23 @@ class MainScreenViewModel (private val repo: MainScreenRepository) :
 
     //    получение данных для стратового экрана
     fun getMainScreenData() {
-        _productsLiveData.postValue(PhonesScreenState.Loading)
-        currentJob?.cancel()
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _productsLiveData.postValue(PhonesScreenState.Success(repo.getMainScreenData()))
-            } catch (t: Throwable) {
-                Log.i("cartError", "$t")
-                if (t !is kotlinx.coroutines.CancellationException) {
-                    _productsLiveData.postValue(PhonesScreenState.Error)
+        if (mainUseCase.data == null) {
+            _productsLiveData.postValue(PhonesScreenState.Loading)
+            currentJob?.cancel()
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    _productsLiveData.postValue(PhonesScreenState.Success(mainUseCase.invoke()))
+                } catch (t: Throwable) {
+                    Log.i("cartError", "$t")
+                    if (t !is kotlinx.coroutines.CancellationException) {
+                        _productsLiveData.postValue(PhonesScreenState.Error)
+                    }
                 }
             }
+                .also { currentJob = it }
+        } else {
+            _productsLiveData.postValue(PhonesScreenState.Success(mainUseCase.data!!))
         }
-            .also { currentJob = it }
     }
 
     //    получение корзины пользователя
