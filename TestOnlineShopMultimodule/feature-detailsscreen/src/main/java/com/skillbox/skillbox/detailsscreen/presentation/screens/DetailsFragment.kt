@@ -18,6 +18,7 @@ import com.skillbox.skillbox.detailsscreen.domain.entities.Product
 import com.skillbox.skillbox.detailsscreen.presentation.adapters.detailsinfo.DetailsInfoAdapter
 import com.skillbox.skillbox.detailsscreen.presentation.adapters.viewpager.DetailsFragmentViewPagerAdapter
 import com.skillbox.skillbox.detailsscreen.presentation.screens.viewmodel.DetailsFragmentViewModel
+import com.skillbox.skillbox.testonlineshop.utils.navigate
 import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -59,9 +60,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 findNavController().popBackStack()
             }
             cartDetailsFragmentButton.setOnClickListener {
-//                findNavController().navigate(
-//                    DetailsFragmentDirections.actionDetailsFragmentToCartFragment()
-//                )
+                navigate(R.id.action_detailsFragment_to_cartFragment)
             }
             detailsFragmentBackgroundImageView.run {
 //                создаем объект провайдера контура вью

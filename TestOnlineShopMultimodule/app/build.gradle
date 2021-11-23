@@ -15,13 +15,13 @@ android {
             keyPassword 'Dimka1995'
         }
     }
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.skillbox.skillbox.testonlineshop"
         minSdkVersion 27
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -72,4 +72,6 @@ dependencies {
     //Dagger
     implementation "com.google.dagger:hilt-android:2.35.1"
     kapt "com.google.dagger:hilt-android-compiler:2.35.1"
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0-alpha06"
 }

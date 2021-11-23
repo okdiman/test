@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Work/github/test/TestOnlineShopMultimodule/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
+        <entry key="..\:/Work/github/test/TestOnlineShopMultimodule/feature-cartscreen/src/main/res/layout/cart_details_item.xml" value="0.2957427536231884" />
+        <entry key="..\:/Work/github/test/TestOnlineShopMultimodule/feature-cartscreen/src/main/res/layout/cart_fragment.xml" value="0.21784420289855072" />
         <entry key="..\:/Work/github/test/TestOnlineShopMultimodule/feature-detailsscreen/src/main/res/layout/activity_details_screen.xml" value="0.21784420289855072" />
+        <entry key="..\:/Work/github/test/TestOnlineShopMultimodule/feature-detailsscreen/src/main/res/layout/details_fragment.xml" value="0.2957427536231884" />
         <entry key="..\:/Work/github/test/TestOnlineShopMultimodule/feature-mainscreen/src/main/res/layout/activity_main_screen.xml" value="0.21784420289855072" />
+        <entry key="..\:/Work/github/test/TestOnlineShopMultimodule/feature-mainscreen/src/main/res/layout/phones_fragment.xml" value="0.2957427536231884" />
       </map>
     </option>
   </component>

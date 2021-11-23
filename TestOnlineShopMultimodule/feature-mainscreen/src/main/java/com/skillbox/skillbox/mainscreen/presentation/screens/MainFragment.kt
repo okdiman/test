@@ -23,6 +23,7 @@ import com.skillbox.skillbox.mainscreen.data.models.MainScreenState
 import com.skillbox.skillbox.mainscreen.domain.entities.TypesOfProducts
 import com.skillbox.skillbox.mainscreen.presentation.adapters.viewpager.MainFragmentViewPagerAdapter
 import com.skillbox.skillbox.mainscreen.presentation.screens.viewmodel.MainScreenViewModel
+import com.skillbox.skillbox.testonlineshop.utils.navigate
 import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,10 +42,9 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
             bottomAppBar.run {
                 setOnItemSelectedListener {
-//                    when (it.itemId) {
-//                        R.id.cartItemBottomBar -> findNavController()
-//                            .navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
-//                    }
+                    when (it.itemId) {
+                        R.id.cartItemBottomBar -> navigate(R.id.action_phonesFragment_to_cartFragment)
+                    }
                     true
                 }
 //                создаем объект провайдера контура вью
@@ -159,9 +159,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     //    создание BottomSheetDialogFragment дял фильтрации
     private fun createBottomSheetDialogFragment() {
-        findNavController().navigate(
-            MainFragmentDirections.actionMainFragmentToFilterBottomSheetDialog()
-        )
+        navigate(R.id.action_mainFragment_to_filterBottomSheetDialog)
     }
 
     //    подписка на изменения вью модели

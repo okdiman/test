@@ -19,6 +19,7 @@ import com.skillbox.skillbox.mainscreen.presentation.adapters.bestsellers.BestSe
 import com.skillbox.skillbox.mainscreen.presentation.adapters.hotsales.HotSalesAdapter
 import com.skillbox.skillbox.mainscreen.presentation.screens.viewmodel.MainScreenViewModel
 import com.skillbox.skillbox.testonlineshop.utils.isConnected
+import com.skillbox.skillbox.testonlineshop.utils.navigate
 import com.skillbox.skillbox.testonlineshop.utils.toastLong
 import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,7 +47,7 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
         hotSalesAdapter = HotSalesAdapter {
 //            могли бы передать тут во фрагмент корзины выбранный нами элемент списка,
 //            но такой пункт в задании отсутсвует
-//            findNavController().navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
+            navigate(R.id.action_phonesFragment_to_cartFragment)
         }
         with(binding.hotSalesRecyclerView) {
             adapter = hotSalesAdapter
@@ -63,7 +64,7 @@ class PhonesFragment : Fragment(R.layout.phones_fragment) {
 //            здесь мы бы могли передать продукт или id продукта по клику, для дальнейшего запроса
 //            в след экран, но в данном ТЗ это не имеет смысла,
 //            так как мы все равно получаем 1 и тот же элемент
-//            findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment())
+            navigate(R.id.action_phonesFragment_to_detailsFragment)
         }
         with(binding.bestSellersRecyclerView) {
             adapter = bestSellersAdapter

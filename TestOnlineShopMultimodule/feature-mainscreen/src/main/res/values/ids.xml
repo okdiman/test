@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="action_mainFragment_to_filterBottomSheetDialog" type="id" />
+    <item name="action_phonesFragment_to_detailsFragment" type="id"/>
+    <item name="action_phonesFragment_to_cartFragment" type="id"/>
+</resources>
